@@ -1,11 +1,17 @@
+import { ReactNode } from "react";
 import classes from "./SearchInput.module.css";
-import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 
-const SearchInput = () => {
+type SearchInputProps = {
+  placeholder: string;
+  children: ReactNode;
+};
+
+const SearchInput = ({ placeholder, children }: SearchInputProps) => {
   return (
-    <>
-      <SearchSvg />
-    </>
+    <div className={classes.searchBar}>
+      {children}
+      <input type="text" placeholder={placeholder} />
+    </div>
   );
 };
 
