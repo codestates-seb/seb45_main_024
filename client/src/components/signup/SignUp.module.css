@@ -27,7 +27,7 @@
 }
 
 .signUp button:hover {
-  background-color: #092c4c;
+  background-color: #0e2f2b;
   font-weight: 700;
   transition: background-color 0.3s ease;
 }

@@ -1,12 +1,31 @@
 import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
 
+import { useState } from "react";
+import { validationActions } from "../../redux/validationSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+
 function SignUp() {
+  const dispatch = useAppDispatch();
+  const emailError = useAppSelector(state => state.validation.emailError);
+  const [email, setEmail] = useState<string>("");
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dispatch(validationActions.validEmail(email));
+  };
+
   return (
     <div className={classes.container}>
       <img alt="logo"></img>
       <SocialSignUp />
-      <form className={classes.signUp}>
+      <form className={classes.signUp} onSubmit={handleSubmit}>
         <div className={classes.inputInfo}>
           <label>Nickname</label>
           <input placeholder="Input Nickname" type="text" />
@@ -14,8 +33,13 @@ function SignUp() {
         </div>
         <div className={classes.inputInfo}>
           <label>Email</label>
-          <input placeholder="Input Email" type="text" />
-          <p>유효한 이메일 형식이 아닙니다</p>
+          <input
+            placeholder="Input Email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          {emailError && <p>유효한 이메일 형식이 아닙니다</p>}
         </div>
         <div className={classes.inputInfo}>
           <label>Password</label>
