@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// store, configureCreate 내에 설정 아직 안함
-export const menuSlice = createSlice({ 
+const menuSlice = createSlice({ 
     name: "menu",
     initialState: { selectedMenu : "Summary" },
     reducers: {
@@ -12,3 +11,4 @@ export const menuSlice = createSlice({
 });
 
 export const { changeMenu } = menuSlice.actions;
+export default menuSlice.reducer;

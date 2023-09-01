@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import validationReducer from "./validationSlice";
+import menuReducer from "./menuSlice";
 
 const store = configureStore({
-  reducer: { validation: validationReducer },
+  reducer: { validation: validationReducer, menu: menuReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
