@@ -1,28 +1,29 @@
+import { FC } from "react";
 import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
 
 import { useState } from "react";
-import { validationActions } from "../../redux/validationSlice";
+import { authActions } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
-function SignUp() {
+const SignUp: FC = () => {
   const dispatch = useAppDispatch();
 
-  const nicknameError = useAppSelector(state => state.validation.nicknameError);
+  const nicknameError = useAppSelector(state => state.auth.nicknameError);
   const [nickname, setNickname] = useState<string>("");
   const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newNickname = event.target.value;
     setNickname(newNickname);
   };
 
-  const emailError = useAppSelector(state => state.validation.emailError);
+  const emailError = useAppSelector(state => state.auth.emailError);
   const [email, setEmail] = useState<string>("");
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
   };
 
-  const passwordError = useAppSelector(state => state.validation.passwordError);
+  const passwordError = useAppSelector(state => state.auth.passwordError);
   const [password, setPassword] = useState<string>("");
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = event.target.value;
@@ -30,7 +31,7 @@ function SignUp() {
   };
 
   const confirmPasswordError = useAppSelector(
-    state => state.validation.confirmPasswordError,
+    state => state.auth.confirmPasswordError,
   );
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const handleConfirmPasswordChange = (
@@ -43,10 +44,10 @@ function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch(validationActions.validNickname(nickname));
-    dispatch(validationActions.validEmail(email));
-    dispatch(validationActions.validPassword(password));
-    dispatch(validationActions.coinCidePassword(confirmPassword));
+    dispatch(authActions.validNickname(nickname));
+    dispatch(authActions.validEmail(email));
+    dispatch(authActions.validPassword(password));
+    dispatch(authActions.coinCidePassword(confirmPassword));
   };
 
   return (
@@ -98,6 +99,6 @@ function SignUp() {
       </form>
     </div>
   );
-}
+};
 
 export default SignUp;
