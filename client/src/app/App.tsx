@@ -3,7 +3,7 @@ import "./App.css";
 /* 임시 라우팅 처리 */
 import Main from "../pages/main/Main";
 import UserList from "../pages/userList/UserList";
-// import ComponentName from "../pages/";
+import SignUpPage from "../pages/signup/SignUpPage";
 // import ComponentName from "../pages/";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/userlist" element={<UserList />}></Route>
-            {/* <Route path="/" element={<ComponentName />}></Route>  */}
+            <Route path="/signup" element={<SignUpPage />}></Route>
             {/* <Route path="/" element={<ComponentName />}></Route>  */}
           </Routes>
         </div>
