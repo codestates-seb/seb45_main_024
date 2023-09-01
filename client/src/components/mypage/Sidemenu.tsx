@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
-import { changeMenu } from "./menuSlice";
+import { changeMenu } from "../../redux/menuSlice";
 
 // menu 클릭 시에 state 변경
 const SideMenu:FC = () => {
