@@ -46,12 +46,7 @@ function SignUp() {
     dispatch(validationActions.validNickname(nickname));
     dispatch(validationActions.validEmail(email));
     dispatch(validationActions.validPassword(password));
-    if (password !== confirmPassword) {
-      dispatch(validationActions.coinCidePassword(false)); // 비밀번호 불일치 시에 false로 업데이트
-      return;
-    } else {
-      dispatch(validationActions.coinCidePassword(true)); // 비밀번호 일치 시에 true로 업데이트
-    }
+    dispatch(validationActions.coinCidePassword(confirmPassword));
   };
 
   return (

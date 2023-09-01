@@ -16,32 +16,32 @@ const validationSlice = createSlice({
   initialState: initialState,
   reducers: {
     validEmail: (state, action) => {
-      const email = action.payload;
-      if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+      state.email = action.payload;
+      if (!state.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
         state.emailError = true;
       } else {
         state.emailError = false;
       }
     },
     validNickname: (state, action) => {
-      const nickname = action.payload;
-      if (!nickname.match(/^.{2,7}$/)) {
+      state.nickname = action.payload;
+      if (!state.nickname.match(/^.{2,7}$/)) {
         state.nicknameError = true;
       } else {
         state.nicknameError = false;
       }
     },
     validPassword: (state, action) => {
-      const password = action.payload;
-      if (!password.match(/^.{5,}$/)) {
+      state.password = action.payload;
+      if (!state.password.match(/^.{5,}$/)) {
         state.passwordError = true;
       } else {
         state.passwordError = false;
       }
     },
     coinCidePassword: (state, action) => {
-      const confirmPassword = action.payload;
-      if (confirmPassword !== state.password) {
+      state.confirmPassword = action.payload;
+      if (state.confirmPassword !== state.password) {
         state.confirmPasswordError = true;
       } else {
         state.confirmPasswordError = false;
