@@ -1,16 +1,15 @@
-import { ReactNode } from "react";
 import classes from "./KewordTag.module.css";
+import { ReactComponent as CancelSvg } from "../../assets/icons/cancel.svg";
 
-type kewordTagProps = {
+type Props = {
   text: string;
-  children: ReactNode;
 };
 
-const KewordTag = ({ text, children }: kewordTagProps) => {
+const KewordTag = ({ text }: Props) => {
   return (
     <div className={classes.kewordTag}>
       <span>{text}</span>
-      {children}
+      <CancelSvg stroke="var(--color-main)" />
     </div>
   );
 };

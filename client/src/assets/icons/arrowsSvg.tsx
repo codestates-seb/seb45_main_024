@@ -10,9 +10,9 @@ export const ArrowUpSvg = () => {
       <path
         d="M13 7L7 1L1 7"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -29,10 +29,10 @@ export const ArrowDownSvg = () => {
     >
       <path
         d="M1 1L7 7L13 1"
-        stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        stroke="var(--color-gray-4)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -50,9 +50,9 @@ export const ArrowRightSvg = () => {
       <path
         d="M1 13L7 7L1 1"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -70,9 +70,9 @@ export const ArrowLefttSvg = () => {
       <path
         d="M7 13L1 7L7 1"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

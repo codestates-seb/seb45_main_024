@@ -4,4 +4,8 @@
   padding: 0.375rem 1rem;
   background-color: var(--color-sub);
   border-radius: 20px;
+
+  & svg {
+    cursor: pointer;
+  }
 }

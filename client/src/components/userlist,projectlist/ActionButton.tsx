@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import classes from "./ActionButton.module.css";
 
-type ActionButtonProps = {
+type Props = {
   type?: string;
   children: ReactNode;
 };
 
-const ActionButton = ({ type = "normal", children }: ActionButtonProps) => {
+const ActionButton = ({ type = "normal", children }: Props) => {
   return (
     <button
       className={

@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import classes from "./SearchInput.module.css";
 
-type SearchInputProps = {
+type Props = {
   placeholder: string;
   children: ReactNode;
 };
 
-const SearchInput = ({ placeholder, children }: SearchInputProps) => {
+const SearchInput = ({ placeholder, children }: Props) => {
   return (
     <div className={classes.searchBar}>
       {children}
