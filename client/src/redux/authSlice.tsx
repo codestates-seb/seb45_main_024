@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-  name: "validation",
+  name: "auth",
   initialState: initialState,
   reducers: {
     validEmail: (state, action) => {

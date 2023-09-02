@@ -55,7 +55,11 @@ const SignUp: FC = () => {
       <img alt="logo"></img>
       <SocialSignUp />
       <form className={classes.signUp} onSubmit={handleSubmit}>
-        <div className={classes.inputInfo}>
+        <div
+          className={`${classes.inputInfo} ${
+            nicknameError ? classes.errorInput : ""
+          }`}
+        >
           <label>Nickname</label>
           <input
             placeholder="Input Nickname"
@@ -65,7 +69,11 @@ const SignUp: FC = () => {
           />
           {nicknameError && <p>닉네임은 2글자 이상 7글자 이하여야 합니다</p>}
         </div>
-        <div className={classes.inputInfo}>
+        <div
+          className={`${classes.inputInfo} ${
+            emailError ? classes.errorInput : ""
+          }`}
+        >
           <label>Email</label>
           <input
             placeholder="Input Email"
@@ -75,7 +83,11 @@ const SignUp: FC = () => {
           />
           {emailError && <p>유효한 이메일 형식이 아닙니다</p>}
         </div>
-        <div className={classes.inputInfo}>
+        <div
+          className={`${classes.inputInfo} ${
+            passwordError ? classes.errorInput : ""
+          }`}
+        >
           <label>Password</label>
           <input
             placeholder="Input Password"
@@ -85,7 +97,11 @@ const SignUp: FC = () => {
           />
           {passwordError && <p>비밀번호는 5글자 이상이어야 합니다</p>}
         </div>
-        <div className={classes.inputInfo}>
+        <div
+          className={`${classes.inputInfo} ${
+            confirmPasswordError ? classes.errorInput : ""
+          }`}
+        >
           <label>Confirm Password</label>
           <input
             placeholder="Input Password Again"

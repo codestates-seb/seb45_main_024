@@ -56,6 +56,10 @@
   background-color: #f4f4f4;
 }
 
+.inputInfo.errorInput input {
+  border: 1px solid #EB5757;
+}
+
 .inputInfo p {
   font-size: 0.8rem;
   color: #eb5757;
