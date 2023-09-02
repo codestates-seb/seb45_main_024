@@ -3,51 +3,65 @@ import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
 
 import { useState } from "react";
-import { authActions } from "../../redux/authSlice";
+import { validationActions } from "../../redux/validationSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import axios from "axios";
+
+interface SignUpData {
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 const SignUp: FC = () => {
   const dispatch = useAppDispatch();
 
-  const nicknameError = useAppSelector(state => state.auth.nicknameError);
-  const [nickname, setNickname] = useState<string>("");
-  const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newNickname = event.target.value;
-    setNickname(newNickname);
-  };
-
-  const emailError = useAppSelector(state => state.auth.emailError);
-  const [email, setEmail] = useState<string>("");
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newEmail = event.target.value;
-    setEmail(newEmail);
-  };
-
-  const passwordError = useAppSelector(state => state.auth.passwordError);
-  const [password, setPassword] = useState<string>("");
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = event.target.value;
-    setPassword(newPassword);
-  };
-
+  const nicknameError = useAppSelector(state => state.validation.nicknameError);
+  const emailError = useAppSelector(state => state.validation.emailError);
+  const passwordError = useAppSelector(state => state.validation.passwordError);
   const confirmPasswordError = useAppSelector(
-    state => state.auth.confirmPasswordError,
+    state => state.validation.confirmPasswordError,
   );
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const handleConfirmPasswordChange = (
+
+  const [formData, setFormData] = useState<SignUpData>({
+    nickname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
+    fieldName: string,
   ) => {
-    const newConfirmPassword = event.target.value;
-    setConfirmPassword(newConfirmPassword);
+    const { value } = event.target;
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch(authActions.validNickname(nickname));
-    dispatch(authActions.validEmail(email));
-    dispatch(authActions.validPassword(password));
-    dispatch(authActions.coinCidePassword(confirmPassword));
+    try {
+      dispatch(validationActions.validNickname(formData.nickname));
+      dispatch(validationActions.validEmail(formData.email));
+      dispatch(validationActions.validPassword(formData.password));
+      dispatch(validationActions.coinCidePassword(formData.confirmPassword));
+      if (
+        !nicknameError &&
+        !emailError &&
+        !passwordError &&
+        !confirmPasswordError
+      ) {
+        const response = await axios.post("백엔드 엔드포인트", formData);
+        console.log("회원가입 성공:", response.data);
+      }
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+    }
   };
 
   return (
@@ -64,8 +78,8 @@ const SignUp: FC = () => {
           <input
             placeholder="Input Nickname"
             type="text"
-            value={nickname}
-            onChange={handleNicknameChange}
+            value={formData.nickname}
+            onChange={e => handleInputChange(e, "nickname")}
           />
           {nicknameError && <p>닉네임은 2글자 이상 7글자 이하여야 합니다</p>}
         </div>
@@ -78,8 +92,8 @@ const SignUp: FC = () => {
           <input
             placeholder="Input Email"
             type="text"
-            value={email}
-            onChange={handleEmailChange}
+            value={formData.email}
+            onChange={e => handleInputChange(e, "email")}
           />
           {emailError && <p>유효한 이메일 형식이 아닙니다</p>}
         </div>
@@ -92,8 +106,8 @@ const SignUp: FC = () => {
           <input
             placeholder="Input Password"
             type="password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={formData.password}
+            onChange={e => handleInputChange(e, "password")}
           />
           {passwordError && <p>비밀번호는 5글자 이상이어야 합니다</p>}
         </div>
@@ -106,8 +120,8 @@ const SignUp: FC = () => {
           <input
             placeholder="Input Password Again"
             type="password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            value={formData.confirmPassword}
+            onChange={e => handleInputChange(e, "confirmPassword")}
           />
           {confirmPasswordError && <p>비밀번호가 일치하지 않습니다</p>}
         </div>

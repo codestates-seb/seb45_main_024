@@ -11,8 +11,8 @@ const initialState = {
   confirmPasswordError: false,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const validationSlice = createSlice({
+  name: "validation",
   initialState: initialState,
   reducers: {
     validEmail: (state, action) => {
@@ -50,6 +50,6 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = authSlice.actions;
+export const validationActions = validationSlice.actions;
 
-export default authSlice.reducer;
+export default validationSlice.reducer;
