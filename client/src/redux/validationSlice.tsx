@@ -1,6 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface ValidationState {
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  nicknameError: boolean;
+  emailError: boolean;
+  passwordError: boolean;
+  confirmPasswordError: boolean;
+}
+
+const initialState: ValidationState = {
   nickname: "",
   email: "",
   password: "",

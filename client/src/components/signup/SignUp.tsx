@@ -1,11 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
-
-import { useState } from "react";
 import { validationActions } from "../../redux/validationSlice";
+import { signUpUser } from "../../redux/signUpSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import axios from "axios";
 
 interface SignUpData {
   nickname: string;
@@ -45,23 +43,18 @@ const SignUp: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      dispatch(validationActions.validNickname(formData.nickname));
-      dispatch(validationActions.validEmail(formData.email));
-      dispatch(validationActions.validPassword(formData.password));
-      dispatch(validationActions.coinCidePassword(formData.confirmPassword));
-      if (
-        !nicknameError &&
-        !emailError &&
-        !passwordError &&
-        !confirmPasswordError
-      ) {
-        const response = await axios.post("백엔드 엔드포인트", formData);
-        console.log("회원가입 성공:", response.data);
-      }
-    } catch (error) {
-      console.error("회원가입 실패:", error);
-    }
+    dispatch(validationActions.validNickname(formData.nickname));
+    dispatch(validationActions.validEmail(formData.email));
+    dispatch(validationActions.validPassword(formData.password));
+    dispatch(validationActions.coinCidePassword(formData.confirmPassword));
+
+    const registerData = {
+      nickname: formData.nickname,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    dispatch(signUpUser(registerData));
   };
 
   return (
