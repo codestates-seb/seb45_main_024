@@ -9,6 +9,8 @@ import com.seb45main24.server.domain.teamboard.entity.TeamBoard;
 import com.seb45main24.server.domain.teamboard.mapper.TeamBoardMapper;
 import com.seb45main24.server.domain.teamboard.repository.TeamBoardRepository;
 import com.seb45main24.server.domain.teamboard.service.TeamBoardService;
+import com.seb45main24.server.global.argumentresolver.LoginAccountId;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +44,10 @@ public class TeamBoardController {
 
     // 팀찾기 게시글 작성
     @PostMapping
-    public ResponseEntity<TeamBoard> postTeamBoard(@Valid @RequestBody TeamBoardPostDto teamBoardDto) {
+    public ResponseEntity<TeamBoard> postTeamBoard(@LoginAccountId Long accountId, @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
+
+        teamBoardDto.getAccount().setId(accountId);
+
         TeamBoard teamBoard = teamBoardService.createTeamBoard(
                 mapper.teamBoardPostDtoToTeamBoard(teamBoardDto));
 

@@ -22,6 +22,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.global.auth.filter.JwtAuthenticationFilter;
+import com.seb45main24.server.global.auth.filter.JwtVerificationFilter;
+import com.seb45main24.server.global.auth.handler.AccountAuthenticationFailureHandler;
 import com.seb45main24.server.global.auth.jwt.JwtTokenizer;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
 
@@ -83,7 +85,13 @@ public class SecurityConfiguration {
 			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
 			jwtAuthenticationFilter.setFilterProcessesUrl("/accounts/login");
 
-			builder.addFilter(jwtAuthenticationFilter); // Spring Security Filter Chain에 추가
+			// handler 추가
+			jwtAuthenticationFilter.setAuthenticationFailureHandler(new AccountAuthenticationFailureHandler());
+
+			JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils);
+
+			builder.addFilter(jwtAuthenticationFilter)
+					.addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class); // Spring Security Filter Chain에 추가
 		}
 	}
 
