@@ -60,8 +60,31 @@
   border: 1px solid #EB5757;
 }
 
-.inputInfo p {
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.errorMessage {
   font-size: 0.8rem;
   color: #eb5757;
   margin-bottom: 0.3203125rem;
+}
+
+.forgotPassword {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #16433E;
+  margin-bottom: 0.3203125rem;
+  transition: color 0.3s, cursor 0.3s;
+}
+
+.forgotPassword:hover {
+  cursor: pointer;
+  color: #BDBDBD;
+}
+
+.forgotPassword:active {
+  cursor: grab;
+  color: #4F4F4F;
 }
