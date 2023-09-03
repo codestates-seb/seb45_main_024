@@ -1,0 +1,24 @@
+.mainContainer {
+  /* max-width: 1200px;
+ margin: 0 auto; */
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.componentContainer {
+}
+
+@media (max-width: 710px) {
+  .mainContainer {
+    grid-template-columns: repeat(8, 68px);
+  }
+}
+@media (max-width: 320px) {
+  .mainContainer {
+    grid-template-columns: repeat(6, 40px);
+    gap: 16px;
+  }
+}

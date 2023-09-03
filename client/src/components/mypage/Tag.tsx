@@ -6,7 +6,8 @@ interface Props {
 }
 
 // TechTags에서 api로 기술 스택 받아오면 mapping
-const Tag: FC<Props> = (props) => {
+const Tag: FC<Props> = props => {
+  //drop down 구현
   return (
     <div>
       <span>{props.techName}</span>
