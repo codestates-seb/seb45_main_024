@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.seb45main24.server.global.auditing.Auditable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +22,7 @@ import lombok.Setter;
 @Getter @Setter
 @Entity
 @Table(name = "ACCOUNTS")
-public class Account {
+public class Account extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
