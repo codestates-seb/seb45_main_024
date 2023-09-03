@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/validationSlice";
 import { signUpUser } from "../../redux/signUpSlice";
+import { setAlertMessage } from "../../redux/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 interface SignUpData {
@@ -14,6 +16,7 @@ interface SignUpData {
 
 const SignUp: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const nicknameError = useAppSelector(state => state.validation.nicknameError);
   const emailError = useAppSelector(state => state.validation.emailError);
@@ -29,6 +32,8 @@ const SignUp: FC = () => {
     confirmPassword: "",
   });
 
+  const loading = useAppSelector(state => state.signUp.loading);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
@@ -43,6 +48,7 @@ const SignUp: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // 얘네는 프론트단의 유효성 검사일 뿐, 실제 유효성 검사는 백엔드에서 비교 수행되어야 함
     dispatch(validationActions.validNickname(formData.nickname));
     dispatch(validationActions.validEmail(formData.email));
     dispatch(validationActions.validPassword(formData.password));
@@ -54,7 +60,22 @@ const SignUp: FC = () => {
       password: formData.password,
     };
 
-    dispatch(signUpUser(registerData));
+    try {
+      const response = await dispatch(signUpUser(registerData));
+
+      if (response.payload.status === 201) {
+        // 회원가입 성공 처리
+        setAlertMessage(response.payload.message);
+        navigate("/mainpage"); // 회원가입 성공 시, 메인페이지 경로로 이동
+      } else {
+        // 회원가입 실패 처리
+        setAlertMessage(response.payload.message);
+      }
+    } catch (error) {
+      // 회원가입 오류 처리
+      console.error("회원가입 오류:", error);
+      alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
+    }
   };
 
   return (
@@ -120,6 +141,8 @@ const SignUp: FC = () => {
         </div>
         <button>Sign Up</button>
       </form>
+      {loading === "pending" && <p>로딩 중...</p>}
+      {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}
     </div>
   );
 };
