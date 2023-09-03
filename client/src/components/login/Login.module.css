@@ -62,7 +62,7 @@
 
 .flexContainer {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .errorMessage {
@@ -76,6 +76,7 @@
   font-weight: 900;
   color: #16433E;
   margin-bottom: 0.3203125rem;
+  margin-left: auto;
   transition: color 0.3s, cursor 0.3s;
 }
 
