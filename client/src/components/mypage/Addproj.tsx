@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import classes from "./Addproj.module.css";
 
 const Addproj: FC = () => {
   const [projectName, setProjectName] = useState<string>("");
@@ -13,39 +14,50 @@ const Addproj: FC = () => {
   };
 
   return (
-    <form onSubmit={projectAddHandler}>
-      <div>
-        <label htmlFor="projectName">프로젝트 명</label>
+    <form className={classes.projectForm} onSubmit={projectAddHandler}>
+      <div className={classes.formGroup}>
+        <label className={classes.formLabel} htmlFor="projectName">
+          프로젝트 명
+        </label>
         <input
+          className={classes.formInput}
           id="projectName"
           type="text"
           value={projectName}
-          placeholder="프로젝트 명을 입력해주세요"
-          onChange={(e) => setProjectName(e.target.value)}
+          placeholder="이름을 입력해주세요"
+          onChange={e => setProjectName(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="projectLink">프로젝트 링크</label>
-        <p>깃허브 링크를 권장합니다.</p>
+      <div className={classes.formGroup}>
+        <div className={classes.formSubGroup}>
+          <label className={classes.formLabel} htmlFor="projectLink">프로젝트 링크</label>
+          <p className={classes.formHint}>깃허브 링크를 권장합니다.</p>
+        </div>
         <input
+          className={classes.formInput}
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={(e) => setProjectLink(e.target.value)}
+          onChange={e => setProjectLink(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="projectImage">관련 이미지가 있나요?</label>
-        <p>해당 이미지는 썸네일로 활용됩니다.</p>
+      <div className={classes.formGroup}>
+        <div className={classes.formSubGroup}>
+          <label className={classes.formLabel} htmlFor="projectImage">관련 이미지가 있나요?</label>
+          <p className={classes.formHint}>해당 이미지는 썸네일로 활용됩니다.</p>
+        </div>
         <input
+          className={classes.formInput}
           id="projectImage"
           type="file"
           value={projectImage}
-          onChange={(e) => setProjectImage(e.target.value)}
+          onChange={e => setProjectImage(e.target.value)}
         />
       </div>
-      <button>취소</button>
-      <button>등록하기</button>
+      <div className={classes.actions}>
+        <button className={classes.cancelButton}>취소</button>
+        <button className={classes.submitButton}>등록하기</button>
+      </div>
     </form>
   );
 };

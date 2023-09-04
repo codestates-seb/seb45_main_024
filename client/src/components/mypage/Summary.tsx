@@ -1,6 +1,13 @@
-import {FC} from 'react';
+import { FC } from "react";
+import Addproj from "./Addproj";
 
-const Summary:FC = () => {
-    return (<div></div>)
-}
+const Summary: FC = () => {
+  return (
+    <>
+      <div>Summary tab</div>
+      <Addproj />
+    </>
+  );
+};
+
 export default Summary;

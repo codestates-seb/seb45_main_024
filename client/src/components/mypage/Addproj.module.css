@@ -1,0 +1,52 @@
+.projectForm {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 20px 0 rgba(0,0,0,0.2);
+}
+
+.formGroup {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formSubGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formLabel {
+    font-size: 1.2rem;
+    max-width: fit-content;
+}
+
+.formInput {
+    width: 60%;
+
+}
+
+.formHint {
+    font-size: 0.8rem;
+    color: var(--color-gray-3);
+}
+
+.actions{
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.cancelButton {
+    max-width: fit-content;
+}
+
+.submitButton {
+    max-width: fit-content;
+    background-color: var(--color-main);
+    color: white;
+}
