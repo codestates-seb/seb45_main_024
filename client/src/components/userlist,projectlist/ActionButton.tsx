@@ -1,15 +1,13 @@
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import classes from "./ActionButton.module.css";
 
 type Props = {
   type?: "normal" | "outline";
+  handleClick: () => void;
   children: ReactNode;
 };
 
-const ActionButton = ({ type = "normal", children }: Props) => {
-  const navigate = useNavigate();
-
+const ActionButton = ({ type = "normal", handleClick, children }: Props) => {
   return (
     <button
       className={
@@ -17,7 +15,7 @@ const ActionButton = ({ type = "normal", children }: Props) => {
           ? `${classes.button} ${classes.normal}`
           : `${classes.button} ${classes.outline}`
       }
-      onClick={() => navigate("/userlist/write")}
+      onClick={handleClick}
     >
       {children}
     </button>
