@@ -4,6 +4,7 @@
   border-right: 4px solid var(--color-main);
   height: 100vh;
   position: relative;
+  /* header 자리 */
   padding-top: 90px;
 }
 
@@ -37,13 +38,6 @@
   z-index: 1;
 }
 
-/* 메뉴에 따라서 스타일 변경 */
-
-/* 왜 적용이 안 되지 */
-.deleteProfile {
-  position: sticky;
-  bottom: 0;
-}
 
 /* Optional: Responsive */
 @media (max-width: 768px) {

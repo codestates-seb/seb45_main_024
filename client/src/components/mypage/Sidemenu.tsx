@@ -40,6 +40,14 @@ const SideMenu: FC = () => {
           >
             Peer Review
           </li>
+          <li
+            className={`${classes.menuItem} ${
+              selectedMenu === "EditInfo" ? classes.selectedMenuItem : ""
+            }`}
+            onClick={() => dispatch(changeMenu("EditInfo"))}
+          >
+            Edit My Info
+          </li>
         </ul>
       </div>
       <div className={classes.deleteProfile}>회원탈퇴</div>

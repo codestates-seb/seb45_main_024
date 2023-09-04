@@ -3,6 +3,7 @@ import SideMenu from "../../components/mypage/Sidemenu";
 import Review from "../../components/mypage/Review";
 import Profile from "../../components/mypage/Profile";
 import Summary from "../../components/mypage/Summary";
+import EditMyInfo from "../../components/mypage/EditMyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -16,6 +17,7 @@ const Mypage: FC = () => {
         {selectedMenu === "Summary" && <Summary />}
         {selectedMenu === "Profile" && <Profile />}
         {selectedMenu === "Review" && <Review />}
+        {selectedMenu === "EditInfo" && <EditMyInfo />}
       </section>
     </div>
   );
