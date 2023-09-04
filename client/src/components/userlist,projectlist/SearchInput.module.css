@@ -1,7 +1,7 @@
 .searchBar {
   display: flex;
   gap: 0.75rem;
-  max-width: 330px;
+  width: 330px;
   padding: 0.375rem 1rem;
   border: 1px solid var(--color-gray-4);
   border-radius: 20px;

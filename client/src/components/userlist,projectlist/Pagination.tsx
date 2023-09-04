@@ -5,6 +5,7 @@ import { ArrowRightSvg } from "../../assets/icons/arrowsSvg";
 type Props = {
   totalCards: number;
   currentPage: number;
+  // onChangePage: (page: number) => void;
 };
 
 const Pagination = ({ totalCards, currentPage }: Props) => {
@@ -19,7 +20,7 @@ const Pagination = ({ totalCards, currentPage }: Props) => {
   // };
 
   return (
-    <div>
+    <div className={classes.pagination}>
       <button
         disabled={currentPage === 1}
         // onClick={() => handlePageChange(currentPage - 1)}
