@@ -1,3 +1,7 @@
+type Props = {
+  stroke: string;
+};
+
 export const ArrowUpSvg = () => {
   return (
     <svg
@@ -10,7 +14,7 @@ export const ArrowUpSvg = () => {
       <path
         d="M13 7L7 1L1 7"
         stroke="black"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -38,7 +42,7 @@ export const ArrowDownSvg = () => {
   );
 };
 
-export const ArrowRightSvg = () => {
+export const ArrowRightSvg = ({ stroke }: Props) => {
   return (
     <svg
       width="8"
@@ -49,8 +53,8 @@ export const ArrowRightSvg = () => {
     >
       <path
         d="M1 13L7 7L1 1"
-        stroke="black"
-        strokeWidth="2"
+        stroke={stroke}
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -58,7 +62,7 @@ export const ArrowRightSvg = () => {
   );
 };
 
-export const ArrowLefttSvg = () => {
+export const ArrowLeftSvg = ({ stroke }: Props) => {
   return (
     <svg
       width="8"
@@ -69,8 +73,8 @@ export const ArrowLefttSvg = () => {
     >
       <path
         d="M7 13L1 7L7 1"
-        stroke="black"
-        strokeWidth="2"
+        stroke={stroke}
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
