@@ -7,13 +7,13 @@
 }
 
 .componentContainer {
-    grid-column: span 9;
-    padding: 24px 0;
-    /* border: 1px solid black; */
-    /* height: 100vh; */
-    /* overflow-y: auto; */
+  grid-column: span 9;
+  padding: 90px 0 24px;
+  /* header 높이가 90px */
+  
+  /* height: 100vh; */
+  /* overflow-y: auto; */
 }
-
 
 /* optional */
 @media (max-width: 710px) {
