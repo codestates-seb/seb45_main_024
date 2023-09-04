@@ -73,7 +73,7 @@ const SignUp: FC = () => {
       }
     } catch (error) {
       // 회원가입 오류 처리
-      console.error("회원가입 오류:", error);
+      console.error("로그인 오류:", error);
       alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
     }
   };

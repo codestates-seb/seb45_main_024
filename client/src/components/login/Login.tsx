@@ -23,6 +23,8 @@ const Login: FC = () => {
     password: "",
   });
 
+  const loading = useAppSelector(state => state.signUp.loading);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
@@ -53,17 +55,17 @@ const Login: FC = () => {
       const response = await dispatch(loginUser(registerData));
 
       if (response.payload.status === 201) {
-        // 회원가입 성공 처리
+        // 로그인 성공 처리
         setAlertMessage(response.payload.message);
-        navigate("/mainpage"); // 회원가입 성공 시, 메인페이지 경로로 이동
+        navigate("/mainpage"); // 로그인 성공 시, 메인페이지 경로로 이동
       } else {
-        // 회원가입 실패 처리
+        // 로그인 실패 처리
         setAlertMessage(response.payload.message);
       }
     } catch (error) {
-      // 회원가입 오류 처리
-      console.error("회원가입 오류:", error);
-      alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
+      // 로그인 오류 처리
+      console.error("로그인 오류:", error);
+      alert(`로그인 과정에 오류가 있습니다 : ${error}`);
     }
   };
 
@@ -111,6 +113,8 @@ const Login: FC = () => {
         </div>
         <button>Log In</button>
       </form>
+      {loading === "pending" && <p>로딩 중...</p>}
+      {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}
     </div>
   );
 };

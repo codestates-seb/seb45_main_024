@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   TokenData,
   saveTokensToLocalStorage,
-  getTokensFromLocalStorage,
+  // getTokensFromLocalStorage,
 } from "../utility/token";
 
 interface LoginData {
@@ -16,27 +16,28 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (data: LoginData) => {
     try {
-      // 토큰을 로컬 스토리지에서 가져옴
-      const tokens = getTokensFromLocalStorage();
+      // // 토큰을 로컬 스토리지에서 가져옴
+      // const tokens = getTokensFromLocalStorage();
 
-      if (!tokens || !tokens.accessToken) {
-        // 토큰이 없다면 로그인을 진행할 수 없음
-        throw new Error("로그인에 실패했습니다.");
-      }
+      // if (!tokens || !tokens.accessToken) {
+      //   // 토큰이 없다면 로그인을 진행할 수 없음
+      //   throw new Error("로그인에 실패했습니다.");
+      // }
 
-      // 백엔드 로그인 엔드포인트에 로그인 데이터와 액세스 토큰을 함께 전송하여 로그인 요청
-      // 자동로그인 및 로그아웃하지 않은 사용자 경험 고려
-      const response = await axios.post("백엔드 로그인 엔드포인트", data, {
-        headers: {
-          Authorization: `Bearer ${tokens.accessToken}`,
-        },
-      });
+      // // 백엔드 로그인 엔드포인트에 로그인 데이터와 액세스 토큰을 함께 전송하여 로그인 요청
+      // // 자동로그인 및 로그아웃하지 않은 사용자 경험 고려
+      // const response = await axios.post("백엔드 로그인 엔드포인트", data, {
+      //   headers: {
+      //     Authorization: `Bearer ${tokens.accessToken}`,
+      //   },
+      // });
+
+      const response = await axios.post("백엔드 로그인 엔드포인트", data);
+      saveTokensToLocalStorage(response.data as TokenData);
+      return response.data;
+      // 로그인 처리 관련 메시지 등
 
       // 로그인 성공 시 토큰을 업데이트
-      saveTokensToLocalStorage(response.data as TokenData);
-
-      // 사용자 정보나 토큰을 반환하거나 필요에 따라 처리
-      return response.data;
     } catch (error) {
       // 로그인 실패 시 에러 메시지를 사용하여 rejected 액션을 디스패치
       throw new Error("로그인에 실패했습니다.");
