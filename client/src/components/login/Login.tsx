@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
-import { validationActions } from "../../redux/validationSlice";
+import { validationActions } from "../../redux/auth/validationSlice";
+import { loginUser } from "../../redux/auth/LoginSlice";
+import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 interface LoginData {
@@ -10,6 +13,7 @@ interface LoginData {
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const emailError = useAppSelector(state => state.validation.emailError);
   const passwordError = useAppSelector(state => state.validation.passwordError);
@@ -39,6 +43,28 @@ const Login: FC = () => {
     dispatch(validationActions.validPassword(formData.password));
 
     // createAsyncThunk 써먹기... 이번엔 토큰 작업까지...
+
+    const registerData = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      const response = await dispatch(loginUser(registerData));
+
+      if (response.payload.status === 201) {
+        // 회원가입 성공 처리
+        setAlertMessage(response.payload.message);
+        navigate("/mainpage"); // 회원가입 성공 시, 메인페이지 경로로 이동
+      } else {
+        // 회원가입 실패 처리
+        setAlertMessage(response.payload.message);
+      }
+    } catch (error) {
+      // 회원가입 오류 처리
+      console.error("회원가입 오류:", error);
+      alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
+    }
   };
 
   return (

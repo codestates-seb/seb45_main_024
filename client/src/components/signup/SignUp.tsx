@@ -2,9 +2,9 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SocialSignUp from "./SocialSignUp";
 import classes from "./SignUp.module.css";
-import { validationActions } from "../../redux/validationSlice";
-import { signUpUser } from "../../redux/signUpSlice";
-import { setAlertMessage } from "../../redux/alertSlice";
+import { validationActions } from "../../redux/auth/validationSlice";
+import { signUpUser } from "../../redux/auth/signUpSlice";
+import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 interface SignUpData {
