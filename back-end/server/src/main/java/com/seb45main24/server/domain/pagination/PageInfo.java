@@ -1,4 +1,4 @@
-package com.seb45main24.server.domain.teamboard.dto;
+package com.seb45main24.server.domain.pagination;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

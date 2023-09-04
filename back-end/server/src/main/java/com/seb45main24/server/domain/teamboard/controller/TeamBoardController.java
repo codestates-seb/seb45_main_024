@@ -2,7 +2,7 @@ package com.seb45main24.server.domain.teamboard.controller;
 
 
 import com.seb45main24.server.domain.account.service.AccountService;
-import com.seb45main24.server.domain.teamboard.dto.MultiResponseDto;
+import com.seb45main24.server.domain.pagination.MultiResponseDto;
 import com.seb45main24.server.domain.teamboard.dto.TeamBoardPatchDto;
 import com.seb45main24.server.domain.teamboard.dto.TeamBoardPostDto;
 import com.seb45main24.server.domain.teamboard.entity.TeamBoard;
