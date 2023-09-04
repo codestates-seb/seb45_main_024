@@ -14,6 +14,19 @@ spring:
       hibernate:
         format_sql: true
 
+  mail:
+    host: smtp.naver.com # SMTP 서버 호스트
+    port: 465 # SMTP 서버 포트
+    username: ${SMTP_MAIL_USERNAME} # SMTP 서버 로그인 아이디 (발신자)
+    password: ${SMTP_MAIL_PASSWORD} # SMTP 서버 로그인 패스워드 (앱 비밀번호)
+    properties:
+      mail:
+        smtp:
+          auth: true # 사용자 인증 시도 여부 (기본값 : false)
+          ssl:
+            enable: true
+          starttls:
+            enable: true # StartTLS 활성화 여부 (기본값 : false)
 
 mail:
   address:

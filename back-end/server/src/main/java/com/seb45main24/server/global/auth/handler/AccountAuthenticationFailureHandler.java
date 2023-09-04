@@ -29,8 +29,9 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 		Gson gson = new Gson();
 		ExceptionCode exceptionCode = ExceptionCode.LOGIN_FAILURE;
 		ErrorResponse errorResponse = new ErrorResponse(exceptionCode.getStatus(), "BusinessLogicException", exceptionCode.getMessage());
-		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
-		response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+		response.getWriter().write(gson.toJson(errorResponse));
 	}
  }
