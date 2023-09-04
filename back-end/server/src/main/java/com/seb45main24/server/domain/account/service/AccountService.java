@@ -46,6 +46,20 @@ public class AccountService {
 		if(optionalUser.isPresent()) {
 			throw new BusinessLogicException(ExceptionCode.EMAIL_EXIST);
 		}
+	}
 
+	// 임시 비밀번호로 바꾸기
+	@Transactional
+	public void changePassword(String tmpPassword, Long accountId) {
+		Account info = accountRepository.findById(accountId).orElseThrow(() ->
+											new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
+		// 임시 비밀번호로 업데이트
+		info.setPassword(tmpPassword);
+
+		// 임시 비밀번호 암호화
+		String encryptedPassword = passwordEncoder.encode(info.getPassword());
+		info.setPassword(encryptedPassword);
+
+		accountRepository.save(info);
 	}
 }
