@@ -1,7 +1,11 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
 
-const AddReview: FC = () => {
+interface AddReviewProps {
+  onClose: () => void;
+}
+
+const AddReview: FC<AddReviewProps> = ({ onClose }) => {
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
@@ -96,7 +100,9 @@ const AddReview: FC = () => {
         />
       </div>
       <div className={classes.actions}>
-        <button className={classes.cancelButton}>취소</button>
+        <button className={classes.cancelButton} onClick={onClose}>
+          취소
+        </button>
         <button className={classes.submitButton}>코멘트 남기기</button>
       </div>
     </form>
