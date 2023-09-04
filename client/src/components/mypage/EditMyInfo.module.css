@@ -1,0 +1,50 @@
+.infoHeaderBox {
+  padding: 24px;
+}
+
+.headerTitle {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.helptext {
+  color: var(--color-gray-1);
+}
+
+.warning {
+  color: var(--color-state-error);
+}
+
+.infoContentBox {
+  padding: 24px;
+}
+
+.contentTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.infoContent {
+  display: flex;
+}
+
+.infoitem {
+  display: flex;
+}
+
+.myImg {
+  width: 180px;
+}
+
+.fieldname {
+    padding: 8px;
+}
+.myNickname {
+}
+.myEmail {
+}
+.myPw {
+}
+.profileBox {
+  padding: 24px;
+}
