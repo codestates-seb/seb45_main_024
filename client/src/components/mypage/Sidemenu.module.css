@@ -28,14 +28,14 @@
   height: 72px;
   border-radius: 36px 0 0 36px;
   padding: 24px;
-  background-color: #d0d9d8;
+  background-color: white;
+  box-shadow: -2px 0 10px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 
 .selectedMenuItem {
-  background-color: white;
-  box-shadow: -2px 0 10px 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  background-color: var(--color-main);
+  color: white;
 }
 
 

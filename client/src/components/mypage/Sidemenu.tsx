@@ -3,7 +3,6 @@ import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
-// menu 클릭 시에 state 변경
 const SideMenu: FC = () => {
   const dispatch = useAppDispatch();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
@@ -40,6 +39,7 @@ const SideMenu: FC = () => {
           >
             Peer Review
           </li>
+          {/* 작성자가 자신의 페이지에 들어온 경우만 이 메뉴가 보여야 함. */}
           <li
             className={`${classes.menuItem} ${
               selectedMenu === "EditInfo" ? classes.selectedMenuItem : ""
@@ -50,7 +50,6 @@ const SideMenu: FC = () => {
           </li>
         </ul>
       </div>
-      <div className={classes.deleteProfile}>회원탈퇴</div>
     </div>
   );
 };
