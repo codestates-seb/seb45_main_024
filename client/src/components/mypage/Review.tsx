@@ -1,5 +1,7 @@
 import { FC } from "react";
 import classes from "./Review.module.css";
+import AddReview from "./AddReview";
+
 const Review: FC = () => {
   return (
     <>
@@ -19,6 +21,8 @@ const Review: FC = () => {
           (유저이름) 님과 함께 프로젝트를 하신 경험이 있으신가요?
         </h2>
         <button className={classes.addReviewButton}>코멘트 남기기</button>
+        {/* AddReview form 렌더링 */}
+        <AddReview />
       </div>
     </>
   );
