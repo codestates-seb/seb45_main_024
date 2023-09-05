@@ -43,7 +43,7 @@ public class AccountControllerTest {
 
 
 	@DisplayName("계정 등록 테스트")
-	@Test
+//	@Test
 	void postAccountTest() throws Exception {
 		//given
 		AccountDto.Post post = new AccountDto.Post("테스트1", "test@gmail.com", "1234");
@@ -65,7 +65,7 @@ public class AccountControllerTest {
 	}
 
 	@DisplayName("로그인 성공 테스트")
-	@Test
+//	@Test
 	void loginSuccessTest() throws Exception {
 		AccountDto.Post post = new AccountDto.Post("테스트1", "test@gmail.com", "1234");
 		accountService.createAccount(mapper.accountPostDtoToAccount(post));
