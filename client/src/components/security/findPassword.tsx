@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
@@ -15,6 +15,13 @@ const FindPassword: FC = () => {
 
   useEffect(() => {
     setIsButtonDisabled(true);
+  }, []);
+
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
   }, []);
 
   const emailError = useAppSelector(state => state.validation.emailError);
@@ -40,11 +47,8 @@ const FindPassword: FC = () => {
     }
 
     // 입력값이 비어있지 않고 이메일 유효성 검사를 통과하면 버튼을 활성화합니다.
-    if (emailError) {
-      setIsButtonDisabled(true);
-    } else {
-      setIsButtonDisabled(false);
-    }
+    const isEmailValid = !emailError;
+    setIsButtonDisabled(value.trim() === "" || !isEmailValid);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,6 +74,7 @@ const FindPassword: FC = () => {
         <div className={classes.inputInfo}>
           <label>Email You Signed Up For</label>
           <input
+            ref={emailInputRef}
             placeholder="Input Email"
             type="text"
             value={formData.email}
