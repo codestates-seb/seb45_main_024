@@ -31,22 +31,19 @@ public class TeamBoardController {
     private final TeamBoardService teamBoardService;
     private final TeamBoardRepository teamBoardRepository;
     private final TeamBoardMapper mapper;
-    private final AccountService accountService;
 
     public TeamBoardController(TeamBoardService teamBoardService,
                                TeamBoardRepository teamBoardRepository,
-                               TeamBoardMapper mapper,
-                               AccountService accountService) {
+                               TeamBoardMapper mapper) {
         this.teamBoardService = teamBoardService;
         this.teamBoardRepository = teamBoardRepository;
         this.mapper = mapper;
-        this.accountService = accountService;
     }
 
     // 팀찾기 게시글 작성
     @PostMapping
-    public ResponseEntity<TeamBoard> postTeamBoard(@LoginAccountId Long accountId,
-                                                   @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
+    public ResponseEntity postTeamBoard(@LoginAccountId Long accountId,
+                                        @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
         teamBoardDto.getAccount().setId(accountId);
         TeamBoard teamBoard = teamBoardService.createTeamBoard(
                 mapper.teamBoardPostDtoToTeamBoard(teamBoardDto));
@@ -56,7 +53,6 @@ public class TeamBoardController {
         return ResponseEntity.created(location).build();
 
     }
-
 
     // 팀찾기 게시글 수정
     @PatchMapping("/{teamBoardId}")
@@ -72,7 +68,7 @@ public class TeamBoardController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        TeamBoard teamBoard = teamBoardService.updateTeamBoard(mapper.teamBoardPatchDtoToTeamBoard(teamBoardPatchDto), accountId);
+        TeamBoard teamBoard = teamBoardService.updateTeamBoard(mapper.teamBoardPatchDtoToTeamBoard(teamBoardPatchDto));
 
         return new ResponseEntity<>(mapper.teamBoardToTeamBoardResponseDto(teamBoard), HttpStatus.OK);
     }
@@ -85,7 +81,6 @@ public class TeamBoardController {
 
         return new ResponseEntity<>(mapper.teamBoardToTeamBoardResponseDto(teamBoard), HttpStatus.OK);
     }
-
 
     // 팀찾기 게시글 리스트 조회
     @GetMapping
@@ -104,13 +99,13 @@ public class TeamBoardController {
                                           @PathVariable("teamBoardId") @Positive long teamBoardId) {
         TeamBoard teamBoard = teamBoardService.findTeamBoard(teamBoardId);
 
-        Long authorId =teamBoard.getAccount().getId();
+        Long authorId = teamBoard.getAccount().getId();
 
         if (!accountId.equals(authorId)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        teamBoardService.deleteTeamBoard(teamBoardId, accountId);
+        teamBoardService.deleteTeamBoard(teamBoardId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
