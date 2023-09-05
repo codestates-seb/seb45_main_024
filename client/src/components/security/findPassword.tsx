@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
@@ -13,12 +13,17 @@ const FindPassword: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setIsButtonDisabled(true);
+  }, []);
+
   const emailError = useAppSelector(state => state.validation.emailError);
 
   const [formData, setFormData] = useState<FindPasswordData>({
     email: "",
   });
   const [message, setMessage] = useState<string | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -29,21 +34,27 @@ const FindPassword: FC = () => {
       ...formData,
       [fieldName]: value,
     });
+
+    if (fieldName === "email") {
+      dispatch(validationActions.validEmail(value));
+    }
+
+    // 입력값이 비어있지 않고 이메일 유효성 검사를 통과하면 버튼을 활성화합니다.
+    if (emailError) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // 얘네는 프론트단의 유효성 검사일 뿐, 실제 유효성 검사는 백엔드에서 비교 수행되어야 함
-    dispatch(validationActions.validEmail(formData.email));
-
     try {
       // API 호출 부분
       const response = await axios.post(
         "백엔드 비밀번호 재발급 엔드포인트",
         formData,
       );
-
       console.log("해당 이메일로 비밀번호 재발급", response.data);
       setMessage("해당 이메일로 임시 비밀번호가 발급되었습니다");
       navigate("/login");
@@ -70,7 +81,14 @@ const FindPassword: FC = () => {
             </p>
           )}
         </div>
-        <button>Send</button>
+        <button
+          className={`${
+            isButtonDisabled || emailError ? `${classes.disabledButton}` : ""
+          }`}
+          disabled={isButtonDisabled || emailError}
+        >
+          Send
+        </button>
       </form>
       {/* {loading === "pending" && <p>로딩 중...</p>} */}
       {/* 로딩 슬라이스를 만들고 이후에 로그인과 회원가입 리팩토링 해야겠군 */}

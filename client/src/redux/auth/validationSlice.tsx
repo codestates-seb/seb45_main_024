@@ -28,7 +28,11 @@ const validationSlice = createSlice({
   reducers: {
     validEmail: (state, action) => {
       state.email = action.payload;
-      if (!state.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+      if (
+        !state.email.match(
+          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+        )
+      ) {
         state.emailError = true;
       } else {
         state.emailError = false;
