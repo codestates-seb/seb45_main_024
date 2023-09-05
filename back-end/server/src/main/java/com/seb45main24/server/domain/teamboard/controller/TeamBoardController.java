@@ -11,6 +11,7 @@ import com.seb45main24.server.domain.teamboard.repository.TeamBoardRepository;
 import com.seb45main24.server.domain.teamboard.service.TeamBoardService;
 import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 
+import com.seb45main24.server.global.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -28,7 +30,6 @@ public class TeamBoardController {
 
     private final TeamBoardService teamBoardService;
     private final TeamBoardRepository teamBoardRepository;
-
     private final TeamBoardMapper mapper;
     private final AccountService accountService;
 
@@ -44,37 +45,41 @@ public class TeamBoardController {
 
     // 팀찾기 게시글 작성
     @PostMapping
-    public ResponseEntity<TeamBoard> postTeamBoard(@LoginAccountId Long accountId, @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
-
+    public ResponseEntity<TeamBoard> postTeamBoard(@LoginAccountId Long accountId,
+                                                   @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
         teamBoardDto.getAccount().setId(accountId);
-
         TeamBoard teamBoard = teamBoardService.createTeamBoard(
                 mapper.teamBoardPostDtoToTeamBoard(teamBoardDto));
 
-        URI location = UriComponentsBuilder.newInstance()
-                .path("/teamBoards/{teamBoardId}")
-                .buildAndExpand(teamBoard.getTeamBoardId())
-                .toUri();
+        URI location = UriCreator.createUri("/teamboards", teamBoard.getTeamBoardId());
 
         return ResponseEntity.created(location).build();
 
     }
 
+
     // 팀찾기 게시글 수정
-    @PatchMapping("/{teamboardId}")
-    public ResponseEntity patchTeamBoard(@PathVariable("accountId") @Positive long teamBoardId,
+    @PatchMapping("/{teamBoardId}")
+    public ResponseEntity patchTeamBoard(@LoginAccountId Long accountId,
+                                         @PathVariable("teamBoardId") @Positive long teamBoardId,
                                          @Valid @RequestBody TeamBoardPatchDto teamBoardPatchDto) {
+
         teamBoardPatchDto.setTeamBoardId(teamBoardId);
 
-        TeamBoard teamBoard = teamBoardService.updateTeamBoard(
-                mapper.teamBoardPatchDtoToTeamBoard(teamBoardPatchDto));
+        Long authorId = teamBoardService.findTeamBoard(teamBoardId).getAccount().getId();
+
+        if (!accountId.equals(authorId)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        TeamBoard teamBoard = teamBoardService.updateTeamBoard(mapper.teamBoardPatchDtoToTeamBoard(teamBoardPatchDto), accountId);
 
         return new ResponseEntity<>(mapper.teamBoardToTeamBoardResponseDto(teamBoard), HttpStatus.OK);
     }
 
 
     // 팀찾기 게시글 1개 조회
-    @GetMapping("/{teamboardId}")
+    @GetMapping("/{teamBoardId}")
     public ResponseEntity getTeamBoard(@PathVariable("teamBoardId") @Positive long teamBoardId) {
         TeamBoard teamBoard = teamBoardService.findTeamBoard(teamBoardId);
 
@@ -85,8 +90,8 @@ public class TeamBoardController {
     // 팀찾기 게시글 리스트 조회
     @GetMapping
     public ResponseEntity getTeamBoards(@Positive @RequestParam int page) {
-    Page<TeamBoard> pageTeamBoards = teamBoardService.findTeamBoards(page - 1);
-    List<TeamBoard> teamBoards = pageTeamBoards.getContent();
+        Page<TeamBoard> pageTeamBoards = teamBoardService.findTeamBoards(page - 1);
+        List<TeamBoard> teamBoards = pageTeamBoards.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(
                 mapper.teamBoardsToTeamBoardResponseDtos(teamBoards), pageTeamBoards), HttpStatus.OK);
@@ -94,10 +99,20 @@ public class TeamBoardController {
     }
 
     // 팀찾기 게시글 삭제
-    @DeleteMapping("/{teamboardId}")
-    public ResponseEntity deleteTeamBoard(@PathVariable("teamboardId") @Positive long teamBoardId) {
-        teamBoardService.deleteTeamBoard(teamBoardId);
+    @DeleteMapping("/{teamBoardId}")
+    public ResponseEntity deleteTeamBoard(@LoginAccountId Long accountId,
+                                          @PathVariable("teamBoardId") @Positive long teamBoardId) {
+        TeamBoard teamBoard = teamBoardService.findTeamBoard(teamBoardId);
+
+        Long authorId =teamBoard.getAccount().getId();
+
+        if (!accountId.equals(authorId)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        teamBoardService.deleteTeamBoard(teamBoardId, accountId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 }

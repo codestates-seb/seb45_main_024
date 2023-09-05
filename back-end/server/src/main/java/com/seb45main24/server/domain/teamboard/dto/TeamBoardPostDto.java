@@ -20,7 +20,7 @@ public class TeamBoardPostDto {
     private List<String> keywords;
 
     @Positive
-    private long accountId;
+    private Long accountId;
 
     public Account getAccount() {
         Account account = new Account();
