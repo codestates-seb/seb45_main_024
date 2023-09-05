@@ -1,0 +1,17 @@
+.tagsContainer {
+  display: flex;
+  gap: 4px;
+}
+
+.viewMoreContainer {
+  display: flex;
+  gap: 8px;
+  border-radius: 24px;
+  width: fit-content;
+  border: 1px solid var(--color-gray-3);
+  padding: 4px 14px;
+}
+
+.viewMore {
+  color: var(--color-gray-3);
+}
