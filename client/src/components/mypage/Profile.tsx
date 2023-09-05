@@ -1,4 +1,5 @@
 import { FC } from "react";
+import CreateProfile from "./CreateProfile";
 
 const Profile: FC = () => {
   // TODO: edit 버튼 클릭 시에 edit 모드로 변경
@@ -37,6 +38,8 @@ const Profile: FC = () => {
           <section>{/* 조건부 */}</section>
         </div>
       </div>
+      <h1 style={{ marginBottom: "1rem" }}>테스트 렌더링</h1>
+      <CreateProfile />
     </>
   );
 };
