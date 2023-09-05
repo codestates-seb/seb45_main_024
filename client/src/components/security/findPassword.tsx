@@ -13,10 +13,6 @@ const FindPassword: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setIsButtonDisabled(true);
-  }, []);
-
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     if (emailInputRef.current) {
@@ -30,7 +26,6 @@ const FindPassword: FC = () => {
     email: "",
   });
   const [message, setMessage] = useState<string | null>(null);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -42,13 +37,14 @@ const FindPassword: FC = () => {
       [fieldName]: value,
     });
 
+    // email 필드를 업데이트하고 유효성 검사 수행
     if (fieldName === "email") {
+      setFormData(prevState => ({
+        ...prevState,
+        email: value,
+      }));
       dispatch(validationActions.validEmail(value));
     }
-
-    // 입력값이 비어있지 않고 이메일 유효성 검사를 통과하면 버튼을 활성화합니다.
-    const isEmailValid = !emailError;
-    setIsButtonDisabled(value.trim() === "" || !isEmailValid);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -87,12 +83,10 @@ const FindPassword: FC = () => {
           )}
         </div>
         <button
-          className={`${
-            isButtonDisabled || emailError ? `${classes.disabledButton}` : ""
-          }`}
-          disabled={isButtonDisabled || emailError}
+          className={`${emailError ? `${classes.disabledButton}` : ""}`}
+          disabled={emailError}
         >
-          Send
+          Log in
         </button>
       </form>
       {/* {loading === "pending" && <p>로딩 중...</p>} */}

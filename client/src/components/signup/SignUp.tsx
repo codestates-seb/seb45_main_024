@@ -43,16 +43,44 @@ const SignUp: FC = () => {
       ...formData,
       [fieldName]: value,
     });
+
+    // email 필드를 업데이트하고 유효성 검사 수행
+    if (fieldName === "email") {
+      setFormData(prevState => ({
+        ...prevState,
+        email: value,
+      }));
+      dispatch(validationActions.validEmail(value));
+    }
+
+    // password 필드를 업데이트하고 유효성 검사 수행
+    if (fieldName === "password") {
+      setFormData(prevState => ({
+        ...prevState,
+        password: value,
+      }));
+      dispatch(validationActions.validPassword(value));
+    }
+
+    if (fieldName === "nickname") {
+      setFormData(prevState => ({
+        ...prevState,
+        password: value,
+      }));
+      dispatch(validationActions.validNickname(value));
+    }
+
+    if (fieldName === "confirmPassword") {
+      setFormData(prevState => ({
+        ...prevState,
+        password: value,
+      }));
+      dispatch(validationActions.coinCidePassword(value));
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // 얘네는 프론트단의 유효성 검사일 뿐, 실제 유효성 검사는 백엔드에서 비교 수행되어야 함
-    dispatch(validationActions.validNickname(formData.nickname));
-    dispatch(validationActions.validEmail(formData.email));
-    dispatch(validationActions.validPassword(formData.password));
-    dispatch(validationActions.coinCidePassword(formData.confirmPassword));
 
     const registerData = {
       nickname: formData.nickname,
@@ -83,11 +111,7 @@ const SignUp: FC = () => {
       <img alt="logo"></img>
       <SocialSignUp />
       <form className={classes.signUp} onSubmit={handleSubmit}>
-        <div
-          className={`${classes.inputInfo} ${
-            nicknameError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Nickname</label>
           <input
             placeholder="Input Nickname"
@@ -97,11 +121,7 @@ const SignUp: FC = () => {
           />
           {nicknameError && <p>닉네임은 2글자 이상 7글자 이하여야 합니다</p>}
         </div>
-        <div
-          className={`${classes.inputInfo} ${
-            emailError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Email</label>
           <input
             placeholder="Input Email"
@@ -111,11 +131,7 @@ const SignUp: FC = () => {
           />
           {emailError && <p>유효한 이메일 형식이 아닙니다</p>}
         </div>
-        <div
-          className={`${classes.inputInfo} ${
-            passwordError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Password</label>
           <input
             placeholder="Input Password"
@@ -125,11 +141,7 @@ const SignUp: FC = () => {
           />
           {passwordError && <p>비밀번호는 5글자 이상이어야 합니다</p>}
         </div>
-        <div
-          className={`${classes.inputInfo} ${
-            confirmPasswordError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Confirm Password</label>
           <input
             placeholder="Input Password Again"
@@ -137,9 +149,20 @@ const SignUp: FC = () => {
             value={formData.confirmPassword}
             onChange={e => handleInputChange(e, "confirmPassword")}
           />
-          {confirmPasswordError && <p>비밀번호가 일치하지 않습니다</p>}
+          {confirmPasswordError && <p>입력한 비밀번호와 일치해야 합니다</p>}
         </div>
-        <button>Sign Up</button>
+        <button
+          className={`${
+            emailError || passwordError || nicknameError || confirmPasswordError
+              ? `${classes.disabledButton}`
+              : ""
+          }`}
+          disabled={
+            emailError || nicknameError || confirmPasswordError || passwordError
+          }
+        >
+          Log in
+        </button>
       </form>
       {loading === "pending" && <p>로딩 중...</p>}
       {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}

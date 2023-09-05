@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
@@ -25,26 +25,43 @@ const Login: FC = () => {
     password: "",
   });
 
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  }, []);
+
   const loading = useAppSelector(state => state.login.loading);
+  // const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
   ) => {
     const { value } = event.target;
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
+
+    // email 필드를 업데이트하고 유효성 검사 수행
+    if (fieldName === "email") {
+      setFormData(prevState => ({
+        ...prevState,
+        email: value,
+      }));
+      dispatch(validationActions.validEmail(value));
+    }
+
+    // password 필드를 업데이트하고 유효성 검사 수행
+    if (fieldName === "password") {
+      setFormData(prevState => ({
+        ...prevState,
+        password: value,
+      }));
+      dispatch(validationActions.validPassword(value));
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // 얘네는 프론트단의 유효성 검사일 뿐, 실제 유효성 검사는 백엔드에서 비교 수행되어야 함
-
-    dispatch(validationActions.validEmail(formData.email));
-    dispatch(validationActions.validPassword(formData.password));
 
     // createAsyncThunk 써먹기... 이번엔 토큰 작업까지...
 
@@ -78,13 +95,10 @@ const Login: FC = () => {
   return (
     <div className={classes.container}>
       <form className={classes.signUp} onSubmit={handleSubmit}>
-        <div
-          className={`${classes.inputInfo} ${
-            emailError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Email</label>
           <input
+            ref={emailInputRef}
             placeholder="Input Email"
             type="text"
             value={formData.email}
@@ -96,11 +110,7 @@ const Login: FC = () => {
             </p>
           )}
         </div>
-        <div
-          className={`${classes.inputInfo} ${
-            passwordError ? classes.errorInput : ""
-          }`}
-        >
+        <div className={classes.inputInfo}>
           <label>Password</label>
           <input
             placeholder="Input Password"
@@ -122,7 +132,14 @@ const Login: FC = () => {
             </p>
           </div>
         </div>
-        <button>Log In</button>
+        <button
+          className={`${
+            emailError || passwordError ? `${classes.disabledButton}` : ""
+          }`}
+          disabled={emailError || passwordError}
+        >
+          Log in
+        </button>
       </form>
       {loading === "pending" && <p>로딩 중...</p>}
       {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}

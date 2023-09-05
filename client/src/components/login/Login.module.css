@@ -38,6 +38,11 @@
   cursor: grab;
 }
 
+.signUp button.disabledButton {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
 .inputInfo {
   display: flex;
   flex-direction: column;
