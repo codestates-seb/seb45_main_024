@@ -14,7 +14,9 @@ public enum ExceptionCode {
 	NOT_FOUND_ANSWER(400, "Answer를 찾을 수 없습니다."),  // conflict난 부분 수정
 	DUPLICATED_SELECT(400, "이미 채택된 Answer가 있습니다"),
 	ACCESS_TOKEN_EXPIRATION(400, "로그인이 필요한 기능입니다."),
-	LOGIN_FAILURE(401, "이메일, 비밀번호가 틀렸습니다.");
+	LOGIN_FAILURE(401, "이메일, 비밀번호가 틀렸습니다."),
+
+	NON_ACCESS(403, "자신에게는 리뷰 등록을 할 수 없습니다.");
 
 
 	@Getter
