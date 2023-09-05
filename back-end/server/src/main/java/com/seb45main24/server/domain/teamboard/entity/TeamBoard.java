@@ -34,7 +34,7 @@ public class TeamBoard extends Auditable {
     private List<String> keywords = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "ACCOUNTS_ID")
+    @JoinColumn(name = "account_id")
     private Account account;
 
 // 기술태그
