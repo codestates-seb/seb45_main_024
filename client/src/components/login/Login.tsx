@@ -61,11 +61,11 @@ const Login: FC = () => {
         setAlertMessage(response.payload.message);
         navigate("/mainpage"); // 로그인 성공 시, 메인페이지 경로로 이동
       } else {
-        // 로그인 실패 처리
+        // 로그인 실패 처리(400번대 클라이언트)
         setAlertMessage(response.payload.message);
       }
     } catch (error) {
-      // 로그인 오류 처리
+      // 로그인 오류 처리(500번대 서버)
       console.error("로그인 오류:", error);
       alert(`로그인 과정에 오류가 있습니다 : ${error}`);
     }
