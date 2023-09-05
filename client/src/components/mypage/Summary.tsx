@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Addproj from "./Addproj";
 import classes from "./Summary.module.css";
 
 const Summary: FC = () => {
