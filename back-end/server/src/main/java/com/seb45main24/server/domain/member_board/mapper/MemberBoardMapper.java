@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MemberBoardMapper {
-    MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard);
+//    MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard);
     List<MemberBoardResponseDTO> memberBoardListToMemberBoardResponseDtoList(List<MemberBoard> memberBoardList);
 
     default MemberBoard memberBoardPostDtoToMember(MemberBoardPostDTO memberBoardPostDTO) {
@@ -45,5 +45,28 @@ public interface MemberBoardMapper {
         memberBoard.setModifiedAt(LocalDateTime.now());
 
         return memberBoard;
+    }
+
+    default MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard) {
+        if ( memberBoard == null ) {
+            return null;
+        }
+
+        MemberBoardResponseDTO.MemberBoardResponseDTOBuilder memberBoardResponseDTO = MemberBoardResponseDTO.builder();
+
+        if ( memberBoard.getMemberBoardId() != null ) {
+            memberBoardResponseDTO.memberBoardId( memberBoard.getMemberBoardId() );
+        }
+        memberBoardResponseDTO.title( memberBoard.getTitle() );
+        memberBoardResponseDTO.content( memberBoard.getContent() );
+        memberBoardResponseDTO.status( memberBoard.getStatus() );
+        memberBoardResponseDTO.views( memberBoard.getViews() );
+        memberBoardResponseDTO.position( memberBoard.getPosition() );
+        memberBoardResponseDTO.startDate( memberBoard.getStartDate() );
+        memberBoardResponseDTO.endDate( memberBoard.getEndDate() );
+        memberBoardResponseDTO.createdAt( memberBoard.getCreatedAt() );
+        memberBoardResponseDTO.modifiedAt( memberBoard.getModifiedAt() );
+
+        return memberBoardResponseDTO.build();
     }
 }

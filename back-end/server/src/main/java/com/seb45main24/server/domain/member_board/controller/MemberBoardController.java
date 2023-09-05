@@ -7,6 +7,7 @@ import com.seb45main24.server.domain.member_board.mapper.MemberBoardMapper;
 import com.seb45main24.server.domain.member_board.repository.MemberBoardRepository;
 import com.seb45main24.server.domain.member_board.service.MemberBoardService;
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
+import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/memberboards")
 public class MemberBoardController {
     private final MemberBoardRepository repository;
     private final MemberBoardMapper mapper;
@@ -34,7 +35,10 @@ public class MemberBoardController {
     }
 
     @PostMapping
-    public ResponseEntity postMemberBoard(@Valid @RequestBody MemberBoardPostDTO memberBoardPostDTO) {
+    public ResponseEntity postMemberBoard(@Valid @RequestBody MemberBoardPostDTO memberBoardPostDTO,
+                                          @LoginAccountId Long loginAccountId) {
+        memberBoardPostDTO.setLoginAccountId(loginAccountId);
+
         MemberBoard memberBoard = mapper.memberBoardPostDtoToMember(memberBoardPostDTO);
         memberBoard.setViews(0);
 

@@ -3,6 +3,7 @@ package com.seb45main24.server.domain.member_board.dto;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,9 +20,14 @@ public class MemberBoardPostDTO {
     @NotBlank
     private String position;
 
-    @NotBlank
     private LocalDateTime startDate;
 
-    @NotBlank
     private LocalDateTime endDate;
+
+    @Positive
+    private Long loginAccountId;
+
+    public void setLoginAccountId(Long loginAccountId) {
+        this.loginAccountId = loginAccountId;
+    }
 }

@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -12,6 +13,7 @@ public class AccountDto {
 	@Getter
 	@Setter
 	@AllArgsConstructor
+	@NoArgsConstructor
 	public static class Post {
 
 		@NotBlank
