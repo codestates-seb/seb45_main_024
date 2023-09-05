@@ -1,5 +1,6 @@
 import { FC } from "react";
 import classes from "./MyInfo.module.css";
+import EditInfo from "./EditInfo";
 
 const MyInfo: FC = () => {
   return (
@@ -43,6 +44,8 @@ const MyInfo: FC = () => {
           </div>
         </div>
       </section>
+      {/* 테스트 렌더링 */}
+      <EditInfo />
       <section className={classes.profileBox}>
         <h2 className={classes.contentTitle}>프로필</h2>
         <div className={classes.profileContainer}>
