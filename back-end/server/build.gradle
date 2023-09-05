@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation('commons-io:commons-io:2.11.0')
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
