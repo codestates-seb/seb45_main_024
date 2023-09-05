@@ -1,7 +1,7 @@
 import { FC } from "react";
-import classes from "./EditMyInfo.module.css";
+import classes from "./MyInfo.module.css";
 
-const EditMyInfo: FC = () => {
+const MyInfo: FC = () => {
   return (
     <>
       {/* 프로필 이미지, 닉네임, 패스워드, 프로필정보 변경할 수 있는 버튼, 회원탈퇴 버튼 */}
@@ -59,4 +59,4 @@ const EditMyInfo: FC = () => {
   );
 };
 
-export default EditMyInfo;
+export default MyInfo;

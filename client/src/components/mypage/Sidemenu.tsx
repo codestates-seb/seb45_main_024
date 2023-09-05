@@ -42,11 +42,11 @@ const SideMenu: FC = () => {
           {/* 작성자가 자신의 페이지에 들어온 경우만 이 메뉴가 보여야 함. */}
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "EditInfo" ? classes.selectedMenuItem : ""
+              selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("EditInfo"))}
+            onClick={() => dispatch(changeMenu("MyInfo"))}
           >
-            Edit My Info
+            My Info
           </li>
         </ul>
       </div>
