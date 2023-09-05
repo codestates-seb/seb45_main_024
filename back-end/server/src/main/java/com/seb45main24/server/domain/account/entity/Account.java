@@ -10,8 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.seb45main24.server.domain.image.entity.Image;
 import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Getter;
@@ -34,6 +36,9 @@ public class Account extends Auditable {
 	private String password;
 
 	private String nickname;
+
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	private Image image;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles = new ArrayList<>();

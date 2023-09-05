@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.seb45main24.server.domain.account.dto.AccountDto;
+import com.seb45main24.server.domain.account.dto.AccountPatchDto;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.mapper.AccountMapper;
 import com.seb45main24.server.domain.account.service.AccountService;
@@ -37,5 +39,11 @@ public class AccountController {
 		URI location = UriCreator.createUri(USER_DEFAULT_URL, createAccount.getId());
 
 		return ResponseEntity.created(location).build();
+	}
+
+
+	@PatchMapping("/{account-id}")
+	public ResponseEntity patchAccount(@RequestBody @Valid AccountPatchDto patchDto) {
+		return null;
 	}
 }

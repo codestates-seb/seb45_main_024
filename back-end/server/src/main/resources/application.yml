@@ -32,6 +32,14 @@ mail:
   address:
     admin: admin@gmail.com
 
+multipart:
+  max-file-size: 10MB
+  max-request-size: 10MB
+  location: /Users/gimjaehui/profileImages
+  enabled: true
+  upload:
+    path: /Users/gimjaehui/profileImages
+
 jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30

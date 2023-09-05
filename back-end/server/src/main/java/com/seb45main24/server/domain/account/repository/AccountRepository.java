@@ -9,4 +9,6 @@ import com.seb45main24.server.domain.account.entity.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	Optional<Account> findByEmail(String email);
+
+	Optional<Account> findByNickname(String nickname);
 }
