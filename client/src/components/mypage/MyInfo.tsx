@@ -1,8 +1,17 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from "./MyInfo.module.css";
 import EditInfo from "./EditInfo";
 
 const MyInfo: FC = () => {
+  const [showEditForm, setShowEditForm] = useState<boolean>(false);
+
+  const showEditFormhandler = () => {
+    setShowEditForm(!showEditForm);
+  };
+
+  const closeEditFormHandler = () => {
+    setShowEditForm(false);
+  };
   return (
     <>
       {/* 프로필 이미지, 닉네임, 패스워드, 프로필정보 변경할 수 있는 버튼, 회원탈퇴 버튼 */}
@@ -16,36 +25,42 @@ const MyInfo: FC = () => {
       <section className={classes.infoContentBox}>
         <div className={classes.infoContentHeader}>
           <h2 className={classes.contentTitle}>회원정보</h2>
-          <button className={classes.editInfo}>회원정보 변경</button>
+          {!showEditForm && (
+            <button className={classes.editInfo} onClick={showEditFormhandler}>
+              회원정보 변경
+            </button>
+          )}
         </div>
-        <div className={classes.infoContent}>
-          <div className={classes.profileImgContainer}>
-            <img
-              className={classes.profileimage}
-              src="https://images.unsplash.com/photo-1682687980976-fec0915c6177?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
-              alt="sampleProfile"
-            />
+        {showEditForm ? (
+          <EditInfo onClose={closeEditFormHandler} />
+        ) : (
+          <div className={classes.infoContent}>
+            <div className={classes.profileImgContainer}>
+              <img
+                className={classes.profileimage}
+                src="https://images.unsplash.com/photo-1682687980976-fec0915c6177?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+                alt="sampleProfile"
+              />
+            </div>
+            <div className={classes.infoitems}>
+              <div className={classes.infoitem}>
+                <p className={classes.fieldname}>닉네임</p>
+                <p className={classes.fieldvalue}>(유저 이름)</p>
+              </div>
+              <div className={classes.infoitem}>
+                <p className={classes.fieldname}>가입 이메일</p>
+                <p className={classes.fieldvalue}>(유저 이메일)</p>
+              </div>
+              <div className={classes.infoitem}>
+                <p className={classes.fieldname}>비밀번호</p>
+                <p className={`${classes.fieldvalue} ${classes.password}`}>
+                  (samplepassword)
+                </p>
+              </div>
+            </div>
           </div>
-          <div className={classes.infoitems}>
-            <div className={classes.infoitem}>
-              <p className={classes.fieldname}>닉네임</p>
-              <p className={classes.fieldvalue}>(유저 이름)</p>
-            </div>
-            <div className={classes.infoitem}>
-              <p className={classes.fieldname}>가입 이메일</p>
-              <p className={classes.fieldvalue}>(유저 이메일)</p>
-            </div>
-            <div className={classes.infoitem}>
-              <p className={classes.fieldname}>비밀번호</p>
-              <p className={`${classes.fieldvalue} ${classes.password}`}>
-                (samplepassword)
-              </p>
-            </div>
-          </div>
-        </div>
+        )}
       </section>
-      {/* 테스트 렌더링 */}
-      <EditInfo />
       <section className={classes.profileBox}>
         <h2 className={classes.contentTitle}>프로필</h2>
         <div className={classes.profileContainer}>
