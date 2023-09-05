@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 /* 임시 라우팅 처리 */
 import Main from "../pages/main/Main";
-import ProjectList from "../pages/projectList/ProjectList";
+import ProjectList from "../pages/projectList/Detail";
 // import ComponentName from "../pages/";
 // import ComponentName from "../pages/";
 
