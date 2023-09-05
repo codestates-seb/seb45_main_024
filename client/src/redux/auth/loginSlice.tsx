@@ -4,7 +4,7 @@ import {
   TokenData,
   saveTokensToLocalStorage,
   // getTokensFromLocalStorage,
-} from "../utility/token";
+} from "../utility/tokenStoarage";
 
 interface LoginData {
   email: string;
@@ -33,6 +33,7 @@ export const loginUser = createAsyncThunk(
       // });
 
       const response = await axios.post("백엔드 로그인 엔드포인트", data);
+      // 액세스토큰과 리프레쉬토큰 분별 작업 필요
       saveTokensToLocalStorage(response.data as TokenData);
       return response.data;
       // 로그인 처리 관련 메시지 등

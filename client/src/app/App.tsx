@@ -4,6 +4,7 @@ import "./App.css";
 import Main from "../pages/main/Main";
 import UserList from "../pages/userList/UserList";
 import LoginPage from "../pages/login/LoginPage";
+import FindPasswordPage from "../pages/findPassword/findPasswordPage";
 // import ComponentName from "../pages/";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<Main />}></Route>
             <Route path="/userlist" element={<UserList />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/findpassword" element={<FindPasswordPage />}></Route>
             {/* <Route path="/" element={<ComponentName />}></Route>  */}
           </Routes>
         </div>

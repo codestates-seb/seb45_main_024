@@ -2,9 +2,11 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
-import { loginUser } from "../../redux/auth/LoginSlice";
+import { loginUser } from "../../redux/auth/loginSlice";
 import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+
+// response.data? response.payload?
 
 interface LoginData {
   email: string;
@@ -23,7 +25,7 @@ const Login: FC = () => {
     password: "",
   });
 
-  const loading = useAppSelector(state => state.signUp.loading);
+  const loading = useAppSelector(state => state.login.loading);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -69,6 +71,10 @@ const Login: FC = () => {
     }
   };
 
+  const handleFindPwdNavigate = () => {
+    navigate("/findpassword");
+  };
+
   return (
     <div className={classes.container}>
       <form className={classes.signUp} onSubmit={handleSubmit}>
@@ -108,7 +114,12 @@ const Login: FC = () => {
                 비밀번호는 5글자 이상이어야 합니다
               </p>
             )}
-            <p className={classes.forgotPassword}>Forgot Password?</p>
+            <p
+              className={classes.forgotPassword}
+              onClick={handleFindPwdNavigate}
+            >
+              Forgot Password?
+            </p>
           </div>
         </div>
         <button>Log In</button>
