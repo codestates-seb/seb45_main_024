@@ -43,7 +43,7 @@ const UserList = () => {
   };
 
   const handleClick = () => {
-    navigate("/userlist/write");
+    navigate("/userlist/new");
   };
 
   return (

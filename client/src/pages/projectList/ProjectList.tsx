@@ -50,7 +50,7 @@ const ProjectList = () => {
   };
 
   const handleClick = () => {
-    navigate("/projectlist/write");
+    navigate("/projectlist/new");
   };
 
   return (

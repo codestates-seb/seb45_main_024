@@ -59,7 +59,7 @@ const Card = ({ type, title }: Props) => {
                 className={classes.edit}
                 onClick={() => console.log("edit click!")}
               >
-                <EditSvg />
+                <EditSvg width="24" height="24" />
               </span>
             </div>
             <div className={classes.centerArea}>
