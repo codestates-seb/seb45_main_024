@@ -59,7 +59,9 @@ public interface TeamBoardMapper {
         teamBoardResponseDto.title(teamBoard.getTitle());
         teamBoardResponseDto.position(teamBoard.getPosition());
         teamBoardResponseDto.keywords(teamBoard.getKeywords());
-        teamBoardResponseDto.accountId(teamBoard.getAccount().getEmail());
+        teamBoardResponseDto.accountId(teamBoard.getAccount().getId());
+        teamBoardResponseDto.createdAt(teamBoard.getCreatedAt() );
+        teamBoardResponseDto.modifiedAt(teamBoard.getModifiedAt() );
 
         return teamBoardResponseDto.build();
     }
