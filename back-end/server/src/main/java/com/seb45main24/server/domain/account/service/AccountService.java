@@ -17,7 +17,7 @@ import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
 
 import lombok.RequiredArgsConstructor;
 
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class AccountService {
@@ -26,7 +26,7 @@ public class AccountService {
 	private final CustomAuthorityUtils authorityUtils;
 	private final ImageRepository imageRepository;
 
-	@Transactional
+
 	public Account createAccount(Account account) {
 
 		checkDuplicateEmail(account.getEmail());
@@ -45,11 +45,46 @@ public class AccountService {
 						.account(account)
 						.build();
 
-		System.out.println("이미지 생성 완료!");
 		Account postAccount = accountRepository.save(account);
 		imageRepository.save(image);
 
 		return postAccount;
+	}
+
+
+	public Account updateAccount(Account account, Long loginAccountId) {
+
+			Account findAccount = findAccount(account.getId());
+			verifyAuthority(findAccount, loginAccountId);
+
+			Optional.ofNullable(account.getNickname()).ifPresent(nickname -> {
+				checkDuplicateNickname(nickname);
+				findAccount.setNickname(nickname);
+			});
+			Optional.ofNullable(account.getPassword()).ifPresent(password -> {
+				String encodedPassword = passwordEncoder.encode(password);
+				findAccount.setPassword(encodedPassword);
+			});
+
+			return accountRepository.save(findAccount);
+
+	}
+
+	public void deleteAccount(Account findAccount) {
+
+		accountRepository.delete(findAccount);
+	}
+
+	public Account findAccount(Long accountId) {
+		Optional<Account> optionalAccount = accountRepository.findById(accountId);
+		return optionalAccount.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
+	}
+
+	// 로그인 한 사용자와 일치하는지 확인
+	public void verifyAuthority(Account findAccount, Long loginAccountId) {
+		if (!findAccount.getId().equals(loginAccountId)) {
+			throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+		}
 	}
 
 
@@ -85,4 +120,6 @@ public class AccountService {
 
 		accountRepository.save(info);
 	}
+
+
 }

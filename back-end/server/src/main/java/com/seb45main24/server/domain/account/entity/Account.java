@@ -3,6 +3,7 @@ package com.seb45main24.server.domain.account.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class Account extends Auditable {
 
 	private String nickname;
 
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Image image;
 
 	@ElementCollection(fetch = FetchType.EAGER)
