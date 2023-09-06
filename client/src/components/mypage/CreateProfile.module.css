@@ -10,26 +10,6 @@
   gap: 1rem;
 }
 
-.titleline {
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-}
-
-.titleline::after {
-  content: "";
-  flex-grow: 1;
-  background-color: #679c97;
-  height: 1px;
-  font-size: 0px;
-  line-height: 0px;
-  margin-left: 1rem;
-}
-.label {
-  font-weight: 600;
-  font-size: 1.5rem;
-}
-
 .helpText {
   font-size: 0.8rem;
 }

@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
 import classes from "./MyInfo.module.css";
 import EditInfo from "./EditInfo";
+import TitleLine from "./TitleLine";
+import ProfileCats from "./ProfileCats";
+import NoContent from "./NoContent";
 
 const MyInfo: FC = () => {
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
@@ -65,7 +68,8 @@ const MyInfo: FC = () => {
         <h2 className={classes.contentTitle}>프로필</h2>
         <div className={classes.profileContainer}>
           <div className={classes.profileContent}>
-            {/* 여기 컴포넌트 일부 렌더링 */}
+            <TitleLine title={ProfileCats.BIO} />
+            <NoContent />
           </div>
           <div className={classes.overlay}>
             <button className={classes.editProfile}>프로필 수정하기</button>

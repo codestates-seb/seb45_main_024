@@ -1,26 +1,15 @@
-.titleline {
+.editContainer {
   display: flex;
-  flex-basis: 100%;
-  align-items: center;
+  justify-content: flex-end;
 }
 
-.titleline::after {
-  content: "";
-  flex-grow: 1;
-  background-color: #679c97;
-  height: 1px;
-  font-size: 0px;
-  line-height: 0px;
-  margin-left: 1rem;
+.editButton {
+  width: 24px;
+  height: auto;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.profileItemsContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
+.profileItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 }
