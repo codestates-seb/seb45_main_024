@@ -44,7 +44,7 @@ public class TeamBoardController {
     @PostMapping
     public ResponseEntity postTeamBoard(@LoginAccountId Long accountId,
                                         @Valid @RequestBody TeamBoardPostDto teamBoardDto) {
-        teamBoardDto.getAccount().setId(accountId);
+        teamBoardDto.setAccountId(accountId);
         TeamBoard teamBoard = teamBoardService.createTeamBoard(
                 mapper.teamBoardPostDtoToTeamBoard(teamBoardDto));
 
