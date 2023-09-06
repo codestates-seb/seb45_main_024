@@ -13,7 +13,11 @@ export const signUpUser = createAsyncThunk(
   "auth/signup",
   async (data: SignupData) => {
     try {
-      const response = await axios.post("백엔드 회원가입 엔드포인트", data);
+      const response = await axios.post(
+        "http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/signup",
+        data,
+      );
+      console.log(response);
       return response.data;
       // 회원가입 처리 관련 메시지 등
     } catch (error) {

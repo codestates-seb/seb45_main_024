@@ -32,9 +32,13 @@ export const loginUser = createAsyncThunk(
       //   },
       // });
 
-      const response = await axios.post("백엔드 로그인 엔드포인트", data);
+      const response = await axios.post(
+        "http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/login",
+        data,
+      );
       // 액세스토큰과 리프레쉬토큰 분별 작업 필요
       saveTokensToLocalStorage(response.data as TokenData);
+      console.log(response.data);
       return response.data;
       // 로그인 처리 관련 메시지 등
 

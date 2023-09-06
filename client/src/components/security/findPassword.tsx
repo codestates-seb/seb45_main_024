@@ -52,7 +52,7 @@ const FindPassword: FC = () => {
     try {
       // API 호출 부분
       const response = await axios.post(
-        "백엔드 비밀번호 재발급 엔드포인트",
+        `http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/sendMail?email=${formData.email}`,
         formData,
       );
       console.log("해당 이메일로 비밀번호 재발급", response.data);
@@ -86,7 +86,7 @@ const FindPassword: FC = () => {
           className={`${emailError ? `${classes.disabledButton}` : ""}`}
           disabled={emailError}
         >
-          Log in
+          Send
         </button>
       </form>
       {/* {loading === "pending" && <p>로딩 중...</p>} */}

@@ -65,7 +65,7 @@ const SignUp: FC = () => {
     if (fieldName === "nickname") {
       setFormData(prevState => ({
         ...prevState,
-        password: value,
+        nickname: value,
       }));
       dispatch(validationActions.validNickname(value));
     }
@@ -73,7 +73,7 @@ const SignUp: FC = () => {
     if (fieldName === "confirmPassword") {
       setFormData(prevState => ({
         ...prevState,
-        password: value,
+        confirmPassword: value,
       }));
       dispatch(validationActions.coinCidePassword(value));
     }
@@ -94,7 +94,7 @@ const SignUp: FC = () => {
       if (response.payload.status === 201) {
         // 회원가입 성공 처리
         setAlertMessage(response.payload.message);
-        navigate("/mainpage"); // 회원가입 성공 시, 메인페이지 경로로 이동
+        navigate("/login"); // 회원가입 성공 시, 로그인 경로로 이동
       } else {
         // 회원가입 실패 처리
         setAlertMessage(response.payload.message);
@@ -161,7 +161,7 @@ const SignUp: FC = () => {
             emailError || nicknameError || confirmPasswordError || passwordError
           }
         >
-          Log in
+          Sign Up
         </button>
       </form>
       {loading === "pending" && <p>로딩 중...</p>}
