@@ -2,29 +2,11 @@
   display: grid;
   grid-template-columns: repeat(12, 78px);
   gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .componentContainer {
-  grid-column: span 9;
-  padding: 90px 0 24px;
+  grid-column: span 10;
+  padding-top: 90px;
   /* header 높이가 90px */
-  
   /* height: 100vh; */
-  /* overflow-y: auto; */
-}
-
-/* optional */
-@media (max-width: 710px) {
-  .mainContainer {
-    grid-template-columns: repeat(8, 68px);
-  }
-}
-
-@media (max-width: 320px) {
-  .mainContainer {
-    grid-template-columns: repeat(6, 40px);
-    gap: 16px;
-  }
 }
