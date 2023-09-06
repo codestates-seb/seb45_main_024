@@ -2,6 +2,7 @@ package com.seb45main24.server.domain.teamboard.dto;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Getter
+@Setter
 public class TeamBoardPostDto {
     @NotBlank
     private String title;
@@ -22,10 +24,8 @@ public class TeamBoardPostDto {
     @Positive
     private Long accountId;
 
-    public Account getAccount() {
-        Account account = new Account();
-        account.setId(accountId);
-        return account;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
 }
