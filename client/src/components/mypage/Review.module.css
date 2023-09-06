@@ -1,0 +1,35 @@
+.reviewContainer{
+
+}
+
+.titleBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.requestButton{
+}
+
+.subtitle{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+.addReviewContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 90px;
+}
+.addReviewButton{
+    border: none;
+    color: white;
+    background-color: var(--color-main);
+}
