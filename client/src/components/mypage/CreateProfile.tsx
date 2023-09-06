@@ -6,6 +6,7 @@ import QuillEditor from "./QuillEditor";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
 import PlusBtn from "./PlusBtn";
+import SoftInput from "./SoftInput";
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
@@ -50,7 +51,9 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {/* <PlusBtn /> */}
+        <PlusBtn>
+          <SoftInput />
+        </PlusBtn>
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.PROJ} />
