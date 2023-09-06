@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 80px;
+
+  /* 너무 아래가 안 보여서 추가함 */
+  margin-bottom: 10rem;
 }
 
 .formItem {
