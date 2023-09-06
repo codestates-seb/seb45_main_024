@@ -1,6 +1,7 @@
 import { FC } from "react";
 import CreateProfile from "./CreateProfile";
 import classes from "./Profile.module.css";
+import NoContent from "./NoContent";
 
 // 컴포넌트 구분 없이 작업 후 분리 예정
 
@@ -20,7 +21,8 @@ const Profile: FC = () => {
           <div className={classes.titleline}>
             <h1 className={classes.title}>저는 이런 사람이에요.</h1>
           </div>
-          <div>{/* 조건부 */}</div>
+          <div>테스트</div>
+          <NoContent />
         </section>
         <section>
           <div className={classes.titleline}>
