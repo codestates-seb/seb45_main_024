@@ -44,12 +44,11 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.headers().frameOptions().sameOrigin()
-			.and()
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.cors(withDefaults())
+			.cors().configurationSource(corsConfigurationSource())
+			.and()
 			.formLogin().disable()
 			.httpBasic().disable()
 			.apply(new CustomFilterConfigurer())
