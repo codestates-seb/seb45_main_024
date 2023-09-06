@@ -1,0 +1,66 @@
+main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6.56rem;
+}
+
+.previewArea {
+  padding-bottom: 2.5rem;
+  margin-bottom: 3.125rem;
+  border-bottom: 1px dotted var(--color-gray-3);
+
+  & > ul {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+
+    /* preview card는 flip 효과 none */
+    & li:hover > div {
+      transform: none !important;
+    }
+
+    /* card 뒷면 표시 */
+    & li:nth-child(2) > div div:nth-child(2) {
+      transform: rotateY(0deg)
+    }
+  }
+
+}
+
+.inputArea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  /* padding: 0 12.75rem; */
+  /* justify-content: center; */
+
+  & .inputAreaBottom {
+    display: flex;
+    margin-top: 2rem;
+
+    & section {
+      width: 50%;
+
+      & .title {
+        margin-bottom: 0.75rem;
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
+
+      &.keyword ul {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+    }
+
+  }
+}
+
+.buttonArea {
+  text-align: right;
+  margin-top: 3.625rem;
+}

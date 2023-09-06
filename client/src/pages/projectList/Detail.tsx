@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/userlist,projectlist/Checkbox";
 import { ReactComponent as EditSvg } from "../../assets/icons/edit.svg";
 import { ReactComponent as DeleteSvg } from "../../assets/icons/delete.svg";
@@ -6,6 +7,8 @@ import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Tooltip from "../../components/userlist,projectlist/Tooltip";
 
 const Detail = () => {
+  const navigate = useNavigate();
+
   return (
     <main>
       {/* 상세페이지 */}
@@ -18,7 +21,12 @@ const Detail = () => {
           <div className={classes.userImage}></div>
           <div className={classes.username}>유저ABC</div>
           <div className={classes.date}>2023.09.01</div>
-          <div className={classes.edit}>
+          <div
+            className={classes.edit}
+            onClick={() => {
+              navigate("/projectlist/edit/:id");
+            }}
+          >
             <EditSvg width="16" height="16" />
           </div>
         </div>

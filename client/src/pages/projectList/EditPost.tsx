@@ -1,5 +1,11 @@
+import PostEditor from "../../components/projectlist/PostEditor";
+
 const EditPost = () => {
-  return <div>EditPost</div>;
+  return (
+    <>
+      <PostEditor />
+    </>
+  );
 };
 
 export default EditPost;

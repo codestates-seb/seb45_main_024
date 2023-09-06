@@ -1,13 +1,21 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import ActionButton from "../userlist,projectlist/ActionButton";
 import SelectBox from "../userlist,projectlist/Selectbox";
+import Tag from "../userlist,projectlist/Tag";
 import classes from "./PostEditor.module.css";
 
 const PostEditor = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [value, setValue] = useState("");
+
+  // 임시 포지션 및 인원
+  const positionList = ["프론트엔드 1명", "백엔드 1명"];
 
   return (
     <main className={classes.detail}>
@@ -39,15 +47,16 @@ const PostEditor = () => {
             <input type="number" placeholder="00명" />
           </dd>
         </dl>
-        {/* <dl>
+        <dl>
           <dt style={{ visibility: "hidden" }}>선택된 포지션 및 인원</dt>
           <dd className={classes.positionList}>
             <ul>
-              <li>프론트엔드 1명</li>
-              <li>백엔드 2명</li>
+              {positionList.map(list => (
+                <Tag type="SELECTED_TAG" text={list} />
+              ))}
             </ul>
           </dd>
-        </dl> */}
+        </dl>
         <dl>
           <dt>기술 스택</dt>
           <dd>
@@ -86,7 +95,7 @@ const PostEditor = () => {
         <ActionButton
           type="outline"
           handleClick={() => {
-            console.log("취소버튼");
+            navigate(-1);
           }}
         >
           취소
@@ -96,7 +105,8 @@ const PostEditor = () => {
             console.log("카드 등록하기 버튼");
           }}
         >
-          카드 등록하기
+          {location.pathname.startsWith("/projectlist/edit") && "카드 수정하기"}
+          {location.pathname.startsWith("/projectlist/new") && "카드 등록하기"}
         </ActionButton>
       </div>
     </main>

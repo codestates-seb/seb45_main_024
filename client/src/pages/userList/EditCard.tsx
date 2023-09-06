@@ -1,5 +1,11 @@
+import CardEditor from "../../components/userlist/CardEditor";
+
 const EditCard = () => {
-  return <div>EditCard</div>;
+  return (
+    <>
+      <CardEditor />
+    </>
+  );
 };
 
 export default EditCard;

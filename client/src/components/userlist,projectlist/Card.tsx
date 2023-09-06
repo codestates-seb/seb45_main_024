@@ -60,7 +60,9 @@ const Card = ({ type, title }: Props) => {
             <div className={classes.topArea}>
               <span
                 className={classes.edit}
-                onClick={() => console.log("edit click!")}
+                onClick={() => {
+                  navigate("/userlist/edit/:id");
+                }}
               >
                 <EditSvg width="24" height="24" />
               </span>
