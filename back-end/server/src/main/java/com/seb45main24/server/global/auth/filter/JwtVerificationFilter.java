@@ -47,7 +47,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 		return authorization == null || !authorization.startsWith("Bearer");
 	}
 
-	// jwt 검증 메서드
+	// jwt 검증 메서드 -- accessToken에 대한 검증
 	private Map<String, Object> verifyJws(HttpServletRequest request) {
 		String jws = request.getHeader("Authorization").replace("Bearer", "");
 		String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());

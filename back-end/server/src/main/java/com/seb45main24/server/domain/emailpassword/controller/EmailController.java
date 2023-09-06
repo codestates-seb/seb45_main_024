@@ -26,5 +26,5 @@ public class EmailController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
-	}
+}
 
