@@ -16,6 +16,9 @@ const Card = ({ type, title }: Props) => {
         className={`${classes.card} ${
           type === "PROJECT_CARD" ? classes.project : classes.user
         }`}
+        onClick={
+          type === "PROJECT_CARD" ? () => navigate(":detailPageId") : undefined
+        }
       >
         {/* FRONT */}
         <div className={classes.front}>
