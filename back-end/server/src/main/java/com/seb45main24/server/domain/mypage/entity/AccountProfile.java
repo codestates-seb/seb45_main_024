@@ -9,9 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.seb45main24.server.domain.account.entity.Account;
@@ -26,29 +27,35 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "MYPAGES")
-public class Mypage extends Auditable {
+@Table(name = "ACCOUNT_PROFILE")
+public class AccountProfile extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MY_PAGE_ID")
+	@Column(name = "ACCOUNT_PROFILE_ID")
 	private Long id;
 
 	@Column(columnDefinition = "TEXT")
 	private String coverLetter;
 
-	// @OneToOne
-	// private Account account;
-	//
-	// @OneToMany
-	// private List<TechTag> techTagList;
 
-	// private List<SoftSkillTag> softSkillTagList;
-	//
-	// private List<HardSkillTag> hardSkillTagList;
+	private String projectUrl;
 
-	@OneToMany(mappedBy = "mypage", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	private List<MypageImage> mypageImages;
+	@OneToOne
+	@JoinColumn(name = "ACCOUNT_ID")
+	private Account account;
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
+	private List<TechTag> techTagList;
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
+	private List<SoftSkillTag> softSkillTagList;
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
+	private List<HardSkillTag> hardSkillTagList;
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	private List<ProjectImage> projectImages;
 
 
 }

@@ -21,17 +21,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BOARD_IMAGES")
-public class MypageImage extends Auditable {
+@Table(name = "PROJECT_IMAGES")
+public class ProjectImage extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PROJECT_IMAGE_ID")
 	private Long id;
 
 	@Column(nullable = false)
 	private String url;
 
 	@ManyToOne
-	@JoinColumn(name = "MYPAGE_ID")
-	private Mypage mypage;
+	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
+	private AccountProfile accountProfile;
 }

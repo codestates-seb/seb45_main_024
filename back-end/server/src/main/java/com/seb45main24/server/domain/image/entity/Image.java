@@ -31,7 +31,7 @@ public class Image {
 
 	private String url;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "ACCOUNT_ID")
 	private Account account; // 프로필 사진은 회원당 하나의 이미지만 매칭
 

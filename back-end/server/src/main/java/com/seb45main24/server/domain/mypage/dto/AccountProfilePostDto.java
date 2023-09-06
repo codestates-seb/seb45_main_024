@@ -1,4 +1,4 @@
 package com.seb45main24.server.domain.mypage.dto;
 
-public class MypagePostDto {
+public class AccountProfilePostDto {
 }
