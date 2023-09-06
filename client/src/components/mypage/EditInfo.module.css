@@ -1,0 +1,41 @@
+.editformContainer {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.editform {
+  width: 60%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edititem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edititem label {
+  min-width: fit-content;
+}
+
+.edititem input {
+  width: 80%;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.save {
+  background-color: var(--color-main);
+  color: white;
+  border: none;
+  cursor: pointer;
+}

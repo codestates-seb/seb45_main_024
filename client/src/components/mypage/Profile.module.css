@@ -1,0 +1,15 @@
+.editContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editButton {
+  width: 24px;
+  height: auto;
+}
+
+.profileItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
