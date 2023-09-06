@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   TokenData,
   saveTokensToLocalStorage,
-  // getTokensFromLocalStorage,
+  getTokensFromLocalStorage,
 } from "../utility/tokenStoarage";
 
 interface LoginData {
@@ -36,9 +36,9 @@ export const loginUser = createAsyncThunk(
         "http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/login",
         data,
       );
-      // 액세스토큰과 리프레쉬토큰 분별 작업 필요
-      saveTokensToLocalStorage(response.data as TokenData);
-      console.log(response.data);
+      saveTokensToLocalStorage(response.headers.authorization as TokenData);
+      getTokensFromLocalStorage();
+      console.log(response);
       return response.data;
       // 로그인 처리 관련 메시지 등
 

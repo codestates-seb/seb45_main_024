@@ -3,7 +3,7 @@
 
 export interface TokenData {
   accessToken: string;
-  refreshToken: string;
+  // refreshToken: string; => 만약 프론트엔드 토큰 유효성 검사 추가할 경우, 써먹어야겠지.
 }
 
 export const saveTokensToLocalStorage = (tokens: TokenData) => {
@@ -13,11 +13,12 @@ export const saveTokensToLocalStorage = (tokens: TokenData) => {
 export const getTokensFromLocalStorage = (): TokenData | null => {
   const tokensString = localStorage.getItem("jwtTokens");
   if (tokensString) {
+    console.log(JSON.parse(tokensString));
     return JSON.parse(tokensString);
   }
   return null;
 };
 
-export const removeTokensFromLocalStorage = () => {
-  localStorage.removeItem("jwtTokens");
-};
+// export const removeTokensFromLocalStorage = () => {
+//   localStorage.removeItem("jwtTokens");
+// }; => 백엔드에서 유효성 검사를 진행한다면 로그아웃 api 콜을 별도로 프론트엔드에서 작성해줘야 할 것
