@@ -41,7 +41,7 @@ const TechTags: FC = () => {
   // onClick: techName을 TechStack에 추가해서 위로 올리기(CreateProfile에서 post 요청)
 
   return (
-    <>
+    <div className={classes.techContainer}>
       <div className={classes.tagsContainer}>
         {sample.map((techName, index) => (
           <Tag techName={techName} id={index} />
@@ -53,7 +53,7 @@ const TechTags: FC = () => {
           <ArrowDownSvg />
         </p>
       </div>
-    </>
+    </div>
   );
 };
 export default TechTags;

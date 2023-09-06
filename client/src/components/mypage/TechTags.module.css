@@ -1,5 +1,12 @@
+.techContainer{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
 .tagsContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
 }
 
@@ -7,7 +14,7 @@
   display: flex;
   gap: 8px;
   border-radius: 24px;
-  width: fit-content;
+  width: max-content;
   border: 1px solid var(--color-gray-3);
   padding: 4px 14px;
 }

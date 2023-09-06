@@ -1,5 +1,8 @@
 import { FC } from "react";
 import CreateProfile from "./CreateProfile";
+import classes from "./Profile.module.css";
+
+// 컴포넌트 구분 없이 작업 후 분리 예정
 
 const Profile: FC = () => {
   // TODO: edit 버튼 클릭 시에 edit 모드로 변경
@@ -12,33 +15,43 @@ const Profile: FC = () => {
       <div>
         <a>{/*edit*/}</a>
       </div>
-      <div>
-        <div>
-          <h1>저는 이런 사람이에요.</h1>
-          <section>{/* 조건부 */}</section>
-        </div>
-        <div>
-          <h1>기술 스택</h1>
-          <section>{/* 조건부 */}</section>
+      <div className={classes.profileItemsContainer}>
+        <section className={classes.profileItem}>
+          <div className={classes.titleline}>
+            <h1 className={classes.title}>저는 이런 사람이에요.</h1>
+          </div>
+          <div>{/* 조건부 */}</div>
+        </section>
+        <section>
+          <div className={classes.titleline}>
+            <h1 className={classes.title}>기술 스택</h1>
+          </div>
+          <div>{/* 조건부 */}</div>
           <div>
             <h2>언어</h2>
             <p>설명</p>
           </div>
-        </div>
-        <div>
-          <h1>하드 스킬</h1>
-          <section>{/* 조건부 */}</section>
-        </div>
-        <div>
-          <h1>소프트 스킬</h1>
-          <section>{/* 조건부 */}</section>
-        </div>
-        <div>
-          <h1>참여한 프로젝트</h1>
-          <section>{/* 조건부 */}</section>
-        </div>
+        </section>
+        <section>
+          <div className={classes.titleline}>
+            <h1 className={classes.title}>하드 스킬</h1>
+          </div>
+          <div>{/* 조건부 */}</div>
+        </section>
+        <section>
+          <div className={classes.titleline}>
+            <h1 className={classes.title}>소프트 스킬</h1>
+          </div>
+          <div>{/* 조건부 */}</div>
+        </section>
+        <section>
+          <div className={classes.titleline}>
+            <h1 className={classes.title}>참여한 프로젝트</h1>
+          </div>
+          <div>{/* 조건부 */}</div>
+        </section>
       </div>
-      <h1 style={{ marginBottom: "1rem" }}>테스트 렌더링</h1>
+      <h1 style={{ marginTop: "6rem" }}>Edit 눌렀을 때</h1>
       <CreateProfile />
     </>
   );
