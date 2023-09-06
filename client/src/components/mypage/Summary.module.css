@@ -1,0 +1,27 @@
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px
+}
+
+.projlist{
+    margin-top: 24px;
+}
+
+.titleBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.deleteButton{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

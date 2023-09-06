@@ -1,0 +1,19 @@
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.helpText {
+  font-size: 0.8rem;
+}
+
+.warning {
+  color: var(--color-state-error);
+}
