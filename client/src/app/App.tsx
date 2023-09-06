@@ -5,7 +5,7 @@ import ErrorPage from "../pages/Error";
 
 import Main from "../pages/main/Main";
 
-// import Mypage from "../pages/mypage/Mypage";
+import Mypage from "../pages/mypage/Mypage";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       /*** 📌 마이페이지 ***/
       {
         path: "mypage",
-        // element: <Mypage />,
+        element: <Mypage />,
         /*
         children: [
           {
