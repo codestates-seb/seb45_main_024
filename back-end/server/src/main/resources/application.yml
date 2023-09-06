@@ -35,10 +35,12 @@ mail:
 multipart:
   max-file-size: 10MB
   max-request-size: 10MB
-  location: /Users/gimjaehui/profileImages
   enabled: true
-  upload:
+
+  profileImages:
     path: /Users/gimjaehui/profileImages
+  mypageImages:
+    path: /Users/gimjaehui/mypageImages
 
 jwt:
   key: ${JWT_SECRET_KEY}
