@@ -10,3 +10,7 @@
 .tagName{
     color: var(--color-gray-3);
 }
+
+.tagContainer:hover{
+    background-color: var(--color-sub);
+}
