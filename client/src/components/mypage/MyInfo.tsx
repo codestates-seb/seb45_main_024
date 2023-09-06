@@ -67,9 +67,11 @@ const MyInfo: FC = () => {
       <section className={classes.profileBox}>
         <h2 className={classes.contentTitle}>프로필</h2>
         <div className={classes.profileContainer}>
-          <div className={classes.profileContent}>
-            <TitleLine title={ProfileCats.BIO} />
-            <NoContent />
+          <div className={classes.profilepreview}>
+            <div className={classes.profileContent}>
+              <TitleLine title={ProfileCats.BIO} />
+              <NoContent />
+            </div>
           </div>
           <div className={classes.overlay}>
             <button className={classes.editProfile}>프로필 수정하기</button>

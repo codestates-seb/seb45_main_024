@@ -5,6 +5,7 @@ import Addproj from "./Addproj";
 import QuillEditor from "./QuillEditor";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
+import AddInput from "./AddInput";
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
@@ -28,6 +29,7 @@ const CreateProfile: FC = () => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         <TechTags />
+        <AddInput />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />
@@ -38,6 +40,7 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        <AddInput />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.SOFT} />
@@ -47,6 +50,7 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        <AddInput />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.PROJ} />
@@ -57,7 +61,7 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {/* 테스트 렌더링 */}
+        <AddInput />
         <Addproj />
       </section>
     </form>

@@ -24,6 +24,14 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <label htmlFor="password">비밀번호</label>
           <input id="password" type="text" placeholder="기존 비번" />
         </div>
+        <div className={classes.edititem}>
+          <label htmlFor="password">비밀번호 확인</label>
+          <input
+            id="password"
+            type="text"
+            placeholder="비밀번호를 한 번 더 입력해주세요"
+          />
+        </div>
         <div className={classes.actions}>
           <button className={classes.button} onClick={onClose}>
             취소

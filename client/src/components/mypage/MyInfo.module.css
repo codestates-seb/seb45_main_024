@@ -50,7 +50,7 @@
   align-items: center;
 }
 
-.infoitems{
+.infoitems {
   margin-left: 1rem;
 }
 .infoitem {
@@ -70,7 +70,7 @@
   align-items: center;
 }
 
-.profileimage{
+.profileimage {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -91,20 +91,25 @@
   padding: 24px;
 }
 
-.profileContainer{
+.profileContainer {
   position: relative;
   width: 100%;
-  height: 300px;
-  /* 렌더링 되는 컴포넌트 사이즈에 맞추기 */
+  height: 100%;
 }
 
-.profileContent{
+.profilepreview {
+  padding: 24px;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  /* box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2); */
 }
 
-.overlay{
+.profileContent {
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -116,7 +121,8 @@
 }
 
 .editProfile {
-  color: var(--color-main);
-
+  position: absolute;
+  bottom: -2rem;
+  background-color: var(--color-main);
+  color: white;
 }
-

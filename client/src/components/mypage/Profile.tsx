@@ -48,9 +48,8 @@ const Profile: FC = () => {
           <TitleLine title={ProfileCats.PROJ} />
           <div>{/* 조건부 */}</div>
         </section>
+        <CreateProfile />
       </div>
-      <h1 style={{ marginTop: "6rem" }}>Edit 눌렀을 때</h1>
-      <CreateProfile />
     </>
   );
 };
