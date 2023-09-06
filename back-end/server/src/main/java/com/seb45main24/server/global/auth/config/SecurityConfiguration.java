@@ -5,6 +5,7 @@ package com.seb45main24.server.global.auth.config;
 import static org.springframework.security.config.Customizer.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +68,8 @@ public class SecurityConfiguration {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 스크립트 기반의 HTTP 통신을 허용하도록 설정
+		configuration.setAllowedOrigins(Arrays.asList("localhost:8080")); // 모든 출처에 대해 스크립트 기반의 HTTP 통신을 허용하도록 설정
+		configuration.setAllowedHeaders(List.of("*"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE")); // 지정한 HTTP Method에 대한 HTTP 통신 허용
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
