@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk(
 interface LoginState {
   user: null | LoginData;
   loading: "idle" | "pending";
-  error: null | string;
+  error?: null | string; //*
 }
 
 const initialState: LoginState = {
@@ -78,7 +78,7 @@ const authSlice = createSlice({
     );
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = "idle";
-      state.error = action.error.message as string | null;
+      state.error = action.error.message;
     });
   },
 });
