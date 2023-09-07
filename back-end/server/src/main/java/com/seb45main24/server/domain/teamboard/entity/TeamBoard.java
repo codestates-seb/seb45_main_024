@@ -20,7 +20,7 @@ import java.util.List;
 @Table(name = "team_boards")
 public class TeamBoard extends Auditable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamBoardId;
 
     @Column(nullable = false)
