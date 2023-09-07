@@ -14,14 +14,13 @@ import java.util.List;
 
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "team_boards")
 public class TeamBoard extends Auditable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long teamBoardId;
 
     @Column(nullable = false)
