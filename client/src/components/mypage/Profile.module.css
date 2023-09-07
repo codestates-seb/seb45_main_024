@@ -9,6 +9,10 @@
   height: auto;
 }
 
+.editButton:hover {
+  opacity: 0.6;
+}
+
 .profileItemsContainer {
   display: flex;
   flex-direction: column;

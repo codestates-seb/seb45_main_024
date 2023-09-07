@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import TechTags from "./TechTags";
 import classes from "./CreateProfile.module.css";
 import Addproj from "./Addproj";
@@ -7,12 +7,41 @@ import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
 import PlusBtn from "./PlusBtn";
 import SoftInput from "./SoftInput";
+import SoftTag from "./SoftTag";
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
 const CreateProfile: FC = () => {
   // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
   // post로 보내는 api call도 있음. req body 구조 알아야.
+  //SoftTag 생성.
+
+  const [softInput, setSoftInput] = useState("");
+  const [softTags, setSoftTags] = useState<string[]>([]);
+
+  const softInputRef = useRef(softInput);
+  softInputRef.current = softInput;
+
+  const softTagsRef = useRef(softTags);
+  softTagsRef.current = softTags;
+
+  const handleEnterPress = (e: KeyboardEvent) => {
+    if (e.code === "Enter" && softInputRef.current.length > 0) {
+      console.log("hello", softInputRef.current);
+      setSoftTags([...softTagsRef.current, softInputRef.current]);
+      setSoftInput("");
+    }
+  };
+
+  const tagDeleteHandler = (id: number) => {
+    const updatedTags = softTags.filter((_, index) => index !== id);
+    setSoftTags(updatedTags);
+  };
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleEnterPress);
+    return () => window.removeEventListener("keyup", handleEnterPress);
+  }, []);
 
   return (
     <form className={classes.createForm}>
@@ -51,8 +80,17 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        {/* SoftSkill Tags Here! */}
+        {softTags.map((softTag, index) => (
+          <SoftTag
+            key={index}
+            techName={softTag}
+            id={index}
+            onDelete={tagDeleteHandler}
+          />
+        ))}
         <PlusBtn>
-          <SoftInput />
+          <SoftInput input={softInput} setInput={setSoftInput} />
         </PlusBtn>
       </section>
       <section className={classes.formItem}>

@@ -1,15 +1,19 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import classes from "./SoftInput.module.css";
 
-const SoftInput: FC = () => {
-  const [input, setInput] = useState("");
+interface SoftInputProps {
+  input: string;
+  setInput: (value: string) => void;
+}
+
+const SoftInput: FC<SoftInputProps> = ({ input, setInput }) => {
   return (
     <div className={classes.softInputContainer}>
       <input
         value={input}
         onChange={e => setInput(e.target.value)}
         className={classes.softInput}
-        placeholder="추가하고 싶은 항목을 입력하세요"
+        placeholder="소프트 스킬을 추가해보세요."
       />
     </div>
   );

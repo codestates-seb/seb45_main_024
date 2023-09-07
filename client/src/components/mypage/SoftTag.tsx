@@ -4,13 +4,13 @@ import classes from "./SoftTag.module.css";
 interface TagProps {
   techName: string;
   id: number;
+  onDelete: (id: number) => void;
 }
 
-// softskill input에서 enter -> 어잇...약간 망했는데
-const SoftTag: FC<TagProps> = (props) => {
+const SoftTag: FC<TagProps> = ({ techName, id, onDelete }) => {
   return (
-    <div className={classes.tagContainer}>
-      <span className={classes.tagName}>{props}</span>
+    <div className={classes.tagContainer} onClick={() => onDelete(id)}>
+      <span className={classes.tagName}>{techName}</span>
     </div>
   );
 };
