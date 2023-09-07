@@ -1,22 +1,22 @@
 import { FC } from "react";
-import classes from "./SoftInput.module.css";
+import classes from "./HardInput.module.css";
 
-interface SoftInputProps {
+interface HardInputProps {
   input: string;
   setInput: (value: string) => void;
 }
 
-const SoftInput: FC<SoftInputProps> = ({ input, setInput }) => {
+const HardInput: FC<HardInputProps> = ({ input, setInput }) => {
   return (
-    <div className={classes.softInputContainer}>
+    <div className={classes.hardInputContainer}>
       <input
         value={input}
         onChange={e => setInput(e.target.value)}
-        className={classes.softInput}
+        className={classes.hardInput}
         placeholder="내용을 추가해보세요."
       />
     </div>
   );
 };
 
-export default SoftInput;
+export default HardInput;
