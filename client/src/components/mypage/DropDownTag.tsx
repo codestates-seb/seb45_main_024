@@ -30,13 +30,16 @@ interface DropDownTagProps {
 const DropDownTag: FC<DropDownTagProps> = ({ techName, id, onDelete }) => {
   const [selectedLevel, setSelectedLevel] = useState("A");
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  
+
   // 드롭다운 외 부분 클릭 시 드롭다운 닫힘
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setIsDropDownOpen(false);
       }
     };
