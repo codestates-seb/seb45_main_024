@@ -1,4 +1,4 @@
-package com.seb45main24.server.domain.mypage.entity;
+package com.seb45main24.server.domain.accountprofile.entity;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -44,15 +43,6 @@ public class AccountProfile extends Auditable {
 	@OneToOne
 	@JoinColumn(name = "ACCOUNT_ID")
 	private Account account;
-
-	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
-	private List<TechTag> techTagList;
-
-	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
-	private List<SoftSkillTag> softSkillTagList;
-
-	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE)
-	private List<HardSkillTag> hardSkillTagList;
 
 	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	private List<ProjectImage> projectImages;

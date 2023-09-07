@@ -1,4 +1,4 @@
-package com.seb45main24.server.domain.mypage.entity;
+package com.seb45main24.server.domain.accountprofile.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,26 +11,21 @@ import javax.persistence.Table;
 
 import com.seb45main24.server.global.auditing.Auditable;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "PROJECT_IMAGES")
-public class ProjectImage extends Auditable {
+@Table(name = "SOFT_SKILL_TAGS")
+public class SoftSkillTag extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PROJECT_IMAGE_ID")
+	@Column(name = "SOFT_SKILL_TAG_ID")
 	private Long id;
 
-	@Column(nullable = false)
-	private String url;
+	private String techName;
 
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_PROFILE_ID")

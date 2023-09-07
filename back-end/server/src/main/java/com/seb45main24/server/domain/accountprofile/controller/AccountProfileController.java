@@ -1,21 +1,19 @@
-package com.seb45main24.server.domain.mypage.controller;
+package com.seb45main24.server.domain.accountprofile.controller;
 
 import java.net.URI;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.seb45main24.server.domain.account.service.AccountService;
-import com.seb45main24.server.domain.mypage.dto.AccountProfilePostDto;
-import com.seb45main24.server.domain.mypage.entity.AccountProfile;
-import com.seb45main24.server.domain.mypage.mapper.AccountProfileMapper;
-import com.seb45main24.server.domain.mypage.service.AccountProfileService;
+import com.seb45main24.server.domain.accountprofile.dto.AccountProfilePostDto;
+import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
+import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
 import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import com.seb45main24.server.global.utils.UriCreator;
 

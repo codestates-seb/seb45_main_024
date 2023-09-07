@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.seb45main24.server.domain.image.entity.Image;
-import com.seb45main24.server.domain.mypage.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.seb45main24.server.domain.mypage.dto;
+package com.seb45main24.server.domain.accountprofile.dto;
 
 import lombok.Getter;
 
