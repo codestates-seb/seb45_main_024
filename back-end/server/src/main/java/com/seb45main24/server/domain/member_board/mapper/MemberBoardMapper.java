@@ -36,6 +36,7 @@ public interface MemberBoardMapper {
 
         MemberBoard memberBoard = new MemberBoard();
 
+        memberBoard.setMemberBoardId(memberBoardPatchDTO.getMemberBoardId());
         memberBoard.setTitle( memberBoardPatchDTO.getTitle() );
         memberBoard.setContent( memberBoardPatchDTO.getContent() );
         memberBoard.setStatus(memberBoardPatchDTO.getStatus());
