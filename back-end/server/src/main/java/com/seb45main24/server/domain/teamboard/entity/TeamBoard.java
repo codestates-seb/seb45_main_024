@@ -2,7 +2,6 @@ package com.seb45main24.server.domain.teamboard.entity;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.global.auditing.Auditable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import java.util.List;
 
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
