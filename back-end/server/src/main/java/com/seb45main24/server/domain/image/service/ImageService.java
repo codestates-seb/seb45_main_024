@@ -26,7 +26,7 @@ public class ImageService {
 	private final ImageRepository imageRepository;
 	private final AccountRepository accountRepository;
 
-	@Value("${multipart.location}") // /Users/gimjaehui/Desktop/profileImages
+	@Value("${multipart.profileImages.path}") // /Users/gimjaehui/Desktop/profileImages
 	private String uploadFolder;
 
 
