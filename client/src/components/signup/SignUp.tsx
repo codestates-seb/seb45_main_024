@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SocialSignUp from "./SocialSignUp";
+
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { signUpUser } from "../../redux/auth/signUpSlice";
@@ -109,7 +109,7 @@ const SignUp: FC = () => {
   return (
     <div className={classes.container}>
       <img alt="logo"></img>
-      <SocialSignUp />
+
       <form className={classes.signUp} onSubmit={handleSubmit}>
         <div className={classes.inputInfo}>
           <label>Nickname</label>
