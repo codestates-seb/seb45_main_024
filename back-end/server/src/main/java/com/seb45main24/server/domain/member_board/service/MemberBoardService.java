@@ -28,6 +28,7 @@ public class MemberBoardService {
     }
 
     public MemberBoard updateMemberBoard(MemberBoard memberBoard) {
+        System.out.println(memberBoard.getMemberBoardId());
         MemberBoard findMemberBoard = findVerifiedMemberBoard(memberBoard.getMemberBoardId());
 
         Optional.ofNullable(memberBoard.getTitle())

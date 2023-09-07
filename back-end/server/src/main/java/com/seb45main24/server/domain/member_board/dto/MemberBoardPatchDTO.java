@@ -21,10 +21,8 @@ public class MemberBoardPatchDTO {
     @NotBlank
     private String position;
 
-    @NotBlank
     private LocalDateTime startDate;
 
-    @NotBlank
     private LocalDateTime endDate;
 
     public void setMemberBoardId(long memberBoardId) {

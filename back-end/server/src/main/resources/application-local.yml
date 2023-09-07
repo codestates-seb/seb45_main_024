@@ -10,7 +10,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: validate # 나중에 매핑에 문제가 생기면 none은 잡아주지 못하기 때문에 validate로 적용
+      ddl-auto: update # 나중에 매핑에 문제가 생기면 none은 잡아주지 못하기 때문에 validate로 적용
     properties:
       hibernate:
         show_sql: true

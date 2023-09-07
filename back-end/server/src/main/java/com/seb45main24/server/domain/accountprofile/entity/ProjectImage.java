@@ -1,41 +1,38 @@
-package com.seb45main24.server.domain.image.entity;
+package com.seb45main24.server.domain.accountprofile.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.seb45main24.server.domain.account.entity.Account;
+import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter @Builder
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "IMAGES")
-public class Image {
+@Table(name = "PROJECT_IMAGES")
+public class ProjectImage extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IMAGE_ID")
+	@Column(name = "PROJECT_IMAGE_ID")
 	private Long id;
 
+	@Column(nullable = false)
 	private String url;
 
-	@OneToOne
-	@JoinColumn(name = "ACCOUNT_ID")
-	private Account account; // 프로필 사진은 회원당 하나의 이미지만 매칭
-
-	public void updateUrl(String url) {
-		this.url = url;
-	}
+	@ManyToOne
+	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
+	private AccountProfile accountProfile;
 }
