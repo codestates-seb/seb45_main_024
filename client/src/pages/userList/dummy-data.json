@@ -1,0 +1,84 @@
+{
+  "teamboards": {
+    "data": [
+      {
+        "teamBoardId": 1,
+        "title": "첫번째 게시글 입니다. 이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어", "이런태그", "저런태그"],
+        "accountId": 1,
+        "createdAt": "2023-09-01T19:42:19",
+        "modifiedAt": "2023-09-01T19:42:19"
+      },
+      {
+        "teamBoardId": 2,
+        "title": "취업용 포트폴리오 함께 작업할 백엔드 팀원 구합니다.",
+        "position": "백엔드",
+        "keywords": ["포트폴리오", "사이드프로젝트"],
+        "accountId": 2,
+        "createdAt": "2023-09-02T19:42:19",
+        "modifiedAt": "2023-09-02T19:42:19"
+      },
+      {
+        "teamBoardId": 3,
+        "title": "사이드프로젝트 함께 하실 분!!",
+        "position": "프론트엔드",
+        "keywords": ["포트폴리오", "사이드프로젝트", "반응형웹", "미디어"],
+        "accountId": 3,
+        "createdAt": "2023-09-03T19:42:19",
+        "modifiedAt": "2023-09-03T19:42:19"
+      },
+      {
+        "teamBoardId": 4,
+        "title": "이 글은 4번 게시글입니다. 게시글 4번 입니다.",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 4,
+        "createdAt": "2023-09-04T19:42:19",
+        "modifiedAt": "2023-09-04T19:42:19"
+      },
+      {
+        "teamBoardId": 5,
+        "title": "5번 게시글, 팀 찾습니다 5",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 5,
+        "createdAt": "2023-09-05T19:42:19",
+        "modifiedAt": "2023-09-05T19:42:19"
+      },
+      {
+        "teamBoardId": 6,
+        "title": "6번 게시글, 팀 찾습니다 6",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 6,
+        "createdAt": "2023-09-06T19:42:19",
+        "modifiedAt": "2023-09-06T19:42:19"
+      },
+      {
+        "teamBoardId": 7,
+        "title": "7번 게시글, 팀 찾습니다 7",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어", "테스트", "good", "내가하고싶은건"],
+        "accountId": 6,
+        "createdAt": "2023-09-06T21:42:19",
+        "modifiedAt": "2023-09-06T21:42:19"
+      },
+      {
+        "teamBoardId": 8,
+        "title": "8번 게시글, 팀 찾습니다 8",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      }
+    ],
+    "pageInfo": {
+      "page": 1,
+      "size": 8,
+      "totalElements": 8,
+      "totalPages": 1
+    }
+  }
+}
