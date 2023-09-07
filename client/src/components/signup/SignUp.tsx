@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { signUpUser } from "../../redux/auth/signUpSlice";

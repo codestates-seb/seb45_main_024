@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import commonInstance from "../utility/commonInstance";
 
 // 회원가입 시 필요한 데이터를 나타내는 인터페이스
 interface SignupData {
@@ -13,10 +13,7 @@ export const signUpUser = createAsyncThunk(
   "auth/signup",
   async (data: SignupData) => {
     try {
-      const response = await axios.post(
-        "http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/signup",
-        data,
-      );
+      const response = await commonInstance.post("/accounts/signup", data);
       console.log(response);
       return response.data;
       // 회원가입 처리 관련 메시지 등

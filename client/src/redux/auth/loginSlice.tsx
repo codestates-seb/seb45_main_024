@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import commonInstance from "../utility/commonInstance";
 import {
   TokenData,
   saveTokensToLocalStorage,
@@ -32,12 +32,10 @@ export const loginUser = createAsyncThunk(
       //   },
       // });
 
-      const response = await axios.post(
-        "http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/login",
-        data,
-      );
+      const response = await commonInstance.post("/accounts/login", data);
       saveTokensToLocalStorage(response.headers.authorization as TokenData);
       getTokensFromLocalStorage();
+
       console.log(response);
       return response.data;
       // 로그인 처리 관련 메시지 등

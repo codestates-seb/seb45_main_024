@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import axios from "axios";
+import authInstance from "../../redux/utility/authInstance";
 
 interface FindPasswordData {
   email: string;
@@ -51,8 +51,8 @@ const FindPassword: FC = () => {
     event.preventDefault();
     try {
       // API 호출 부분
-      const response = await axios.post(
-        `http://ec2-52-79-243-243.ap-northeast-2.compute.amazonaws.com:8080/accounts/sendMail?email=${formData.email}`,
+      const response = await authInstance.post(
+        `/accounts/sendMail?email=${formData.email}`,
         formData,
       );
       console.log("해당 이메일로 비밀번호 재발급", response.data);

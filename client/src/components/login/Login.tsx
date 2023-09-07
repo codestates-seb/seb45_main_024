@@ -4,6 +4,7 @@ import classes from "./Login.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { loginUser } from "../../redux/auth/loginSlice";
 import { setAlertMessage } from "../../redux/utility/alertSlice";
+import { authorizedUser, unauthorizedUser } from "../../redux/auth/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 // response.data? response.payload?
@@ -71,17 +72,18 @@ const Login: FC = () => {
     };
 
     try {
-      const response = await dispatch(loginUser(registerData));
+      await dispatch(loginUser(registerData));
 
-      if (response.payload.status === 201) {
-        // 로그인 성공 처리
-        setAlertMessage(response.payload.message);
-        navigate("/mainpage"); // 로그인 성공 시, 메인페이지 경로로 이동
-      } else {
-        // 로그인 실패 처리(400번대 클라이언트)
-        setAlertMessage(response.payload.message);
-      }
+      // 로그인 성공 처리
+      dispatch(authorizedUser());
+      setAlertMessage("로그인 됐어요");
+      navigate("/mainpage"); // 로그인 성공 시, 메인페이지 경로로 이동
+      // } else {
+      //   // 로그인 실패 처리..?(400번대 클라이언트)
+      //   setAlertMessage(response.payload.message);
+      // }
     } catch (error) {
+      dispatch(unauthorizedUser());
       // 로그인 오류 처리(500번대 서버)
       console.error("로그인 오류:", error);
       alert(`로그인 과정에 오류가 있습니다 : ${error}`);

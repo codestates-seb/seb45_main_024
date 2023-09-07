@@ -33,11 +33,15 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <LoginPage />,
-            children: [{ path: "findpassword", element: <FindPasswordPage /> }],
+            // children: [{ path: "findpassword", element: <FindPasswordPage /> }],
           },
           {
             path: "signup",
             element: <SignUpPage />,
+          },
+          {
+            path: "findpassword",
+            element: <FindPasswordPage />,
           },
         ],
       },
