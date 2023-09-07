@@ -20,4 +20,6 @@ public class Reply extends Auditable {
     private Long replyId;
 
     private String content;
+
+    private Boolean isApply;
 }

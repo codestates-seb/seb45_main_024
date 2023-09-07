@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class ReplyResponseDTO {
     private long replyId;
     private String content;
+    private Boolean isApply;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

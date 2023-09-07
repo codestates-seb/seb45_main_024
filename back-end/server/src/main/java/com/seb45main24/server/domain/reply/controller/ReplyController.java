@@ -6,6 +6,7 @@ import com.seb45main24.server.domain.reply.entity.Reply;
 import com.seb45main24.server.domain.reply.mapper.ReplyMapper;
 import com.seb45main24.server.domain.reply.repository.ReplyRepository;
 import com.seb45main24.server.domain.reply.service.ReplyService;
+import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,10 @@ public class ReplyController {
     }
 
     @PostMapping
-    public ResponseEntity postReply(@Valid @RequestBody ReplyPostDTO replyPostDTO) {
+    public ResponseEntity postReply(@Valid @RequestBody ReplyPostDTO replyPostDTO,
+                                    @LoginAccountId Long loginAccountId) {
+        replyPostDTO.setLoginAccountId(loginAccountId);
+
         Reply reply = mapper.replyPostDtoToReply(replyPostDTO);
 
         Reply createReply = service.createReply(reply);

@@ -8,4 +8,12 @@ import javax.validation.constraints.NotBlank;
 public class ReplyPostDTO {
     @NotBlank
     private String content;
+
+    private Boolean isApply;
+
+    private Long loginAccountId;
+
+    public void setLoginAccountId(Long loginAccountId) {
+        this.loginAccountId = loginAccountId;
+    }
 }

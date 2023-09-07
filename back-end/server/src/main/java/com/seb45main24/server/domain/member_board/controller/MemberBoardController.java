@@ -54,7 +54,6 @@ public class MemberBoardController {
     @PatchMapping("/{memberBoard-id}")
     public ResponseEntity patchMemberBoard(@PathVariable("memberBoard-id") @Positive int memberBoardId,
                                            @Valid @RequestBody MemberBoardPatchDTO memberBoardPatchDTO) {
-        System.out.println(memberBoardId + "아이디");
         memberBoardPatchDTO.setMemberBoardId(memberBoardId);
 
         MemberBoard memberBoard = mapper.memberBoardPatchDtoToMember(memberBoardPatchDTO);
