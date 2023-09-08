@@ -42,34 +42,20 @@ const router = createBrowserRouter([
 
       /*** 📌 마이페이지 ***/
       {
-        path: "mypage",
-        element: <Mypage />,
-        /*
+        path: "mypage/1",
+        // path: "mypage/:accountId", -> 얘가 될 예정. 현재는 임시로 1로 설정
         children: [
-          {
-            path: "profile",
-            // element: <PAGE />,
-            children: [
-              {
-                path: ":id",
-                // element: <PAGE />,
-              },
-              {
-                path: "edit",
-                // element: <PAGE />,
-              },
-            ],
-          },
-          {
-            path: "summary",
-            // element: <PAGE />,
-          },
-          {
-            path: "review",
-            // element: <PAGE />,
-          },
+          { index: true, element: <Mypage /> },
+          // { path: "edit", element: <EditProfile /> },
+          // {
+          //   path: "review",
+          //   element: <Review />,
+          //   children: [
+          //     { index: true, element: <ReviewList /> },
+          //     { path: "new", element: <NewReview /> },
+          //   ],
+          // },
         ],
-        */
       },
 
       /*** 📌 팀찾기 ***/
