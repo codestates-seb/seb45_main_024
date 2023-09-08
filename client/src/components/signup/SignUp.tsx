@@ -107,8 +107,6 @@ const SignUp: FC = () => {
 
   return (
     <div className={classes.container}>
-      <img alt="logo"></img>
-
       <form className={classes.signUp} onSubmit={handleSubmit}>
         <div className={classes.inputInfo}>
           <label>Nickname</label>
