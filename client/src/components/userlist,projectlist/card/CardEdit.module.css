@@ -1,0 +1,160 @@
+
+.card {
+  position:relative;
+  width: 100%; 
+  height: 100%;
+  transition: .5s;
+  transform-style: preserve-3d;
+}
+
+/* project list의 카드인 경우 */
+.card.project {
+  cursor: pointer;
+}
+
+.front, .back {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%; 
+  height: 100%;
+  padding: 1.875rem 1.5rem;
+  background-color: var(--color-white);
+  border-radius: 20px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+  backface-visibility: hidden;
+}
+
+.cardWrapper:hover .card.user {
+  transform: rotateY(180deg);
+}
+
+/* FRONT */
+.front {
+  background: linear-gradient(-12deg, var(--color-white) 50%, var(--color-sub) 50% );
+}
+
+.front .topArea {
+
+  & .meta {
+    display:flex;
+    justify-content: space-between;    
+
+    & .date {
+      font-size: 0.75rem;
+    }
+    & .view {font-size: 0.75rem;}
+  }
+
+  & .recruitTag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.625rem;
+    border-radius: 20px;
+
+    color: var(--color-white);
+    background-color: var(--color-main);
+
+    &.done {
+      color: var(--color-main);
+      background-color: var(--color-white);
+    }
+  }
+}
+
+.front .centerArea {
+  margin-top: 1.5rem;
+  margin-bottom: auto;
+
+  & .username {
+    font-size: 0.75rem;
+  }
+
+  & .title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+  }
+}
+
+/* user card인 경우 제목 위 margin 32px */
+.card.user .front .centerArea {
+  margin-top: 2rem;
+}
+
+.front .bottomArea {
+
+  & .position {
+    font-size: 1.125rem;
+  }
+
+  & .stack {
+    display: flex;
+    margin-top: 0.75rem;
+    
+  }
+}
+
+/* BACK */
+.back {
+  transform: rotateY(180deg);
+  background: linear-gradient(-12deg, var(--color-sub) 50%, var(--color-white) 50% );
+}
+
+.back .topArea {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 1.5rem;
+  & .edit {
+    cursor: pointer;
+  }
+}
+
+.back .centerArea {
+  margin-bottom: auto;
+
+  /* image 임시 CSS */
+  & .userImage {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto;
+    background-color: lightblue;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  & .keywordTag {
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+
+    margin-top: 0.8rem;
+   
+
+    & span {
+      font-size: 1.125rem;
+      font-weight: 700;
+      line-height: 1.575rem;
+    }
+  }
+}
+
+.back .bottomArea {
+  & .infoText {
+    color: var(--color-gray-3);
+    font-size: 0.625rem;
+    text-align: center;
+  }
+}
+
+

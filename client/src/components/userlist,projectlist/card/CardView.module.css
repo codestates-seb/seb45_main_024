@@ -1,0 +1,34 @@
+.card {
+  position:relative;
+  width: 100%; 
+  height: 100%;
+  transition: .5s;
+  transform-style: preserve-3d;
+}
+
+/* card.front, card.back 공통 적용 */
+.card > div {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%; 
+  height: 100%;
+  padding: 1.875rem 1.5rem;
+  background-color: var(--color-white);
+  border-radius: 20px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+  backface-visibility: hidden;
+}
+
+/* project list의 카드인 경우 */
+.project {
+  cursor: pointer;
+}
+
+/* user list의 카드인 경우 - flip */
+.cardWrapper:hover .user {
+  transform: rotateY(180deg);
+}

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-// import axios from "axios";
-import authInstance from "../../redux/utility/authInstance";
-import Card from "../../components/userlist,projectlist/Card";
+
+import axios from "axios";
+// import authInstance from "../../redux/utility/authInstance";
+
+import Card from "../../components/userlist,projectlist/card/Card";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
@@ -10,47 +12,102 @@ import Tag from "../userlist,projectlist/Tag";
 import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
 import classes from "./CardEditor.module.css";
 
-const CardEditor = () => {
+import { UserListDataType } from "../../pages/userList/types";
+
+type CardType = "NEW_CARD" | "EDIT_CARD";
+
+interface CardEditorProps {
+  type: CardType;
+  originCard?: UserListDataType;
+}
+
+const CardEditor = ({ type, originCard }: CardEditorProps) => {
+  const NEW_CARD = type === "NEW_CARD";
+  const EDIT_CARD = type === "EDIT_CARD";
+
+  console.log(originCard);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   // 지원포지션 예시
-  const positionList = ["전체", "프론트엔드", "백엔드", "디자이너"];
+  const positionList = ["프론트엔드", "백엔드", "디자이너"];
   const [positionSelect, setPositionSelect] = useState("포지션");
 
   // 키워드 예시
-  const [keywordList, setKeywordList] = useState<string[]>([]);
+  const [keyword, setKeyword] = useState<string[]>([]);
 
   const handlePositionSelect = (selected: string) => {
     setPositionSelect(selected);
   };
 
   // 키워드추가
-  // 띄어쓰기 금지, X누르면 지워지도록.
   const onCreateTag = (keyword: string) => {
-    setKeywordList(prev => {
-      return [keyword, ...prev];
+    const trimKeyword = keyword.split(" ").join(""); // 공백 허용 X
+    setKeyword(prev => {
+      return [...prev, trimKeyword];
     });
   };
 
-  // POST USER CARD TEST
+  const handleDelete = (targetKeyword: string) => {
+    const updatedKeyword = keyword.filter(keyword => keyword !== targetKeyword);
+    setKeyword(updatedKeyword);
+  };
+
+  /** Aixos :: POST User Card */
   const onCreateNewCard = () => {
-    console.log("🚀 등록하기 버튼 클릭");
+    console.log("🚀 카드 등록하기");
     postUserCard();
   };
 
-  // const baseUrl =
-  //   "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080/";
-  // const headers = {
-  //   Authorization:
-  //     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IntiY3J5cHR9JDJhJDEwJHJ1UWJYQjhrVzZJeEZSQmhMV1JkVnVaQk04NC9rd09rWWowc2lRaG9yWW1GWExKWHFWWmMyIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MiwidXNlcm5hbWUiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxMjNAZ21haWwuY29tIiwiaWF0IjoxNjk0MDcxNjkzLCJleHAiOjE2OTQwNzM0OTN9.N3-OPzQjTQl_7-CViuJ-oibAXZSynBg-w5wgyGliyR8",
-  // };
+  const baseUrl =
+    "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080/";
+  const headers = {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IntiY3J5cHR9JDJhJDEwJHJ1UWJYQjhrVzZJeEZSQmhMV1JkVnVaQk04NC9rd09rWWowc2lRaG9yWW1GWExKWHFWWmMyIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MiwidXNlcm5hbWUiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxMjNAZ21haWwuY29tIiwiaWF0IjoxNjk0MDcxNjkzLCJleHAiOjE2OTQwNzM0OTN9.N3-OPzQjTQl_7-CViuJ-oibAXZSynBg-w5wgyGliyR8",
+  };
   const data = {
     title: "제목을 입력해주세요!!!!",
     position: positionSelect,
-    keywords: keywordList,
+    keywords: keyword,
   };
 
+  const postUserCard = async () => {
+    try {
+      const response = await axios.post(`${baseUrl}teamboards`, data, {
+        headers,
+      });
+      console.log(response);
+
+      // 새 글 등록 후 alert, userlist로 이동
+      window.alert("새 글이 등록되었습니다.");
+      navigate("/userlist");
+    } catch (error) {
+      console.warn("POST USERCARD ERROR", error);
+    }
+  };
+
+  // 새 글 작성이면, 빈 데이터를
+  // 수정하는 글이면 기존의 데이터를 가져와야 함.
+
+  // {
+  //   "title": "팀찾기",
+  //   "position": "프론트엔드",
+  //   "keywords": ["교육", "미디어"]
+  // }
+
+  const cardData = {
+    // teamBoardId: 0,
+    title: "",
+    position: positionSelect,
+    keywords: keyword,
+    // accountId: 0,
+    createdAt: new Date().toLocaleDateString().toString(),
+    // modifiedAt: "",
+  };
+
+  /** Axios Instance 사용 코드 - merge 후 사용 예정 */
+  /*
   const postUserCard = async () => {
     try {
       const response = await authInstance.post("/teamboards", data);
@@ -63,38 +120,24 @@ const CardEditor = () => {
       console.warn("POST USERCARD ERROR", error);
     }
   };
-
-  // const postUserCard = async () => {
-  //   try {
-  //     const response = await axios.post(`${baseUrl}teamboards`, data, {
-  //       headers,
-  //     });
-  //     console.log(response);
-
-  //     // 새 글 등록 후 alert, userlist로 이동
-  //     window.alert("새 글이 등록되었습니다.");
-  //     navigate("/userlist");
-  //   } catch (error) {
-  //     console.warn("POST USERCARD ERROR", error);
-  //   }
-  // };
-
-  const card = {
-    teamBoardId: 0,
-    title: "string",
-    position: "string",
-    keywords: [],
-    accountId: 1,
-    createdAt: "string",
-    modifiedAt: "string",
-  };
+  */
 
   return (
     <main>
       <div className={classes.previewArea}>
         <ul>
-          <Card type="USER_CARD" cardData={card} isEdit={true} />
-          <Card type="USER_CARD" cardData={card} isEdit={true} />
+          {NEW_CARD && (
+            <>
+              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
+              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
+            </>
+          )}
+          {EDIT_CARD && (
+            <>
+              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
+              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
+            </>
+          )}
         </ul>
       </div>
       <div className={classes.inputArea}>
@@ -120,8 +163,13 @@ const CardEditor = () => {
               <Hashtag stroke="var(--color-gray-4)" />
             </SearchInput>
             <ul>
-              {keywordList.map(list => (
-                <Tag key={list} type="KEYWORD_TAG" text={list} />
+              {keyword.map(list => (
+                <Tag
+                  key={list}
+                  type="KEYWORD_TAG"
+                  text={list}
+                  onDelete={handleDelete}
+                />
               ))}
             </ul>
           </section>

@@ -4,9 +4,10 @@ import { ReactComponent as CancelSvg } from "../../assets/icons/cancel.svg";
 type Props = {
   type: "KEYWORD_TAG" | "SELECTED_TAG";
   text: string;
+  onDelete(text: string): void;
 };
 
-const KewordTag = ({ type, text }: Props) => {
+const KewordTag = ({ type, text, onDelete }: Props) => {
   return (
     <li
       className={`${classes.tag} ${
@@ -15,7 +16,14 @@ const KewordTag = ({ type, text }: Props) => {
     >
       <span>{text}</span>
       {type === "KEYWORD_TAG" && (
-        <CancelSvg width="20" height="20" stroke="var(--color-main)" />
+        <CancelSvg
+          width="20"
+          height="20"
+          stroke="var(--color-main)"
+          onClick={() => {
+            onDelete(text);
+          }}
+        />
       )}
     </li>
   );

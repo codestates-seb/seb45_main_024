@@ -35,6 +35,7 @@
   backface-visibility: hidden;
 }
 
+/* user list의 카드인 경우 - flip */
 .cardWrapper:hover .card.user {
   transform: rotateY(180deg);
 }
@@ -99,7 +100,7 @@
 
 .front .bottomArea {
 
-  & .position {
+  & .position input {
     font-size: 1.125rem;
   }
 
@@ -119,7 +120,6 @@
 .back .topArea {
   display: flex;
   justify-content: flex-end;
-  min-height: 1.5rem;
   & .edit {
     cursor: pointer;
   }
@@ -145,8 +145,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
 
-    margin-top: 0.8rem;
-   
+    margin-top: 1.25rem;
 
     & span {
       font-size: 1.125rem;
@@ -164,4 +163,27 @@
   }
 }
 
+/* EDIT CARD */
+.card.edit {
+  & .front {
+    & textarea, & input {
+      border: none;
+      background: none;
+      padding: 0;
+    }
 
+    & .centerArea .title textarea {
+      overflow: hidden;
+      resize: none;
+      height: 6rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+  }
+
+  & .back {
+    & .centerArea {
+      margin-top: 0.75rem;
+    }
+  }
+}
