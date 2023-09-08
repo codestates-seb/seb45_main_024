@@ -1,0 +1,15 @@
+.icon {
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.3s ease; 
+}
+
+.icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.icon:active {
+  cursor: grab;
+  transform: scale(1.0);
+}

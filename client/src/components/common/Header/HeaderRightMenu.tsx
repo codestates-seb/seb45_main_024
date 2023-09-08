@@ -1,9 +1,9 @@
 import { FC } from "react";
 import classes from "./HeaderRightMenu.module.css";
-import bell from "../../../assets/icons/bell.svg";
 import profile from "../../../assets/images/default_profile.svg";
 import { useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import Alarm from "../Alarm";
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
@@ -23,11 +23,9 @@ const HeaderRight: FC = () => {
 
   return (
     <div className={classes.right}>
-      {isLoggedIn ? (
+      {!isLoggedIn ? (
         <>
-          <div className={classes.icon}>
-            <img alt="alarm" src={bell} />
-          </div>
+          <Alarm />
           <div className={classes.profile}>
             <img
               alt="default_profile"

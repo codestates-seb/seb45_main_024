@@ -57,15 +57,4 @@
   transform: scale(1.0);
 }
 
-.icon {
-  width: 2rem;
-  height: 2rem; 
-}
 
-.icon:hover {
-  cursor: pointer;
-}
-
-.icon:active {
-  cursor: grab;
-}
