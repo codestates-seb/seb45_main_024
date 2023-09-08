@@ -1,0 +1,49 @@
+.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.right div {
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.right div button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.875rem;
+  height: 3.25rem;
+  background-color: #16433e;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.right div button:hover {
+  background-color: #0e2f2b;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.right div button:active {
+  background-color: #679c97;
+  font-weight: 700;
+  cursor: grab;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem; 
+}

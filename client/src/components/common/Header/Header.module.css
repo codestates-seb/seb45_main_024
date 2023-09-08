@@ -39,46 +39,67 @@
 }
 
 .left ul li {
-  color: var(--color-main);
-  font-size: 1.25rem;
+  width: 7rem;
+  height: 5rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.left ul li:hover {
+.left ul li p {
+  color: var(--color-main);
+  font-size: 1.25rem;
+}
+
+.left ul li p:hover {
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.3s ease;
 }
 
-.left ul li:active {
+.left ul li p:active {
   cursor: grab;
+}
+
+.menu {
+  width:
 }
 
 .right {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.right button {
+.right div {
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.right div button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 6.875rem;
   height: 3.25rem;
-  margin-left: 1.25rem;
   background-color: #16433e;
   color: white;
   transition: background-color 0.3s ease;
 }
 
-.right button:hover {
+.right div button:hover {
   background-color: #0e2f2b;
   font-weight: 700;
   transition: background-color 0.3s ease;
 }
 
-.right button:active {
+.right div button:active {
   background-color: #679c97;
   font-weight: 700;
   cursor: grab;
