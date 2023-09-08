@@ -18,6 +18,19 @@
   justify-content: space-between;
 }
 
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.helpText {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-state-error);
+}
+
 .edititem label {
   min-width: fit-content;
 }
