@@ -1,11 +1,11 @@
 import { FC } from "react";
 import classes from "./HeaderLeft.module.css";
-import smoothie from "../../../assets/images/logo-circle.svg";
+import Logo from "../Logo";
 
 const HeaderLeft: FC = () => {
   return (
     <div className={classes.left}>
-      <img alt="logo" src={smoothie} />
+      <Logo />
       <ul>
         <li>
           <p>Ingredient</p>

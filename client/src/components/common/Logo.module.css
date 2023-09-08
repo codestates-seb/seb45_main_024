@@ -1,0 +1,14 @@
+.logo {
+  padding-right: 1.25rem;
+  transition: transform 0.3s ease; 
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.logo:active {
+  cursor: grab;
+  transform: scale(1.0);
+}

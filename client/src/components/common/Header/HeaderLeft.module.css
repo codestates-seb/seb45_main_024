@@ -3,18 +3,6 @@
   flex-direction: row;
 }
 
-.left img{
-  padding-right: 1.25rem;
-}
-
-.left img:hover {
-  cursor: pointer;
-}
-
-.left img:active {
-  cursor: grab;
-}
-
 .left ul {
   display: flex;
   flex-direction: row;
@@ -43,5 +31,6 @@
 }
 
 .left ul li p:active {
+  transform: scale(0.95);
   cursor: grab;
 }

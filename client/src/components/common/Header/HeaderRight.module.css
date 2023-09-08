@@ -43,7 +43,29 @@
   align-items: center;
 }
 
+.profile img {
+  transition: transform 0.3s ease; 
+}
+
+.profile img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.profile img:active {
+  cursor: grab;
+  transform: scale(1.0);
+}
+
 .icon {
   width: 2rem;
   height: 2rem; 
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.icon:active {
+  cursor: grab;
 }
