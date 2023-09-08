@@ -9,7 +9,7 @@ interface SideMenuProps {
 
 const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
   const dispatch = useAppDispatch();
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
 
   return (
     <div className={classes.sidemenuContainer}>
@@ -43,8 +43,7 @@ const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
           >
             Peer Review
           </li>
-          {/* 작성자가 자신의 페이지에 들어온 경우만 이 메뉴가 보여야 함. */}
-          {isAuthor && (
+          {/* {isAuthor && (
             <li
               className={`${classes.menuItem} ${
                 selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
@@ -53,7 +52,16 @@ const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
             >
               My Info
             </li>
-          )}
+          )} */}
+          {/* 회원정보 수정 중 */}
+          <li
+            className={`${classes.menuItem} ${
+              selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
+            }`}
+            onClick={() => dispatch(changeMenu("MyInfo"))}
+          >
+            My Info
+          </li>
         </ul>
       </div>
     </div>

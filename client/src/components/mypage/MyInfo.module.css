@@ -29,6 +29,11 @@
   margin-bottom: 16px;
 }
 
+.actions{
+  display: flex;
+  gap: 1rem;
+}
+
 .editInfo {
   border: none;
   padding: 0;
@@ -38,6 +43,10 @@
 
 .editInfo:hover {
   color: var(--color-gray-3);
+}
+
+.deleteProfile{
+  color: var(--color-state-error);
 }
 
 .contentTitle {

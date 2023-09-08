@@ -17,24 +17,31 @@ const CreateProfile: FC = () => {
   // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
   // post로 보내는 api call도 있음. req body 구조 알아야.
 
+  // 이하 코드 리팩토링 필수!
   const [softInput, setSoftInput] = useState("");
   const [hardInput, setHardInput] = useState("");
+  const [techInput, setTechInput] = useState("");
   // const [projInput, setProjInput] = useState("");
-  // const [techInput, setTechInput] = useState(""); -> 이거 우짤건지 정해야 함.
+
   const [softTags, setSoftTags] = useState<string[]>([]);
   const [hardTags, setHardTags] = useState<string[]>([]);
+  const [techTags, setTechTags] = useState<string[]>([]);
   // const [projTags, setProjTags] = useState<string[]>([]);
+
   const softInputRef = useRef(softInput);
   const hardInputRef = useRef(hardInput);
+  const techInputRef = useRef(techInput);
   softInputRef.current = softInput;
   hardInputRef.current = hardInput;
+  techInputRef.current = techInput;
 
   const softTagsRef = useRef(softTags);
   const hardTagsRef = useRef(hardTags);
+  const techTagsRef = useRef(techTags);
   softTagsRef.current = softTags;
   hardTagsRef.current = hardTags;
+  techTagsRef.current = techTags;
 
-  // 엔터 키 누르는거 하나로 사용할 수 있는 방법 없을까?
   const handleSoftEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && softInputRef.current.length > 0) {
       console.log("hello", softInputRef.current);
@@ -50,6 +57,13 @@ const CreateProfile: FC = () => {
       setHardInput("");
     }
   };
+  const handleTechEnterPress = (e: KeyboardEvent) => {
+    if (e.code === "Enter" && techInputRef.current.length > 0) {
+      console.log("hello", techInputRef.current);
+      setTechTags([...techTagsRef.current, techInputRef.current]);
+      setTechInput("");
+    }
+  };
 
   const softTagDeleteHandler = (id: number) => {
     const updatedTags = softTags.filter((_, index) => index !== id);
@@ -58,6 +72,10 @@ const CreateProfile: FC = () => {
   const hardTagDeleteHandler = (id: number) => {
     const updatedTags = hardTags.filter((_, index) => index !== id);
     setHardTags(updatedTags);
+  };
+  const techTagDeleteHandler = (id: number) => {
+    const updatedTags = techTags.filter((_, index) => index !== id);
+    setTechTags(updatedTags);
   };
 
   useEffect(() => {
@@ -68,6 +86,11 @@ const CreateProfile: FC = () => {
   useEffect(() => {
     window.addEventListener("keyup", handleHardEnterPress);
     return () => window.removeEventListener("keyup", handleHardEnterPress);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleTechEnterPress);
+    return () => window.removeEventListener("keyup", handleTechEnterPress);
   }, []);
 
   return (
@@ -86,16 +109,17 @@ const CreateProfile: FC = () => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         <TechTags />
-        {/* <PlusBtn /> */}
-        {/* {softTags.map((softTag, index) => (
-          <SoftTag
+        {techTags.map((techTag, index) => (
+          <DropDownTag
             key={index}
-            techName={softTag}
+            techName={techTag}
             id={index}
-            onDelete={tagDeleteHandler}
+            onDelete={techTagDeleteHandler}
           />
-        ))} */}
-        <PlusBtn>{/* <TechInput />이나 하드스킬 태그 재활용 */}</PlusBtn>
+        ))}
+        <PlusBtn>
+          <HardInput input={techInput} setInput={setTechInput} />
+        </PlusBtn>
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />
