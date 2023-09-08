@@ -6,6 +6,7 @@ import ErrorPage from "../pages/Error";
 import Main from "../pages/main/Main";
 
 import Mypage from "../pages/mypage/Mypage";
+import EditProfile from "../pages/mypage/EditProfile";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
         // path: "mypage/:accountId", -> 얘가 될 예정. 현재는 임시로 1로 설정
         children: [
           { index: true, element: <Mypage /> },
-          // { path: "edit", element: <EditProfile /> },
+          { path: "edit", element: <EditProfile /> },
           // {
           //   path: "review",
           //   element: <Review />,

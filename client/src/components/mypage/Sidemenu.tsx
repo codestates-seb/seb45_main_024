@@ -9,7 +9,7 @@ interface SideMenuProps {
 
 const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
   const dispatch = useAppDispatch();
-  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
 
   return (
     <div className={classes.sidemenuContainer}>

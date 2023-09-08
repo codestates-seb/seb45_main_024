@@ -28,6 +28,11 @@ const MyInfo: FC = () => {
     setShowEditForm(false);
   };
 
+  const editProfileHandler = () => {
+    navigate(`/mypage/1/edit`);
+    // navigate(`/mypage/${userId}/edit`);
+  };
+
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
@@ -118,7 +123,12 @@ const MyInfo: FC = () => {
             </div>
           </div>
           <div className={classes.overlay}>
-            <button className={classes.editProfile}>프로필 수정하기</button>
+            <button
+              className={classes.editProfile}
+              onClick={editProfileHandler}
+            >
+              프로필 수정하기
+            </button>
             {/* 라우팅 변경 */}
           </div>
         </div>
