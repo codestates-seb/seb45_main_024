@@ -15,57 +15,7 @@
   justify-content: space-between;
 }
 
-.left {
-  display: flex;
-  flex-direction: row;
-}
 
-.left img{
-  padding-right: 1.25rem;
-}
-
-.left img:hover {
-  cursor: pointer;
-}
-
-.left img:active {
-  cursor: grab;
-}
-
-.left ul {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.left ul li {
-  width: 7rem;
-  height: 5rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.left ul li p {
-  color: var(--color-main);
-  font-size: 1.25rem;
-}
-
-.left ul li p:hover {
-  cursor: pointer;
-  font-weight: 700;
-  transition: background-color 0.3s ease;
-}
-
-.left ul li p:active {
-  cursor: grab;
-}
-
-.menu {
-  width:
-}
 
 .right {
   display: flex;

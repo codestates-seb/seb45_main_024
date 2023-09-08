@@ -6,7 +6,7 @@ import SocialLogin from "../../components/login/SocialLogin";
 const LoginPage: FC = () => {
   return (
     <div className={classes.container}>
-      <img alt="logo"></img>
+      <img alt="logo" />
       <SocialLogin />
       <Login />
     </div>

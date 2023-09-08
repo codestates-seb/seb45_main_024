@@ -1,14 +1,14 @@
 import { FC } from "react";
 import classes from "./Header.module.css";
-import HeaderLeft from "./HeaderLeft";
-import HeaderRight from "./HeaderRight";
+import HeaderLeftMenu from "./HeaderLeftMenu";
+import HeaderRightMenu from "./HeaderRightMenu";
 
 const Header: FC = () => {
   return (
     <header className={classes.header}>
       <div className={classes.container}>
-        <HeaderLeft />
-        <HeaderRight />
+        <HeaderLeftMenu />
+        <HeaderRightMenu />
       </div>
     </header>
   );

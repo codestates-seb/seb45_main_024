@@ -1,5 +1,5 @@
 import { FC } from "react";
-import classes from "./HeaderRight.module.css";
+import classes from "./HeaderRightMenu.module.css";
 import bell from "../../../assets/icons/bell.svg";
 import profile from "../../../assets/images/default_profile.svg";
 import { useAppSelector } from "../../../redux/hooks";
