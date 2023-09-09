@@ -28,6 +28,10 @@ const Alarm: FC = () => {
           >
             <ul>
               <AlarmItem />
+              <AlarmItem />
+              <AlarmItem />
+              <AlarmItem />
+              <AlarmItem />
             </ul>
           </div>
         </div>

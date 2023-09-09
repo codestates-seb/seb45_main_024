@@ -13,7 +13,8 @@ const AlarmItem: FC = () => {
       <img alt="default_profile" src={profile} />
       <div>
         <span>
-          User B 님이 `팀원 찾기 글...` 프로젝트 팀원으로 수락하셨습니다
+          <span>User B</span> 님이 <span>`팀원 찾기 글...`</span> 프로젝트
+          팀원으로 수락하셨습니다
         </span>
       </div>
     </li>
