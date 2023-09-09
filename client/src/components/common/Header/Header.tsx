@@ -6,9 +6,11 @@ import HeaderRightMenu from "./HeaderRightMenu";
 const Header: FC = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.container}>
-        <HeaderLeftMenu />
-        <HeaderRightMenu />
+      <div className={classes.inHeader}>
+        <div className={classes.container}>
+          <HeaderLeftMenu />
+          <HeaderRightMenu />
+        </div>
       </div>
     </header>
   );
