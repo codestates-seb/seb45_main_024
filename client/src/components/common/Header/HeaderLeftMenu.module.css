@@ -23,16 +23,17 @@
 .menu {
   color: var(--color-main);
   font-size: 1.25rem;
+  transition: transform 0.3s ease; 
 }
 
 .menu:hover {
   cursor: pointer;
   font-weight: 700;
-  transition: background-color 0.3s ease;
+  transform: scale(1.1);
 }
 
 .menu:active {
-  transform: scale(0.95);
+  transform: scale(1.0);
   cursor: grab;
 }
 
