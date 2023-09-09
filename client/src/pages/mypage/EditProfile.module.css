@@ -25,10 +25,6 @@
     gap:8px;
 }
 
-.cancelBtn{
-
-}
-
 .saveBtn{
     background-color: var(--color-main);
     border: none;

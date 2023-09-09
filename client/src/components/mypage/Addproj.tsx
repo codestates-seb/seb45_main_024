@@ -1,20 +1,46 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import classes from "./Addproj.module.css";
 
-const Addproj: FC = () => {
-  const [projectName, setProjectName] = useState<string>("");
-  const [projectLink, setProjectLink] = useState<string>("");
-  const [projectImage, setProjectImage] = useState<string>("");
+interface AddprojProps {
+  projectName: string;
+  projectLink: string;
+  projectImage: string;
+  projTags: string[];
+  setProjectName: React.Dispatch<React.SetStateAction<string>>;
+  setProjectLink: React.Dispatch<React.SetStateAction<string>>;
+  setProjectImage: React.Dispatch<React.SetStateAction<string>>;
+  setProjTags: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-  const projectAddHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const Addproj: FC<AddprojProps> = ({
+  projectName,
+  projectLink,
+  projectImage,
+  setProjectName,
+  setProjectLink,
+  setProjectImage,
+  projTags,
+  setProjTags,
+}) => {
+  // 아직 추가안 함.
+  // const projectAddHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    // ProfileCreate에서 이 데이터로 참여한 프로젝트 태그 미리보기 생성 필요
-    // 굳이 툴킷? 이 정도면 위로 올려도 될 듯
+  //   // ProfileCreate에서 이 데이터로 참여한 프로젝트 태그 미리보기 생성 필요
+  //   // 굳이 툴킷? 이 정도면 위로 올려도 될 듯
+  // };
+
+  const addProjTagHandler = () => {
+    if (projectName.length > 0) {
+      setProjTags([...projTags, projectName]);
+      setProjectName("");
+      setProjectLink("");
+      setProjectImage("");
+    }
   };
 
   return (
-    <form className={classes.projectForm} onSubmit={projectAddHandler}>
+    <form className={classes.projectForm}>
       <div className={classes.formGroup}>
         <label className={classes.formLabel} htmlFor="projectName">
           프로젝트 명
@@ -25,7 +51,7 @@ const Addproj: FC = () => {
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={e => setProjectName(e.target.value)}
+          onChange={(e) => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -40,7 +66,7 @@ const Addproj: FC = () => {
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={e => setProjectLink(e.target.value)}
+          onChange={(e) => setProjectLink(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -55,12 +81,18 @@ const Addproj: FC = () => {
           id="projectImage"
           type="file"
           value={projectImage}
-          onChange={e => setProjectImage(e.target.value)}
+          onChange={(e) => setProjectImage(e.target.value)}
         />
       </div>
       <div className={classes.actions}>
         <button className={classes.cancelButton}>취소</button>
-        <button className={classes.submitButton}>등록하기</button>
+        <button
+          type="button"
+          className={classes.submitButton}
+          onClick={addProjTagHandler}
+        >
+          등록하기
+        </button>
       </div>
     </form>
   );

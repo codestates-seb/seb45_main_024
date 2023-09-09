@@ -14,6 +14,10 @@ import DropDownTag from "./DropDownTag";
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
 const CreateProfile: FC = () => {
+  const [projectName, setProjectName] = useState<string>("");
+  const [projectLink, setProjectLink] = useState<string>("");
+  const [projectImage, setProjectImage] = useState<string>("");
+
   // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
   // post로 보내는 api call도 있음. req body 구조 알아야.
 
@@ -21,12 +25,11 @@ const CreateProfile: FC = () => {
   const [softInput, setSoftInput] = useState("");
   const [hardInput, setHardInput] = useState("");
   const [techInput, setTechInput] = useState("");
-  // const [projInput, setProjInput] = useState("");
 
   const [softTags, setSoftTags] = useState<string[]>([]);
   const [hardTags, setHardTags] = useState<string[]>([]);
   const [techTags, setTechTags] = useState<string[]>([]);
-  // const [projTags, setProjTags] = useState<string[]>([]);
+  const [projTags, setProjTags] = useState<string[]>([]);
 
   const softInputRef = useRef(softInput);
   const hardInputRef = useRef(hardInput);
@@ -76,6 +79,11 @@ const CreateProfile: FC = () => {
   const techTagDeleteHandler = (id: number) => {
     const updatedTags = techTags.filter((_, index) => index !== id);
     setTechTags(updatedTags);
+  };
+
+  const projTagDeleteHandler = (id: number) => {
+    const updatedTags = projTags.filter((_, index) => index !== id);
+    setProjTags(updatedTags);
   };
 
   useEffect(() => {
@@ -171,8 +179,26 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        {/* I need project tag here! */}
+        {projTags.map((projTag, index) => (
+          <SoftTag
+            key={index}
+            techName={projTag}
+            id={index}
+            onDelete={projTagDeleteHandler}
+          />
+        ))}
         <PlusBtn>
-          <Addproj />
+          <Addproj
+            projectName={projectName}
+            setProjectName={setProjectName}
+            projectLink={projectLink}
+            setProjectLink={setProjectLink}
+            projectImage={projectImage}
+            setProjectImage={setProjectImage}
+            projTags={projTags}
+            setProjTags={setProjTags}
+          />
         </PlusBtn>
       </section>
     </form>

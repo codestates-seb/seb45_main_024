@@ -51,8 +51,6 @@ const MyInfo: FC = () => {
     }
   };
 
-  // Patch /accounts/{accountId}: 회원정보 수정 엔드포인트
-
   return (
     <>
       {/* 프로필 이미지, 닉네임, 패스워드, 프로필정보 변경할 수 있는 버튼, 회원탈퇴 버튼 */}
