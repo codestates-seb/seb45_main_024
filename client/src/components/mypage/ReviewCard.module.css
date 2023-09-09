@@ -1,0 +1,46 @@
+.cardContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    /* 임시 */
+    width: 300px;
+}
+
+.cardHeader{
+    background-color: var(--color-main);
+    border-radius: 18px 18px 0 0;
+}
+
+.createdAt{
+    text-align: right;
+    color: white;
+}
+
+.helpText{
+    font-size: 0.8rem;
+    color: white;
+}
+
+.title{
+    color: var(--color-black-1);
+}
+
+.cardAuthor{
+    position: absolute;
+}
+
+.profileImageContainer{}
+
+.profileImage{}
+
+.cardContent{
+    color: var(--color-gray-1);
+
+}
+
+.action{
+    border: none;
+    padding: 0;
+    color: var(--color-gray-3);
+}

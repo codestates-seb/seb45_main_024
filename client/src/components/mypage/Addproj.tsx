@@ -51,7 +51,7 @@ const Addproj: FC<AddprojProps> = ({
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={(e) => setProjectName(e.target.value)}
+          onChange={e => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -66,7 +66,7 @@ const Addproj: FC<AddprojProps> = ({
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={(e) => setProjectLink(e.target.value)}
+          onChange={e => setProjectLink(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -81,7 +81,7 @@ const Addproj: FC<AddprojProps> = ({
           id="projectImage"
           type="file"
           value={projectImage}
-          onChange={(e) => setProjectImage(e.target.value)}
+          onChange={e => setProjectImage(e.target.value)}
         />
       </div>
       <div className={classes.actions}>
