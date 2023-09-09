@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.seb45main24.server.domain.teamboard.entity.TeamBoard;
 import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Getter;
@@ -35,6 +36,10 @@ public class TechTag extends Auditable {
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
 	private AccountProfile accountProfile;
+
+	@ManyToOne
+	@JoinColumn(name = "team_board_id")
+	private TeamBoard teamBoard;
 
 
 	public enum TagType {
