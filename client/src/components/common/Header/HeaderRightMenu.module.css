@@ -6,14 +6,18 @@
 }
 
 .right div {
-  margin-left: 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
+.nickname {
+  margin-left: 1.25rem;
+}
+
 .right div button {
+  margin-left: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +41,7 @@
 }
 
 .profile {
+  margin-left: 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: center;

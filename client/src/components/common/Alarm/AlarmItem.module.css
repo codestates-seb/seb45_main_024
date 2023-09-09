@@ -1,0 +1,24 @@
+.message {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  aligin-items: center;
+  width: 30rem;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+.message div {
+  width: 28rem;
+  margin-left: 0.375rem;
+  border-radius: 8px;
+  background-color: #FFFBEA;
+  display: flex;
+  aligin-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.message div span {
+  margin-left: 0.25rem;
+}

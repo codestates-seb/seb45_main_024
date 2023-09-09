@@ -3,7 +3,7 @@ import classes from "./HeaderRightMenu.module.css";
 import profile from "../../../assets/images/default_profile.svg";
 import { useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
-import Alarm from "../Alarm";
+import Alarm from "../Alarm/Alarm";
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const HeaderRight: FC = () => {
               src={profile}
               onClick={handleNavigateMyProfile}
             />
-            <div>
+            <div className={classes.nickname}>
               <p>Nickname</p>
             </div>
           </div>
