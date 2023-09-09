@@ -23,7 +23,7 @@ const HeaderRight: FC = () => {
 
   return (
     <div className={classes.right}>
-      {!isLoggedIn ? (
+      {isLoggedIn ? (
         <>
           <Alarm />
           <div className={classes.profile}>
