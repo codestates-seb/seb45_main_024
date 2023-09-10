@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate /* useSearchParams */ } from "react-router-dom";
 
-import axios from "axios";
 // import authInstance from "../../redux/utility/authInstance";
 
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
@@ -11,10 +10,11 @@ import Pagination from "../../components/userlist,projectlist/Pagination";
 import Card from "../../components/userlist,projectlist/card/Card";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 
-import classes from "./UserList.module.css";
-import { UserListDataType } from "./types";
+import { fetchUserCard } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-import dummyData from "../../dummy-data.json"; // TEST용 Dummy Data
+import classes from "./UserList.module.css";
+// import { UserListDataType } from "./types";
 
 const UserList = () => {
   const navigate = useNavigate();
@@ -45,44 +45,31 @@ const UserList = () => {
   };
 
   /** Loading, Error */
+  const dispatch = useAppDispatch();
+  const userCardData = useAppSelector(state => state.users.data);
+
+  // const [testDummyData, setTestDummyData] = useState<UserListDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null); // 임시
+  const [error, setError] = useState<null | string>(null); // error는 string or null ?
 
-  const [cardData, setCardData] = useState<UserListDataType[]>([]);
-  console.log("cardData", cardData);
-
-  /** Aixos :: GET User List */
-  const baseUrl =
-    "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080/";
-
+  /** fetchUserCard */
   useEffect(() => {
     console.log("🚀 GET USER LIST");
-    getUserList();
-  }, []);
-
-  const getUserList = async () => {
     setIsLoading(true);
     setError(null);
 
-    try {
-      throw Error(); // TEST
+    dispatch(fetchUserCard())
+      .unwrap()
+      .catch(error => {
+        console.warn("GET USERLIST ERROR", error);
+        setError("Something went wrong");
 
-      const response = await axios.get(`${baseUrl}teamboards/?page=1`);
-      const listData = response.data.data;
-      // const totalElements = response.pageInfo.totalElements;
-
-      setCardData(listData);
-      // setTotalCard(totalElements)
-    } catch (error) {
-      console.warn("GET USERLIST ERROR", error);
-      setError("Something went wrong");
-
-      // Error일 경우, Dummy Data로 테스트용 화면 표시
-      const data = dummyData.teamboards.data;
-      setCardData(data);
-    }
-    setIsLoading(false);
-  };
+        // Error일 경우, Dummy Data로 테스트용 화면 표시
+        // const data = dummyData.teamboards.data;
+        // setTestDummyData(data);
+      })
+      .finally(() => setIsLoading(false));
+  }, [dispatch]);
 
   /** Axios Instance 사용 코드 - merge 후 사용 예정 */
   /*
@@ -116,6 +103,30 @@ const UserList = () => {
     };
     */
 
+  // CardListContent 정의
+  let CardListContent;
+
+  if (isLoading) {
+    CardListContent = <div>Loading...</div>;
+  } else if (error) {
+    // CardListContent = <div>Error!</div>;
+    CardListContent = (
+      <ul className={classes.cardListArea}>
+        {userCardData.map(card => (
+          <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
+        ))}
+      </ul>
+    ); // 서버 안될시 TEST
+  } else {
+    CardListContent = (
+      <ul className={classes.cardListArea}>
+        {userCardData.map(card => (
+          <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <main>
       <div className={classes.buttonArea}>
@@ -143,22 +154,7 @@ const UserList = () => {
           <SearchSvg stroke="var(--color-gray-4)" />
         </SearchInput>
       </div>
-
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && (
-        <ul className={classes.cardListArea}>
-          {cardData.length > 0 &&
-            cardData.map(card => (
-              <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
-            ))}
-        </ul>
-      )}
-      {error && (
-        <div style={{ marginTop: "1rem", color: "blue" }}>
-          위 정보는 더미데이터입니다. (에러처리 임시)
-        </div>
-      )}
-
+      {CardListContent}
       <div className={classes.pagination}>
         <Pagination
           totalCards={32}

@@ -46,7 +46,9 @@ const CardView = ({ type, cardData }: CardViewProps) => {
       onClick={isPorjectCard ? () => navigate(":detailPageId") : undefined}
     >
       <CardViewFront type={type} cardData={cardData} />
-      {!isPorjectCard && <CardViewBack cardData={cardData} />}
+      {!isPorjectCard && (
+        <CardViewBack cardData={cardData as UserListDataType} />
+      )}
     </div>
   );
 };

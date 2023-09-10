@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import classes from "./CardEdit.module.css";
 import classes from "./CardStyle.module.css";
 
@@ -12,15 +11,16 @@ interface CardEditProps {
 // New Card OR Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
   const { title, position, keywords, createdAt } = cardData;
-  console.log(cardData);
+  console.log(cardData.title);
 
-  const navigate = useNavigate();
-
-  const [newTitle, setNewTitle] = useState("");
+  const [newTitle, setNewTitle] = useState(title);
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
   };
+
+  const date = new Date(createdAt).toLocaleDateString();
+  // cardData.title = newTitle;
 
   return (
     <div className={`${classes.card} ${classes.edit}`}>
@@ -28,7 +28,7 @@ const CardEdit = ({ cardData }: CardEditProps) => {
       <div className={classes.front}>
         <div className={classes.topArea}>
           <div className={classes.meta}>
-            <span className={classes.date}>{createdAt}</span>
+            <span className={classes.date}>{date}</span>
           </div>
         </div>
         <div className={classes.centerArea}>
@@ -36,13 +36,19 @@ const CardEdit = ({ cardData }: CardEditProps) => {
             <textarea
               placeholder="제목을 입력해주세요."
               onChange={handleChangeTitle}
+              defaultValue={title}
               value={newTitle}
             />
           </div>
         </div>
         <div className={classes.bottomArea}>
           <div className={classes.position}>
-            <input type="text" placeholder="지원포지션" value={position} />
+            <input
+              type="text"
+              placeholder="지원포지션"
+              value={position}
+              readOnly
+            />
           </div>
           <ul className={classes.stack}>
             <li>JS</li>
@@ -56,10 +62,7 @@ const CardEdit = ({ cardData }: CardEditProps) => {
       {/* BACK */}
       <div className={classes.back}>
         <div className={classes.centerArea}>
-          <div
-            className={classes.userImage}
-            onClick={() => navigate("/")}
-          ></div>
+          <div className={classes.userImage}></div>
           <div className={classes.keywordTag}>
             {keywords.map(item => (
               <span key={item}>&nbsp;#{item}</span>

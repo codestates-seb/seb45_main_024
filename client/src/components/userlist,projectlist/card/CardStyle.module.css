@@ -184,6 +184,10 @@
   & .back {
     & .centerArea {
       margin-top: 0.75rem;
+
+      & .userImage {
+        cursor: default;
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ interface cardViewBackProps {
 }
 
 const CardViewBack = ({ cardData }: cardViewBackProps) => {
-  const { keywords } = cardData;
+  const { teamBoardId, keywords } = cardData;
 
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
         <span
           className={classes.edit}
           onClick={() => {
-            navigate("/userlist/edit/:id");
+            navigate(`/userlist/edit/${teamBoardId}`);
           }}
         >
           <EditSvg width="24" height="24" />

@@ -1,20 +1,32 @@
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import CardEditor from "../../components/userlist/CardEditor";
+import { useAppSelector } from "../../redux/hooks";
+
+import { UserListDataType } from "./types";
 
 const EditCard = () => {
-  // 기존 데이터를 가져와야 함. 아래는 예시
-  const originCard = {
-    teamBoardId: 2,
-    title: "취업용 포트폴리오 함께 작업할 백엔드 팀원 구합니다.",
-    position: "백엔드",
-    keywords: ["포트폴리오", "사이드프로젝트"],
-    accountId: 2,
-    createdAt: "2023-09-02T19:42:19",
-    modifiedAt: "2023-09-02T19:42:19",
-  };
+  const navigate = useNavigate();
+
+  const userCardList = useAppSelector(state => state.users.data);
+
+  const { id } = useParams();
+  const paramId = parseInt(id);
+
+  const [originCard, setOriginCard] = useState<UserListDataType>();
+
+  useEffect(() => {
+    const targetCard = userCardList.find(card => card.teamBoardId === paramId);
+    if (targetCard) {
+      setOriginCard(targetCard);
+    } else {
+      alert("존재하지 않는 카드입니다.");
+      navigate("/userlist", { replace: true });
+    }
+  }, [paramId, userCardList]);
+
   return (
-    <>
-      <CardEditor type="EDIT_CARD" originCard={originCard} />
-    </>
+    <>{originCard && <CardEditor type="EDIT_CARD" originCard={originCard} />}</>
   );
 };
 

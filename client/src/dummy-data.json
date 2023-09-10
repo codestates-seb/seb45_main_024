@@ -84,8 +84,8 @@
   "memberboards": {
     "data": [
       {
-        "memberBoardId": 2,
-        "title": "두번째글의 제목입니다. 팀원찾기 2",
+        "memberBoardId": 1,
+        "title": "더미데이터:: 팀원찾기 게시판에 들어가는 제목입니다. 지금이건 더미데이터입니다.",
         "content": "내용2",
         "status": "팀원 구하는중",
         "views": 0,
@@ -96,7 +96,79 @@
         "modifiedAt": "2023-09-06T01:51:04"
       },
       {
-        "memberBoardId": 1,
+        "memberBoardId": 2,
+        "title": "팀원찾기 2번째 글",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 3,
+        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 4,
+        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 5,
+        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 6,
+        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 7,
+        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-01-18T11:22:33",
+        "endDate": "2023-01-18T11:22:33",
+        "createdAt": "2023-09-06T01:20:02",
+        "modifiedAt": "2023-09-06T01:20:02"
+      },
+      {
+        "memberBoardId": 8,
         "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
         "content": "내용",
         "status": "팀원 구하는중",
@@ -111,7 +183,7 @@
     "pageInfo": {
       "page": 1,
       "size": 10,
-      "totalElements": 2,
+      "totalElements": 8,
       "totalPages": 1
     }
   }
