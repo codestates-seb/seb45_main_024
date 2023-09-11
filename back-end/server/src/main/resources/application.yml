@@ -37,10 +37,10 @@ multipart:
   max-request-size: 10MB
   enabled: true
 
-  profileImages:
-    path: /Users/gimjaehui/profileImages
-  mypageImages:
-    path: /Users/gimjaehui/mypageImages
+  upload:
+    path: /Users/gimjaehui/main
+  default:
+    path: /Users/gimjaehui/main/images/default.png
 
 jwt:
   key: ${JWT_SECRET_KEY}
