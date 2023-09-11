@@ -7,9 +7,12 @@ import static org.springframework.security.config.Customizer.*;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -55,7 +58,16 @@ public class SecurityConfiguration {
 			.and()
 			.authorizeRequests(authorize -> authorize
 				.anyRequest().permitAll()
-			);
+			)
+			.logout()
+			.logoutUrl("accounts/logout")
+			.logoutSuccessHandler((request, response, authentication) -> {
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("{\"message\": \"로그아웃되었습니다.\"}");
+			})
+			.and();
 		return http.build();
 	}
 
