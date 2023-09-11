@@ -6,14 +6,18 @@ import editicon from "../../assets/icons/edit.svg";
 import Bio from "./Bio";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // for editform open/close
 
 interface AuthorProps {
-  isAuthor: boolean;
+  authorInfo: {
+    isAuthor: boolean;
+    visitorId: string | null;
+    ownerId: string | null;
+  };
 }
 
-const Profile: FC<AuthorProps> = ({ isAuthor }) => {
+const Profile: FC<AuthorProps> = ({ authorInfo }) => {
   const navigate = useNavigate();
   // const { id } = useParams<{ userId: string }>();
 
@@ -32,7 +36,7 @@ const Profile: FC<AuthorProps> = ({ isAuthor }) => {
   return (
     <>
       <div className={classes.editContainer}>
-        {isAuthor && (
+        {authorInfo.isAuthor && (
           <img
             className={classes.editButton}
             src={editicon}

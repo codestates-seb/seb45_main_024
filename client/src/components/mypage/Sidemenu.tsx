@@ -3,11 +3,15 @@ import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
-interface SideMenuProps {
-  isAuthor: boolean;
+interface AuthorProps {
+  authorInfo: {
+    isAuthor: boolean;
+    visitorId: string | null;
+    ownerId: string | null;
+  };
 }
 
-const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
+const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
   const dispatch = useAppDispatch();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
 
@@ -43,7 +47,7 @@ const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
           >
             Peer Review
           </li>
-          {/* {isAuthor && (
+          {authorInfo.isAuthor && (
             <li
               className={`${classes.menuItem} ${
                 selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
@@ -52,16 +56,15 @@ const SideMenu: FC<SideMenuProps> = ({ isAuthor }) => {
             >
               My Info
             </li>
-          )} */}
-          {/* 회원정보 수정 중 */}
-          <li
+          )}
+          {/* <li
             className={`${classes.menuItem} ${
               selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
             }`}
             onClick={() => dispatch(changeMenu("MyInfo"))}
           >
             My Info
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

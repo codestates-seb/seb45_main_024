@@ -1,21 +1,38 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
+// import { authInstance } from "../../redux/utility/authInstance";
+import { useNavigate } from "react-router-dom";
 
 interface AddReviewProps {
   onClose: () => void;
+  ownerId: string | null;
 }
 
-const AddReview: FC<AddReviewProps> = ({ onClose }) => {
+const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
+  const navigate = useNavigate();
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
-  const [projectImage, setProjectImage] = useState<string>("");
+  // const [projectImage, setProjectImage] = useState<string>("");
   const [reviewTitle, setReviewTitle] = useState<string>("");
   const [reviewContent, setReviewContent] = useState<string>("");
 
   const projectAddHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 굳이 툴킷? 이 정도면 위로 올려도 될 듯
+    try {
+      const reviewFormData = {
+        title: projectName,
+        project_url: projectLink,
+        intro: reviewTitle,
+        content: reviewContent,
+      };
+
+      // authInstance.post(`/reviews/${ownerId}`, reviewFormData);
+      // navigate(`/mypage/${ownerId}`);
+      navigate("/mypage/1");
+    } catch (err) {
+      console.error("Failed to add review", err);
+    }
   };
 
   return (
@@ -30,7 +47,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={e => setProjectName(e.target.value)}
+          onChange={(e) => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -45,10 +62,10 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={e => setProjectLink(e.target.value)}
+          onChange={(e) => setProjectLink(e.target.value)}
         />
       </div>
-      <div className={classes.formGroup}>
+      {/* <div className={classes.formGroup}>
         <div className={classes.formSubGroup}>
           <label className={classes.formLabel} htmlFor="projectImage">
             관련 이미지가 있나요?
@@ -62,7 +79,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           value={projectImage}
           onChange={e => setProjectImage(e.target.value)}
         />
-      </div>
+      </div> */}
       <div className={`${classes.formGroup} ${classes.review}`}>
         <div className={classes.formSubGroup}>
           <label className={classes.formLabel} htmlFor="reviewTitle">
@@ -77,7 +94,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           id="reviewTitle"
           type="text"
           value={reviewTitle}
-          onChange={e => setReviewTitle(e.target.value)}
+          onChange={(e) => setReviewTitle(e.target.value)}
         />
       </div>
       <div className={`${classes.formGroup} ${classes.review}`}>
@@ -96,7 +113,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           rows={3}
           placeholder="나와 프로젝트를 함께한 동료를 더 자세히 소개해주세요:)"
           value={reviewContent}
-          onChange={e => setReviewContent(e.target.value)}
+          onChange={(e) => setReviewContent(e.target.value)}
         />
       </div>
       <div className={classes.actions}>
