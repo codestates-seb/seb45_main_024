@@ -2,7 +2,11 @@ import { FC, useState } from "react";
 import classes from "./Review.module.css";
 import AddReview from "./AddReview";
 
-const Review: FC = () => {
+interface AuthorProps {
+  isAuthor: boolean;
+}
+
+const Review: FC<AuthorProps> = ({ isAuthor }) => {
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
 
   const showAddReviewhandler = () => {
@@ -21,7 +25,10 @@ const Review: FC = () => {
             (유저이름) 님과 프로젝트를 함께한 동료
           </h1>
           {/* 작성자가 본인의 페이지에 들어온 경우만 해당 버튼 활성화 */}
-          <button className={classes.requestButton}>평가 요청하기</button>
+          {isAuthor && (
+            <button className={classes.requestButton}>평가 요청하기</button>
+          )}
+          {/* <button className={classes.requestButton}>평가 요청하기</button> */}
         </div>
         <h2 className={classes.subtitle}>(유저이름) 님은 이런 동료입니다!</h2>
         <div>해당 유저가 가진 동료 리뷰 카드 렌더링/ 없을 때 조건부 렌더링</div>

@@ -47,3 +47,13 @@
 .hidden {
   display: none;
 }
+
+
+.active{
+  background-color: var(--color-main);
+  border: none;
+}
+
+.active span {
+  color: white;
+}

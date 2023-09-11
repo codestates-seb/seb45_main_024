@@ -10,9 +10,7 @@ import { useAppSelector } from "../../redux/hooks";
 // import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
 // 이거 storage로 오타 수정하라고 하기
 // import jwt_decode from "jwt-decode";
-
-// const SAMPLE_PATH = 1;
-// 로그인된 샘플 계정 id 아무거나 하나 가져오기
+import { useParams } from "react-router-dom";
 
 // interface JwtPayload {
 //   accountId: string;
@@ -21,16 +19,18 @@ import { useAppSelector } from "../../redux/hooks";
 const Mypage: FC = () => {
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
   const [isAuthor, setIsAuthor] = useState(false);
+  const { id } = useParams<{ id: string }>();
 
   // useEffect(() => {
   //   const fetchUserInfo = async () => {
   //     try {
-  //       const res = await authInstance.get(`/mypages/summary/${SAMPLE_PATH}`);
+  //       const res = await authInstance.get(`/mypages/summary/${id}`);
   //       const userInfo = res.data.data;
   //       // const userInfo = res.data;
   //       // 어떤 건지 찍어보기
   //       console.log(userInfo);
 
+  //       jwt payload에서 무조건 id값 가지고 오게 해야 함.
   //       const token = localStorage.getItem("jwtTokens");
   //       if (token) {
   //         try {
@@ -56,9 +56,9 @@ const Mypage: FC = () => {
     <div className={classes.mainContainer}>
       <SideMenu isAuthor={isAuthor} />
       <section className={classes.componentContainer}>
-        {selectedMenu === "Summary" && <Summary />}
-        {selectedMenu === "Profile" && <Profile />}
-        {selectedMenu === "Review" && <Review />}
+        {selectedMenu === "Summary" && <Summary isAuthor={isAuthor} />}
+        {selectedMenu === "Profile" && <Profile isAuthor={isAuthor} />}
+        {selectedMenu === "Review" && <Review isAuthor={isAuthor} />}
         {selectedMenu === "MyInfo" && <MyInfo />}
       </section>
     </div>

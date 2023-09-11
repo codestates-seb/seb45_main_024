@@ -28,7 +28,8 @@ interface DropDownTagProps {
 }
 
 const DropDownTag: FC<DropDownTagProps> = ({ techName, id, onDelete }) => {
-  const [selectedLevel, setSelectedLevel] = useState("A");
+  // const [selectedLevel, setSelectedLevel] = useState("A");
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   // 드롭다운 외 부분 클릭 시 드롭다운 닫힘
@@ -50,7 +51,12 @@ const DropDownTag: FC<DropDownTagProps> = ({ techName, id, onDelete }) => {
   }, [dropdownRef]);
 
   return (
-    <div className={classes.dropDownTagContainer} ref={dropdownRef}>
+    <div
+      className={`${classes.dropDownTagContainer} ${
+        selectedLevel ? classes.active : ""
+      }`}
+      ref={dropdownRef}
+    >
       <span className={classes.tagName} onClick={() => onDelete(id)}>
         {techName}
       </span>
@@ -58,7 +64,7 @@ const DropDownTag: FC<DropDownTagProps> = ({ techName, id, onDelete }) => {
         className={classes.levelDropdown}
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
       >
-        <ArrowDownSvg />
+        {selectedLevel ? <span>{selectedLevel}</span> : <ArrowDownSvg />}
         <div
           className={`${classes.optionsContainer} ${
             isDropDownOpen ? "" : classes.hidden

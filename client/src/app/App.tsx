@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       /*** 📌 마이페이지 ***/
       {
         path: "mypage/1",
-        // path: "mypage/:accountId", -> 얘가 될 예정. 현재는 임시로 1로 설정
+        // path: "mypage/:id", -> 얘가 될 예정. 현재는 임시로 1로 설정
         children: [
           { index: true, element: <Mypage /> },
           { path: "edit", element: <EditProfile /> },

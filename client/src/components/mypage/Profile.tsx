@@ -9,12 +9,16 @@ import ProfileCats from "./ProfileCats";
 import { useNavigate } from "react-router-dom";
 // for editform open/close
 
-const Profile: FC = () => {
+interface AuthorProps {
+  isAuthor: boolean;
+}
+
+const Profile: FC<AuthorProps> = ({ isAuthor }) => {
   const navigate = useNavigate();
-  // const { userId } = useParams<{ userId: string }>();
+  // const { id } = useParams<{ userId: string }>();
 
   const editProfileHandler = () => {
-    // navigate(`/mypage/${userId}/edit`);
+    // navigate(`/mypage/${id}/edit`);
     navigate(`/mypage/1/edit`);
   };
 
@@ -28,12 +32,14 @@ const Profile: FC = () => {
   return (
     <>
       <div className={classes.editContainer}>
-        <img
-          className={classes.editButton}
-          src={editicon}
-          alt="edit icon"
-          onClick={editProfileHandler}
-        />
+        {isAuthor && (
+          <img
+            className={classes.editButton}
+            src={editicon}
+            alt="edit icon"
+            onClick={editProfileHandler}
+          />
+        )}
       </div>
       <div className={classes.profileItemsContainer}>
         <section className={classes.profileItem}>

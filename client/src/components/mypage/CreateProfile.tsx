@@ -118,7 +118,7 @@ const CreateProfile: FC = () => {
         </div>
         <TechTags />
         {techTags.map((techTag, index) => (
-          <DropDownTag
+          <SoftTag
             key={index}
             techName={techTag}
             id={index}
