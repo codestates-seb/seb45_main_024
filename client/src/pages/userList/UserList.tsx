@@ -48,7 +48,6 @@ const UserList = () => {
   const dispatch = useAppDispatch();
   const userCardData = useAppSelector(state => state.users.data);
 
-  // const [testDummyData, setTestDummyData] = useState<UserListDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null); // error는 string or null ?
 
@@ -63,10 +62,6 @@ const UserList = () => {
       .catch(error => {
         console.warn("GET USERLIST ERROR", error);
         setError("Something went wrong");
-
-        // Error일 경우, Dummy Data로 테스트용 화면 표시
-        // const data = dummyData.teamboards.data;
-        // setTestDummyData(data);
       })
       .finally(() => setIsLoading(false));
   }, [dispatch]);

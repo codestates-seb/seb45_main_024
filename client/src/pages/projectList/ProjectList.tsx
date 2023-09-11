@@ -8,11 +8,10 @@ import Card from "../../components/userlist,projectlist/card/Card";
 import Checkbox from "../../components/userlist,projectlist/Checkbox";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 
-import dummyData from "../../dummy-data.json"; // TEST용 Dummy Data
+import { fetchProjectList } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./ProjectList.module.css";
-
-import { ProjectListDataType } from "../userList/types";
 
 const ProjectList = () => {
   const navigate = useNavigate();
@@ -42,43 +41,52 @@ const ProjectList = () => {
     navigate("/projectlist/new");
   };
 
-  // 임시
-  const [projectData, setProjectData] = useState<ProjectListDataType[]>([]);
-  console.log("cardData", projectData);
+  /** Loading, Error */
+  const dispatch = useAppDispatch();
+  const projectListData = useAppSelector(state => state.projects.data);
+  // console.log(projectListData);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null); // error는 string or null ?
+
+  /** Fetch Project List */
   useEffect(() => {
     console.log("🚀 GET PROJECT LIST");
-    getProjectList();
-  }, []);
+    setIsLoading(true);
+    setError(null);
 
-  // GET USER LIST TEST
-  const getProjectList = async () => {
-    // setIsLoading(true);
-    // setError(null);
+    dispatch(fetchProjectList())
+      .unwrap()
+      .catch(error => {
+        console.warn("GET PROJECTLIST ERROR", error);
+        setError("Something went wrong");
+      })
+      .finally(() => setIsLoading(false));
+  }, [dispatch]);
 
-    try {
-      throw Error();
+  // ProjectListContents 정의
+  let projectListContent;
 
-      // const response = await axios.get(`${baseUrl}teamboards/?page=1`);
-
-      // const listData = response.data.data;
-      // // const totalElements = response.pageInfo.totalElements;
-
-      // setCardData(listData);
-      // // setTotalCard(totalElements)
-    } catch (error) {
-      console.warn("GET USERLIST ERROR", error);
-      // setError("Something went wrong");
-
-      // Error일 경우, dummy data로 임시 화면 표시
-      const data = dummyData.memberboards.data;
-      console.log(data);
-
-      setProjectData(data);
-    }
-
-    // setIsLoading(false);
-  };
+  if (isLoading) {
+    projectListContent = <div>Loading...</div>;
+  } else if (error) {
+    // ProjectListContent = <div>Error!</div>;
+    projectListContent = (
+      <ul className={classes.cardListArea}>
+        {projectListData.map(list => (
+          <Card key={list.memberBoardId} type="PROJECT_CARD" cardData={list} />
+        ))}
+      </ul>
+    ); // 서버 안될시 TEST
+  } else {
+    projectListContent = (
+      <ul className={classes.cardListArea}>
+        {projectListData.map(list => (
+          <Card key={list.memberBoardId} type="PROJECT_CARD" cardData={list} />
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <main>
@@ -115,20 +123,7 @@ const ProjectList = () => {
         </SearchInput>
       </div>
 
-      <ul className={classes.cardListArea}>
-        {/* {cardList.map(list => (
-          <Card type="PROJECT_CARD" cardData={card} />
-        ))} */}
-        {projectData.length > 0 &&
-          projectData.map(card => (
-            // <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
-            <Card
-              key={card.memberBoardId}
-              type="PROJECT_CARD"
-              cardData={card}
-            />
-          ))}
-      </ul>
+      {projectListContent}
 
       <div className={classes.pagination}>
         <Pagination

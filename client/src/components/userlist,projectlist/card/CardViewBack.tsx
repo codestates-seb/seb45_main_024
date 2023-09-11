@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../../assets/icons/edit.svg";
-// import classes from "./CardViewBack.module.css";
-import classes from "./CardStyle.module.css";
+import { UserListDataType } from "../../../model/boardTypes";
 
-import { UserListDataType } from "../../../pages/userList/types";
+import classes from "./CardStyle.module.css";
 
 // type CardDataType = UserListDataType;
 

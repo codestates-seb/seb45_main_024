@@ -12,7 +12,7 @@ import Tag from "../userlist,projectlist/Tag";
 import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
 import classes from "./CardEditor.module.css";
 
-import { UserListDataType } from "../../pages/userList/types";
+import { UserListDataType } from "../../model/boardTypes";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";

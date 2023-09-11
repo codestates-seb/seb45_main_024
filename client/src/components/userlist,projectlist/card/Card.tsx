@@ -1,12 +1,11 @@
-import classes from "./CardStyle.module.css";
-
 import CardEdit from "./CardEdit";
 import CardView from "./CardView";
-
 import {
   UserListDataType,
   ProjectListDataType,
-} from "../../../pages/userList/types";
+} from "../../../model/boardTypes";
+
+import classes from "./CardStyle.module.css";
 
 // import { removeUserCard } from "../../../redux/board/thunks/removeUserCard";
 // import { useAppDispatch } from "../../../redux/hooks";
@@ -21,7 +20,7 @@ interface CardProps {
 }
 
 const Card = ({ type, cardData, isEdit }: CardProps) => {
-  console.log("cardData", cardData);
+  // console.log("cardData", cardData);
   // const dispatch = useAppDispatch();
 
   /** removeUserCard */

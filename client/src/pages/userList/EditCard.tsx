@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import CardEditor from "../../components/userlist/CardEditor";
 import { useAppSelector } from "../../redux/hooks";
-
-import { UserListDataType } from "./types";
+import { UserListDataType } from "../../model/boardTypes";
+import CardEditor from "../../components/userlist/CardEditor";
 
 const EditCard = () => {
   const navigate = useNavigate();

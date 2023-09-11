@@ -7,7 +7,7 @@ import { removeUserCard } from "../thunks/removeUserCard";
 
 import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
-import { UserListDataType } from "../../../pages/userList/types";
+import { UserListDataType } from "../../../model/boardTypes";
 interface UserState {
   data: UserListDataType[];
 }

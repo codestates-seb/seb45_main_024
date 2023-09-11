@@ -1,10 +1,9 @@
-// import classes from "./CardViewFront.module.css";
-import classes from "./CardStyle.module.css";
-
 import {
   UserListDataType,
   ProjectListDataType,
-} from "../../../pages/userList/types";
+} from "../../../model/boardTypes";
+
+import classes from "./CardStyle.module.css";
 
 type CardDataType = UserListDataType | ProjectListDataType;
 
@@ -14,8 +13,13 @@ interface CardViewFrontType {
 }
 
 const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
-  const { title, position, createdAt } = cardData;
   const isProjectCard = type === "PROJECT_CARD";
+  const { title, position, createdAt } = cardData as UserListDataType;
+  const { views, status } = cardData as ProjectListDataType;
+
+  let statusText;
+  if (status === "팀원 구하는중") statusText = "모집중";
+  else statusText = "음?";
 
   const date: string = new Date(createdAt).toLocaleDateString();
 
@@ -27,9 +31,13 @@ const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
       <div className={classes.topArea}>
         <div className={classes.meta}>
           <span className={classes.date}>{date}</span>
-          {isProjectCard && <span className={classes.view}>조회수 123</span>}
+          {isProjectCard && (
+            <span className={classes.view}>조회수 {views}</span>
+          )}
         </div>
-        {isProjectCard && <div className={classes.recruitTag}>모집중</div>}
+        {isProjectCard && (
+          <div className={classes.recruitTag}>{statusText}</div>
+        )}
       </div>
       <div className={classes.centerArea}>
         {isProjectCard && <span className={classes.username}>유저ABC</span>}

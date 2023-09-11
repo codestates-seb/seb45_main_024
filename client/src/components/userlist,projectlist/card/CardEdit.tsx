@@ -2,7 +2,7 @@ import { useState } from "react";
 // import classes from "./CardEdit.module.css";
 import classes from "./CardStyle.module.css";
 
-import { UserListDataType } from "../../../pages/userList/types";
+import { UserListDataType } from "../../../model/boardTypes";
 
 interface CardEditProps {
   cardData: UserListDataType;
