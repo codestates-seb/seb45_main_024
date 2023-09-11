@@ -14,11 +14,12 @@ export const signUpUser = createAsyncThunk(
   async (data: SignupData) => {
     try {
       const response = await commonInstance.post("/accounts/signup", data);
-      console.log(response);
+      console.log(response.status);
       return response.data;
       // 회원가입 처리 관련 메시지 등
     } catch (error) {
       // 에러가 발생하면 에러 메시지를 사용해서 rejected 액션을 디스패치
+      console.log(error);
       throw new Error("회원가입에 실패했습니다.");
     }
   },

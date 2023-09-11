@@ -5,6 +5,7 @@ import { validationActions } from "../../redux/auth/validationSlice";
 import { loginUser } from "../../redux/auth/loginSlice";
 import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
 import Loading from "../common/Loading";
 
 // response.data? response.payload?
@@ -34,7 +35,7 @@ const Login: FC = () => {
   }, []);
 
   const loading = useAppSelector(state => state.login.loading);
-  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+  // const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
   // const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
@@ -74,26 +75,32 @@ const Login: FC = () => {
     // 그럼 catch로 간다면, 그건 디스패치 되지 않았을 때일까? 아니, catch 구문으로 넘어갈 일이 있나?
     // 만약 이렇다면 굳이 handleSubmit 함수를 비동기처리할 필요가 있을까
     // 그냥 조건문 분기로 나누면 되는 거 아닌가
-    try {
-      if (isLoggedIn) {
-        // 로그인 성공 처리
-        // dispatch({ type: "login/setIsLoggedIn", payload: true });
-        dispatch(setAlertMessage("로그인 됐어요"));
-        navigate("/");
-        console.log("왜 로그인 돼?");
-      } else {
-        setFormData({
-          email: "",
-          password: "",
-        });
-        console.log("멀쩡히 돌아가는 거 맞아");
-        dispatch(validationActions.resetValidation());
-        // dispatch({ type: "login/setIsLoggedIn", payload: false });
-        console.error("로그인 실패");
-        alert(`로그인 실패`);
-      }
-      // else문과 catch문의 차이? 혹은 병합하는 게 나으려나?
-    } catch (error) {
+
+    if (getTokensFromLocalStorage()) {
+      //TODO isLoggedIn의 문제점 : 로딩이 끝나고 나서야 상태 업데이트가 이뤄짐
+      //TODO 그래서 만약 이런식으로 처리할 거면 isLoggedIn 상태 업데이트 후에, 컴포넌트 try 구문 들어오게...
+      //TODO 아니면 앗싸리 isLoggedIn을 쓰지 않고 컴포넌트 단에서 로그인 처리할 방법..?
+      //TODO 그 방법인즉슨, 토큰 조회식...? 근데 이러면 회원가입은 어케해
+      //TODO 원론으로 돌아가서 굳이 로그인과 회원가입을 툴킷으로 관리할 필요가 있을까..?(현타)
+      // 로그인 성공 처리
+      // dispatch({ type: "login/setIsLoggedIn", payload: true });
+      dispatch(setAlertMessage("로그인 됐어요"));
+      navigate("/");
+      console.log("로그인됨");
+      dispatch(validationActions.resetValidation());
+      // } else {
+      //   setFormData({
+      //     email: "",
+      //     password: "",
+      //   });
+      //   console.log("로그인안됨");
+      //   dispatch(validationActions.resetValidation());
+      //   // dispatch({ type: "login/setIsLoggedIn", payload: false });
+      //   console.error("로그인 실패");
+      //   alert(`로그인 실패`);
+      // }
+      // // else문과 catch문의 차이? 혹은 병합하는 게 나으려나?
+    } else {
       // 정말정말 예외적인 상황(?)
       setFormData({
         email: "",
@@ -101,8 +108,8 @@ const Login: FC = () => {
       });
       dispatch(validationActions.resetValidation());
       dispatch({ type: "login/setIsLoggedIn", payload: false });
-      console.error("로그인 오류:", error);
-      alert(`로그인 과정에 오류가 있습니다 : ${error}`);
+      console.error("로그인 오류:");
+      alert(`로그인 과정에 오류가 있습니다`);
     }
   };
 

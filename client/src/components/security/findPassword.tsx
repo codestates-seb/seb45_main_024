@@ -4,6 +4,8 @@ import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import authInstance from "../../redux/utility/authInstance";
+import { setLoading } from "../../redux/utility/loadingSlice";
+import Loading from "../common/Loading";
 
 interface FindPasswordData {
   email: string;
@@ -21,6 +23,7 @@ const FindPassword: FC = () => {
   }, []);
 
   const emailError = useAppSelector(state => state.validation.emailError);
+  const isLoading = useAppSelector(state => state.loading.isLoading);
 
   const [formData, setFormData] = useState<FindPasswordData>({
     email: "",
@@ -37,7 +40,6 @@ const FindPassword: FC = () => {
       [fieldName]: value,
     });
 
-    // email 필드를 업데이트하고 유효성 검사 수행
     if (fieldName === "email") {
       setFormData(prevState => ({
         ...prevState,
@@ -49,18 +51,26 @@ const FindPassword: FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatch(setLoading(true));
     try {
-      // API 호출 부분
       const response = await authInstance.post(
         `/accounts/sendMail?email=${formData.email}`,
         formData,
       );
+      alert("비밀번호 재발급");
       console.log("해당 이메일로 비밀번호 재발급", response.data);
       setMessage("해당 이메일로 임시 비밀번호가 발급되었습니다");
       navigate("/login");
     } catch (error) {
+      alert("가입되지 않은 이메일이야");
       console.error("가입되지 않은 이메일입니다", error);
       setMessage("가입되지 않은 이메일입니다");
+      dispatch(validationActions.resetValidation());
+      setFormData({
+        email: "",
+      });
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -89,8 +99,7 @@ const FindPassword: FC = () => {
           Send
         </button>
       </form>
-      {/* {loading === "pending" && <p>로딩 중...</p>} */}
-      {/* 로딩 슬라이스를 만들고 이후에 로그인과 회원가입 리팩토링 해야겠군 */}
+      {isLoading && <Loading />}
       {message && <p>{message}</p>} {/* 메시지 렌더링 */}
     </div>
   );

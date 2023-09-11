@@ -20,13 +20,15 @@ export const loginUser = createAsyncThunk(
       saveTokensToLocalStorage(response.headers.authorization as TokenData);
       getTokensFromLocalStorage();
 
-      console.log(response);
+      console.log(response.status);
       return response.data;
       // 로그인 처리 관련 메시지 등
 
       // 로그인 성공 시 토큰을 업데이트
     } catch (error) {
       // 로그인 실패 시 에러 메시지를 사용하여 rejected 액션을 디스패치
+      console.log(error);
+      alert(error);
       throw new Error("로그인에 실패했습니다.");
     }
   },
