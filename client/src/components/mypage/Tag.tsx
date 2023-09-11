@@ -3,11 +3,11 @@ import classes from "./Tag.module.css";
 
 interface Props {
   techName: string;
-  id: number;
+  // id: number;
 }
 
 // TechTags에서 api로 기술 스택 받아오면 mapping
-const Tag: FC<Props> = ({ techName, id }) => {
+const Tag: FC<Props> = ({ techName }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   return (
     <div

@@ -4,7 +4,7 @@ import classes from "./SoftTag.module.css";
 interface TagProps {
   techName: string;
   id: number;
-  onDelete: (id: number) => void;
+  onDelete?: (id: number) => void;
 }
 
 const SoftTag: FC<TagProps> = ({ techName, id, onDelete }) => {

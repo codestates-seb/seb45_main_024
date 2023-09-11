@@ -29,7 +29,9 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
 
       // authInstance.post(`/reviews/${ownerId}`, reviewFormData);
       // navigate(`/mypage/${ownerId}`);
-      navigate("/mypage/1");
+      // navigate("/mypage/1");
+      // 아래로 하면 어떻게 되는지 확인. review에서 call을 하게 하면 가능?
+      navigate(-1);
     } catch (err) {
       console.error("Failed to add review", err);
     }

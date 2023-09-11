@@ -7,6 +7,8 @@ import Bio from "./Bio";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
 import { useNavigate, useParams } from "react-router-dom";
+import ProjCard from "./ProjCard";
+import SoftTag from "./SoftTag";
 // for editform open/close
 
 interface AuthorProps {
@@ -22,14 +24,20 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
   // const { id } = useParams<{ userId: string }>();
 
   const editProfileHandler = () => {
-    // navigate(`/mypage/${id}/edit`);
+    // navigate(`/mypage/${ownerId}/edit`);
     navigate(`/mypage/1/edit`);
   };
 
-  // api get 요청으로 프로필 정보 받아오기: bio는 Bio 컴포넌트로 props 전달 // 미리보기에서 사용해야 함. 툴킷으로 bio 관리.
   const dummyBio =
     "국회는 국무총리 또는 국무위원의 해임을 대통령에게 건의할 수 있다. 모든 국민은 종교의 자유를 가진다. 국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다. 국가는 사회보장·사회복지의 증진에 노력할 의무를 진다. 국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다.";
   // const dummyBio = "";
+  const dummySoft = {
+    softTags: [
+      { techName: "커뮤니케이션", id: 1 },
+      { techName: "아유 하면할 수록 할게 나오네요", id: 2 },
+      { techName: "다른 어떤 소프트 스킬이 있겠죠", id: 3 },
+    ],
+  };
 
   // 기술 설명은 gpt랑 deepl api 사용?
 
@@ -48,28 +56,48 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
       <div className={classes.profileItemsContainer}>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.BIO} />
-          {/* 조건부 렌더링 */}
           {dummyBio.length > 0 ? <Bio bio={dummyBio} /> : <NoContent />}
         </section>
-        <section>
+        <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.TECH} />
-          <div>{/* 조건부 */}</div>
-          <div>
-            <h2>언어</h2>
-            <p>설명</p>
+          <div className={classes.techContentContainer}>
+            <div className={classes.techContent}>{/* 조건부로 뭐든 */}</div>
+            <div className={classes.helpContent}>
+              <h2 className={classes.helpTitle}>언어</h2>
+              <p className={classes.helpDesc}>
+                클릭한 기술 스택에 대한 설명이 들어갈 예정입니다. 아마도 gpt로
+                처리할 예정이구요. 이 정도만 할거에요. 이 이상은 안돼.
+              </p>
+            </div>
           </div>
         </section>
-        <section>
+        <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.HARD} />
-          <div>{/* 조건부 */}</div>
+          <div className={classes.hardContent}>{/* 조건부 */}</div>
         </section>
-        <section>
+        <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.SOFT} />
-          <div>{/* 조건부 */}</div>
+          <div className={classes.softContent}>
+            {dummySoft.softTags.length > 0 ? (
+              dummySoft.softTags.map((softTag, index) => (
+                <SoftTag
+                  key={index}
+                  techName={softTag.techName}
+                  id={softTag.id}
+                />
+              ))
+            ) : (
+              <NoContent />
+            )}
+          </div>
         </section>
-        <section>
+        <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.PROJ} />
-          <div>{/* 조건부 */}</div>
+          <p className={classes.helpText}>
+            제목을 클릭하면 프로젝트 링크로 이동합니다.
+          </p>
+          <div className={classes.projContent}>{/* 조건부 */}</div>
+          <ProjCard />
         </section>
       </div>
     </>
