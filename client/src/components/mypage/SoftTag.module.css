@@ -5,8 +5,10 @@
   width: fit-content;
   border: 1px solid var(--color-gray-3);
   padding: 4px 14px;
+  background-color: var(--color-main);
+  border: none;
 }
 
-.tagName{
-    color: var(--color-gray-3);
+.tagContainer span {
+  color: white;
 }
