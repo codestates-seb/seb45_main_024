@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.seb45main24.server.domain.account.service.AccountService;
-import com.seb45main24.server.domain.accountprofile.dto.AccountProfilePostDto;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;

@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,7 +43,8 @@ public class Account extends Auditable {
 	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private AccountProfile accountProfile;
 
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "image_id")
 	private Image image;
 
 	@ElementCollection(fetch = FetchType.EAGER)
