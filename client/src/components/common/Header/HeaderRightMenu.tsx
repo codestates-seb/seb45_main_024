@@ -7,7 +7,7 @@ import Alarm from "../Alarm/Alarm";
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
 
   const handleNavigateLogin = () => {
     navigate("/login");

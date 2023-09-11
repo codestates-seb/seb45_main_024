@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { signUpUser } from "../../redux/auth/signUpSlice";
 import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import Loading from "../common/Loading";
 
 interface SignUpData {
   nickname: string;
@@ -12,6 +13,12 @@ interface SignUpData {
   password: string;
   confirmPassword: string;
 }
+
+// interface ServerResponse {
+//   status: number;
+//   exception: string;
+//   message: string;
+// }
 
 const SignUp: FC = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +38,15 @@ const SignUp: FC = () => {
     confirmPassword: "",
   });
 
+  const nickNameInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (nickNameInputRef.current) {
+      nickNameInputRef.current.focus();
+    }
+  }, []);
+
   const loading = useAppSelector(state => state.signUp.loading);
+  const isSignedUp = useAppSelector(state => state.signUp.isSignedUp);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -87,20 +102,38 @@ const SignUp: FC = () => {
       password: formData.password,
     };
 
+    await dispatch(signUpUser(registerData));
     try {
-      const response = await dispatch(signUpUser(registerData));
-
-      if (response.payload.status === 201) {
+      if (isSignedUp) {
         // 회원가입 성공 처리
-        setAlertMessage(response.payload.message);
+        console.log("회원가입 됐다네");
+        dispatch(setAlertMessage("회원가입 됐어요"));
         navigate("/login"); // 회원가입 성공 시, 로그인 경로로 이동
       } else {
         // 회원가입 실패 처리
-        setAlertMessage(response.payload.message);
+        // if (response.status === 409) {
+        //   console.log(response.data.message);
+        // }
+        dispatch(setAlertMessage("회원가입 안 됐다네"));
+        setFormData({
+          nickname: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        dispatch(validationActions.resetValidation());
+        console.error("회원가입 실패");
+        alert(`회원가입 실패`);
       }
     } catch (error) {
       // 회원가입 오류 처리
-      console.error("로그인 오류:", error);
+      setFormData({
+        nickname: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      console.error("회원가입 오류:", error);
       alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
     }
   };
@@ -111,6 +144,7 @@ const SignUp: FC = () => {
         <div className={classes.inputInfo}>
           <label>Nickname</label>
           <input
+            ref={nickNameInputRef}
             placeholder="Input Nickname"
             type="text"
             value={formData.nickname}
@@ -161,8 +195,7 @@ const SignUp: FC = () => {
           Sign Up
         </button>
       </form>
-      {loading === "pending" && <p>로딩 중...</p>}
-      {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}
+      {loading === "pending" && <Loading />}
     </div>
   );
 };

@@ -4,8 +4,8 @@ import classes from "./Login.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { loginUser } from "../../redux/auth/loginSlice";
 import { setAlertMessage } from "../../redux/utility/alertSlice";
-import { authorizedUser, unauthorizedUser } from "../../redux/auth/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import Loading from "../common/Loading";
 
 // response.data? response.payload?
 
@@ -34,6 +34,7 @@ const Login: FC = () => {
   }, []);
 
   const loading = useAppSelector(state => state.login.loading);
+  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
   // const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
@@ -64,27 +65,42 @@ const Login: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // createAsyncThunk 써먹기... 이번엔 토큰 작업까지...
-
     const registerData = {
       email: formData.email,
       password: formData.password,
     };
-
+    await dispatch(loginUser(registerData));
+    // 일단 슬라이스 내에서 성공이든 실패든, 반응이 있으므로 try 구문으로 넘어가는 건가?
+    // 그럼 catch로 간다면, 그건 디스패치 되지 않았을 때일까? 아니, catch 구문으로 넘어갈 일이 있나?
+    // 만약 이렇다면 굳이 handleSubmit 함수를 비동기처리할 필요가 있을까
+    // 그냥 조건문 분기로 나누면 되는 거 아닌가
     try {
-      await dispatch(loginUser(registerData));
-
-      // 로그인 성공 처리
-      dispatch(authorizedUser());
-      setAlertMessage("로그인 됐어요");
-      navigate("/mainpage"); // 로그인 성공 시, 메인페이지 경로로 이동
-      // } else {
-      //   // 로그인 실패 처리..?(400번대 클라이언트)
-      //   setAlertMessage(response.payload.message);
-      // }
+      if (isLoggedIn) {
+        // 로그인 성공 처리
+        // dispatch({ type: "login/setIsLoggedIn", payload: true });
+        dispatch(setAlertMessage("로그인 됐어요"));
+        navigate("/");
+        console.log("왜 로그인 돼?");
+      } else {
+        setFormData({
+          email: "",
+          password: "",
+        });
+        console.log("멀쩡히 돌아가는 거 맞아");
+        dispatch(validationActions.resetValidation());
+        // dispatch({ type: "login/setIsLoggedIn", payload: false });
+        console.error("로그인 실패");
+        alert(`로그인 실패`);
+      }
+      // else문과 catch문의 차이? 혹은 병합하는 게 나으려나?
     } catch (error) {
-      dispatch(unauthorizedUser());
-      // 로그인 오류 처리(500번대 서버)
+      // 정말정말 예외적인 상황(?)
+      setFormData({
+        email: "",
+        password: "",
+      });
+      dispatch(validationActions.resetValidation());
+      dispatch({ type: "login/setIsLoggedIn", payload: false });
       console.error("로그인 오류:", error);
       alert(`로그인 과정에 오류가 있습니다 : ${error}`);
     }
@@ -143,8 +159,7 @@ const Login: FC = () => {
           Log in
         </button>
       </form>
-      {loading === "pending" && <p>로딩 중...</p>}
-      {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}
+      {loading === "pending" && <Loading />}
     </div>
   );
 };

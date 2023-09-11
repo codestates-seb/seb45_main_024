@@ -26,13 +26,15 @@ export const signUpUser = createAsyncThunk(
 
 // 회원가입 상태를 관리하는 슬라이스
 interface SignUpState {
-  user: null | SignupData; // 사용자 정보
-  loading: "idle" | "pending"; // 로딩 상태
-  error: null | string; // 에러 메시지
+  user: null | SignupData;
+  isSignedUp: boolean;
+  loading: "idle" | "pending";
+  error: null | string;
 }
 
 const initialState: SignUpState = {
   user: null,
+  isSignedUp: false,
   loading: "idle",
   error: null,
 };
@@ -50,12 +52,14 @@ const signUpslice = createSlice({
       (state, action: PayloadAction<SignupData>) => {
         state.loading = "idle";
         state.user = action.payload;
+        state.isSignedUp = true;
       },
     );
     builder.addCase(signUpUser.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message as string | null;
       // 타입 안정성을 포기했다....ㅠ(왜 오버로드 오류가 뜨는 건지 이해가 안되네... fulfill은 이상 없는디)
+      state.isSignedUp = false;
     });
   },
 });
