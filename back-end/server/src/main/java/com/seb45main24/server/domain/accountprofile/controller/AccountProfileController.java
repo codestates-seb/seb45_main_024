@@ -29,16 +29,16 @@ public class AccountProfileController {
 	private final AccountService accountService;
 
 
-	@PostMapping("/profile")
-	public ResponseEntity postAccountProfile(@LoginAccountId Long loginAccountId,
-												@RequestBody @Valid AccountProfilePostDto postDto) {
-
-		AccountProfile createProfile = accountProfileService.createAccountProfile(mapper.postDtoToAccountProfile(postDto));
-
-		URI location = UriCreator.createUri(ACCOUNT_PROFILE_DEFAULT_URL, createProfile.getId());
-
-		return ResponseEntity.created(location).build();
-
-
-	}
+//	@PostMapping("/profile")
+//	public ResponseEntity postAccountProfile(@LoginAccountId Long loginAccountId,
+//												@RequestBody @Valid AccountProfilePostDto postDto) {
+//
+//		AccountProfile createProfile = accountProfileService.createAccountProfile(mapper.postDtoToAccountProfile(postDto));
+//
+//		URI location = UriCreator.createUri(ACCOUNT_PROFILE_DEFAULT_URL, createProfile.getId());
+//
+//		return ResponseEntity.created(location).build();
+//
+//
+//	}
 }

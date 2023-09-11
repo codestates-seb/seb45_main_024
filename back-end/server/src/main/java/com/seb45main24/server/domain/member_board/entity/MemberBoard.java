@@ -1,14 +1,12 @@
 package com.seb45main24.server.domain.member_board.entity;
 
+import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,4 +32,10 @@ public class MemberBoard extends Auditable {
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "WRITER_ID")
+    private Account writer;
+
+
 }
