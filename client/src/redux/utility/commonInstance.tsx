@@ -1,7 +1,12 @@
 import axios from "axios";
 
-const BASE_URL =
-  "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080";
+let BASE_URL = "";
+if (
+  import.meta.env.VITE_APP_API_ENDPOINT &&
+  typeof import.meta.env.VITE_APP_API_ENDPOINT === "string"
+) {
+  BASE_URL = import.meta.env.VITE_APP_API_ENDPOINT;
+}
 
 const commonInstance = axios.create({
   baseURL: BASE_URL,

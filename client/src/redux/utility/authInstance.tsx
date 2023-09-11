@@ -5,8 +5,13 @@ import {
   saveTokensToLocalStorage,
 } from "./tokenStoarage";
 
-const BASE_URL =
-  "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080";
+let BASE_URL = "";
+if (
+  import.meta.env.VITE_APP_API_ENDPOINT &&
+  typeof import.meta.env.VITE_APP_API_ENDPOINT === "string"
+) {
+  BASE_URL = import.meta.env.VITE_APP_API_ENDPOINT;
+}
 
 const authInstance = axios.create({
   baseURL: BASE_URL,
@@ -17,7 +22,7 @@ const authInstance = axios.create({
 authInstance.interceptors.request.use(
   config => {
     const token = getTokensFromLocalStorage();
-    // const accessToken = token?.accessToken.slice(7);
+    // const accessToken = token?.accessToken.slice(7); : 왜 slice에서 type 에러가 떴지..?
     if (token) {
       config.headers["Authorization"] = `${token}`;
     }

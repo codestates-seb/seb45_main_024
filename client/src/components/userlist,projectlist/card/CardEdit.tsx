@@ -4,19 +4,26 @@ import classes from "./CardStyle.module.css";
 
 import { UserListDataType } from "../../../model/boardTypes";
 
+import { useAppDispatch } from "../../../redux/hooks";
+import { getNewTitle } from "../../../redux/store";
+
 interface CardEditProps {
   cardData: UserListDataType;
 }
 
 // New Card OR Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
+  const dispatch = useAppDispatch();
+
   const { title, position, keywords, createdAt } = cardData;
-  console.log(cardData.title);
+  // console.log(cardData.title);
 
   const [newTitle, setNewTitle] = useState(title);
+  // console.log(newTitle);
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
+    dispatch(getNewTitle(newTitle));
   };
 
   const date = new Date(createdAt).toLocaleDateString();

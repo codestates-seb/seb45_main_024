@@ -10,7 +10,7 @@ import Pagination from "../../components/userlist,projectlist/Pagination";
 import Card from "../../components/userlist,projectlist/card/Card";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 
-import { fetchUserCard } from "../../redux/store";
+import { fetchUserCardList } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./UserList.module.css";
@@ -51,13 +51,13 @@ const UserList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null); // error는 string or null ?
 
-  /** fetchUserCard */
+  /** fetchUserCardList */
   useEffect(() => {
     console.log("🚀 GET USER LIST");
     setIsLoading(true);
     setError(null);
 
-    dispatch(fetchUserCard())
+    dispatch(fetchUserCardList())
       .unwrap()
       .catch(error => {
         console.warn("GET USERLIST ERROR", error);

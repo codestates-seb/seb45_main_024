@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { fetchProjectList } from "../thunks/fetchProjectList";
 import { getProject } from "../thunks/getProject";
 import { addProject } from "../thunks/addProject";
 import { editProject } from "../thunks/editProject";
+import { removeProject } from "../thunks/removeProject";
+
 import { ProjectListDataType } from "../../../model/boardTypes";
 
 import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
@@ -68,12 +71,12 @@ const projectsSlice = createSlice({
       console.log("projectsSlice REJECTED");
     });
 
-    // // Remove
-    // builder.addCase(removeUserCard.fulfilled, (state, actino) => {
-    //   state.data = state.data.filter(usercard => {
-    //     return usercard.teamBoardId !== actino.payload.teamBoardId;
-    //   });
-    // });
+    // Remove
+    builder.addCase(removeProject.fulfilled, (state, actino) => {
+      state.data = state.data.filter(projectCard => {
+        return projectCard.memberBoardId !== actino.payload.memberBoardId;
+      });
+    });
   },
 });
 

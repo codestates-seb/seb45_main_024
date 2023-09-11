@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// import axios from "axios";
-// import authInstance from "../../redux/utility/authInstance";
-
 import Card from "../../components/userlist,projectlist/card/Card";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
@@ -16,7 +13,7 @@ import { UserListDataType } from "../../model/boardTypes";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 type CardType = "NEW_CARD" | "EDIT_CARD";
 
@@ -29,7 +26,10 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
 
-  console.log("originCard", originCard);
+  // console.log("originCard", originCard);
+
+  const newTitle = useAppSelector(state => state.users.editTitle);
+  // console.log("newTitle", newTitle);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -93,17 +93,17 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const [error, setError] = useState<null | string>(null); // error는 string or null ?
   // console.log(isLoading, error);
 
-  // const baseUrl =
-  //   "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080/";
-  // const headers = {
-  //   Authorization:
-  //     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IntiY3J5cHR9JDJhJDEwJHJ1UWJYQjhrVzZJeEZSQmhMV1JkVnVaQk04NC9rd09rWWowc2lRaG9yWW1GWExKWHFWWmMyIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MiwidXNlcm5hbWUiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsInN1YiI6InRlc3QxMjNAZ21haWwuY29tIiwiaWF0IjoxNjk0MDcxNjkzLCJleHAiOjE2OTQwNzM0OTN9.N3-OPzQjTQl_7-CViuJ-oibAXZSynBg-w5wgyGliyR8",
-  // };
   const data = {
-    title: title,
+    title: newTitle,
     position: position,
     keywords: keywords,
   };
+
+  // const data = {
+  //   title: "팀찾기4444",
+  //   position: "프론트엔드",
+  //   keywords: ["교육", "키워드2"],
+  // };
 
   /** 카드 등록/수정 */
   const handleSubmit = () => {
@@ -125,8 +125,8 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           .then(() => {
             console.log("새글 작성 성공", data);
             // 새 글 등록을 성공하면 alert, userlist로 이동
-            // window.alert("새 글이 등록되었습니다.");
-            // navigate("/userlist");
+            window.alert("새 글이 등록되었습니다.");
+            navigate("/userlist");
           })
           .catch(error => {
             console.warn("POST USERCARD ERROR", error);
@@ -137,10 +137,15 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       }
 
       if (EDIT_CARD) {
-        dispatch(editUserCard(originCard?.teamBoardId, data))
+        const targetId = originCard?.teamBoardId;
+
+        dispatch(editUserCard({ targetId, data }))
           .unwrap()
           .then(() => {
             console.log("카드 수정 성공", data);
+            // 글 수정을 성공하면 alert, userlist로 이동
+            window.alert("카드가 수정되었습니다.");
+            navigate("/userlist");
           })
           .catch(error => {
             console.warn("EDIT USERCARD ERROR", error);
@@ -149,39 +154,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       }
     }
   };
-
-  /*
-  const postUserCard = async () => {
-    try {
-      const response = await axios.post(`${baseUrl}teamboards`, data, {
-        headers,
-      });
-      console.log(response);
-
-      // 새 글 등록 후 alert, userlist로 이동
-      window.alert("새 글이 등록되었습니다.");
-      navigate("/userlist");
-    } catch (error) {
-      console.warn("POST USERCARD ERROR", error);
-    }
-  };
-  */
-
-  /** Axios Instance 사용 코드 - merge 후 사용 예정 */
-  /*
-  const postUserCard = async () => {
-    try {
-      const response = await authInstance.post("/teamboards", data);
-      console.log(response);
-
-      // 새 글 등록 후 alert, userlist로 이동
-      window.alert("새 글이 등록되었습니다.");
-      navigate("/userlist");
-    } catch (error) {
-      console.warn("POST USERCARD ERROR", error);
-    }
-  };
-  */
 
   return (
     <main>

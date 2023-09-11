@@ -4,7 +4,7 @@ import signUpReducer from "./auth/signUpSlice";
 import loginReducer from "./auth/loginSlice";
 import alertReducer from "./utility/alertSlice";
 
-import { usersReducer } from "./board/slices/usersSlice";
+import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
 import { projectsReducer } from "./board/slices/projectsSlice";
 
 const store = configureStore({
@@ -21,7 +21,7 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { fetchUserCard } from "./board/thunks/fetchUserCard";
+export { fetchUserCardList } from "./board/thunks/fetchUserCardList";
 export { getUserCard } from "./board/thunks/getUserCard";
 export { addUserCard } from "./board/thunks/addUserCard";
 export { editUserCard } from "./board/thunks/editUserCard";
@@ -31,5 +31,7 @@ export { fetchProjectList } from "./board/thunks/fetchProjectList";
 export { getProject } from "./board/thunks/getProject";
 export { addProject } from "./board/thunks/addProject";
 export { editProject } from "./board/thunks/editProject";
+
+export { getNewTitle };
 
 export default store;
