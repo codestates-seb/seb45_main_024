@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import validationReducer from "./auth/validationSlice";
 import loginReducer from "./auth/loginSlice";
-import alertReducer from "./utility/alertSlice";
-import loadingReducer from "./utility/loadingSlice";
+import alertReducer from "./common/alertSlice";
+import loadingReducer from "./common/loadingSlice";
 
 const store = configureStore({
   reducer: {

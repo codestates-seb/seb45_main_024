@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { loginUser } from "../../redux/auth/loginSlice";
-import { setAlertMessage } from "../../redux/utility/alertSlice";
+import { setAlertMessage } from "../../redux/common/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
+import { getTokensFromLocalStorage } from "../../utility/tokenStoarage";
 import Loading from "../common/Loading";
 
 // response.data? response.payload?

@@ -1,10 +1,10 @@
 import { FC } from "react";
 import classes from "./Logout.module.css";
-import authInstance from "../../redux/utility/authInstance";
+import authInstance from "../../utility/authInstance";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setLoading } from "../../redux/utility/loadingSlice";
+import { setLoading } from "../../redux/common/loadingSlice";
 import { useNavigate } from "react-router";
-import { removeTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
+import { removeTokensFromLocalStorage } from "../../utility/tokenStoarage";
 import Loading from "../common/Loading";
 
 const Logout: FC = () => {

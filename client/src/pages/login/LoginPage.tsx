@@ -2,7 +2,7 @@ import { FC } from "react";
 import classes from "./LoginPage.module.css";
 import Logo from "../../components/common/Logo";
 import Login from "../../components/login/Login";
-import SocialLogin from "../../components/login/SocialLogin";
+// import SocialLogin from "../../components/login/SocialLogin";
 
 const LoginPage: FC = () => {
   return (
@@ -10,7 +10,7 @@ const LoginPage: FC = () => {
       <div className={classes.logo}>
         <Logo />
       </div>
-      <SocialLogin />
+      {/* <SocialLogin /> */}
       <Login />
     </div>
   );

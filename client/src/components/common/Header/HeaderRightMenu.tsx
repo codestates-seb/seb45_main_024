@@ -4,7 +4,7 @@ import profile from "../../../assets/images/default_profile.svg";
 // import { useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import Alarm from "../Alarm/Alarm";
-import { getTokensFromLocalStorage } from "../../../redux/utility/tokenStoarage";
+import { getTokensFromLocalStorage } from "../../../utility/tokenStoarage";
 import Logout from "../../login/Logout";
 
 const HeaderRight: FC = () => {

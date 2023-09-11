@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import authInstance from "../../redux/utility/authInstance";
-import { setLoading } from "../../redux/utility/loadingSlice";
+import authInstance from "../../utility/authInstance";
+import { setLoading } from "../../redux/common/loadingSlice";
 import Loading from "../common/Loading";
 
 interface FindPasswordData {

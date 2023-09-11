@@ -1,12 +1,11 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import commonInstance from "../../redux/utility/commonInstance";
+import commonInstance from "../../utility/commonInstance";
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
-// import { signUpUser } from "../../redux/auth/signUpSlice";
 // import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { setLoading } from "../../redux/utility/loadingSlice";
+import { setLoading } from "../../redux/common/loadingSlice";
 import Loading from "../common/Loading";
 
 interface SignUpData {
@@ -42,7 +41,6 @@ const SignUp: FC = () => {
   }, []);
 
   const isLoading = useAppSelector(state => state.loading.isLoading);
-  // const isSignedUp = useAppSelector(state => state.signUp.isSignedUp);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

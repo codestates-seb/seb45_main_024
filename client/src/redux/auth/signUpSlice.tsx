@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import commonInstance from "../utility/commonInstance";
+import commonInstance from "../../utility/commonInstance";
 
 // 회원가입 시 필요한 데이터를 나타내는 인터페이스
 interface SignupData {
