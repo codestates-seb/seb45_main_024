@@ -1,14 +1,13 @@
 package com.seb45main24.server.domain.reply.entity;
 
+import com.seb45main24.server.domain.account.entity.Account;
+import com.seb45main24.server.domain.member_board.entity.MemberBoard;
 import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -22,4 +21,12 @@ public class Reply extends Auditable {
     private String content;
 
     private Boolean isApply;
+
+    @ManyToOne
+    @JoinColumn(name = "WRITER_ID")
+    private Account writer;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_BOARD_ID")
+    private MemberBoard memberBoard;
 }

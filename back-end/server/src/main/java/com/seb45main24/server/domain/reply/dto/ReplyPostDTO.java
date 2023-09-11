@@ -11,6 +11,8 @@ public class ReplyPostDTO {
 
     private Boolean isApply;
 
+    private Long memberBoardId;
+
     private Long loginAccountId;
 
     public void setLoginAccountId(Long loginAccountId) {
