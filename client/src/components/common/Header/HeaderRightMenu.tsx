@@ -1,13 +1,15 @@
 import { FC } from "react";
 import classes from "./HeaderRightMenu.module.css";
 import profile from "../../../assets/images/default_profile.svg";
-import { useAppSelector } from "../../../redux/hooks";
+// import { useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import Alarm from "../Alarm/Alarm";
+import { getTokensFromLocalStorage } from "../../../redux/utility/tokenStoarage";
+import Logout from "../../login/Logout";
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+  const isLoggedIn = getTokensFromLocalStorage();
 
   const handleNavigateLogin = () => {
     navigate("/login");
@@ -37,7 +39,7 @@ const HeaderRight: FC = () => {
             </div>
           </div>
           <div>
-            <button>Log Out</button>
+            <Logout />
           </div>
         </>
       ) : (

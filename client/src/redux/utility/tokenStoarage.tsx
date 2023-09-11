@@ -19,6 +19,7 @@ export const getTokensFromLocalStorage = (): TokenData | null => {
   return null;
 };
 
-// export const removeTokensFromLocalStorage = () => {
-//   localStorage.removeItem("jwtTokens");
-// }; => 백엔드에서 유효성 검사를 진행한다면 로그아웃 api 콜을 별도로 프론트엔드에서 작성해줘야 할 것
+export const removeTokensFromLocalStorage = () => {
+  localStorage.removeItem("jwtTokens");
+};
+// => 백엔드에서 유효성 검사를 진행한다면 로그아웃 api 콜을 별도로 프론트엔드에서 작성해줘야 할 것
