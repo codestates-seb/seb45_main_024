@@ -2,13 +2,16 @@ package com.seb45main24.server.domain.reviews.mapper;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.reviews.dto.ReviewPostDto;
+import com.seb45main24.server.domain.reviews.dto.ReviewResponseDto;
 import com.seb45main24.server.domain.reviews.entity.Review;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
+    List<ReviewResponseDto> reviewsToReviewResponseDtos(List<Review> reviews);
     default Review reviewPostDtoToReview(ReviewPostDto reviewPostDto) {
         Review review = new Review();
         Account account = new Account();

@@ -1,6 +1,5 @@
 package com.seb45main24.server.domain.reviews.dto;
 
-import com.seb45main24.server.domain.account.entity.Account;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -21,18 +20,10 @@ public class ReviewPostDto {
     private String content;
 
     @Positive
-    private Long authorId;
-
-    @Positive
     private Long accountId;
 
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
-    public Account getAuthor() {
-        Account account = new Account();
-        account.setId(authorId);
-        return account;
-    }
 }

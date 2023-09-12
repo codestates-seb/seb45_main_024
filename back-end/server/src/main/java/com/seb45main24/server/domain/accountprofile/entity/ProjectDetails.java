@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.seb45main24.server.domain.image.entity.Image;
+import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "PROJECT_DETAILS")
-public class ProjectDetails {
+public class ProjectDetails extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

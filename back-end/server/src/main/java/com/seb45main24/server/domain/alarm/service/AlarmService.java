@@ -27,10 +27,6 @@ public class AlarmService {
         return saveAlarm;
     }
 
-    public Page<Alarm> findAlarmList() {
-        return repository.findAll(PageRequest.of(0, 10, Sort.by("alarmId").descending()));
-    }
-
     public Alarm findAlarm(long alarmId) {
         return findVerifiedAlarm(alarmId);
     }
