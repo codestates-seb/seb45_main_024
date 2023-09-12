@@ -1,14 +1,16 @@
 import { FC } from "react";
 import classes from "./EditProfile.module.css";
 import CreateProfile from "../../components/mypage/CreateProfile";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditProfile: FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
+  // 제대로 오는지 확인
 
   const cancelHandler = () => {
-    navigate("/mypage/1");
-    // navigate("/mypage/:UserId");
+    navigate(`/mypage/${id}`);
   };
 
   return (

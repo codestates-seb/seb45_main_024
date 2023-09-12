@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import classes from "./Review.module.css";
 import AddReview from "./AddReview";
 import ReviewCard from "./ReviewCard";
@@ -10,6 +10,7 @@ interface AuthorProps {
     isAuthor: boolean;
     visitorId: string | null;
     ownerId?: string | null;
+    username?: string | null;
   };
 }
 
@@ -23,6 +24,7 @@ const dummyReview = {
 
 const Review: FC<AuthorProps> = ({ authorInfo }) => {
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
+
   // const [reviewData, setReviewData] = useState<any>([]);
 
   const showAddReviewhandler = () => {
@@ -54,7 +56,7 @@ const Review: FC<AuthorProps> = ({ authorInfo }) => {
       <div className={classes.reviewContainer}>
         <div className={classes.titleBox}>
           <h1 className={classes.title}>
-            (유저이름) 님과 프로젝트를 함께한 동료
+            {authorInfo.username} 님과 프로젝트를 함께한 동료
           </h1>
           {/* 작성자가 본인의 페이지에 들어온 경우만 해당 버튼 활성화 */}
           {authorInfo.isAuthor && (
@@ -62,7 +64,9 @@ const Review: FC<AuthorProps> = ({ authorInfo }) => {
           )}
           {/* <button className={classes.requestButton}>평가 요청하기</button> */}
         </div>
-        <h2 className={classes.subtitle}>(유저이름) 님은 이런 동료입니다!</h2>
+        <h2 className={classes.subtitle}>
+          {authorInfo.username} 님은 이런 동료입니다!
+        </h2>
         {/* {reviewData.length === 0 ? (
           <NoContent />
         ) : (
@@ -74,7 +78,7 @@ const Review: FC<AuthorProps> = ({ authorInfo }) => {
       </div>
       <div className={classes.addReviewContainer}>
         <h2 className={classes.subtitle}>
-          (유저이름) 님과 함께 프로젝트를 하신 경험이 있으신가요?
+          {authorInfo.username} 님과 함께 프로젝트를 하신 경험이 있으신가요?
         </h2>
         {/* AddReview form 렌더링 */}
         {showAddReview ? (

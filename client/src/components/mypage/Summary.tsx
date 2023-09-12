@@ -18,7 +18,6 @@ const Summary: FC<AuthorProps> = ({ authorInfo }) => {
           {authorInfo.isAuthor && (
             <button className={classes.deleteButton}>Delete</button>
           )}
-          {/* <button className={classes.deleteButton}>Delete</button> */}
         </div>
         <div>해당 유저가 작성한 팀찾기 카드 렌더링</div>
       </div>
@@ -28,7 +27,6 @@ const Summary: FC<AuthorProps> = ({ authorInfo }) => {
           {authorInfo.isAuthor && (
             <button className={classes.deleteButton}>Delete</button>
           )}
-          {/* <button className={classes.deleteButton}>Delete</button> */}
         </div>
         <div>해당 유저가 작성한 팀원찾기 카드 렌더링</div>
       </div>

@@ -15,6 +15,7 @@ interface AuthorProps {
     isAuthor: boolean;
     visitorId: string | null;
     ownerId?: string | null;
+    username?: string | null;
   };
 }
 
