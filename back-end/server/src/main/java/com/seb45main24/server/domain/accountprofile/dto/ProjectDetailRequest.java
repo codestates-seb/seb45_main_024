@@ -10,5 +10,5 @@ import lombok.Setter;
 public class ProjectDetailRequest {
 	private String projectTitle;
 	private String projectUrl;
-	private UploadImage image;
+	private String imageUrl;
 }

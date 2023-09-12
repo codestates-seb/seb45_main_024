@@ -26,14 +26,12 @@ public class TagsService {
 	private final SoftSkillRepository softSkillRepository;
 	private final AccountProfileRepository accountProfileRepository;
 
-
 	@Transactional
-	public List<SoftSkillTag> createSoftSkillTags(List<String> softSkillNames, Long accountId) {
-		AccountProfile accountProfile = findAccountProfile(accountId);
+	public List<SoftSkillTag> createSoftSkillTags(List<String> softSkillNames, Long accountProfileId) {
+		AccountProfile accountProfile = findAccountProfile(accountProfileId);
 
 		List<SoftSkillTag> existingSoftSkillTags = softSkillRepository.findByAccountProfileId(accountProfile.getId());
 		existingSoftSkillTags.forEach(tag -> softSkillRepository.delete(tag));
-
 
 		// 새로운 데이터 추가
 		List<SoftSkillTag> newSoftSkillTags = new ArrayList<>();
@@ -45,32 +43,29 @@ public class TagsService {
 		}
 
 		return softSkillRepository.saveAll(newSoftSkillTags);
-		}
+	}
 
-
-		@Transactional
-		public List<HardSkillTag> createHardSkillTags(List<String> hardSkillNames, Long accountId) {
-			AccountProfile accountProfile = findAccountProfile(accountId);
+	@Transactional
+	public List<HardSkillTag> createHardSkillTags(List<String> hardSkillNames, Long accountProfileId) {
+		AccountProfile accountProfile = findAccountProfile(accountProfileId);
 
 		List<HardSkillTag> existingHardSkillTags = hardSkillRepository.findByAccountProfileId(accountProfile.getId());
-			existingHardSkillTags.forEach(tag -> hardSkillRepository.delete(tag));
+		existingHardSkillTags.forEach(tag -> hardSkillRepository.delete(tag));
 
-
-			// 새로운 데이터 추가
-			List<HardSkillTag> newHardSkillTags = new ArrayList<>();
-			for (String hardSkillName : hardSkillNames) {
-				HardSkillTag newTag = new HardSkillTag();
-				newTag.setTagName(hardSkillName);
-				newTag.setAccountProfile(accountProfile);
-				newHardSkillTags.add(newTag);
-			}
-
-			return hardSkillRepository.saveAll(newHardSkillTags);
+		// 새로운 데이터 추가
+		List<HardSkillTag> newHardSkillTags = new ArrayList<>();
+		for (String hardSkillName : hardSkillNames) {
+			HardSkillTag newTag = new HardSkillTag();
+			newTag.setTagName(hardSkillName);
+			newTag.setAccountProfile(accountProfile);
+			newHardSkillTags.add(newTag);
 		}
 
+		return hardSkillRepository.saveAll(newHardSkillTags);
+	}
 
-	public AccountProfile findAccountProfile(Long accountId) {
-		Optional<AccountProfile> optional = accountProfileRepository.findById(accountId);
+	public AccountProfile findAccountProfile(Long accountProfileId) {
+		Optional<AccountProfile> optional = accountProfileRepository.findById(accountProfileId);
 
 		if (optional.isPresent()) {
 			AccountProfile accountProfile = optional.get();
@@ -78,7 +73,6 @@ public class TagsService {
 		}
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
-
 
 	// 회원 등록시 기본값 생성을 위한 메서드
 	public SoftSkillTag createSoftDefault() {

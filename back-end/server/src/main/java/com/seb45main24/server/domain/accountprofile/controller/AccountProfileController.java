@@ -32,13 +32,12 @@ public class AccountProfileController {
 
 	private final AccountProfileService accountProfileService;
 
-	@PatchMapping("/profile/{account-id}")
+	@PatchMapping("/profile/{account-profile-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
-		@PathVariable("account-id") Long accountId,
-		@Valid ProfilePostRequest postRequest,
-		@RequestPart List<MultipartFile> multipartFiles) {
+												@PathVariable("account-profile-id") Long accountProfileId,
+												@RequestBody @Valid ProfilePostRequest postRequest) {
 
-		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest, multipartFiles);
+		accountProfileService.updateAccountProfile(loginAccountId, accountProfileId, postRequest);
 
 		return ResponseEntity.ok("Update Successful");
 	}

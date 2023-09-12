@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.seb45main24.server.domain.account.entity.Account;
+import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -38,22 +40,21 @@ public class Image {
 
 	private Long size; // 파일 크기
 
-	private String urlPath;
+	private String imageUrl;
 
 	private LocalDateTime createdAt;
 
 	@Enumerated(EnumType.STRING)
 	private ImageClassification imageClsf;
 
-
 	@Builder
-	public Image(Long id, String originName, String saveName, Long size, String urlPath, LocalDateTime createdAt,
+	public Image(Long id, String originName, String saveName, Long size, String imageUrl, LocalDateTime createdAt,
 		ImageClassification imageClsf) {
 		this.id = id;
 		this.originName = originName;
 		this.saveName = saveName;
 		this.size = size;
-		this.urlPath = urlPath;
+		this.imageUrl = imageUrl;
 		this.createdAt = createdAt;
 		this.imageClsf = imageClsf;
 	}
