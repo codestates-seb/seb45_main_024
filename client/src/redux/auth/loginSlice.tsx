@@ -4,7 +4,7 @@ import {
   TokenData,
   saveTokensToLocalStorage,
   getTokensFromLocalStorage,
-} from "../../utility/tokenStoarage";
+} from "../../utility/tokenStorage";
 
 interface LoginData {
   email: string;

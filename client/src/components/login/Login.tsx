@@ -5,7 +5,7 @@ import { validationActions } from "../../redux/auth/validationSlice";
 import { loginUser } from "../../redux/auth/loginSlice";
 import { setAlertMessage } from "../../redux/common/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getTokensFromLocalStorage } from "../../utility/tokenStoarage";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import Loading from "../common/Loading";
 
 // response.data? response.payload?

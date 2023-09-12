@@ -4,7 +4,7 @@ import authInstance from "../../utility/authInstance";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setLoading } from "../../redux/common/loadingSlice";
 import { useNavigate } from "react-router";
-import { removeTokensFromLocalStorage } from "../../utility/tokenStoarage";
+import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 import Loading from "../common/Loading";
 
 const Logout: FC = () => {
