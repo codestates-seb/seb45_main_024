@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import authInstance from "../../utility/authInstance";
+import authInstance from "../../../utility/authInstance";
 
 interface dataType {
   title: string;
