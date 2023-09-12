@@ -15,7 +15,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 
 const CreateProfile: FC = () => {
   const [editorValue, setEditorValue] = useState<string>("");
-  
+
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
@@ -184,7 +184,6 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {/* I need project tag here! */}
         {projTags.map((projTag, index) => (
           <SoftTag
             key={index}

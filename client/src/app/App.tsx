@@ -43,8 +43,8 @@ const router = createBrowserRouter([
 
       /*** 📌 마이페이지 ***/
       {
-        // path: "mypage/1",
-        path: "mypage/:id",
+        path: "mypage/1",
+        // path: "mypage/:id",
         children: [
           { index: true, element: <Mypage /> },
           { path: "edit", element: <EditProfile /> },
