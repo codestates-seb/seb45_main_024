@@ -15,10 +15,11 @@ interface AuthorProps {
 
 const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
   const dispatch = useAppDispatch();
-  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
 
   return (
     <div className={classes.sidemenuContainer}>
+      {/* 임의로 프로필 박스 */}
       <div className={classes.profileBox}>
         <div className={classes.profileImg}>
           <img src={logo_green_face} alt="sample profile" />
@@ -61,14 +62,6 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
               My Info
             </li>
           )}
-          {/* <li
-            className={`${classes.menuItem} ${
-              selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
-            }`}
-            onClick={() => dispatch(changeMenu("MyInfo"))}
-          >
-            My Info
-          </li> */}
         </ul>
       </div>
     </div>

@@ -4,7 +4,8 @@
   /* height: 100vh; */
   position: relative;
   /* header 자리 */
-  padding-top: 60px;
+  padding-top: 50px;
+  padding-bottom: 200px;
 }
 
 .profileBox {
@@ -33,12 +34,6 @@
 .profileInfo{
   font-size: 0.8rem;
   color: var(--color-gray-2);
-}
-
-.menuItemsContainer {
-}
-
-.menuItems {
 }
 
 .menuItem {
