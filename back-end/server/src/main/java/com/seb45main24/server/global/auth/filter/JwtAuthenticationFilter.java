@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seb45main24.server.domain.account.entity.Account;
+import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.global.auth.dto.LoginDto;
 import com.seb45main24.server.global.auth.jwt.JwtTokenizer;
 
@@ -26,11 +27,13 @@ import lombok.SneakyThrows;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenizer jwtTokenizer;
+	private final AccountRepository accountRepository;
 
 
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, AccountRepository accountRepository) {
 		this.authenticationManager = authenticationManager;
 		this.jwtTokenizer = jwtTokenizer;
+		this.accountRepository = accountRepository;
 	}
 
 	@SneakyThrows
@@ -51,6 +54,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 											FilterChain chain,
 											Authentication authResult) {
 		Account account = (Account) authResult.getPrincipal();
+		account.setNickname(accountRepository.findNicknameByAccountId(account.getId()));
 
 		String accessToken = delegateAccessToken(account);
 		String refreshToken = delegateRefreshToken(account);
