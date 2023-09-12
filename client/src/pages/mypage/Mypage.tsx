@@ -6,7 +6,7 @@ import Summary from "../../components/mypage/Summary";
 import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
-// import { authInstance } from "../../utility/authInstance";
+import authInstance from "../../utility/authInstance";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 // import jwtDecode from "jwt-decode";
 import { useParams } from "react-router-dom";
@@ -52,42 +52,23 @@ const Mypage: FC = () => {
   // }
 
   // 002 api call로 isAuthor 설정
-  // useEffect(() => {
-  //   const fetchUserInfo = async () => {
-  //     try {
-  //       const res = await authInstance.get(`/mypages/summary/${id}`);
-  //       const userInfo = res.data.data;
-  //       // const userInfo = res.data;
-  //       // 어떤 건지 찍어보기
-  //       console.log(userInfo);
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await authInstance.get(`/mypages/summary/${id}`);
+        const userInfo = res.data.data;
+        // const userInfo = res.data;
+        // 어떤 건지 찍어보기
+        console.log(userInfo);
+        console.log(userInfo.accountId);
 
-  //       // jwt payload에서 무조건 id값 가지고 오게 해야 함.
-  //       const token = localStorage.getItem("jwtTokens");
-  //       if (token) {
-  //         try {
-  //           const decodedToken = jwtDecode<JwtPayload>(token);
-  //           console.log(decodedToken);
-  //           const visitorId = decodedToken.accountId;
-  //           // 방문자id: 뭐로 저장되어있는지 확인해야 함.
-  //           // userInfo.accountId는 마이페이지 주인장id -> useParams로 가지고 올 수 있는.
-  //           setAuthorInfo({
-  //             isAuthor: userInfo.accountId === visitorId,
-  //             visitorId: visitorId,
-  //             ownerId: userInfo.accountId,
-  //           });
-  //         } catch (error) {
-  //           console.log("Error while decoding", error);
-  //         }
-  //       } else {
-  //         console.log("Token not found");
-  //       }
-  //       console.log(token);
-  //     } catch (error) {
-  //       console.error("Failed to fetch user info", error);
-  //     }
-  //   };
-  //   fetchUserInfo();
-  // }, []);
+        // jwt payload에서 무조건 id값 가지고 오게 해야 함.
+      } catch (error) {
+        console.info("Failed to fetch user info", error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
 
   return (
     <div className={classes.mainContainer}>
