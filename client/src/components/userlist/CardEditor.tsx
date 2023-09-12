@@ -31,16 +31,21 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   const dispatch = useAppDispatch();
   const newTitle = useAppSelector(state => state.users.editTitle);
-  // console.log("newTitle", newTitle);
+  // console.log("newTitle: ", newTitle);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
   /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
   const [date, setDate] = useState(new Date().toLocaleDateString());
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(newTitle);
   const [position, setPosition] = useState("포지션");
+  // console.log("title: ", title);
   // const [stack, setStack] = useState("")
+
+  useEffect(() => {
+    setTitle(newTitle);
+  }, [newTitle]);
 
   // 지원포지션 예시
   const positionList = ["프론트엔드", "백엔드"];
@@ -88,15 +93,21 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     // modifiedAt: "",
   };
 
+  // const data = {
+  //   title: newTitle, // "제목형식string"
+  //   position: position, // "포지션형식string"
+  //   keywords: keywords, // ["키워드1", "키워드2"]
+  // };
+
   const data = {
-    title: newTitle, // "제목형식string"
-    position: position, // "포지션형식string"
-    keywords: keywords, // ["키워드", "배울"]
+    title: "제목...",
+    position: "백엔드",
+    keywords: ["코딩", "작업", "테스트"],
   };
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
-    console.log("🚀 CREATE/EDIT POST", cardData);
+    console.log("🚀 CREATE/EDIT CARD", data);
 
     if (
       window.confirm(
@@ -114,7 +125,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           .then(() => {
             console.log("🚀 CREATE 성공", data);
             window.alert("새 글이 등록되었습니다.");
-            navigate("/userlist");
+            // navigate("/userlist");
           })
           .catch(error => {
             console.warn("🚀 CREATE 실패", error, data);

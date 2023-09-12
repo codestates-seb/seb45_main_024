@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { UserListDataType } from "../../../model/boardTypes";
 import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -13,6 +13,8 @@ interface CardEditProps {
 // New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
   const dispatch = useAppDispatch();
+  const titleRef = useRef<HTMLTextAreaElement>(null);
+  // console.log("REF: ", titleRef.current?.value);
 
   const { title, position, keywords, createdAt } = cardData;
 
@@ -28,8 +30,15 @@ const CardEdit = ({ cardData }: CardEditProps) => {
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
-    dispatch(getNewTitle(newTitle));
+    dispatch(getNewTitle(e.target.value));
   };
+
+  // const handleBlurTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   console.log("🚀 BLUR!!");
+  //   setNewTitle(e.target.value);
+  //   dispatch(getNewTitle(newTitle));
+  //   console.log("newTitle", newTitle);
+  // };
 
   return (
     <div className={`${classes.card} ${classes.edit}`}>
@@ -43,9 +52,11 @@ const CardEdit = ({ cardData }: CardEditProps) => {
         <div className={classes.centerArea}>
           <div className={classes.title}>
             <textarea
+              ref={titleRef}
               placeholder="제목을 입력해주세요."
               onChange={handleChangeTitle}
-              defaultValue={title}
+              // onBlur={handleBlurTitle}
+              // defaultValue={newTitle}
               value={newTitle}
             />
           </div>
