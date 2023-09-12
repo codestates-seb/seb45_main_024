@@ -13,8 +13,9 @@ import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "SOFT_SKILL_TAGS")
@@ -25,7 +26,7 @@ public class SoftSkillTag extends Auditable {
 	@Column(name = "SOFT_SKILL_TAG_ID")
 	private Long id;
 
-	private String techName;
+	private String tagName;
 
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
