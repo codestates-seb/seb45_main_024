@@ -15,7 +15,7 @@ interface AuthorProps {
   authorInfo: {
     isAuthor: boolean;
     visitorId: string | null;
-    ownerId: string | null;
+    ownerId?: string | null;
   };
 }
 
@@ -39,7 +39,7 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
     ],
   };
 
-  // 기술 설명은 gpt랑 deepl api 사용?
+  // 기술 설명은 gpt api 사용?
 
   return (
     <>

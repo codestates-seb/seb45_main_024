@@ -7,26 +7,41 @@ import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
 // import { authInstance } from "../../redux/utility/authInstance";
-// import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
+import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
 // 이거 storage로 오타 수정하라고 하기
-// import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
-// interface JwtPayload {
-//   accountId: string;
-// }
+interface DecodedToken {
+  id: string;
+  username: string;
+}
 
 const Mypage: FC = () => {
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
   const [authorInfo, setAuthorInfo] = useState<{
     isAuthor: boolean;
     visitorId: string | null;
-    ownerId: string | null;
+    ownerId?: string | null;
   }>({ isAuthor: true, visitorId: null, ownerId: null });
   // 테스트 위해서 true로 바꿔놓음
 
-  // const { id } = useParams<{ id: string }>();
+  // 001 api call 없이 isAuthor 설정
+  const { id } = useParams<{ id: string }>();
+  const AT = getTokensFromLocalStorage();
+  if (AT && AT.accessToken) {
+    const decodedAT: DecodedToken = jwtDecode(AT.accessToken) as DecodedToken;
+    const visitorId = decodedAT.id;
+    setAuthorInfo({
+      isAuthor: id === visitorId,
+      visitorId: visitorId,
+      ownerId: id,
+    });
+  } else {
+    console.info("Token not found");
+  }
 
+  // 002 api call로 isAuthor 설정
   // useEffect(() => {
   //   const fetchUserInfo = async () => {
   //     try {

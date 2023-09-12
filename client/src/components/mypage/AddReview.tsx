@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface AddReviewProps {
   onClose: () => void;
-  ownerId: string | null;
+  ownerId?: string | null;
 }
 
 const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
@@ -49,7 +49,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={(e) => setProjectName(e.target.value)}
+          onChange={e => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -64,7 +64,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={(e) => setProjectLink(e.target.value)}
+          onChange={e => setProjectLink(e.target.value)}
         />
       </div>
       {/* <div className={classes.formGroup}>
@@ -96,7 +96,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
           id="reviewTitle"
           type="text"
           value={reviewTitle}
-          onChange={(e) => setReviewTitle(e.target.value)}
+          onChange={e => setReviewTitle(e.target.value)}
         />
       </div>
       <div className={`${classes.formGroup} ${classes.review}`}>
@@ -115,7 +115,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
           rows={3}
           placeholder="나와 프로젝트를 함께한 동료를 더 자세히 소개해주세요:)"
           value={reviewContent}
-          onChange={(e) => setReviewContent(e.target.value)}
+          onChange={e => setReviewContent(e.target.value)}
         />
       </div>
       <div className={classes.actions}>

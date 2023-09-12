@@ -5,7 +5,7 @@ interface AuthorProps {
   authorInfo: {
     isAuthor: boolean;
     visitorId: string | null;
-    ownerId: string | null;
+    ownerId?: string | null;
   };
 }
 
