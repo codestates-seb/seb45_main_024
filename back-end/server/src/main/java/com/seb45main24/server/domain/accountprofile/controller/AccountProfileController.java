@@ -41,8 +41,9 @@ public class AccountProfileController {
 												@RequestBody @Valid ProfilePostRequest postRequest) {
 
 		accountProfileService.updateAccountProfile(loginAccountId, accountProfileId, postRequest);
+		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountProfileId);
 
-		return ResponseEntity.ok("Update Successful");
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/profile/{account-profile-id}")
