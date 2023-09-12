@@ -51,7 +51,8 @@ public interface AlarmMapper {
         }
 
         alarmResponseDTO.alarmType(alarm.getAlarmType());
-        alarmResponseDTO.nickname(alarm.getWriter().getNickname());
+        alarmResponseDTO.writerNickname(alarm.getWriter().getNickname());
+        alarmResponseDTO.writerId(alarm.getWriter().getId());
         alarmResponseDTO.title(alarm.getMemberBoard().getTitle());
         alarmResponseDTO.memberBoardId(alarm.getMemberBoard().getMemberBoardId());
 
