@@ -7,9 +7,9 @@ import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
 // import { authInstance } from "../../utility/authInstance";
-// import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 // import jwtDecode from "jwt-decode";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // interface DecodedToken {
 //   id: string;
@@ -17,7 +17,7 @@ import { useAppSelector } from "../../redux/hooks";
 // }
 
 const Mypage: FC = () => {
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
   const [authorInfo, setAuthorInfo] = useState<{
     isAuthor: boolean;
     visitorId: string | null;
@@ -26,11 +26,17 @@ const Mypage: FC = () => {
   // 테스트 위해서 true로 바꿔놓음
 
   // 001 api call 없이 isAuthor 설정
-  // const { id } = useParams<{ id: string }>();
-  // const AT = getTokensFromLocalStorage();
-  // if (AT && AT.accessToken) {
-  //   const decodedAT: DecodedToken = jwtDecode(AT.accessToken) as DecodedToken;
-  //   const visitorId = decodedAT.id;
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
+  console.log(typeof id);
+  // str
+
+  const AT = getTokensFromLocalStorage();
+  const visitorId = AT.id;
+  console.log(typeof visitorId);
+  //num
+
+  // if (AT && AT.id) {
   //   setAuthorInfo({
   //     isAuthor: id === visitorId,
   //     visitorId: visitorId,
