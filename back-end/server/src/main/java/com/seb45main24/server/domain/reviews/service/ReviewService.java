@@ -6,6 +6,10 @@ import com.seb45main24.server.domain.reviews.entity.Review;
 import com.seb45main24.server.domain.reviews.repository.ReviewRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,10 +17,10 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class ReviewService {
+    @Autowired
     private final ReviewRepository reviewRepository;
     private final AccountService accountService;
     private final AccountRepository accountRepository;
-
 
     public ReviewService(ReviewRepository reviewRepository,
                          AccountService accountService,
@@ -33,6 +37,12 @@ public class ReviewService {
 
         return reviewRepository.save(review);
     }
+
+    public Page<Review> findReviews(Long accountId, int page) {
+        return reviewRepository.findAllByAccount_Id(accountId,
+                PageRequest.of(page, 10, Sort.by("reviewId").descending()));
+    }
+
 }
 
 
