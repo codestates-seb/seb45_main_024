@@ -6,6 +6,7 @@ import com.seb45main24.server.domain.alarm.mapper.AlarmMapper;
 import com.seb45main24.server.domain.alarm.repository.AlarmRepository;
 import com.seb45main24.server.domain.alarm.service.AlarmService;
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
+import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,10 @@ public class AlarmController {
     }
 
     @PostMapping
-    public ResponseEntity postAlarm(@Valid @RequestBody AlarmPostDTO alarmPostDTO) {
+    public ResponseEntity postAlarm(@Valid @RequestBody AlarmPostDTO alarmPostDTO,
+                                    @LoginAccountId Long loginAccountId) {
+        alarmPostDTO.setLoginAccountId(loginAccountId);
+
         Alarm alarm = mapper.alarmPostDtoToAlarm(alarmPostDTO);
 
         Alarm createAlarm = service.createAlarm(alarm);
@@ -53,5 +57,12 @@ public class AlarmController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.alarmListToAlarmResponseDtoList(alarmList),
                 pageAlarms), HttpStatus.OK);
+    }
+
+    @GetMapping("/{alarm-id}")
+    public ResponseEntity getAlarm(@PathVariable("alarm-id") @Positive long alarmId ) {
+        Alarm alarm = service.findAlarm(alarmId);
+
+        return new ResponseEntity<>(mapper.alarmToAlarmResponseDto(alarm), HttpStatus.OK);
     }
 }
