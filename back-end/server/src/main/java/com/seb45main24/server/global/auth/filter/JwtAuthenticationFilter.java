@@ -27,13 +27,10 @@ import lombok.SneakyThrows;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenizer jwtTokenizer;
-	private final AccountRepository accountRepository;
 
-
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, AccountRepository accountRepository) {
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
 		this.authenticationManager = authenticationManager;
 		this.jwtTokenizer = jwtTokenizer;
-		this.accountRepository = accountRepository;
 	}
 
 	@SneakyThrows
@@ -54,7 +51,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 											FilterChain chain,
 											Authentication authResult) {
 		Account account = (Account) authResult.getPrincipal();
-		account.setNickname(accountRepository.findNicknameByAccountId(account.getId()));
+
 
 		String accessToken = delegateAccessToken(account);
 		String refreshToken = delegateRefreshToken(account);
@@ -68,6 +65,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		claims.put("id", account.getId());
 		claims.put("username", account.getEmail());
+		claims.put("imageUrl", account.getImage().getImageUrl());
 		claims.put("nickname", account.getNickname());
 		claims.put("roles", account.getRoles());
 
