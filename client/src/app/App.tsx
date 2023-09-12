@@ -2,7 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "../pages/Root";
 import ErrorPage from "../pages/Error";
-
+import LoginPage from "../pages/login/LoginPage";
+import SignUpPage from "../pages/signup/SignUpPage";
 import Main from "../pages/main/Main";
 
 import Mypage from "../pages/mypage/Mypage";
@@ -16,6 +17,7 @@ import ProjectList from "../pages/projectList/ProjectList";
 import Detail from "../pages/projectList/Detail";
 import NewPost from "../pages/projectList/NewPost";
 import EditPost from "../pages/projectList/EditPost";
+import FindPasswordPage from "../pages/findPassword/findPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +33,16 @@ const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            // element: <Login />,
-            // children: [{ path: "findpassword", element: <PAGE /> }],
+            element: <LoginPage />,
+            // children: [{ path: "findpassword", element: <FindPasswordPage /> }],
           },
           {
             path: "signup",
-            // element: <Signup />,
+            element: <SignUpPage />,
+          },
+          {
+            path: "findpassword",
+            element: <FindPasswordPage />,
           },
         ],
       },

@@ -1,11 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import SocialSignUp from "./SocialSignUp";
+import commonInstance from "../../utility/commonInstance";
 import classes from "./SignUp.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
-import { signUpUser } from "../../redux/auth/signUpSlice";
-import { setAlertMessage } from "../../redux/utility/alertSlice";
+// import { setAlertMessage } from "../../redux/utility/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { setLoading } from "../../redux/common/loadingSlice";
+import Loading from "../common/Loading";
 
 interface SignUpData {
   nickname: string;
@@ -32,7 +33,14 @@ const SignUp: FC = () => {
     confirmPassword: "",
   });
 
-  const loading = useAppSelector(state => state.signUp.loading);
+  const nickNameInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (nickNameInputRef.current) {
+      nickNameInputRef.current.focus();
+    }
+  }, []);
+
+  const isLoading = useAppSelector(state => state.loading.isLoading);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -81,6 +89,7 @@ const SignUp: FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatch(setLoading(true));
 
     const registerData = {
       nickname: formData.nickname,
@@ -89,31 +98,49 @@ const SignUp: FC = () => {
     };
 
     try {
-      const response = await dispatch(signUpUser(registerData));
-
-      if (response.payload.status === 201) {
-        // 회원가입 성공 처리
-        setAlertMessage(response.payload.message);
-        navigate("/login"); // 회원가입 성공 시, 로그인 경로로 이동
-      } else {
-        // 회원가입 실패 처리
-        setAlertMessage(response.payload.message);
-      }
+      const response = await commonInstance.post(
+        "/accounts/signup",
+        registerData,
+      );
+      alert("회원가입 성공");
+      console.log("회원가입 잘 됐어요", response.status);
+      navigate("/login");
     } catch (error) {
-      // 회원가입 오류 처리
-      console.error("로그인 오류:", error);
-      alert(`회원가입 과정에 오류가 있습니다 : ${error}`);
+      if (error.response.status === 409) {
+        alert("이미 가입되어 있어");
+        console.log(error.response.status);
+        console.log("이미 회원가입된 이메일이잖아");
+        dispatch(validationActions.resetValidation());
+        setFormData({
+          nickname: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        alert("회원가입 실패");
+        console.log(error.response.status);
+        console.error("회원가입 실패했어요", error);
+        dispatch(validationActions.resetValidation());
+        setFormData({
+          nickname: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      }
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
   return (
     <div className={classes.container}>
-      <img alt="logo"></img>
-      <SocialSignUp />
       <form className={classes.signUp} onSubmit={handleSubmit}>
         <div className={classes.inputInfo}>
           <label>Nickname</label>
           <input
+            ref={nickNameInputRef}
             placeholder="Input Nickname"
             type="text"
             value={formData.nickname}
@@ -164,8 +191,7 @@ const SignUp: FC = () => {
           Sign Up
         </button>
       </form>
-      {loading === "pending" && <p>로딩 중...</p>}
-      {/* 얘는 모달 식으로 디자인 보완 더 필요할듯 */}
+      {isLoading && <Loading />}
     </div>
   );
 };

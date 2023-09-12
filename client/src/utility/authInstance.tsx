@@ -3,10 +3,16 @@ import {
   TokenData,
   getTokensFromLocalStorage,
   saveTokensToLocalStorage,
-} from "./tokenStoarage";
+  removeTokensFromLocalStorage,
+} from "./tokenStorage";
 
-const BASE_URL =
-  "http://ec2-13-125-206-62.ap-northeast-2.compute.amazonaws.com:8080";
+let BASE_URL = "";
+if (
+  import.meta.env.VITE_APP_API_ENDPOINT &&
+  typeof import.meta.env.VITE_APP_API_ENDPOINT === "string"
+) {
+  BASE_URL = import.meta.env.VITE_APP_API_ENDPOINT;
+}
 
 const authInstance = axios.create({
   baseURL: BASE_URL,
@@ -17,9 +23,11 @@ const authInstance = axios.create({
 authInstance.interceptors.request.use(
   config => {
     const token = getTokensFromLocalStorage();
-    const accessToken = token?.accessToken.slice(7);
-    if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    // const accessToken = token?.accessToken.slice(7); : 왜 slice에서 type 에러가 떴지..?
+    if (token) {
+      config.headers["Authorization"] = `${token}`;
+      // 30분 지난 토큰을 보냈다? 리프레쉬 토큰 바탕으로 새로운 액세스토큰 발급해주는 로직 : 백엔드
+      // 발급된 새로운 액세스토큰을 리스폰스 헤더에 담아서 보내줌 : 백엔드
     }
     return config;
   },
@@ -34,6 +42,7 @@ authInstance.interceptors.response.use(
   response => {
     const newAccessToken = response.headers["authorization"];
     if (newAccessToken) {
+      removeTokensFromLocalStorage(); // 기존의 무효한 액세스 토큰 먼저 삭제
       saveTokensToLocalStorage({
         accessToken: newAccessToken,
       } as TokenData);
@@ -48,3 +57,5 @@ authInstance.interceptors.response.use(
 );
 
 export default authInstance;
+
+// 회원권한이 있을 때 사용할 axios 인스턴스
