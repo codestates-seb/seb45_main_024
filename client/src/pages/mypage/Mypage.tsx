@@ -22,11 +22,9 @@ const Mypage: FC = () => {
     visitorId: string | null;
     ownerId?: string | null;
     username?: string | null;
-    // 있는지 확인하기
   }>({ isAuthor: true, visitorId: null, ownerId: null, username: null });
   // 테스트 위해서 true로 바꿔놓음
 
-  // 001 api call 없이 isAuthor 설정
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();

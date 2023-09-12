@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import ProjCard from "./ProjCard";
 import SoftTag from "./SoftTag";
 import TechProfile from "./TechProfile";
+import HardProfile from "./HardProfile";
 
 interface AuthorProps {
   authorInfo: {
@@ -28,6 +29,12 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
 
   const dummyBio =
     "국회는 국무총리 또는 국무위원의 해임을 대통령에게 건의할 수 있다. 모든 국민은 종교의 자유를 가진다. 국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다. 국가는 사회보장·사회복지의 증진에 노력할 의무를 진다. 국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다.";
+  const dummyHard = {
+    hardTags: [
+      { techName: "English", id: 1, level: "B" },
+      { techName: "Google Analytics", id: 2, level: "C" },
+    ],
+  };
   const dummySoft = {
     softTags: [
       { techName: "커뮤니케이션", id: 1 },
@@ -88,7 +95,24 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
         </section>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.HARD} />
-          <div className={classes.hardContent}>{/* 조건부 */}</div>
+          <p className={classes.helpText}>
+            마우스를 올리면 {authorInfo.username}님이 설정한 레벨을 볼 수
+            있어요.
+          </p>
+          <div className={classes.hardContent}>
+            {dummyHard.hardTags.length > 0 ? (
+              dummyHard.hardTags.map((hardTag, index) => (
+                <HardProfile
+                  key={index}
+                  techName={hardTag.techName}
+                  id={hardTag.id}
+                  level={hardTag.level}
+                />
+              ))
+            ) : (
+              <NoContent />
+            )}
+          </div>
         </section>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.SOFT} />

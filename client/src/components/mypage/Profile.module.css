@@ -24,9 +24,9 @@
   justify-content: space-between;
 }
 
-.techContentContainer{
+.techContentContainer {
   display: flex;
-  gap: 16px
+  gap: 16px;
 }
 
 .helpContent {
@@ -50,6 +50,11 @@
   color: var(--color-gray-2);
 }
 
+.hardContent {
+  display: flex;
+  gap: 8px;
+}
+
 .softContent {
   margin-top: 16px;
   display: flex;
@@ -62,5 +67,5 @@
 
 .helpText {
   font-size: 0.8rem;
-  color: var(--color-gray-3);
+  color: var(--color-gray-2);
 }
