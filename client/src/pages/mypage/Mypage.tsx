@@ -6,9 +6,7 @@ import Summary from "../../components/mypage/Summary";
 import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
-import authInstance from "../../utility/authInstance";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
-// import jwtDecode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
 interface AccessTokenType {
@@ -18,7 +16,7 @@ interface AccessTokenType {
 }
 
 const Mypage: FC = () => {
-  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
   const [authorInfo, setAuthorInfo] = useState<{
     isAuthor: boolean;
     visitorId: string | null;
@@ -46,25 +44,6 @@ const Mypage: FC = () => {
       });
     }
   }, []);
-
-  // 002 api call로 isAuthor 설정
-  // useEffect(() => {
-  //   const fetchUserInfo = async () => {
-  //     try {
-  //       const res = await authInstance.get(`/mypages/summary/${id}`);
-  //       const userInfo = res.data.data;
-  //       // const userInfo = res.data;
-  //       // 어떤 건지 찍어보기
-  //       console.log(userInfo);
-  //       console.log(userInfo.accountId);
-
-  //       // jwt payload에서 무조건 id값 가지고 오게 해야 함.
-  //     } catch (error) {
-  //       console.info("Failed to fetch user info", error);
-  //     }
-  //   };
-  //   fetchUserInfo();
-  // }, []);
 
   return (
     <div className={classes.mainContainer}>
