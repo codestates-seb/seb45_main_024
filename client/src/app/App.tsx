@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <UserList /> },
           { path: "new", element: <NewCard /> },
-          { path: "edit/:id", element: <EditCard /> },
+          { path: "edit/:usercardId", element: <EditCard /> },
         ],
       },
 
@@ -80,9 +80,9 @@ const router = createBrowserRouter([
         path: "projectlist",
         children: [
           { index: true, element: <ProjectList /> },
-          { path: ":id", element: <Detail /> },
+          { path: ":projectId", element: <Detail /> },
           { path: "new", element: <NewPost /> },
-          { path: "edit/:id", element: <EditPost /> },
+          { path: "edit/:projectId", element: <EditPost /> },
         ],
       },
     ],

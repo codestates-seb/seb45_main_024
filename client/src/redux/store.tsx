@@ -5,6 +5,9 @@ import alertReducer from "./common/alertSlice";
 import loadingReducer from "./common/loadingSlice";
 import menuReducer from "./menuSlice";
 
+import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
+import { projectsReducer } from "./board/slices/projectsSlice";
+
 const store = configureStore({
   reducer: {
     validation: validationReducer,
@@ -12,10 +15,25 @@ const store = configureStore({
     alert: alertReducer,
     loading: loadingReducer,
     menu: menuReducer,
+    users: usersReducer,
+    projects: projectsReducer,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export { fetchUserCardList } from "./board/thunks/fetchUserCardList";
+export { getUserCard } from "./board/thunks/getUserCard";
+export { addUserCard } from "./board/thunks/addUserCard";
+export { editUserCard } from "./board/thunks/editUserCard";
+export { removeUserCard } from "./board/thunks/removeUserCard";
+
+export { fetchProjectList } from "./board/thunks/fetchProjectList";
+export { getProject } from "./board/thunks/getProject";
+export { addProject } from "./board/thunks/addProject";
+export { editProject } from "./board/thunks/editProject";
+
+export { getNewTitle };
 
 export default store;

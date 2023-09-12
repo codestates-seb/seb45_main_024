@@ -82,6 +82,14 @@ iframe {
 }
 
 /* layout */
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 3.75rem;
+  margin-bottom: 5rem;
+}
+
 .container {
   margin: 0 auto;
   padding: 0 1.5rem;

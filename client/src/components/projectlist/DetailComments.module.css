@@ -1,0 +1,78 @@
+.comments {
+  margin-top: 3.75rem;
+
+  & h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  & .writeArea {
+
+    & textarea {
+      width: 100%; 
+      margin: 0.75rem 0;
+    }
+
+    & .submitBtn {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+  }
+
+  & .commentsArea {
+    margin-top: 4.5rem;
+
+    & .comment {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--color-gray-4);
+
+      & .meta {
+        display: flex;
+        align-items: center;
+
+        & > :last-child {
+          margin-left: auto;
+        }
+
+        & .userImage {
+          margin-right: 4px;
+          /* 이미지 임시 */
+          width: 45px;
+          height: 45px;
+          border: 1px solid blue;
+          border-radius: 50%;
+        }
+
+        & .usernameAndDate {
+          
+          & .username {}
+          & .date {
+            color: var(--color-gray-1);
+            font-size: 0.75rem; 
+          }
+        }
+
+        & .editArea {
+          display: flex;
+          gap: 4px;
+
+          & > div {
+            cursor: pointer;
+          }
+        }
+      }
+
+      & .contents {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 0.75rem;
+
+        & .content {
+          
+        }
+      }
+    }
+  }
+}

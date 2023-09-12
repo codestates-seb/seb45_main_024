@@ -1,42 +1,162 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Card from "../../components/userlist,projectlist/Card";
+import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
+import { UserListDataType } from "../../model/boardTypes";
+import Card from "../../components/userlist,projectlist/card/Card";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Tag from "../userlist,projectlist/Tag";
-import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
+
+import { addUserCard } from "../../redux/store";
+import { editUserCard } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
 import classes from "./CardEditor.module.css";
 
-const CardEditor = () => {
+type CardType = "NEW_CARD" | "EDIT_CARD";
+
+interface CardEditorProps {
+  type: CardType;
+  originCard?: UserListDataType;
+}
+
+const CardEditor = ({ type, originCard }: CardEditorProps) => {
+  // console.log("originCard", originCard);
+  const NEW_CARD = type === "NEW_CARD";
+  const EDIT_CARD = type === "EDIT_CARD";
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 지원포지션 예시
-  const positionList = ["전체", "프론트엔드", "백엔드", "디자이너"];
-  const [positionSelect, setPositionSelect] = useState("포지션");
+  const dispatch = useAppDispatch();
+  const newTitle = useAppSelector(state => state.users.editTitle);
+  // console.log("newTitle", newTitle);
 
-  // 키워드 예시
-  const keywordList = ["포트폴리오", "사이드프로젝트", "반응형웹", "미디어"];
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
+  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
+  const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [title, setTitle] = useState("");
+  const [position, setPosition] = useState("포지션");
+  // const [stack, setStack] = useState("")
+
+  // 지원포지션 예시
+  const positionList = ["프론트엔드", "백엔드"];
 
   const handlePositionSelect = (selected: string) => {
-    setPositionSelect(selected);
+    setPosition(selected);
+  };
+
+  // 키워드 예시
+  const [keywords, setKeywords] = useState<string[]>([]);
+
+  // 키워드 추가
+  const onCreateTag = (keyword: string) => {
+    const trimKeyword = keyword.split(" ").join(""); // 공백 허용 X
+    setKeywords(prev => {
+      return [...prev, trimKeyword];
+    });
+  };
+
+  // 키워드 삭제
+  const handleDelete = (targetKeyword: string) => {
+    const updatedKeyword = keywords.filter(
+      keyword => keyword !== targetKeyword,
+    );
+    setKeywords(updatedKeyword);
+  };
+
+  /** EDIT CARD인 경우 (카드 수정) */
+  useEffect(() => {
+    if (EDIT_CARD) {
+      setDate(originCard?.createdAt);
+      setTitle(originCard?.title);
+      setPosition(originCard?.position);
+      setKeywords(originCard?.keywords);
+    }
+  }, [EDIT_CARD, originCard]);
+
+  const cardData = {
+    // teamBoardId: 0,
+    title: title,
+    position: position,
+    keywords: keywords,
+    // accountId: 0,
+    createdAt: date,
+    // modifiedAt: "",
+  };
+
+  const data = {
+    title: newTitle, // "제목형식string"
+    position: position, // "포지션형식string"
+    keywords: keywords, // ["키워드", "배울"]
+  };
+
+  /* Creact or Edit Card */
+  const handleSubmit = () => {
+    console.log("🚀 CREATE/EDIT POST", cardData);
+
+    if (
+      window.confirm(
+        EDIT_CARD
+          ? "카드를 수정하시겠습니까?"
+          : "새로운 카드를 작성하시겠습니까?",
+      )
+    ) {
+      if (NEW_CARD) {
+        setIsLoading(true);
+        setError(null);
+
+        dispatch(addUserCard(data))
+          .unwrap()
+          .then(() => {
+            console.log("🚀 CREATE 성공", data);
+            window.alert("새 글이 등록되었습니다.");
+            navigate("/userlist");
+          })
+          .catch(error => {
+            console.warn("🚀 CREATE 실패", error, data);
+            setError("Something went wrong");
+          })
+          .finally(() => setIsLoading(false));
+      }
+
+      if (EDIT_CARD) {
+        setIsLoading(true);
+        setError(null);
+
+        const targetId = originCard?.teamBoardId;
+
+        dispatch(editUserCard({ targetId, data }))
+          .unwrap()
+          .then(() => {
+            console.log("🚀 EDIT 성공", data);
+            window.alert("카드가 수정되었습니다.");
+            navigate("/userlist");
+          })
+          .catch(error => {
+            console.warn("🚀 EDIT 실패", error, data);
+          });
+      }
+    }
   };
 
   return (
     <main>
       <div className={classes.previewArea}>
         <ul>
-          <Card type="USER_CARD" title="플레이스홀더" />
-          <Card type="USER_CARD" title="플레이스홀더" />
+          <Card type="USER_CARD" cardData={cardData} isEdit={true} />
+          <Card type="USER_CARD" cardData={cardData} isEdit={true} />
         </ul>
       </div>
       <div className={classes.inputArea}>
         <div className={classes.inputAreaTop}>
           <Selectbox
-            title={positionSelect}
+            title={position}
             options={positionList}
-            selectedOption={positionSelect}
+            selectedOption={position}
             onSelect={handlePositionSelect}
             borderRadius={4}
           />
@@ -47,12 +167,20 @@ const CardEditor = () => {
           </section>
           <section className={classes.keyword}>
             <h2 className={classes.title}>내가 원하는 프로젝트의 키워드</h2>
-            <SearchInput placeholder="Enter를 눌러 키워드를 추가해 보세요!">
+            <SearchInput
+              placeholder="Enter를 눌러 키워드를 추가해 보세요!"
+              onSubmit={keyword => onCreateTag(keyword)}
+            >
               <Hashtag stroke="var(--color-gray-4)" />
             </SearchInput>
             <ul>
-              {keywordList.map(list => (
-                <Tag type="KEYWORD_TAG" text={list} />
+              {keywords.map(list => (
+                <Tag
+                  key={list}
+                  type="KEYWORD_TAG"
+                  text={list}
+                  onDelete={handleDelete}
+                />
               ))}
             </ul>
           </section>
@@ -67,11 +195,7 @@ const CardEditor = () => {
         >
           취소
         </ActionButton>
-        <ActionButton
-          handleClick={() => {
-            console.log("등록버튼 클릭");
-          }}
-        >
+        <ActionButton handleClick={handleSubmit}>
           {location.pathname.startsWith("/userlist/edit") && "카드 수정하기"}
           {location.pathname.startsWith("/userlist/new") && "카드 등록하기"}
         </ActionButton>

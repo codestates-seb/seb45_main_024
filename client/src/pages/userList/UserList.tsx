@@ -1,35 +1,30 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate /* useSearchParams */ } from "react-router-dom";
+
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import Pagination from "../../components/userlist,projectlist/Pagination";
-import Card from "../../components/userlist,projectlist/Card";
+import Card from "../../components/userlist,projectlist/card/Card";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
+
+import { fetchUserCardList } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
 import classes from "./UserList.module.css";
 
 const UserList = () => {
   const navigate = useNavigate();
 
-  // 섹렉트박스 예시
+  const dispatch = useAppDispatch();
+  const userCardData = useAppSelector(state => state.users.data);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
+  // filter 관련 :: 추후 작업
   const stackList = ["기술스택1", "기술스택2"];
   const positionList = ["전체", "프론트엔드", "백엔드", "디자이너"];
-
-  // 유저 리스트 예시
-  const cardList = [
-    "카드1",
-    "카드2",
-    "카드3",
-    "카드4",
-    "카드5",
-    "카드6",
-    "카드7",
-    "카드8",
-    // "카드9",
-    // "카드10",
-    // "카드11",
-    // "카드12",
-  ];
 
   const [stackSelect, setStackSelect] = useState("기술스택");
   const [positionSelect, setPositionSelect] = useState("포지션");
@@ -42,14 +37,73 @@ const UserList = () => {
     setPositionSelect(selected);
   };
 
-  const handleClick = () => {
+  // pagination 관련: 추후 작업
+  // const [totalCard, setTotalCard] = useState(0);
+  // const [query, setQuery] = useSearchParams();
+  // const currentPage = query.get("page") === null ? 1 : query.get("page");
+
+  const onCreateNewCard = () => {
+    // TODO :: 로그인하지 않은 사용자면 로그인 페이지로 이동
     navigate("/userlist/new");
   };
+
+  /** Fetch User Card */
+  useEffect(() => {
+    console.log("🚀 GET USER LIST");
+    setIsLoading(true);
+    setError(null);
+
+    dispatch(fetchUserCardList())
+      .unwrap()
+      .catch(error => {
+        console.warn("GET USERLIST ERROR", error);
+        setError("Something went wrong");
+      })
+      .finally(() => setIsLoading(false));
+  }, [dispatch]);
+
+  // CardListContent 정의
+  let CardListContent;
+
+  if (isLoading) {
+    // 임시 Loading
+    CardListContent = (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "60vh",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  } else if (error) {
+    // CardListContent = <div>Error!</div>;
+    // Error시 임시 화면처리(Dummy Data)
+    CardListContent = (
+      <ul className={classes.cardListArea}>
+        {userCardData.map(card => (
+          <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
+        ))}
+      </ul>
+    ); // 서버 안될시 TEST
+  } else {
+    CardListContent = (
+      <ul className={classes.cardListArea}>
+        {userCardData.map(card => (
+          <Card key={card.teamBoardId} type="USER_CARD" cardData={card} />
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <main>
       <div className={classes.buttonArea}>
-        <ActionButton handleClick={handleClick}>카드 작성하기</ActionButton>
+        <ActionButton handleClick={onCreateNewCard}>카드 작성하기</ActionButton>
       </div>
       <div className={classes.searchArea}>
         <Selectbox
@@ -64,16 +118,17 @@ const UserList = () => {
           selectedOption={positionSelect}
           onSelect={handlePositionSelect}
         />
-        <SearchInput placeholder="제목, 키워드 등을 검색해보세요.">
+        <SearchInput
+          placeholder="제목, 키워드 등을 검색해보세요."
+          onSubmit={() => {
+            console.log("SUBMIT 클릭");
+          }}
+        >
           <SearchSvg stroke="var(--color-gray-4)" />
         </SearchInput>
       </div>
 
-      <ul className={classes.cardListArea}>
-        {cardList.map(list => (
-          <Card type="USER_CARD" title={list} />
-        ))}
-      </ul>
+      {CardListContent}
 
       <div className={classes.pagination}>
         <Pagination

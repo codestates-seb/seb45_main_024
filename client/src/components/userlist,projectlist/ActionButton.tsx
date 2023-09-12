@@ -3,11 +3,17 @@ import classes from "./ActionButton.module.css";
 
 type Props = {
   type?: "normal" | "outline";
-  handleClick: () => void;
+  buttonType?: "button" | "submit";
+  handleClick?: () => void;
   children: ReactNode;
 };
 
-const ActionButton = ({ type = "normal", handleClick, children }: Props) => {
+const ActionButton = ({
+  type = "normal",
+  buttonType = "button",
+  handleClick,
+  children,
+}: Props) => {
   return (
     <button
       className={
@@ -16,6 +22,7 @@ const ActionButton = ({ type = "normal", handleClick, children }: Props) => {
           : `${classes.button} ${classes.outline}`
       }
       onClick={handleClick}
+      type={buttonType}
     >
       {children}
     </button>
