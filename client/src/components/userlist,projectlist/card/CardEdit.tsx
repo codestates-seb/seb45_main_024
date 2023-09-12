@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserListDataType } from "../../../model/boardTypes";
-import { getStringDate } from "../../../util/formatDate";
+import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getNewTitle } from "../../../redux/store";
 

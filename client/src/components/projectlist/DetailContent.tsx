@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../assets/icons/edit.svg";
-import { getStringDate } from "../../util/formatDate";
+import { getStringDate } from "../../utility/formatDate";
 
 import { getProject } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

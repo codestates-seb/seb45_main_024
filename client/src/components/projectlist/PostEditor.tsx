@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { sliceISOString, requestFormatDate } from "../../util/formatDate";
+import { sliceISOString, requestFormatDate } from "../../utility/formatDate";
 import ActionButton from "../userlist,projectlist/ActionButton";
 import SelectBox from "../userlist,projectlist/Selectbox";
 import Tag from "../userlist,projectlist/Tag";
