@@ -1,0 +1,26 @@
+.plusBtnContainer{
+  display: flex;
+  gap: 8px;
+}
+
+
+.plusBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  border: 1px solid var(--color-gray-3);
+}
+
+.plusBtn:hover {
+  background-color: var(--color-sub);
+}
+
+
+.plusIcon {
+  width: 36px;
+  height: auto;
+  opacity: 0.5;
+}

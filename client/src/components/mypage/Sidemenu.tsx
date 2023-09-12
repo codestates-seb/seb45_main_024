@@ -3,7 +3,15 @@ import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
-const SideMenu: FC = () => {
+interface AuthorProps {
+  authorInfo: {
+    isAuthor: boolean;
+    visitorId: string | null;
+    ownerId?: string | null;
+  };
+}
+
+const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
   const dispatch = useAppDispatch();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
 
@@ -39,15 +47,24 @@ const SideMenu: FC = () => {
           >
             Peer Review
           </li>
-          {/* 작성자가 자신의 페이지에 들어온 경우만 이 메뉴가 보여야 함. */}
-          <li
+          {authorInfo.isAuthor && (
+            <li
+              className={`${classes.menuItem} ${
+                selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
+              }`}
+              onClick={() => dispatch(changeMenu("MyInfo"))}
+            >
+              My Info
+            </li>
+          )}
+          {/* <li
             className={`${classes.menuItem} ${
               selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
             }`}
             onClick={() => dispatch(changeMenu("MyInfo"))}
           >
             My Info
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
