@@ -1,22 +1,116 @@
-import { FC } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import TechTags from "./TechTags";
 import classes from "./CreateProfile.module.css";
 import Addproj from "./Addproj";
 import QuillEditor from "./QuillEditor";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
+import PlusBtn from "./PlusBtn";
+import SoftInput from "./SoftInput";
+import SoftTag from "./SoftTag";
+import HardInput from "./HardInput";
+import DropDownTag from "./DropDownTag";
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
 const CreateProfile: FC = () => {
+  const [editorValue, setEditorValue] = useState<string>("");
+
+  const [projectName, setProjectName] = useState<string>("");
+  const [projectLink, setProjectLink] = useState<string>("");
+  const [projectImage, setProjectImage] = useState<string>("");
+
+  const editorChangeHandler = (value: string) => {
+    setEditorValue(value);
+  };
   // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
   // post로 보내는 api call도 있음. req body 구조 알아야.
+
+  // 이하 코드 리팩토링 필수!
+  const [softInput, setSoftInput] = useState("");
+  const [hardInput, setHardInput] = useState("");
+  const [techInput, setTechInput] = useState("");
+
+  const [softTags, setSoftTags] = useState<string[]>([]);
+  const [hardTags, setHardTags] = useState<string[]>([]);
+  const [techTags, setTechTags] = useState<string[]>([]);
+  const [projTags, setProjTags] = useState<string[]>([]);
+
+  const softInputRef = useRef(softInput);
+  const hardInputRef = useRef(hardInput);
+  const techInputRef = useRef(techInput);
+  softInputRef.current = softInput;
+  hardInputRef.current = hardInput;
+  techInputRef.current = techInput;
+
+  const softTagsRef = useRef(softTags);
+  const hardTagsRef = useRef(hardTags);
+  const techTagsRef = useRef(techTags);
+  softTagsRef.current = softTags;
+  hardTagsRef.current = hardTags;
+  techTagsRef.current = techTags;
+
+  const handleSoftEnterPress = (e: KeyboardEvent) => {
+    if (e.code === "Enter" && softInputRef.current.length > 0) {
+      console.log("hello", softInputRef.current);
+      setSoftTags([...softTagsRef.current, softInputRef.current]);
+      setSoftInput("");
+    }
+  };
+
+  const handleHardEnterPress = (e: KeyboardEvent) => {
+    if (e.code === "Enter" && hardInputRef.current.length > 0) {
+      console.log("hello", hardInputRef.current);
+      setHardTags([...hardTagsRef.current, hardInputRef.current]);
+      setHardInput("");
+    }
+  };
+  const handleTechEnterPress = (e: KeyboardEvent) => {
+    if (e.code === "Enter" && techInputRef.current.length > 0) {
+      console.log("hello", techInputRef.current);
+      setTechTags([...techTagsRef.current, techInputRef.current]);
+      setTechInput("");
+    }
+  };
+
+  const softTagDeleteHandler = (id: number) => {
+    const updatedTags = softTags.filter((_, index) => index !== id);
+    setSoftTags(updatedTags);
+  };
+  const hardTagDeleteHandler = (id: number) => {
+    const updatedTags = hardTags.filter((_, index) => index !== id);
+    setHardTags(updatedTags);
+  };
+  const techTagDeleteHandler = (id: number) => {
+    const updatedTags = techTags.filter((_, index) => index !== id);
+    setTechTags(updatedTags);
+  };
+
+  const projTagDeleteHandler = (id: number) => {
+    const updatedTags = projTags.filter((_, index) => index !== id);
+    setProjTags(updatedTags);
+  };
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleSoftEnterPress);
+    return () => window.removeEventListener("keyup", handleSoftEnterPress);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleHardEnterPress);
+    return () => window.removeEventListener("keyup", handleHardEnterPress);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleTechEnterPress);
+    return () => window.removeEventListener("keyup", handleTechEnterPress);
+  }, []);
 
   return (
     <form className={classes.createForm}>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.BIO} />
-        <QuillEditor />
+        <QuillEditor onChange={editorChangeHandler} />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.TECH} />
@@ -28,6 +122,17 @@ const CreateProfile: FC = () => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         <TechTags />
+        {techTags.map((techTag, index) => (
+          <SoftTag
+            key={index}
+            techName={techTag}
+            id={index}
+            onDelete={techTagDeleteHandler}
+          />
+        ))}
+        <PlusBtn>
+          <HardInput input={techInput} setInput={setTechInput} />
+        </PlusBtn>
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />
@@ -38,6 +143,17 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        {hardTags.map((hardTag, index) => (
+          <DropDownTag
+            key={index}
+            techName={hardTag}
+            id={index}
+            onDelete={hardTagDeleteHandler}
+          />
+        ))}
+        <PlusBtn>
+          <HardInput input={hardInput} setInput={setHardInput} />
+        </PlusBtn>
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.SOFT} />
@@ -47,6 +163,17 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
+        {softTags.map((softTag, index) => (
+          <SoftTag
+            key={index}
+            techName={softTag}
+            id={index}
+            onDelete={softTagDeleteHandler}
+          />
+        ))}
+        <PlusBtn>
+          <SoftInput input={softInput} setInput={setSoftInput} />
+        </PlusBtn>
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.PROJ} />
@@ -57,8 +184,26 @@ const CreateProfile: FC = () => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {/* 테스트 렌더링 */}
-        <Addproj />
+        {projTags.map((projTag, index) => (
+          <SoftTag
+            key={index}
+            techName={projTag}
+            id={index}
+            onDelete={projTagDeleteHandler}
+          />
+        ))}
+        <PlusBtn>
+          <Addproj
+            projectName={projectName}
+            setProjectName={setProjectName}
+            projectLink={projectLink}
+            setProjectLink={setProjectLink}
+            projectImage={projectImage}
+            setProjectImage={setProjectImage}
+            projTags={projTags}
+            setProjTags={setProjTags}
+          />
+        </PlusBtn>
       </section>
     </form>
   );

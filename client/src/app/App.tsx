@@ -6,7 +6,8 @@ import LoginPage from "../pages/login/LoginPage";
 import SignUpPage from "../pages/signup/SignUpPage";
 import Main from "../pages/main/Main";
 
-// import Mypage from "../pages/mypage/Mypage";
+import Mypage from "../pages/mypage/Mypage";
+import EditProfile from "../pages/mypage/EditProfile";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -48,34 +49,20 @@ const router = createBrowserRouter([
 
       /*** 📌 마이페이지 ***/
       {
-        path: "mypage",
-        // element: <Mypage />,
-        /*
+        path: "mypage/1",
+        // path: "mypage/:id",
         children: [
-          {
-            path: "profile",
-            // element: <PAGE />,
-            children: [
-              {
-                path: ":id",
-                // element: <PAGE />,
-              },
-              {
-                path: "edit",
-                // element: <PAGE />,
-              },
-            ],
-          },
-          {
-            path: "summary",
-            // element: <PAGE />,
-          },
-          {
-            path: "review",
-            // element: <PAGE />,
-          },
+          { index: true, element: <Mypage /> },
+          { path: "edit", element: <EditProfile /> },
+          // {
+          //   path: "review",
+          //   element: <Review />,
+          //   children: [
+          //     { index: true, element: <ReviewList /> },
+          //     { path: "new", element: <NewReview /> },
+          //   ],
+          // },
         ],
-        */
       },
 
       /*** 📌 팀찾기 ***/

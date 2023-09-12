@@ -3,6 +3,7 @@ import validationReducer from "./auth/validationSlice";
 import loginReducer from "./auth/loginSlice";
 import alertReducer from "./common/alertSlice";
 import loadingReducer from "./common/loadingSlice";
+import menuReducer from "./menuSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     login: loginReducer,
     alert: alertReducer,
     loading: loadingReducer,
+    menu: menuReducer,
   },
 });
 
