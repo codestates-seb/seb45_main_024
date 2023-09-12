@@ -49,7 +49,7 @@ const UserList = () => {
 
   /** Fetch User Card */
   useEffect(() => {
-    console.log("🚀 GET USER CARD");
+    console.log("🚀 GET USER LIST");
     setIsLoading(true);
     setError(null);
 

@@ -30,7 +30,7 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     // Fetch
     builder.addCase(fetchUserCardList.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchUserCardList.fulfilled, (state, action) => {
       state.data = action.payload;
@@ -41,19 +41,18 @@ const usersSlice = createSlice({
 
     // Get
     builder.addCase(getUserCard.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getUserCard.fulfilled, (state, action) => {
       // state.data = action.payload;
     });
     builder.addCase(getUserCard.rejected, (state, action) => {
       // state.data = dummyData.teamboards.data; // 서버 안될시 TEST
-      // console.log(state.data);
     });
 
     // Add
     builder.addCase(addUserCard.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addUserCard.fulfilled, (state, action) => {
       state.data.push(action.payload);
@@ -62,12 +61,14 @@ const usersSlice = createSlice({
 
     // Edit
     builder.addCase(editUserCard.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editUserCard.fulfilled, (state, action) => {
-      console.log("usersSlice FULFILLED");
+      console.log("✅ EDIT USER FULFILLED");
     });
-    builder.addCase(editUserCard.rejected, (state, action) => {});
+    builder.addCase(editUserCard.rejected, (state, action) => {
+      console.log("✅ EDIT USER REJECTED");
+    });
 
     // Remove
     builder.addCase(removeUserCard.fulfilled, (state, actino) => {
