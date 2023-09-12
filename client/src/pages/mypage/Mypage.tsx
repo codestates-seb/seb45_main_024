@@ -6,9 +6,8 @@ import Summary from "../../components/mypage/Summary";
 import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
 import { useAppSelector } from "../../redux/hooks";
-// import { authInstance } from "../../redux/utility/authInstance";
-// import { getTokensFromLocalStorage } from "../../redux/utility/tokenStoarage";
-// 이거 storage로 오타 수정하라고 하기
+// import { authInstance } from "../../utility/authInstance";
+// import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 // import jwtDecode from "jwt-decode";
 // import { useParams } from "react-router-dom";
 
