@@ -1,0 +1,54 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14rem;
+  background-color: var(--color-main);
+  border-top: 1px solid #BDBDBD;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.inFooter {
+  display: flex;
+  flex-direction: row;  
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  margin-right: 1rem;
+}
+
+.content li {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.content li div {
+  font-weight: 700;
+  fotn-size: 1.3rem;
+  color: white;
+}
+
+.content li a {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+  transition: transform 0.3s ease; 
+}
+
+.content li a:hover {
+  cursor: pointer;
+  transform: scale(1.025);
+}
+
+.content li a:active {
+  cursor: grab;
+  transform: scale(1.0);
+}

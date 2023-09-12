@@ -62,6 +62,16 @@ const validationSlice = createSlice({
         state.confirmPasswordError = false;
       }
     },
+    resetValidation: state => {
+      state.nickname = "";
+      state.email = "";
+      state.password = "";
+      state.confirmPassword = "";
+      state.nicknameError = true;
+      state.emailError = true;
+      state.passwordError = true;
+      state.confirmPasswordError = true;
+    },
   },
 });
 

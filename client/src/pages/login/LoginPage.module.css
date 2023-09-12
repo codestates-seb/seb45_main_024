@@ -1,7 +1,17 @@
 .container {
-  height: 100vh;
+  height: 94.2vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.logo {
+  margin-top: 5rem;
+  margin-bottom: 1.25rem;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
   align-items: center;
   justify-content: center;
 }

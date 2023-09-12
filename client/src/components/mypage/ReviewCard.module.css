@@ -1,0 +1,74 @@
+.cardContainer {
+  margin-top: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  /* 임시 */
+  width: 282px;
+}
+
+.cardHeader {
+  background-color: var(--color-main);
+  border-radius: 18px 18px 0 0;
+  padding: 16px 16px 8px 16px;
+}
+
+.createdAt {
+  text-align: right;
+  color: white;
+}
+
+.helpText {
+  font-size: 0.8rem;
+  color: white;
+}
+
+.title {
+  color: var(--color-white);
+  font-weight: 600;
+  width: 75%;
+}
+
+.cardAuthor {
+  position: absolute;
+  bottom: 45%;
+  right: 20px;
+}
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border: 2px solid var(--color-main);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.profileImage {
+}
+
+.cardContent {
+  color: var(--color-gray-1);
+  padding: 1rem;
+}
+
+.content {
+  color: var(--color-gray-1);
+  margin-bottom: 4px;
+}
+
+.action {
+  padding: 0 16px 16px 16px;
+  text-decoration: none;
+  text-align: right;
+}
+
+.action span {
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+}

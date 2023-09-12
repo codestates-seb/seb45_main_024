@@ -1,0 +1,66 @@
+.alarm {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.alarm img {
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.3s ease; 
+}
+
+.alarm img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.alarm img:active {
+  cursor: grab;
+  transform: scale(1.0);
+}
+
+.menuContainer {
+  display: block;
+  position: absolute;
+  margin-top: 3rem;
+}
+
+.dropdownMenu {
+  box-sizing: border-box;
+  border: 1px solid #ffffff ;
+  position: absolute;
+  /* top: 100px; */
+  /* -14 기억하기 */
+  left: -240px;
+  background-color: #536B82;
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  /* width: 12.5rem; */
+}
+
+.dropdownMenu::before {
+  background-color: #536B82;
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 245.5px;
+  height: 1.25rem;
+  width: 1.25rem;
+  transform: rotate(45deg);
+}
+
+.dropdownMenu_active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.dropdownMenu_inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1.25rem);
+  transition: 500ms ease;
+}

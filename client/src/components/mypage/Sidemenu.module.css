@@ -1,6 +1,5 @@
 .sidemenuContainer {
-  /* width: 284px; */
-  grid-column: span 3;
+  grid-column: span 2;
   border-right: 4px solid var(--color-main);
   /* height: 100vh; */
   position: relative;
@@ -36,18 +35,4 @@
 .selectedMenuItem {
   background-color: var(--color-main);
   color: white;
-}
-
-
-/* Optional: Responsive */
-@media (max-width: 768px) {
-  .side-menu {
-    grid-column: span 2;
-  }
-}
-
-@media (max-width: 320px) {
-  .mainContainer {
-    grid-column: span 6;
-  }
 }

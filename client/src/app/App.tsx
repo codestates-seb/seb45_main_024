@@ -2,10 +2,12 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "../pages/Root";
 import ErrorPage from "../pages/Error";
-
+import LoginPage from "../pages/login/LoginPage";
+import SignUpPage from "../pages/signup/SignUpPage";
 import Main from "../pages/main/Main";
 
-// import Mypage from "../pages/mypage/Mypage";
+import Mypage from "../pages/mypage/Mypage";
+import EditProfile from "../pages/mypage/EditProfile";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -15,6 +17,7 @@ import ProjectList from "../pages/projectList/ProjectList";
 import Detail from "../pages/projectList/Detail";
 import NewPost from "../pages/projectList/NewPost";
 import EditPost from "../pages/projectList/EditPost";
+import FindPasswordPage from "../pages/findPassword/findPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -30,46 +33,36 @@ const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            // element: <Login />,
-            // children: [{ path: "findpassword", element: <PAGE /> }],
+            element: <LoginPage />,
+            // children: [{ path: "findpassword", element: <FindPasswordPage /> }],
           },
           {
             path: "signup",
-            // element: <Signup />,
+            element: <SignUpPage />,
+          },
+          {
+            path: "findpassword",
+            element: <FindPasswordPage />,
           },
         ],
       },
 
       /*** 📌 마이페이지 ***/
       {
-        path: "mypage",
-        // element: <Mypage />,
-        /*
+        path: "mypage/1",
+        // path: "mypage/:id",
         children: [
-          {
-            path: "profile",
-            // element: <PAGE />,
-            children: [
-              {
-                path: ":id",
-                // element: <PAGE />,
-              },
-              {
-                path: "edit",
-                // element: <PAGE />,
-              },
-            ],
-          },
-          {
-            path: "summary",
-            // element: <PAGE />,
-          },
-          {
-            path: "review",
-            // element: <PAGE />,
-          },
+          { index: true, element: <Mypage /> },
+          { path: "edit", element: <EditProfile /> },
+          // {
+          //   path: "review",
+          //   element: <Review />,
+          //   children: [
+          //     { index: true, element: <ReviewList /> },
+          //     { path: "new", element: <NewReview /> },
+          //   ],
+          // },
         ],
-        */
       },
 
       /*** 📌 팀찾기 ***/

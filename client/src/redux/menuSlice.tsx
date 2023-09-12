@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const menuSlice = createSlice({
   name: "menu",
-  initialState: { selectedMenu: "Summary" },
+  initialState: { selectedMenu: "Profile" },
   reducers: {
     changeMenu: (state, action) => {
       state.selectedMenu = action.payload;

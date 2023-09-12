@@ -1,0 +1,30 @@
+.message {
+  /* position: relative; */
+  display: flex;
+  flex-direction: row;
+  aligin-items: center;
+  width: 30.5rem;
+  margin-top: 0.725rem;
+  margin-bottom: 0.725rem;
+}
+
+.message div {
+  width: 28rem;
+  margin-left: 0.375rem;
+  border-radius: 8px;
+  background-color: #FFFBEA;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.message div span {
+  display: flex;
+  align-items: center;
+  margin-left: 0.25rem;
+}
+
+.message div span span {
+  font-weight: 700;
+}
