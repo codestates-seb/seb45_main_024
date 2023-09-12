@@ -3,13 +3,14 @@ import { FC } from "react";
 import classes from "./Profile.module.css";
 import NoContent from "./NoContent";
 import editicon from "../../assets/icons/edit.svg";
-import logo_green_face from "../../assets/images/logo_green_face.png";
+
 import Bio from "./Bio";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjCard from "./ProjCard";
 import SoftTag from "./SoftTag";
+import TechProfile from "./TechProfile";
 // for editform open/close
 
 interface AuthorProps {
@@ -69,20 +70,15 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.TECH} />
           <div className={classes.techContainer}>
-            {/* 일단 임의로 만들어 둠 */}
+            {/* 일단 Tech tag 임의로 만들어 둠 */}
             <div className={classes.techContentContainer}>
               {dummyTech.techTags.length > 0 ? (
                 dummyTech.techTags.map((techTag, index) => (
-                  <div className={classes.techContent}>
-                    <div className={classes.techImgContainer}>
-                      <img
-                        className={classes.techImg}
-                        src={logo_green_face}
-                        alt="sample image"
-                      />
-                    </div>
-                    <p className={classes.techTitle}>{techTag.techName}</p>
-                  </div>
+                  <TechProfile
+                    key={index}
+                    techName={techTag.techName}
+                    id={techTag.id}
+                  />
                 ))
               ) : (
                 <NoContent />
