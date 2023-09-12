@@ -1,17 +1,14 @@
 import { FC } from "react";
-// import CreateProfile from "./CreateProfile";
 import classes from "./Profile.module.css";
 import NoContent from "./NoContent";
 import editicon from "../../assets/icons/edit.svg";
-
 import Bio from "./Bio";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProjCard from "./ProjCard";
 import SoftTag from "./SoftTag";
 import TechProfile from "./TechProfile";
-// for editform open/close
 
 interface AuthorProps {
   authorInfo: {
@@ -23,16 +20,13 @@ interface AuthorProps {
 
 const Profile: FC<AuthorProps> = ({ authorInfo }) => {
   const navigate = useNavigate();
-  // const { id } = useParams<{ userId: string }>();
 
   const editProfileHandler = () => {
-    // navigate(`/mypage/${ownerId}/edit`);
-    navigate(`/mypage/1/edit`);
+    navigate(`/mypage/${authorInfo.ownerId}/edit`);
   };
 
   const dummyBio =
     "국회는 국무총리 또는 국무위원의 해임을 대통령에게 건의할 수 있다. 모든 국민은 종교의 자유를 가진다. 국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다. 국가는 사회보장·사회복지의 증진에 노력할 의무를 진다. 국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다.";
-  // const dummyBio = "";
   const dummySoft = {
     softTags: [
       { techName: "커뮤니케이션", id: 1 },
@@ -47,8 +41,6 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
       { techName: "Node.js", id: 3 },
     ],
   };
-
-  // 기술 설명은 gpt api 사용?
 
   return (
     <>
