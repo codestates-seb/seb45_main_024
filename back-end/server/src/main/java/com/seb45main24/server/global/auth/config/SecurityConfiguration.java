@@ -60,7 +60,7 @@ public class SecurityConfiguration {
 				.anyRequest().permitAll()
 			)
 			.logout()
-			.logoutUrl("accounts/logout")
+			.logoutUrl("/accounts/logout")
 			.logoutSuccessHandler((request, response, authentication) -> {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);

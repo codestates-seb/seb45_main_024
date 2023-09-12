@@ -36,7 +36,7 @@ public class AccountProfileService {
 	private final TagsService tagsService;
 	private final AccountProfileMapper mapper;
 
-	public AccountProfile updateAccountProfile(Long loginAccountId, Long accountId, ProfilePostRequest postRequest, List<MultipartFile> multipartFiles) {
+	public AccountProfile updateAccountProfile(Long loginAccountId, Long accountId, ProfilePostRequest postRequest) {
 
 		if (loginAccountId.equals(accountId)) {
 			AccountProfile accountProfile = mapper.requestToAccountProfile(postRequest);
@@ -59,10 +59,10 @@ public class AccountProfileService {
 				accountProfile.setSoftSkillTags(softSkillTags);
 			}
 
-			if (multipartFiles != null) {
-				List<ProjectDetails> projectDetailsList = projectDetailService.createProjectDetails(postRequest.getProjectDetails(), multipartFiles);
-				accountProfile.setProjectDetails(projectDetailsList);
-			}
+			// if (multipartFiles != null) {
+			// 	List<ProjectDetails> projectDetailsList = projectDetailService.createProjectDetails(postRequest.getProjectDetails(), multipartFiles);
+			// 	accountProfile.setProjectDetails(projectDetailsList);
+			// }
 
 
 			return accountProfileRepository.save(accountProfile);

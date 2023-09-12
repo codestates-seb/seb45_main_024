@@ -34,11 +34,10 @@ public class AccountProfileController {
 
 	@PatchMapping("/profile/{account-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
-		@PathVariable("account-id") Long accountId,
-		@Valid ProfilePostRequest postRequest,
-		@RequestPart List<MultipartFile> multipartFiles) {
+												@PathVariable("account-id") Long accountId,
+												@RequestBody @Valid ProfilePostRequest postRequest) {
 
-		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest, multipartFiles);
+		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest);
 
 		return ResponseEntity.ok("Update Successful");
 	}
