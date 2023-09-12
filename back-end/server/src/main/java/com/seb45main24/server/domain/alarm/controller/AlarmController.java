@@ -50,13 +50,10 @@ public class AlarmController {
     }
 
     @GetMapping
-    public ResponseEntity getAlarmList() {
-        // 무조건 최근 생성된 10개만 보여줌
-        Page<Alarm> pageAlarms = service.findAlarmList();
-        List<Alarm> alarmList = pageAlarms.getContent();
+    public ResponseEntity getAlarmList(@LoginAccountId Long loginAccountId) {
+        List<Alarm> test = repository.findByTargetId(loginAccountId);
 
-        return new ResponseEntity<>(new MultiResponseDto<>(mapper.alarmListToAlarmResponseDtoList(alarmList),
-                pageAlarms), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.alarmListToAlarmResponseDtoList(test), HttpStatus.OK);
     }
 
     @GetMapping("/{alarm-id}")
