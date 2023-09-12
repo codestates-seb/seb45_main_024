@@ -3,7 +3,7 @@ import classes from "./EditInfo.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { validationActions } from "../../redux/auth/validationSlice";
-import authInstance from "../../redux/utility/authInstance";
+import authInstance from "../../utility/authInstance";
 // 회원정보 수정 클릭하면 기존 회원정보가지고 와서 placeholder로 넣어주기
 // 저장하기 버튼 누르면 회원정보 수정되고 다시 MyInfo로 라우팅
 

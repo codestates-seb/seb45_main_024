@@ -4,7 +4,7 @@ import EditInfo from "./EditInfo";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
 import NoContent from "./NoContent";
-import authInstance from "../../redux/utility/authInstance";
+// import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MyInfo: FC = () => {
@@ -34,22 +34,22 @@ const MyInfo: FC = () => {
   };
 
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
-  const deleteAccountHandler = async () => {
-    const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
-    );
+  // const deleteAccountHandler = async () => {
+  //   const confirmation = window.confirm(
+  //     "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
+  //   );
 
-    if (confirmation) {
-      try {
-        authInstance.delete(`/accounts/${userId}`).then((res) => {
-          alert("회원탈퇴가 완료되었습니다.");
-          navigate("/");
-        });
-      } catch (error) {
-        console.info("Failed to delete account", error);
-      }
-    }
-  };
+  //   if (confirmation) {
+  //     try {
+  //       authInstance.delete(`/accounts/${userId}`).then((res) => {
+  //         alert("회원탈퇴가 완료되었습니다.");
+  //         navigate("/");
+  //       });
+  //     } catch (error) {
+  //       console.info("Failed to delete account", error);
+  //     }
+  //   }
+  // };
 
   return (
     <>
