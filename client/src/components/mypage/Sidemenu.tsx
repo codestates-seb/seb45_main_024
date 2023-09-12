@@ -2,24 +2,28 @@ import { FC } from "react";
 import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import logo_green_face from "../../assets/images/logo_green_face.png";
 
 interface AuthorProps {
   authorInfo: {
     isAuthor: boolean;
     visitorId: string | null;
     ownerId?: string | null;
+    username?: string | null;
   };
 }
 
 const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
   const dispatch = useAppDispatch();
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
 
   return (
     <div className={classes.sidemenuContainer}>
       <div className={classes.profileBox}>
-        <div className={classes.profileImg}>{/* 어디서 갖고옴 */}</div>
-        <div className={classes.profileInfo}>{/*닉네임 / 이메일*/}</div>
+        <div className={classes.profileImg}>
+          <img src={logo_green_face} alt="sample profile" />
+        </div>
+        <div className={classes.profileInfo}>{authorInfo.username}</div>
       </div>
       <div className={classes.menuItemsContainer}>
         <ul className={classes.menuItems}>

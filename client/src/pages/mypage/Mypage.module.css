@@ -6,7 +6,7 @@
 
 .componentContainer {
   grid-column: span 10;
-  padding-top: 90px;
+  padding-top: 60px;
   padding-bottom: 200px;
   /* header 높이가 90px */
   /* height: 100vh; */
