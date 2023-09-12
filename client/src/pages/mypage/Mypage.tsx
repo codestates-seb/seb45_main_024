@@ -39,6 +39,11 @@ const Mypage: FC = () => {
     });
   } else {
     console.info("Token not found");
+    setAuthorInfo({
+      isAuthor: false,
+      visitorId: null,
+      ownerId: id,
+    });
   }
 
   // 002 api call로 isAuthor 설정
