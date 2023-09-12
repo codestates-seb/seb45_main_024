@@ -1,15 +1,22 @@
 package com.seb45main24.server.domain.accountprofile.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.seb45main24.server.domain.account.service.AccountService;
+import com.seb45main24.server.domain.accountprofile.dto.ProfilePostRequest;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
@@ -23,22 +30,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/mypages")
 public class AccountProfileController {
 
-	private final static String ACCOUNT_PROFILE_DEFAULT_URL = "/mypages/profile";
 	private final AccountProfileService accountProfileService;
-	private final AccountProfileMapper mapper;
-	private final AccountService accountService;
 
+	@PatchMapping("/profile/{account-id}")
+	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
+		@PathVariable("account-id") Long accountId,
+		@Valid ProfilePostRequest postRequest,
+		@RequestPart List<MultipartFile> multipartFiles) {
 
-//	@PostMapping("/profile")
-//	public ResponseEntity postAccountProfile(@LoginAccountId Long loginAccountId,
-//												@RequestBody @Valid AccountProfilePostDto postDto) {
-//
-//		AccountProfile createProfile = accountProfileService.createAccountProfile(mapper.postDtoToAccountProfile(postDto));
-//
-//		URI location = UriCreator.createUri(ACCOUNT_PROFILE_DEFAULT_URL, createProfile.getId());
-//
-//		return ResponseEntity.created(location).build();
-//
-//
-//	}
+		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest, multipartFiles);
+
+		return ResponseEntity.ok("Update Successful");
+	}
 }

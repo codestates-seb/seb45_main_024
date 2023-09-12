@@ -26,7 +26,7 @@ public class HardSkillTag extends Auditable {
 	@Column(name = "HARD_SKILL_TAG_ID")
 	private Long id;
 
-	private String techName;
+	private String tagName;
 
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
