@@ -34,6 +34,6 @@ public class Alarm {
     private Account target;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "MEMBER_BOARD_ID")
     private MemberBoard memberBoard;
 }
