@@ -72,8 +72,6 @@ public class AccountService {
 		postAccount.setAccountProfile(accountProfile);
 		accountProfileRepository.save(accountProfile);
 
-
-
 		return postAccount;
 	}
 

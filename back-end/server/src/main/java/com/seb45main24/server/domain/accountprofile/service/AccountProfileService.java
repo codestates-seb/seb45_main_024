@@ -18,6 +18,7 @@ import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.domain.account.service.AccountService;
 import com.seb45main24.server.domain.accountprofile.dto.ProfilePostRequest;
+import com.seb45main24.server.domain.accountprofile.dto.ProfileResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.entity.HardSkillTag;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
@@ -47,9 +48,6 @@ public class AccountProfileService {
 			Account account = findAccount(loginAccountId);
 			AccountProfile findProfile = verifiedAccountProfile(accountProfileId);
 
-
-			AccountProfile newAccountProfile = AccountProfile.builder().account(account).build();
-
 			Optional.ofNullable(accountProfile.getCoverLetter())
 				.ifPresent(coverLetter -> findProfile.setCoverLetter(coverLetter));
 
@@ -72,8 +70,29 @@ public class AccountProfileService {
 
 
 			return accountProfileRepository.save(findProfile);
+	}
+
+	public ProfileResponse findAccountProfile(Long loginAccountId, Long accountProfileId) {
+		Account findAccount = findAccount(loginAccountId);
+		AccountProfile accountProfile = verifiedAccountProfile(accountProfileId);
+
+
+		ProfileResponse profileResponse = ProfileResponse.builder()
+			.imageUrl(findAccount.getImage().getImageUrl())
+			.email(findAccount.getEmail())
+			.nickname(findAccount.getNickname())
+			.coverLetter(accountProfile.getCoverLetter())
+			.hardSkills(tagsService.findHardSkillTag(accountProfileId))
+			.softSkills(tagsService.findSoftSkillTag(accountProfileId))
+			.projectDetails(projectDetailService.findProjectDetails(accountProfileId))
+			.build();
+
+		return profileResponse;
 
 	}
+
+
+
 
 	private Account findAccount(Long loginAccountId) {
 		Optional<Account> optionalAccount = accountRepository.findById(loginAccountId);

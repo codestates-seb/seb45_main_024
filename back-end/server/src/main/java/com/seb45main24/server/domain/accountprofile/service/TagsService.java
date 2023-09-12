@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,6 +107,25 @@ public class TagsService {
 		emptyHardSkill.setAccountProfile(accountProfile);
 
 		return hardSkillRepository.save(emptyHardSkill);
+	}
+
+	public List<String> findHardSkillTag(Long accountProfileId) {
+		List<HardSkillTag> hardSkillTags = hardSkillRepository.findByAccountProfileId(accountProfileId);
+
+		List<String> hardTagNames = hardSkillTags.stream()
+											.map(HardSkillTag::getTagName)
+											.collect(Collectors.toList());
+		return hardTagNames;
+	}
+
+	public List<String> findSoftSkillTag(Long accountProfileId) {
+		List<SoftSkillTag> softSkillTags = softSkillRepository.findByAccountProfileId(accountProfileId);
+
+		List<String> softTagNames = softSkillTags.stream()
+											.map(SoftSkillTag::getTagName)
+											.collect(Collectors.toList());
+		return softTagNames;
+
 	}
 
 }
