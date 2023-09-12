@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.seb45main24.server.domain.account.service.AccountService;
 import com.seb45main24.server.domain.accountprofile.dto.ProfilePostRequest;
+import com.seb45main24.server.domain.accountprofile.dto.ProfileResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
@@ -40,5 +43,13 @@ public class AccountProfileController {
 		accountProfileService.updateAccountProfile(loginAccountId, accountProfileId, postRequest);
 
 		return ResponseEntity.ok("Update Successful");
+	}
+
+	@GetMapping("/profile/{account-profile-id}")
+	public ResponseEntity getAccountProfile(@LoginAccountId Long loginAccountId, @PathVariable("account-profile-id") Long accountProfileId) {
+
+		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountProfileId);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

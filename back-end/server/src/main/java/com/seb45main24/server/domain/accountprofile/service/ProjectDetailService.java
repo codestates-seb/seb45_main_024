@@ -1,28 +1,25 @@
 package com.seb45main24.server.domain.accountprofile.service;
 
-import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailRequest;
+import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
-import com.seb45main24.server.domain.accountprofile.entity.HardSkillTag;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
+import com.seb45main24.server.domain.accountprofile.mapper.ProjectDetailsMapper;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.domain.accountprofile.repository.ProjectDetailsRepository;
-import com.seb45main24.server.domain.image.dto.UploadImage;
-import com.seb45main24.server.domain.image.entity.Image;
-import com.seb45main24.server.domain.image.repository.ImageRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
-import com.seb45main24.server.global.utils.ImageUtils;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +29,7 @@ public class ProjectDetailService {
 
 	private final AccountProfileRepository accountProfileRepository;
 	private final ProjectDetailsRepository projectDetailsRepository;
+	private final ProjectDetailsMapper projectDetailsMapper;
 
 	@Transactional
 	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
@@ -86,5 +84,15 @@ public class ProjectDetailService {
 			return accountProfile;
 		}
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
+	}
+
+	public List<ProjectDetailResponse> findProjectDetails(Long accountProfileId) {
+		List<ProjectDetails> projectDetails = projectDetailsRepository.findByAccountProfileId(accountProfileId);
+
+		List<ProjectDetailResponse> projectDetailsList = projectDetails.stream()
+																.map(projectDetailsMapper::toProjectDetailResponse)
+																.collect(Collectors.toList());
+
+		return projectDetailsList;
 	}
 }
