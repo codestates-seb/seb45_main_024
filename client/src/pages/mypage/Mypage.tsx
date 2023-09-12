@@ -11,10 +11,11 @@ import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 // import jwtDecode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
-// interface DecodedToken {
-//   id: string;
-//   username: string;
-// }
+interface AccessTokenType {
+  id: number;
+  visitorId: string;
+  username: string;
+}
 
 const Mypage: FC = () => {
   const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
@@ -27,48 +28,43 @@ const Mypage: FC = () => {
 
   // 001 api call 없이 isAuthor 설정
   const { id } = useParams<{ id: string }>();
-  console.log(id);
-  console.log(typeof id);
-  // str
+  const AT = getTokensFromLocalStorage() as AccessTokenType;
+  const visitorId = AT.id.toString();
 
-  const AT = getTokensFromLocalStorage();
-  const visitorId = AT.id;
-  console.log(typeof visitorId);
-  //num
-
-  // if (AT && AT.id) {
-  //   setAuthorInfo({
-  //     isAuthor: id === visitorId,
-  //     visitorId: visitorId,
-  //     ownerId: id,
-  //   });
-  // } else {
-  //   console.info("Token not found");
-  //   setAuthorInfo({
-  //     isAuthor: false,
-  //     visitorId: null,
-  //     ownerId: id,
-  //   });
-  // }
+  useEffect(() => {
+    if (AT) {
+      setAuthorInfo({
+        isAuthor: id! === visitorId,
+        visitorId: visitorId,
+        ownerId: id,
+      });
+    } else {
+      setAuthorInfo({
+        isAuthor: false,
+        visitorId: null,
+        ownerId: id,
+      });
+    }
+  }, []);
 
   // 002 api call로 isAuthor 설정
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const res = await authInstance.get(`/mypages/summary/${id}`);
-        const userInfo = res.data.data;
-        // const userInfo = res.data;
-        // 어떤 건지 찍어보기
-        console.log(userInfo);
-        console.log(userInfo.accountId);
+  // useEffect(() => {
+  //   const fetchUserInfo = async () => {
+  //     try {
+  //       const res = await authInstance.get(`/mypages/summary/${id}`);
+  //       const userInfo = res.data.data;
+  //       // const userInfo = res.data;
+  //       // 어떤 건지 찍어보기
+  //       console.log(userInfo);
+  //       console.log(userInfo.accountId);
 
-        // jwt payload에서 무조건 id값 가지고 오게 해야 함.
-      } catch (error) {
-        console.info("Failed to fetch user info", error);
-      }
-    };
-    fetchUserInfo();
-  }, []);
+  //       // jwt payload에서 무조건 id값 가지고 오게 해야 함.
+  //     } catch (error) {
+  //       console.info("Failed to fetch user info", error);
+  //     }
+  //   };
+  //   fetchUserInfo();
+  // }, []);
 
   return (
     <div className={classes.mainContainer}>
