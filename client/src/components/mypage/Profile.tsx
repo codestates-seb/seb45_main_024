@@ -3,6 +3,7 @@ import { FC } from "react";
 import classes from "./Profile.module.css";
 import NoContent from "./NoContent";
 import editicon from "../../assets/icons/edit.svg";
+import logo_green_face from "../../assets/images/logo_green_face.png";
 import Bio from "./Bio";
 import TitleLine from "./TitleLine";
 import ProfileCats from "./ProfileCats";
@@ -38,6 +39,13 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
       { techName: "다른 어떤 소프트 스킬이 있겠죠", id: 3 },
     ],
   };
+  const dummyTech = {
+    techTags: [
+      { techName: "React", id: 1 },
+      { techName: "TypeScript", id: 2 },
+      { techName: "Node.js", id: 3 },
+    ],
+  };
 
   // 기술 설명은 gpt api 사용?
 
@@ -60,8 +68,26 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
         </section>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.TECH} />
-          <div className={classes.techContentContainer}>
-            <div className={classes.techContent}>{/* 조건부로 뭐든 */}</div>
+          <div className={classes.techContainer}>
+            {/* 일단 임의로 만들어 둠 */}
+            <div className={classes.techContentContainer}>
+              {dummyTech.techTags.length > 0 ? (
+                dummyTech.techTags.map((techTag, index) => (
+                  <div className={classes.techContent}>
+                    <div className={classes.techImgContainer}>
+                      <img
+                        className={classes.techImg}
+                        src={logo_green_face}
+                        alt="sample image"
+                      />
+                    </div>
+                    <p className={classes.techTitle}>{techTag.techName}</p>
+                  </div>
+                ))
+              ) : (
+                <NoContent />
+              )}
+            </div>
             <div className={classes.helpContent}>
               <h2 className={classes.helpTitle}>언어</h2>
               <p className={classes.helpDesc}>

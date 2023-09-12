@@ -19,12 +19,43 @@
   gap: 80px;
 }
 
-.techContentContainer{
+.techContainer {
   display: flex;
   justify-content: space-between;
 }
 
-.helpContent{
+.techContentContainer{
+  display: flex;
+  gap: 16px
+}
+
+.techContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.techImgContainer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--color-main);
+}
+
+.techTitle{
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+}
+
+.helpContent {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
@@ -35,27 +66,27 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.helpTitle{
+.helpTitle {
   font-size: 1rem;
   color: var(--color-gray-1);
 }
 
-.helpDesc{
+.helpDesc {
   font-size: 0.8rem;
   color: var(--color-gray-2);
 }
 
-.softContent{
+.softContent {
   margin-top: 16px;
   display: flex;
   gap: 8px;
 }
 
-.softContent span{
+.softContent span {
   color: var(--color-gray-1);
 }
 
-.helpText{
+.helpText {
   font-size: 0.8rem;
   color: var(--color-gray-3);
 }
