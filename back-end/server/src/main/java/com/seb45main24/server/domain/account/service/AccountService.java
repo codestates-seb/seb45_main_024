@@ -1,19 +1,28 @@
 package com.seb45main24.server.domain.account.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.repository.AccountRepository;
+import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
+import com.seb45main24.server.domain.image.dto.UploadImage;
 import com.seb45main24.server.domain.image.entity.Image;
 import com.seb45main24.server.domain.image.repository.ImageRepository;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
+import com.seb45main24.server.global.utils.ImageUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +34,11 @@ public class AccountService {
 	private final PasswordEncoder passwordEncoder;
 	private final CustomAuthorityUtils authorityUtils;
 	private final ImageRepository imageRepository;
+	private final ImageUtils imageUtils;
+	private final AccountProfileRepository accountProfileRepository;
+
+	@Value("${multipart.default.path}")
+	private String defaultPath;
 
 
 	public Account createAccount(Account account) {
@@ -39,35 +53,51 @@ public class AccountService {
 		List<String> roles = authorityUtils.createRoles(account.getEmail());
 		account.setRoles(roles);
 
+		String fileName = imageUtils.getDefaultImageFileName();
+
 		// 디폴트 이미지 넣기
-		Image image = Image.builder()
-						.url("/profileImages/default.png")
-						.account(account)
-						.build();
+		Image defaultImage = createDefaultImage();
+
+		// 이미지와 계정 연결
+		account.setImage(defaultImage);
+		imageRepository.save(defaultImage);
 
 		Account postAccount = accountRepository.save(account);
-		imageRepository.save(image);
+
+		// 계정 프로필 생성
+		AccountProfile accountProfile = createAccountProfile(postAccount);
+		accountProfileRepository.save(accountProfile);
+
+		postAccount.setAccountProfile(accountProfile);
 
 		return postAccount;
 	}
 
 
-	public Account updateAccount(Account account, Long loginAccountId) {
+	public Account updateAccount(Account account, Long loginAccountId, MultipartFile newImage) {
 
-			Account findAccount = findAccount(account.getId());
-			verifyAuthority(findAccount, loginAccountId);
+		Account findAccount = findAccount(account.getId());
+		verifyAuthority(findAccount, loginAccountId);
 
-			Optional.ofNullable(account.getNickname()).ifPresent(nickname -> {
-				checkDuplicateNickname(nickname);
-				findAccount.setNickname(nickname);
-			});
-			Optional.ofNullable(account.getPassword()).ifPresent(password -> {
-				String encodedPassword = passwordEncoder.encode(password);
-				findAccount.setPassword(encodedPassword);
-			});
+		Optional.ofNullable(account.getNickname()).ifPresent(nickname -> {
+			checkDuplicateNickname(nickname);
+			findAccount.setNickname(nickname);
+		});
+		Optional.ofNullable(account.getPassword()).ifPresent(password -> {
+			String encodedPassword = passwordEncoder.encode(password);
+			findAccount.setPassword(encodedPassword);
+		});
 
-			return accountRepository.save(findAccount);
+		if(newImage != null && !newImage.isEmpty()) {
+			UploadImage uploadImage = imageUtils.uploadImage(newImage, findAccount.getImage().getUrlPath());
+			if (uploadImage != null) {
+				findAccount.getImage().setOriginName(uploadImage.getOriginName());
+				findAccount.getImage().setSize(uploadImage.getSize());
+				findAccount.getImage().setUrlPath(uploadImage.getUrlPath());
+			}
+		}
 
+		return accountRepository.save(findAccount);
 	}
 
 	public void deleteAccount(Account findAccount) {
@@ -121,5 +151,30 @@ public class AccountService {
 		accountRepository.save(info);
 	}
 
+	// 디폴트 이미지 생성하기
+	private Image createDefaultImage() {
+		String fileName = imageUtils.getDefaultImageFileName();
+
+		return Image.builder()
+			.originName(fileName)
+			.saveName(imageUtils.generatedSaveImageName(fileName))
+			.size(imageUtils.getImageSize())
+			.createdAt(LocalDateTime.now())
+			.imageClsf(Image.ImageClassification.PROFILE_IMG)
+			.urlPath(defaultPath)
+			.build();
+	}
+
+	// 계정 프로필 생성하기
+	private AccountProfile createAccountProfile(Account postAccount) {
+
+		return AccountProfile.builder()
+			.account(postAccount)
+			.hardSkillTags(new ArrayList<>())
+			.softSkillTags(new ArrayList<>())
+			.projectDetails(new ArrayList<>())
+			.build();
+
+	}
 
 }

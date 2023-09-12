@@ -4,6 +4,8 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.seb45main24.server.domain.account.dto.AccountDto;
@@ -39,20 +43,28 @@ public class AccountController {
 	public ResponseEntity postAccount(@RequestBody @Valid AccountDto.Post postDto) {
 
 		Account createAccount = accountService.createAccount(mapper.accountPostDtoToAccount(postDto));
-		URI location = UriCreator.createUri(USER_DEFAULT_URL, createAccount.getId());
 
-		return ResponseEntity.created(location).build();
+		URI accountUri = UriCreator.createUri(USER_DEFAULT_URL, createAccount.getId());
+		URI profileUri = UriCreator.createUri("/mypages/profile", createAccount.getAccountProfile().getId());
+
+		// 경로 헤더에 계정 및 프로필 URI 추가
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(accountUri);
+		headers.add("Profile-Uri", profileUri.toString());
+
+		return new ResponseEntity(headers, HttpStatus.OK);
 	}
 
 
 	@PatchMapping("/{account-id}")
 	public ResponseEntity patchAccount(@PathVariable("account-id") Long accountId,
-										@LoginAccountId Long loginAccountId,
-										@RequestBody @Valid AccountPatchDto patchDto) {
+		@LoginAccountId Long loginAccountId,
+		@Valid AccountPatchDto patchDto,
+		@RequestPart(required = false) MultipartFile newImage) {
 
 		Account account = mapper.accountPatchDtoToAccount(patchDto);
 		account.setId(accountId);
-		accountService.updateAccount(account, loginAccountId);
+		accountService.updateAccount(account, loginAccountId, newImage);
 
 		return ResponseEntity.ok("Update successful");
 	}

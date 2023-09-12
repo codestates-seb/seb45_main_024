@@ -11,6 +11,7 @@ public class ReplyResponseDTO {
     private long replyId;
     private String content;
     private Boolean isApply;
+    private String writerNickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

@@ -1,6 +1,9 @@
 package com.seb45main24.server.domain.accountprofile.entity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +21,7 @@ import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,15 +41,33 @@ public class AccountProfile extends Auditable {
 	@Column(columnDefinition = "TEXT")
 	private String coverLetter;
 
-
-	private String projectUrl;
-
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_ID")
 	private Account account;
 
-	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	private List<ProjectImage> projectImages;
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
+	private List<HardSkillTag> hardSkillTags = new ArrayList<>();
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
+	private List<SoftSkillTag> softSkillTags = new ArrayList<>();
+
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
+	private List<ProjectDetails> projectDetails = new ArrayList<>();
+
+	// @OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
+	// private Set<ProfileTechTag> techTags = new HashSet<>();
+
+
+	@Builder
+	public AccountProfile(String coverLetter, Account account, List<HardSkillTag> hardSkillTags,
+		List<SoftSkillTag> softSkillTags, List<ProjectDetails> projectDetails) {
+		this.coverLetter = coverLetter;
+		this.account = account;
+		this.hardSkillTags = hardSkillTags;
+		this.softSkillTags = softSkillTags;
+		this.projectDetails = projectDetails;
+	}
+
 
 
 }

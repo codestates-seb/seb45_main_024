@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.seb45main24.server.domain.account.service.AccountService;
-import com.seb45main24.server.domain.accountprofile.dto.AccountProfilePostDto;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
@@ -30,16 +29,16 @@ public class AccountProfileController {
 	private final AccountService accountService;
 
 
-	@PostMapping("/profile")
-	public ResponseEntity postAccountProfile(@LoginAccountId Long loginAccountId,
-												@RequestBody @Valid AccountProfilePostDto postDto) {
-
-		AccountProfile createProfile = accountProfileService.createAccountProfile(mapper.postDtoToAccountProfile(postDto));
-
-		URI location = UriCreator.createUri(ACCOUNT_PROFILE_DEFAULT_URL, createProfile.getId());
-
-		return ResponseEntity.created(location).build();
-
-
-	}
+//	@PostMapping("/profile")
+//	public ResponseEntity postAccountProfile(@LoginAccountId Long loginAccountId,
+//												@RequestBody @Valid AccountProfilePostDto postDto) {
+//
+//		AccountProfile createProfile = accountProfileService.createAccountProfile(mapper.postDtoToAccountProfile(postDto));
+//
+//		URI location = UriCreator.createUri(ACCOUNT_PROFILE_DEFAULT_URL, createProfile.getId());
+//
+//		return ResponseEntity.created(location).build();
+//
+//
+//	}
 }

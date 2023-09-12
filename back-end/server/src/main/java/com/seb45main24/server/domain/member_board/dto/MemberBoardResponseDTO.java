@@ -16,6 +16,7 @@ public class MemberBoardResponseDTO {
     private String status;
     private Integer views;
     private String position;
+    private String writerNickName;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private LocalDateTime createdAt;

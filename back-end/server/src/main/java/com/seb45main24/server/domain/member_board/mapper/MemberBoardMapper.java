@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.member_board.mapper;
 
+import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPatchDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPostDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardResponseDTO;
@@ -16,6 +17,8 @@ public interface MemberBoardMapper {
 
     default MemberBoard memberBoardPostDtoToMember(MemberBoardPostDTO memberBoardPostDTO) {
         MemberBoard memberBoard = new MemberBoard();
+        Account writer = new Account();
+        writer.setId(memberBoardPostDTO.getLoginAccountId());
 
         memberBoard.setTitle( memberBoardPostDTO.getTitle() );
         memberBoard.setContent( memberBoardPostDTO.getContent() );
@@ -25,6 +28,7 @@ public interface MemberBoardMapper {
         memberBoard.setEndDate(memberBoardPostDTO.getEndDate());
         memberBoard.setCreatedAt(LocalDateTime.now());
         memberBoard.setModifiedAt(LocalDateTime.now());
+        memberBoard.setWriter(writer);
 
         return memberBoard;
     }
@@ -63,6 +67,8 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.status( memberBoard.getStatus() );
         memberBoardResponseDTO.views( memberBoard.getViews() );
         memberBoardResponseDTO.position( memberBoard.getPosition() );
+        System.out.println(memberBoard.getWriter().getNickname() + "닉네임");
+        memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );
         memberBoardResponseDTO.endDate( memberBoard.getEndDate() );
         memberBoardResponseDTO.createdAt( memberBoard.getCreatedAt() );
