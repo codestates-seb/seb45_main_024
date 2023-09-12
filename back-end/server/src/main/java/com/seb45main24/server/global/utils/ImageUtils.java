@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +24,7 @@ public class ImageUtils {
 	@Value("${multipart.default.path}")
 	private String defaultPath;
 
-	// // 다중 파일 업로드
+	// 다중 파일 업로드
 	// public List<UploadImage> uploadImages(List<MultipartFile> multipartFiles) {
 	// 	List<UploadImage> images = new ArrayList<>();
 	// 	for(MultipartFile multipartFile : multipartFiles) {
@@ -59,8 +61,9 @@ public class ImageUtils {
 		UploadImage uploadImage = UploadImage.builder()
 									.originName(multipartFile.getOriginalFilename())
 									.saveName(saveName)
-									.urlPath(uploadFile.getPath())
+									.imageUrl(uploadFile.getPath())
 									.size(multipartFile.getSize())
+									.createdAt(LocalDateTime.now())
 									.build();
 
 		return uploadImage;

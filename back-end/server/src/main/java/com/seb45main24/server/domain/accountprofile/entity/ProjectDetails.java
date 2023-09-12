@@ -30,16 +30,13 @@ public class ProjectDetails extends Auditable {
 	@Column(name = "PROJECT_DETAIL_ID")
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
-	private AccountProfile accountProfile;
-
-	@OneToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "image_id")
-	private Image image;
-
 	private String projectTitle;
 
 	private String projectUrl;
 
+	private String imageUrl;
+
+	@ManyToOne
+	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
+	private AccountProfile accountProfile;
 }
