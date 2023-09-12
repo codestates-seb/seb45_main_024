@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
+import { UserListDataType } from "../../model/boardTypes";
 import Card from "../../components/userlist,projectlist/card/Card";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Tag from "../userlist,projectlist/Tag";
-import { ReactComponent as Hashtag } from "../../assets/icons/hashtag.svg";
-import classes from "./CardEditor.module.css";
-
-import { UserListDataType } from "../../model/boardTypes";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
+import classes from "./CardEditor.module.css";
 
 type CardType = "NEW_CARD" | "EDIT_CARD";
 
@@ -23,25 +22,28 @@ interface CardEditorProps {
 }
 
 const CardEditor = ({ type, originCard }: CardEditorProps) => {
+  // console.log("originCard", originCard);
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
-
-  // console.log("originCard", originCard);
-
-  const newTitle = useAppSelector(state => state.users.editTitle);
-  // console.log("newTitle", newTitle);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  /* 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
+  const dispatch = useAppDispatch();
+  const newTitle = useAppSelector(state => state.users.editTitle);
+  // console.log("newTitle", newTitle);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
+  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
   const [date, setDate] = useState(new Date().toLocaleDateString());
   const [title, setTitle] = useState("");
   const [position, setPosition] = useState("포지션");
   // const [stack, setStack] = useState("")
 
   // 지원포지션 예시
-  const positionList = ["프론트엔드", "백엔드", "디자이너"];
+  const positionList = ["프론트엔드", "백엔드"];
 
   const handlePositionSelect = (selected: string) => {
     setPosition(selected);
@@ -66,7 +68,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     setKeywords(updatedKeyword);
   };
 
-  // Card 수정인 경우
+  /** EDIT CARD인 경우 (카드 수정) */
   useEffect(() => {
     if (EDIT_CARD) {
       setDate(originCard?.createdAt);
@@ -86,28 +88,15 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     // modifiedAt: "",
   };
 
-  /** Loading, Error */
-  const dispatch = useAppDispatch();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null); // error는 string or null ?
-  // console.log(isLoading, error);
-
   const data = {
-    title: newTitle,
-    position: position,
-    keywords: keywords,
+    title: newTitle, // "제목형식string"
+    position: position, // "포지션형식string"
+    keywords: keywords, // ["키워드", "배울"]
   };
 
-  // const data = {
-  //   title: "팀찾기4444",
-  //   position: "프론트엔드",
-  //   keywords: ["교육", "키워드2"],
-  // };
-
-  /** 카드 등록/수정 */
+  /* Creact or Edit Card */
   const handleSubmit = () => {
-    console.log("🚀 카드 등록/수정 버튼 클릭", cardData);
+    console.log("🚀 CREATE/EDIT POST", cardData);
 
     if (
       window.confirm(
@@ -123,33 +112,32 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         dispatch(addUserCard(data))
           .unwrap()
           .then(() => {
-            console.log("새글 작성 성공", data);
-            // 새 글 등록을 성공하면 alert, userlist로 이동
+            console.log("🚀 CREATE 성공", data);
             window.alert("새 글이 등록되었습니다.");
             navigate("/userlist");
           })
           .catch(error => {
-            console.warn("POST USERCARD ERROR", error);
-            console.log("NEW_CARD data 출력(error)", data);
+            console.warn("🚀 CREATE 실패", error, data);
             setError("Something went wrong");
           })
           .finally(() => setIsLoading(false));
       }
 
       if (EDIT_CARD) {
+        setIsLoading(true);
+        setError(null);
+
         const targetId = originCard?.teamBoardId;
 
         dispatch(editUserCard({ targetId, data }))
           .unwrap()
           .then(() => {
-            console.log("카드 수정 성공", data);
-            // 글 수정을 성공하면 alert, userlist로 이동
+            console.log("🚀 EDIT 성공", data);
             window.alert("카드가 수정되었습니다.");
             navigate("/userlist");
           })
           .catch(error => {
-            console.warn("EDIT USERCARD ERROR", error);
-            console.log(data);
+            console.warn("🚀 EDIT 실패", error, data);
           });
       }
     }
@@ -161,18 +149,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         <ul>
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
-          {/* {NEW_CARD && (
-            <>
-              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
-              <Card type="USER_CARD" cardData={cardData} isEdit={true} />
-            </>
-          )}
-          {EDIT_CARD && (
-            <>
-              <Card type="USER_CARD" cardData={originCard} isEdit={true} />
-              <Card type="USER_CARD" cardData={originCard} isEdit={true} />
-            </>
-          )} */}
         </ul>
       </div>
       <div className={classes.inputArea}>

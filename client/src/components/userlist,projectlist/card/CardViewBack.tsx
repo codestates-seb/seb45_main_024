@@ -28,8 +28,10 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
         </span>
       </div>
       <div className={classes.centerArea}>
-        {/* 프로필사진 라우팅 지우님 채팅 확인 */}
-        <div className={classes.userImage} onClick={() => navigate("/")}></div>
+        <div
+          className={classes.userImage}
+          onClick={() => navigate("/mypage/:accountId")}
+        ></div>
         <div className={classes.keywordTag}>
           {keywords.map(item => (
             <span key={item}>&nbsp;#{item}</span>

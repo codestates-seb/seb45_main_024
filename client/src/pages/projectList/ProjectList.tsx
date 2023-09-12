@@ -16,6 +16,13 @@ import classes from "./ProjectList.module.css";
 const ProjectList = () => {
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+  const projectListData = useAppSelector(state => state.projects.data);
+  console.log("✅ PROJECT LIST", projectListData);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
   // 섹렉트박스 예시
   const sortList = ["최신순", "조회순"];
   const stackList = ["기술스택1", "기술스택2"];
@@ -41,14 +48,6 @@ const ProjectList = () => {
     navigate("/projectlist/new");
   };
 
-  /** Loading, Error */
-  const dispatch = useAppDispatch();
-  const projectListData = useAppSelector(state => state.projects.data);
-  // console.log(projectListData);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null); // error는 string or null ?
-
   /** Fetch Project List */
   useEffect(() => {
     console.log("🚀 GET PROJECT LIST");
@@ -58,7 +57,7 @@ const ProjectList = () => {
     dispatch(fetchProjectList())
       .unwrap()
       .catch(error => {
-        console.warn("GET PROJECTLIST ERROR", error);
+        console.warn("🚀 GET PROJECTLIST ERROR", error);
         setError("Something went wrong");
       })
       .finally(() => setIsLoading(false));
@@ -68,9 +67,23 @@ const ProjectList = () => {
   let projectListContent;
 
   if (isLoading) {
-    projectListContent = <div>Loading...</div>;
+    // 임시 Loading
+    projectListContent = (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "60vh",
+        }}
+      >
+        Loading...
+      </div>
+    );
   } else if (error) {
     // ProjectListContent = <div>Error!</div>;
+    // Error시 임시 화면처리(Dummy Data)
     projectListContent = (
       <ul className={classes.cardListArea}>
         {projectListData.map(list => (

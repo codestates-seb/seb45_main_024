@@ -7,6 +7,7 @@ import {
 
 import classes from "./CardStyle.module.css";
 
+// 삭제 관련 thunks
 // import { removeUserCard } from "../../../redux/board/thunks/removeUserCard";
 // import { removeProject } from "../../../redux/board/thunks/removeProject";
 // import { useAppDispatch } from "../../../redux/hooks";

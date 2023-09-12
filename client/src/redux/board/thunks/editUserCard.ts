@@ -10,7 +10,7 @@ interface dataType {
 }
 
 interface paramTypes {
-  targetId: number;
+  targetId: string;
   data: dataType;
 }
 

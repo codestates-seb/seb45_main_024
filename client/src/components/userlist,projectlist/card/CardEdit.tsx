@@ -1,33 +1,35 @@
-import { useState } from "react";
-// import classes from "./CardEdit.module.css";
-import classes from "./CardStyle.module.css";
-
+import { useState, useEffect } from "react";
 import { UserListDataType } from "../../../model/boardTypes";
-
+import { getStringDate } from "../../../util/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getNewTitle } from "../../../redux/store";
+
+import classes from "./CardStyle.module.css";
 
 interface CardEditProps {
   cardData: UserListDataType;
 }
 
-// New Card OR Edit Card
+// New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
   const dispatch = useAppDispatch();
 
   const { title, position, keywords, createdAt } = cardData;
-  // console.log(cardData.title);
 
   const [newTitle, setNewTitle] = useState(title);
-  // console.log(newTitle);
+  const date = getStringDate(createdAt);
+
+  // 임시 기술스택
+  const stack = ["React", "JavaScript"];
+
+  useEffect(() => {
+    setNewTitle(title);
+  }, [title]);
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
     dispatch(getNewTitle(newTitle));
   };
-
-  const date = new Date(createdAt).toLocaleDateString();
-  // cardData.title = newTitle;
 
   return (
     <div className={`${classes.card} ${classes.edit}`}>
@@ -58,10 +60,9 @@ const CardEdit = ({ cardData }: CardEditProps) => {
             />
           </div>
           <ul className={classes.stack}>
-            <li>JS</li>
-            <li>TS</li>
-            <li>React</li>
-            <li>Node</li>
+            {stack.map(item => (
+              <li key={item}>{item}</li>
+            ))}
           </ul>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { removeUserCard } from "../thunks/removeUserCard";
 import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 import { UserListDataType } from "../../../model/boardTypes";
+
 interface UserState {
   data: UserListDataType[];
   editTitle: string;
@@ -29,14 +30,13 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     // Fetch
     builder.addCase(fetchUserCardList.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchUserCardList.fulfilled, (state, action) => {
       state.data = action.payload;
     });
     builder.addCase(fetchUserCardList.rejected, (state, action) => {
       state.data = dummyData.teamboards.data; // 서버 안될시 TEST
-      console.log(state.data);
     });
 
     // Get
@@ -53,7 +53,7 @@ const usersSlice = createSlice({
 
     // Add
     builder.addCase(addUserCard.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addUserCard.fulfilled, (state, action) => {
       state.data.push(action.payload);
@@ -62,11 +62,10 @@ const usersSlice = createSlice({
 
     // Edit
     builder.addCase(editUserCard.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editUserCard.fulfilled, (state, action) => {
       console.log("usersSlice FULFILLED");
-      console.log(state.data);
     });
     builder.addCase(editUserCard.rejected, (state, action) => {});
 
