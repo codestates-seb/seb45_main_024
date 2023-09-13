@@ -3,16 +3,18 @@ package com.seb45main24.server.domain.member_board.mapper;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPatchDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPostDTO;
+import com.seb45main24.server.domain.member_board.dto.MemberBoardReplyDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardResponseDTO;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
+import com.seb45main24.server.domain.reply.entity.Reply;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MemberBoardMapper {
-//    MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard);
     List<MemberBoardResponseDTO> memberBoardListToMemberBoardResponseDtoList(List<MemberBoard> memberBoardList);
 
     default MemberBoard memberBoardPostDtoToMember(MemberBoardPostDTO memberBoardPostDTO) {
@@ -59,6 +61,20 @@ public interface MemberBoardMapper {
 
         MemberBoardResponseDTO.MemberBoardResponseDTOBuilder memberBoardResponseDTO = MemberBoardResponseDTO.builder();
 
+        List<MemberBoardReplyDTO> memberBoardReplyDTOList = memberBoard.getReplyList()
+                .stream()
+                .map(reply -> {
+                    MemberBoardReplyDTO memberBoardReplyDTO = new MemberBoardReplyDTO();
+
+                    memberBoardReplyDTO.setWriterId(reply.getWriter().getId());
+                    memberBoardReplyDTO.setWriterNickName(reply.getWriter().getNickname());
+                    memberBoardReplyDTO.setContent(reply.getContent());
+                    memberBoardReplyDTO.setApply(reply.getIsApply());
+                    memberBoardReplyDTO.setCreateAt(reply.getCreatedAt());
+
+                    return memberBoardReplyDTO;
+                }).collect(Collectors.toList());
+
         if ( memberBoard.getMemberBoardId() != null ) {
             memberBoardResponseDTO.memberBoardId( memberBoard.getMemberBoardId() );
         }
@@ -67,8 +83,8 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.status( memberBoard.getStatus() );
         memberBoardResponseDTO.views( memberBoard.getViews() );
         memberBoardResponseDTO.position( memberBoard.getPosition() );
-        System.out.println(memberBoard.getWriter().getNickname() + "닉네임");
         memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
+        memberBoardResponseDTO.replyList( memberBoardReplyDTOList );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );
         memberBoardResponseDTO.endDate( memberBoard.getEndDate() );
         memberBoardResponseDTO.createdAt( memberBoard.getCreatedAt() );
