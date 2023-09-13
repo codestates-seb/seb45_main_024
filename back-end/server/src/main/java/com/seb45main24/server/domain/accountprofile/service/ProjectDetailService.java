@@ -1,22 +1,25 @@
 package com.seb45main24.server.domain.accountprofile.service;
 
-import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailRequest;
+import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
+import com.seb45main24.server.domain.accountprofile.mapper.ProjectDetailsMapper;
+import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.domain.accountprofile.repository.ProjectDetailsRepository;
-import com.seb45main24.server.domain.image.dto.UploadImage;
-import com.seb45main24.server.domain.image.entity.Image;
-import com.seb45main24.server.domain.image.repository.ImageRepository;
-import com.seb45main24.server.global.utils.ImageUtils;
+import com.seb45main24.server.global.exception.advice.BusinessLogicException;
+import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,41 +27,29 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProjectDetailService {
 
-	private final ImageUtils imageUtils;
-	private final ImageRepository imageRepository;
+	private final AccountProfileRepository accountProfileRepository;
 	private final ProjectDetailsRepository projectDetailsRepository;
+	private final ProjectDetailsMapper projectDetailsMapper;
 
-	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, List<MultipartFile> multipartFiles) {
+	@Transactional
+	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
+		AccountProfile accountProfile = findAccountProfile(accountProfileId);
+
+		List<ProjectDetails> existingProjectDetailTags = projectDetailsRepository.findByAccountProfileId(accountProfile.getId());
+		existingProjectDetailTags.forEach(tag -> projectDetailsRepository.delete(tag));
+
 		List<ProjectDetails> projectDetailsList = new ArrayList<>();
 
-		if (detailRequests != null && multipartFiles != null) {
-			for (int i = 0; i < detailRequests.size(); i++) {
-				ProjectDetailRequest detailRequest = detailRequests.get(i);
-				MultipartFile file = multipartFiles.get(i);
+		for (ProjectDetailRequest detailRequest : detailRequests) {
+			ProjectDetails projectDetails = new ProjectDetails();
+			projectDetails.setProjectTitle(detailRequest.getProjectTitle());
+			projectDetails.setProjectUrl(detailRequest.getProjectUrl());
+			projectDetails.setImageUrl(detailRequest.getImageUrl());
+			projectDetails.setAccountProfile(accountProfile);
 
-				// 이미지 업로드 및 이미지 정보 저장
-				UploadImage uploadImage = imageUtils.uploadImage(file);
-				Image image = Image.builder()
-					.urlPath(uploadImage.getUrlPath())
-					.originName(uploadImage.getOriginName())
-					.size(uploadImage.getSize())
-					.imageClsf(Image.ImageClassification.PROJECT_IMG)
-					.build();
-
-				Image savedImage = imageRepository.save(image);
-
-				// ProjectDetail 엔티티 생성 및 이미지 정보 연결
-				ProjectDetails projectDetails = new ProjectDetails();
-				projectDetails.setProjectTitle(detailRequest.getProjectTitle());
-				projectDetails.setProjectUrl(detailRequest.getProjectUrl());
-				projectDetails.setImage(savedImage);
-
-				projectDetailsList.add(projectDetails);
-				projectDetailsRepository.save(projectDetails);
-			}
-
+			projectDetailsList.add(projectDetails);
 		}
-		return projectDetailsList;
+		return projectDetailsRepository.saveAll(projectDetailsList);
 	}
 
 	// 회원 등록시 기본값 생성을 위한 메서드
@@ -67,7 +58,7 @@ public class ProjectDetailService {
 		ProjectDetails projectDetails = new ProjectDetails();
 		projectDetails.setProjectTitle("");
 		projectDetails.setProjectUrl("");
-		projectDetails.setImage(null);
+		projectDetails.setImageUrl("");
 		projectDetails.setCreatedAt(LocalDateTime.now());
 
 		// ProjectDetail을 저장
@@ -83,5 +74,25 @@ public class ProjectDetailService {
 
 		// ProjectDetail 저장
 		return projectDetailsRepository.save(emptyProjectDetail);
+	}
+
+	public AccountProfile findAccountProfile(Long accountProfileId) {
+		Optional<AccountProfile> optional = accountProfileRepository.findById(accountProfileId);
+
+		if (optional.isPresent()) {
+			AccountProfile accountProfile = optional.get();
+			return accountProfile;
+		}
+		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
+	}
+
+	public List<ProjectDetailResponse> findProjectDetails(Long accountProfileId) {
+		List<ProjectDetails> projectDetails = projectDetailsRepository.findByAccountProfileId(accountProfileId);
+
+		List<ProjectDetailResponse> projectDetailsList = projectDetails.stream()
+																.map(projectDetailsMapper::toProjectDetailResponse)
+																.collect(Collectors.toList());
+
+		return projectDetailsList;
 	}
 }

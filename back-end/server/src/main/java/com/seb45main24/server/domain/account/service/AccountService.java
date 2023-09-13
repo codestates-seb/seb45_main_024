@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.account.service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
+import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
 import com.seb45main24.server.domain.image.dto.UploadImage;
 import com.seb45main24.server.domain.image.entity.Image;
 import com.seb45main24.server.domain.image.repository.ImageRepository;
@@ -36,10 +39,10 @@ public class AccountService {
 	private final ImageRepository imageRepository;
 	private final ImageUtils imageUtils;
 	private final AccountProfileRepository accountProfileRepository;
+	private final AccountProfileService accountProfileService;
 
 	@Value("${multipart.default.path}")
 	private String defaultPath;
-
 
 	public Account createAccount(Account account) {
 
@@ -65,14 +68,12 @@ public class AccountService {
 		Account postAccount = accountRepository.save(account);
 
 		// 계정 프로필 생성
-		AccountProfile accountProfile = createAccountProfile(postAccount);
-		accountProfileRepository.save(accountProfile);
-
+		AccountProfile accountProfile = accountProfileService.createAccountProfile(postAccount);
 		postAccount.setAccountProfile(accountProfile);
+		accountProfileRepository.save(accountProfile);
 
 		return postAccount;
 	}
-
 
 	public Account updateAccount(Account account, Long loginAccountId, MultipartFile newImage) {
 
@@ -88,12 +89,12 @@ public class AccountService {
 			findAccount.setPassword(encodedPassword);
 		});
 
-		if(newImage != null && !newImage.isEmpty()) {
-			UploadImage uploadImage = imageUtils.uploadImage(newImage, findAccount.getImage().getUrlPath());
+		if (newImage != null && !newImage.isEmpty()) {
+			UploadImage uploadImage = imageUtils.uploadImage(newImage, findAccount.getImage().getImageUrl());
 			if (uploadImage != null) {
 				findAccount.getImage().setOriginName(uploadImage.getOriginName());
 				findAccount.getImage().setSize(uploadImage.getSize());
-				findAccount.getImage().setUrlPath(uploadImage.getUrlPath());
+				findAccount.getImage().setImageUrl(uploadImage.getImageUrl());
 			}
 		}
 
@@ -101,8 +102,7 @@ public class AccountService {
 	}
 
 	public void deleteAccount(Account findAccount) {
-
-		accountRepository.delete(findAccount);
+		accountRepository.save(findAccount);
 	}
 
 	public Account findAccount(Long accountId) {
@@ -117,12 +117,11 @@ public class AccountService {
 		}
 	}
 
-
 	// 아이디(이메일) 중복 검사
 	private void checkDuplicateEmail(String email) {
 		Optional<Account> optionalUser = accountRepository.findByEmail(email);
 
-		if(optionalUser.isPresent()) {
+		if (optionalUser.isPresent()) {
 			throw new BusinessLogicException(ExceptionCode.EMAIL_EXIST);
 		}
 	}
@@ -131,7 +130,7 @@ public class AccountService {
 	private void checkDuplicateNickname(String nickname) {
 		Optional<Account> optionalNickname = accountRepository.findByNickname(nickname);
 
-		if(optionalNickname.isPresent()) {
+		if (optionalNickname.isPresent()) {
 			throw new BusinessLogicException(ExceptionCode.NICKNAME_EXIST);
 		}
 	}
@@ -140,7 +139,7 @@ public class AccountService {
 	@Transactional
 	public void changePassword(String tmpPassword, Long accountId) {
 		Account info = accountRepository.findById(accountId).orElseThrow(() ->
-											new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
+			new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
 		// 임시 비밀번호로 업데이트
 		info.setPassword(tmpPassword);
 
@@ -161,20 +160,7 @@ public class AccountService {
 			.size(imageUtils.getImageSize())
 			.createdAt(LocalDateTime.now())
 			.imageClsf(Image.ImageClassification.PROFILE_IMG)
-			.urlPath(defaultPath)
+			.imageUrl(defaultPath)
 			.build();
 	}
-
-	// 계정 프로필 생성하기
-	private AccountProfile createAccountProfile(Account postAccount) {
-
-		return AccountProfile.builder()
-			.account(postAccount)
-			.hardSkillTags(new ArrayList<>())
-			.softSkillTags(new ArrayList<>())
-			.projectDetails(new ArrayList<>())
-			.build();
-
-	}
-
 }

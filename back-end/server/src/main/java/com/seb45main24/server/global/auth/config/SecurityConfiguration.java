@@ -60,7 +60,7 @@ public class SecurityConfiguration {
 				.anyRequest().permitAll()
 			)
 			.logout()
-			.logoutUrl("accounts/logout")
+			.logoutUrl("/accounts/logout")
 			.logoutSuccessHandler((request, response, authentication) -> {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -97,7 +97,7 @@ public class SecurityConfiguration {
 		public void configure(HttpSecurity builder) throws Exception {
 			AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, accountRepository);
+			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
 			jwtAuthenticationFilter.setFilterProcessesUrl("/accounts/login");
 
 			// handler 추가

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.seb45main24.server.domain.account.service.AccountService;
 import com.seb45main24.server.domain.accountprofile.dto.ProfilePostRequest;
+import com.seb45main24.server.domain.accountprofile.dto.ProfileResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
@@ -32,14 +35,22 @@ public class AccountProfileController {
 
 	private final AccountProfileService accountProfileService;
 
-	@PatchMapping("/profile/{account-id}")
+	@PatchMapping("/profile/{account-profile-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
-		@PathVariable("account-id") Long accountId,
-		@Valid ProfilePostRequest postRequest,
-		@RequestPart List<MultipartFile> multipartFiles) {
+												@PathVariable("account-profile-id") Long accountProfileId,
+												@RequestBody @Valid ProfilePostRequest postRequest) {
 
-		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest, multipartFiles);
+		accountProfileService.updateAccountProfile(loginAccountId, accountProfileId, postRequest);
+		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountProfileId);
 
-		return ResponseEntity.ok("Update Successful");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/profile/{account-profile-id}")
+	public ResponseEntity getAccountProfile(@LoginAccountId Long loginAccountId, @PathVariable("account-profile-id") Long accountProfileId) {
+
+		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountProfileId);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
