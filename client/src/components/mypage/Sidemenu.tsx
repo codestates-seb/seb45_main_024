@@ -1,24 +1,15 @@
 import { FC } from "react";
-// import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector } from "../../redux/hooks";
 import logo_green_face from "../../assets/images/logo_green_face.png";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface AuthorProps {
-  authorInfo: {
-    isAuthor: boolean;
-    visitorId: string | null;
-    ownerId?: string | null;
-    username?: string | null;
-  };
-}
-
-const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
+const SideMenu: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
-  
+  const authorInfo = useAppSelector(state => state.authorInfo);
+
   const summaryClickHandler = () => {
     navigate(`mypage/${id}/summary`);
   };
