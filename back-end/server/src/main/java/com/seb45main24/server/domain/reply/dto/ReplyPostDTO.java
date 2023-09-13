@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.reply.dto;
 
+import com.seb45main24.server.domain.reply.entity.Reply;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -15,7 +16,13 @@ public class ReplyPostDTO {
 
     private Long loginAccountId;
 
+    private Reply.AcceptType acceptType;
+
     public void setLoginAccountId(Long loginAccountId) {
         this.loginAccountId = loginAccountId;
+    }
+
+    public void setAcceptType(Reply.AcceptType acceptType) {
+        this.acceptType = acceptType;
     }
 }

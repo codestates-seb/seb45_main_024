@@ -29,6 +29,8 @@ public class ReplyService {
 
         Optional.ofNullable(reply.getContent())
                 .ifPresent(content -> findReply.setContent(content));
+        Optional.ofNullable(reply.getAcceptType())
+                .ifPresent(acceptType -> findReply.setAcceptType(acceptType));
 
         Reply saveReply = repository.save(findReply);
 

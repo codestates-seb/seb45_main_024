@@ -14,6 +14,12 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class Reply extends Auditable {
+    public enum AcceptType {
+        NONE,
+        ACCEPT,
+        REFUSE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
@@ -21,6 +27,9 @@ public class Reply extends Auditable {
     private String content;
 
     private Boolean isApply;
+
+    @Enumerated(EnumType.STRING)
+    private AcceptType acceptType;
 
     @ManyToOne
     @JoinColumn(name = "WRITER_ID")

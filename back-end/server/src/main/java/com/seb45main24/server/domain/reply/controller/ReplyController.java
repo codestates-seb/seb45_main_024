@@ -35,6 +35,7 @@ public class ReplyController {
     public ResponseEntity postReply(@Valid @RequestBody ReplyPostDTO replyPostDTO,
                                     @LoginAccountId Long loginAccountId) {
         replyPostDTO.setLoginAccountId(loginAccountId);
+        replyPostDTO.setAcceptType(Reply.AcceptType.NONE);
 
         Reply reply = mapper.replyPostDtoToReply(replyPostDTO);
 
