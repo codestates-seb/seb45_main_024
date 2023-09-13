@@ -19,7 +19,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const { profileData, status } = useAppSelector(state => state.profile);
+  const { profileData, status } = useAppSelector((state) => state.profile);
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
@@ -44,6 +44,20 @@ const CreateProfile: FC = () => {
   const [hardTags, setHardTags] = useState<string[]>([]);
   const [techTags, setTechTags] = useState<string[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
+
+  // 초기값 설정
+  useEffect(() => {
+    if (profileData) {
+      setSoftTags(profileData.softSkills);
+      setHardTags(profileData.hardSkills);
+      const projectTags = profileData.projectDetails.map((proj, index) => ({
+        projectName: proj.projectTitle,
+        projectLink: proj.projectUrl,
+        projectImage: proj.imageUrl,
+      }));
+      setProjTags(projectTags);
+    }
+  }, [profileData]);
 
   const softInputRef = useRef(softInput);
   const hardInputRef = useRef(hardInput);
@@ -119,7 +133,11 @@ const CreateProfile: FC = () => {
     <form className={classes.createForm}>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.BIO} />
-        <QuillEditor onChange={editorChangeHandler} />
+        <QuillEditor
+          onChange={editorChangeHandler}
+          // 초기값 설정
+          initialValue={profileData.coverLetter || ""}
+        />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.TECH} />
