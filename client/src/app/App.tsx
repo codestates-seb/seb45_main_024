@@ -52,7 +52,6 @@ const router = createBrowserRouter([
 
       /*** 📌 마이페이지 ***/
       {
-        // path: "mypage/1",
         path: "mypage/:id",
         children: [
           { index: true, element: <Profile /> },
@@ -60,13 +59,6 @@ const router = createBrowserRouter([
           { path: "review", element: <Review /> },
           { path: "summary", element: <Summary /> },
           { path: "myinfo", element: <MyInfo /> },
-          //   path: "review",
-          //   element: <Review />,
-          //   children: [
-          //     { index: true, element: <ReviewList /> },
-          //     { path: "new", element: <NewReview /> },
-          //   ],
-          // },
         ],
       },
 
