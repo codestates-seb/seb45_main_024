@@ -8,7 +8,7 @@ const Summary: FC = () => {
   return (
     <>
       <div className={classes.mainContainer}>
-        <SideMenu authorInfo={authorInfo} />
+        <SideMenu menu="summary" authorInfo={authorInfo} />
         <section className={classes.componentContainer}>
           <div className={`${classes.cardContainer} ${classes.userlist}`}>
             <div className={classes.titleBox}>

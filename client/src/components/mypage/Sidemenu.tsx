@@ -1,26 +1,38 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector } from "../../redux/hooks";
 import logo_green_face from "../../assets/images/logo_green_face.png";
 import { useNavigate, useParams } from "react-router-dom";
 
-const SideMenu: FC = () => {
+interface SideMenuProps {
+  menu: string;
+}
+
+const SideMenu: FC<SideMenuProps> = ({ menu }) => {
+  const [selectedMenu, setSelectedMenu] = useState<string>("profile");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
   const authorInfo = useAppSelector(state => state.authorInfo);
-
+  useEffect(() => {
+    setSelectedMenu(menu);
+  }, [menu]);
   const summaryClickHandler = () => {
-    navigate(`mypage/${id}/summary`);
+    navigate(`/mypage/${id}/summary`);
+    setSelectedMenu("summary");
   };
+
   const profileClickHandler = () => {
-    navigate(`mypage/${id}`);
+    navigate(`/mypage/${id}`);
+    setSelectedMenu("profile");
   };
+
   const reviewClickHandler = () => {
-    navigate(`mypage/${id}/review`);
+    navigate(`/mypage/${id}/review`);
+    setSelectedMenu("review");
   };
   const myInfoClickHandler = () => {
-    navigate(`mypage/${id}/myinfo`);
+    navigate(`/mypage/${id}/myinfo`);
+    setSelectedMenu("myInfo");
   };
 
   return (
@@ -36,7 +48,7 @@ const SideMenu: FC = () => {
         <ul className={classes.menuItems}>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Summary" ? classes.selectedMenuItem : ""
+              selectedMenu === "summary" ? classes.selectedMenuItem : ""
             }`}
             onClick={summaryClickHandler}
           >
@@ -44,7 +56,7 @@ const SideMenu: FC = () => {
           </li>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Profile" ? classes.selectedMenuItem : ""
+              selectedMenu === "profile" ? classes.selectedMenuItem : ""
             }`}
             onClick={profileClickHandler}
           >
@@ -52,7 +64,7 @@ const SideMenu: FC = () => {
           </li>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Review" ? classes.selectedMenuItem : ""
+              selectedMenu === "review" ? classes.selectedMenuItem : ""
             }`}
             onClick={reviewClickHandler}
           >
@@ -61,7 +73,7 @@ const SideMenu: FC = () => {
           {authorInfo.isAuthor && (
             <li
               className={`${classes.menuItem} ${
-                selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
+                selectedMenu === "myInfo" ? classes.selectedMenuItem : ""
               }`}
               onClick={myInfoClickHandler}
             >

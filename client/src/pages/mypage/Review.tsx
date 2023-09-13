@@ -4,7 +4,7 @@ import AddReview from "../../components/mypage/AddReview";
 import ReviewCard from "../../components/mypage/ReviewCard";
 import SideMenu from "../../components/mypage/Sidemenu";
 // import NoContent from "./NoContent";
-import authInstance from "../../utility/authInstance";
+// import authInstance from "../../utility/authInstance";
 // import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -29,27 +29,27 @@ const Review: FC = () => {
     setShowAddReview(false);
   };
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        const res = await authInstance.get(
-          `/reviews/${authorInfo.ownerId}?page=1`,
-        );
-        const reviewInfo = res.data;
-        console.log(reviewInfo);
-        setReviewData((prev) => [...reviewInfo]);
-      } catch (error) {
-        console.error("Failed to fetch review info", error);
-      }
-    };
-    fetchReview();
-  }, []);
+  // useEffect(() => {
+  //   const fetchReview = async () => {
+  //     try {
+  //       const res = await authInstance.get(
+  //         `/reviews/${authorInfo.ownerId}?page=1`,
+  //       );
+  //       const reviewInfo = res.data;
+  //       console.log(reviewInfo);
+  //       setReviewData((prev) => [...reviewInfo]);
+  //     } catch (error) {
+  //       console.error("Failed to fetch review info", error);
+  //     }
+  //   };
+  //   fetchReview();
+  // }, []);
   // 일단 ownerId가 변경되면 리렌더링 필요.
 
   return (
     <>
       <div className={classes.mainContainer}>
-        <SideMenu authorInfo={authorInfo} />
+        <SideMenu menu="review" authorInfo={authorInfo} />
         <section className={classes.componentContainer}>
           <div className={classes.reviewContainer}>
             <div className={classes.titleBox}>

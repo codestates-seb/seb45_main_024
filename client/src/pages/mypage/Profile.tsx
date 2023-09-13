@@ -108,7 +108,7 @@ const Profile: FC = () => {
   return (
     <>
       <div className={classes.mainContainer}>
-        <SideMenu authorInfo={authorInfo} />
+        <SideMenu menu="profile" authorInfo={authorInfo} />
         <section className={classes.componentContainer}>
           <div className={classes.editContainer}>
             {authorInfo.isAuthor && (
