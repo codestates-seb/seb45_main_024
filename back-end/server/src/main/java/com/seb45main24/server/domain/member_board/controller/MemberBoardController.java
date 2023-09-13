@@ -2,6 +2,7 @@ package com.seb45main24.server.domain.member_board.controller;
 
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPatchDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardPostDTO;
+import com.seb45main24.server.domain.member_board.dto.MemberBoardResponseDTO;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
 import com.seb45main24.server.domain.member_board.mapper.MemberBoardMapper;
 import com.seb45main24.server.domain.member_board.repository.MemberBoardRepository;
@@ -64,10 +65,12 @@ public class MemberBoardController {
     }
 
     @GetMapping("/{memberBoard-id}")
-    public ResponseEntity getMemberBoard(@PathVariable("memberBoard-id") @Positive int memberBoardId) {
+    public ResponseEntity getMemberBoard(@PathVariable("memberBoard-id") @Positive long memberBoardId) {
         MemberBoard memberBoard = service.findMemberBoard(memberBoardId);
 
-        return new ResponseEntity<>(mapper.memberBoardToMemberBoardResponseDto(memberBoard), HttpStatus.OK);
+        MemberBoardResponseDTO memberBoardResponseDTO = mapper.memberBoardToMemberBoardResponseDto(memberBoard);
+
+        return new ResponseEntity<>(memberBoardResponseDTO, HttpStatus.OK);
     }
 
     @GetMapping

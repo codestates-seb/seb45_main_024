@@ -13,8 +13,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ReplyMapper {
-    Reply replyPatchDtoToReply(ReplyPatchDTO replyPatchDTO);
-
     default Reply replyPostDtoToReply(ReplyPostDTO replyPostDTO) {
         if ( replyPostDTO == null ) {
             return null;
@@ -30,8 +28,23 @@ public interface ReplyMapper {
 
         reply.setContent( replyPostDTO.getContent() );
         reply.setIsApply( replyPostDTO.getIsApply() );
+        reply.setAcceptType( replyPostDTO.getAcceptType() );
         reply.setWriter( writer );
         reply.setMemberBoard( memberBoard );
+
+        return reply;
+    }
+
+    default Reply replyPatchDtoToReply(ReplyPatchDTO replyPatchDTO) {
+        if ( replyPatchDTO == null ) {
+            return null;
+        }
+
+        Reply reply = new Reply();
+
+        reply.setReplyId( replyPatchDTO.getReplyId() );
+        reply.setContent( replyPatchDTO.getContent() );
+        reply.setAcceptType( replyPatchDTO.getAcceptType() );
 
         return reply;
     }
@@ -49,6 +62,7 @@ public interface ReplyMapper {
         replyResponseDTO.content( reply.getContent() );
         replyResponseDTO.isApply( reply.getIsApply() );
         replyResponseDTO.writerNickName( reply.getWriter().getNickname() );
+        replyResponseDTO.acceptType( reply.getAcceptType() );
         replyResponseDTO.createdAt( reply.getCreatedAt() );
         replyResponseDTO.modifiedAt( reply.getModifiedAt() );
 
