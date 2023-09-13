@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import classes from "./Review.module.css";
-import AddReview from "./AddReview";
-import ReviewCard from "./ReviewCard";
+import AddReview from "../../components/mypage/AddReview";
+import ReviewCard from "../../components/mypage/ReviewCard";
 // import NoContent from "./NoContent";
-// import { authInstance } from "../../redux/utility/authInstance";
+import authInstance from "../../utility/authInstance";
 
 interface AuthorProps {
   authorInfo: {
@@ -24,8 +24,7 @@ const dummyReview = {
 
 const Review: FC<AuthorProps> = ({ authorInfo }) => {
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
-
-  // const [reviewData, setReviewData] = useState<any>([]);
+  const [reviewData, setReviewData] = useState<any>([]);
 
   const showAddReviewhandler = () => {
     setShowAddReview(!showAddReview);
@@ -35,20 +34,21 @@ const Review: FC<AuthorProps> = ({ authorInfo }) => {
     setShowAddReview(false);
   };
 
-  // useEffect(() => {
-  //   const fetchReview = async () => {
-  //     try {
-  //       const res = await authInstance.get(`/reviews/${authorInfo.ownerId}`);
-  //       const reviewInfo = res.data.data;
-  //       console.log(reviewInfo);
-  //       setReviewData(reviewInfo);
-  //     } catch (error) {
-  //       console.error("Failed to fetch review info", error);
-  //     }
-  //   };
-  //   fetchReview();
-  // }, [authorInfo.ownerId]);
-  // }, []);
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const res = await authInstance.get(
+          `/reviews/${authorInfo.ownerId}?page=1`,
+        );
+        const reviewInfo = res.data;
+        console.log(reviewInfo);
+        setReviewData((prev) => [...reviewInfo]);
+      } catch (error) {
+        console.error("Failed to fetch review info", error);
+      }
+    };
+    fetchReview();
+  }, []);
   // 일단 ownerId가 변경되면 리렌더링 필요.
 
   return (

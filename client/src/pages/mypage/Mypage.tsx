@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import SideMenu from "../../components/mypage/Sidemenu";
-import Review from "../../components/mypage/Review";
-import Profile from "../../components/mypage/Profile";
+import Review from "./Review";
+import Profile from "./Profile";
 import Summary from "../../components/mypage/Summary";
 import MyInfo from "../../components/mypage/MyInfo";
 import classes from "./Mypage.module.css";
@@ -10,11 +10,7 @@ import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useParams } from "react-router-dom";
 import authInstance from "../../utility/authInstance";
 
-interface AccessTokenType {
-  id: number;
-  visitorId: string;
-  username: string;
-}
+
 
 const Mypage: FC = () => {
   const [profileData, setProfileData] = useState<{
@@ -38,7 +34,7 @@ const Mypage: FC = () => {
     hardSkills: [],
     projectDetails: [],
   });
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+  const selectedMenu = useAppSelector((state) => state.menu.selectedMenu);
   const [authorInfo, setAuthorInfo] = useState<{
     isAuthor: boolean;
     visitorId: string | null;
@@ -74,9 +70,10 @@ const Mypage: FC = () => {
     const fetchProfile = async () => {
       try {
         const res = await authInstance.get(
-          `/mypages/profile/${authorInfo.ownerId}`,
+          `/mypages/profile/${authorInfo.ownerId}`
         );
         console.log(res.data);
+        // console.log(res.headers);
         setProfileData(res.data);
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -90,11 +87,9 @@ const Mypage: FC = () => {
     <div className={classes.mainContainer}>
       <SideMenu authorInfo={authorInfo} />
       <section className={classes.componentContainer}>
-        {selectedMenu === "Summary" && <Summary authorInfo={authorInfo} />}
-        {selectedMenu === "Profile" && (
-          <Profile authorInfo={authorInfo} profileData={profileData} />
-        )}
-        {selectedMenu === "Review" && <Review authorInfo={authorInfo} />}
+        {selectedMenu === "Summary" && <Summary />}
+        {selectedMenu === "Profile" && <Profile profileData={profileData} />}
+        {selectedMenu === "Review" && <Review />}
         {selectedMenu === "MyInfo" && <MyInfo />}
       </section>
     </div>

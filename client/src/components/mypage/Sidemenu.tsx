@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { changeMenu } from "../../redux/menuSlice";
+// import { changeMenu } from "../../redux/menuSlice";
 import classes from "./Sidemenu.module.css";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import logo_green_face from "../../assets/images/logo_green_face.png";
+import { useNavigate } from "react-router-dom";
 
 interface AuthorProps {
   authorInfo: {
@@ -14,7 +15,8 @@ interface AuthorProps {
 }
 
 const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
 
   return (
@@ -32,7 +34,8 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Summary" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Summary"))}
+            // onClick={() => dispatch(changeMenu("Summary"))}
+            onClick={() => navigate(`mypage/${authorInfo.ownerId}/summary`)}
           >
             Summary
           </li>
@@ -40,7 +43,7 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Profile" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Profile"))}
+            onClick={() => navigate(`mypage/${authorInfo.ownerId}`)}
           >
             Profile
           </li>
@@ -48,7 +51,8 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Review" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Review"))}
+            // onClick={() => dispatch(changeMenu("Review"))}
+            onClick={() => navigate(`mypage/${authorInfo.ownerId}/review`)}
           >
             Peer Review
           </li>
@@ -57,7 +61,8 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
               className={`${classes.menuItem} ${
                 selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
               }`}
-              onClick={() => dispatch(changeMenu("MyInfo"))}
+              // onClick={() => dispatch(changeMenu("MyInfo"))}
+              onClick={() => navigate(`mypage/${authorInfo.ownerId}/myinfo`)}
             >
               My Info
             </li>

@@ -6,8 +6,9 @@ import LoginPage from "../pages/login/LoginPage";
 import SignUpPage from "../pages/signup/SignUpPage";
 import Main from "../pages/main/Main";
 
-import Mypage from "../pages/mypage/Mypage";
+import Profile from "../pages/mypage/Profile";
 import EditProfile from "../pages/mypage/EditProfile";
+// import Review from "../pages/mypage/Review";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -18,6 +19,7 @@ import Detail from "../pages/projectList/Detail";
 import NewPost from "../pages/projectList/NewPost";
 import EditPost from "../pages/projectList/EditPost";
 import FindPasswordPage from "../pages/findPassword/findPasswordPage";
+
 
 const router = createBrowserRouter([
   {
@@ -52,9 +54,9 @@ const router = createBrowserRouter([
         // path: "mypage/1",
         path: "mypage/:id",
         children: [
-          { index: true, element: <Mypage /> },
+          { index: true, element: <Profile /> },
           { path: "edit", element: <EditProfile /> },
-          // {
+          // { path: "review", element: <Review /> },
           //   path: "review",
           //   element: <Review />,
           //   children: [
