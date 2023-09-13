@@ -38,7 +38,7 @@ const MyInfo: FC = () => {
       try {
         authInstance.delete(`/accounts/${id}`).then((res) => {
           alert("회원탈퇴가 완료되었습니다.");
-          navigate("/");
+          window.location.href = "/";
         });
       } catch (error) {
         console.info("Failed to delete account", error);

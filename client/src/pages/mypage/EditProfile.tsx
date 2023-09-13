@@ -28,6 +28,7 @@ const EditProfile: FC = () => {
       );
       console.log(response);
       // navigate(`/mypage/${id}`);
+      window.alert("프로필이 수정되었습니다.");
       window.location.href = `/mypage/${id}`;
     } catch (error) {
       console.info(error);
