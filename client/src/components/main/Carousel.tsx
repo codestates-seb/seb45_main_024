@@ -48,7 +48,7 @@ const Carousel: FC = () => {
             return idx - 1;
           }
         }),
-      6500,
+      7500,
     );
     return () => {
       clearInterval(timer);
