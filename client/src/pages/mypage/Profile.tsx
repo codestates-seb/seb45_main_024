@@ -13,9 +13,8 @@ import HardProfile from "../../components/mypage/HardProfile";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import authInstance from "../../utility/authInstance";
-
-// import commonInstance from "../../utility/authInstance";
-// import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 
 interface AccessTokenType {
   id: number;
@@ -24,6 +23,8 @@ interface AccessTokenType {
 }
 
 const Profile: FC = () => {
+  const dispatch = useAppDispatch();
+  const authorInfo = useAppSelector(state => state.authorInfo);
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState<{
     imageUrl: string | null;
@@ -46,13 +47,6 @@ const Profile: FC = () => {
     hardSkills: [],
     projectDetails: [],
   });
-  const [authorInfo, setAuthorInfo] = useState<{
-    isAuthor: boolean;
-    visitorId: string | null;
-    ownerId?: string | null;
-    username?: string | null;
-  }>({ isAuthor: true, visitorId: null, ownerId: null, username: null });
-  // 테스트 위해서 true로 바꿔놓음
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
@@ -61,18 +55,22 @@ const Profile: FC = () => {
 
   useEffect(() => {
     if (AT) {
-      setAuthorInfo({
-        isAuthor: id! === visitorId,
-        visitorId: visitorId,
-        ownerId: id,
-        username: username,
-      });
+      dispatch(
+        setAuthorInfo({
+          isAuthor: id! === visitorId,
+          visitorId: visitorId,
+          ownerId: id,
+          username: username,
+        }),
+      );
     } else {
-      setAuthorInfo({
-        isAuthor: false,
-        visitorId: null,
-        ownerId: id,
-      });
+      dispatch(
+        setAuthorInfo({
+          isAuthor: false,
+          visitorId: null,
+          ownerId: id,
+        }),
+      );
     }
   }, []);
 

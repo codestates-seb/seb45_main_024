@@ -3,7 +3,7 @@ import { FC } from "react";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector } from "../../redux/hooks";
 import logo_green_face from "../../assets/images/logo_green_face.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface AuthorProps {
   authorInfo: {
@@ -16,8 +16,21 @@ interface AuthorProps {
 
 const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
+  const { id } = useParams<{ id: string }>();
   const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+  
+  const summaryClickHandler = () => {
+    navigate(`mypage/${id}/summary`);
+  };
+  const profileClickHandler = () => {
+    navigate(`mypage/${id}`);
+  };
+  const reviewClickHandler = () => {
+    navigate(`mypage/${id}/review`);
+  };
+  const myInfoClickHandler = () => {
+    navigate(`mypage/${id}/myinfo`);
+  };
 
   return (
     <div className={classes.sidemenuContainer}>
@@ -34,8 +47,7 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Summary" ? classes.selectedMenuItem : ""
             }`}
-            // onClick={() => dispatch(changeMenu("Summary"))}
-            onClick={() => navigate(`mypage/${authorInfo.ownerId}/summary`)}
+            onClick={summaryClickHandler}
           >
             Summary
           </li>
@@ -43,7 +55,7 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Profile" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => navigate(`mypage/${authorInfo.ownerId}`)}
+            onClick={profileClickHandler}
           >
             Profile
           </li>
@@ -51,8 +63,7 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
             className={`${classes.menuItem} ${
               selectedMenu === "Review" ? classes.selectedMenuItem : ""
             }`}
-            // onClick={() => dispatch(changeMenu("Review"))}
-            onClick={() => navigate(`mypage/${authorInfo.ownerId}/review`)}
+            onClick={reviewClickHandler}
           >
             Peer Review
           </li>
@@ -61,8 +72,7 @@ const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
               className={`${classes.menuItem} ${
                 selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
               }`}
-              // onClick={() => dispatch(changeMenu("MyInfo"))}
-              onClick={() => navigate(`mypage/${authorInfo.ownerId}/myinfo`)}
+              onClick={myInfoClickHandler}
             >
               My Info
             </li>

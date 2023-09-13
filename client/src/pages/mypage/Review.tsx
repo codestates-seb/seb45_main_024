@@ -4,6 +4,7 @@ import AddReview from "../../components/mypage/AddReview";
 import ReviewCard from "../../components/mypage/ReviewCard";
 // import NoContent from "./NoContent";
 import authInstance from "../../utility/authInstance";
+import { useParams } from "react-router-dom"; 
 
 interface AuthorProps {
   authorInfo: {
