@@ -3,7 +3,7 @@ import classes from "./Review.module.css";
 import AddReview from "../../components/mypage/AddReview";
 import ReviewCard from "../../components/mypage/ReviewCard";
 import SideMenu from "../../components/mypage/Sidemenu";
-// import NoContent from "./NoContent";
+// import NoContent from "../../components/mypage/NoContent";
 // import authInstance from "../../utility/authInstance";
 // import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
@@ -17,7 +17,7 @@ const dummyReview = {
 };
 
 const Review: FC = () => {
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<any>([]);
 
@@ -44,7 +44,6 @@ const Review: FC = () => {
   //   };
   //   fetchReview();
   // }, []);
-  // 일단 ownerId가 변경되면 리렌더링 필요.
 
   return (
     <>

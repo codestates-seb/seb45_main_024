@@ -3,7 +3,7 @@ import classes from "./SoftTag.module.css";
 
 interface TagProps {
   techName: string;
-  id: number;
+  id?: number;
   onDelete?: (id: number) => void;
 }
 
