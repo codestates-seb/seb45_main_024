@@ -61,6 +61,10 @@
   gap: 8px;
 }
 
+.centerContent{
+  justify-content: center;
+}
+
 .softContent span {
   color: var(--color-gray-1);
 }

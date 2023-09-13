@@ -3,7 +3,6 @@ import classes from "./HardProfile.module.css";
 
 interface HardProfileProps {
   techName: string;
-  id: number;
   level: string;
 }
 

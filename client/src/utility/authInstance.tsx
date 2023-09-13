@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   TokenData,
-  getTokensFromLocalStorage,
+  // getTokensFromLocalStorage,
   saveTokensToLocalStorage,
   removeTokensFromLocalStorage,
 } from "./tokenStorage";
@@ -22,10 +22,11 @@ const authInstance = axios.create({
 // request 인터셉터: 모든 api 요청 전에 실행
 authInstance.interceptors.request.use(
   config => {
-    const token = getTokensFromLocalStorage();
-    // const accessToken = token?.accessToken.slice(7); : 왜 slice에서 type 에러가 떴지..?
+    const token = localStorage.getItem("jwtTokens");
+    const tokenString = JSON.parse(token);
+    // const realAccessToken = token?.accessToken.slice(7);
     if (token) {
-      config.headers["Authorization"] = `${token}`;
+      config.headers["Authorization"] = `${tokenString}`;
       // 30분 지난 토큰을 보냈다? 리프레쉬 토큰 바탕으로 새로운 액세스토큰 발급해주는 로직 : 백엔드
       // 발급된 새로운 액세스토큰을 리스폰스 헤더에 담아서 보내줌 : 백엔드
     }
@@ -40,7 +41,12 @@ authInstance.interceptors.request.use(
 // response 인터셉터: 모든 api 요청 후에 실행
 authInstance.interceptors.response.use(
   response => {
-    const newAccessToken = response.headers["authorization"];
+    //TODO 여기가 문제였네
+    //TODO 근데 왜 여기 주석처리 안 됐을 때 로그아웃은 잘 된 거지?
+    //TODO 월욜에는 뭔 일이 있었길래 이 코드로 전부 잘 작동됐지?
+    //TODO 그럼 어떻게 새로운 액세스토큰 받아와서 저장하는 로직을 추가하지?
+    //TODO 포스팅 400 에러는 배드 리퀘였는데 왜 얘를 주석처리하니까 되는 걸까?
+    const newAccessToken = response.headers["Authorization"];
     if (newAccessToken) {
       removeTokensFromLocalStorage(); // 기존의 무효한 액세스 토큰 먼저 삭제
       saveTokensToLocalStorage({
@@ -50,7 +56,6 @@ authInstance.interceptors.response.use(
     return response;
   },
   error => {
-    // 에러코드 401일 때 로그인 페이지로 넘겨주는 로직 작성 필요(여기서는 useNavigate 사용 불가)
     console.error(error);
     return Promise.reject(error);
   },

@@ -1,15 +1,23 @@
 import { FC } from "react";
 import classes from "./ProjCard.module.css";
 import logo_white from "../../assets/images/logo_white.png";
+import { ProjectDetails } from "./Profile";
 
-const ProjCard: FC = () => {
+interface ProjectProps {
+  project: ProjectDetails;
+}
+
+const ProjCard: FC<ProjectProps> = props => {
   return (
     <div className={classes.cardContainer}>
       <div className={classes.projImg}>
-        <img src={logo_white} alt="project thumbnail" />
+        <img
+          src={props.project.imageUrl ?? logo_white}
+          alt="project thumbnail"
+        />
       </div>
-      <a href="#">
-        <span className={classes.projTitle}>프로젝트 제목</span>
+      <a href={props.project.projectUrl ?? "#"}>
+        <span className={classes.projTitle}>{props.project.projectTitle}</span>
       </a>
     </div>
   );

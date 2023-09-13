@@ -11,37 +11,44 @@ import SoftTag from "./SoftTag";
 import TechProfile from "./TechProfile";
 import HardProfile from "./HardProfile";
 
-interface AuthorProps {
-  authorInfo: {
-    isAuthor: boolean;
-    visitorId: string | null;
-    ownerId?: string | null;
-    username?: string | null;
-  };
+// import commonInstance from "../../utility/authInstance";
+// import axios from "axios";
+
+interface Props {
+  authorInfo: AuthorData;
+  profileData: ProfileData;
 }
 
-const Profile: FC<AuthorProps> = ({ authorInfo }) => {
+interface AuthorData {
+  isAuthor: boolean;
+  visitorId: string | null;
+  ownerId?: string | null;
+  username?: string | null;
+}
+
+interface ProfileData {
+  imageUrl: string | null;
+  email: string | null;
+  nickname: string | null;
+  coverLetter: string | null;
+  softSkills: { techName: string }[];
+  hardSkills: { techName: string }[];
+  projectDetails:ProjectDetails[];
+}
+
+interface ProjectDetails {
+  projectTitle: string | null;
+  projectUrl: string | null;
+  imageUrl: string | null;
+}
+
+const Profile: FC<Props> = ({ authorInfo, profileData }) => {
   const navigate = useNavigate();
 
   const editProfileHandler = () => {
     navigate(`/mypage/${authorInfo.ownerId}/edit`);
   };
 
-  const dummyBio =
-    "국회는 국무총리 또는 국무위원의 해임을 대통령에게 건의할 수 있다. 모든 국민은 종교의 자유를 가진다. 국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다. 국가는 사회보장·사회복지의 증진에 노력할 의무를 진다. 국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다.";
-  const dummyHard = {
-    hardTags: [
-      { techName: "English", id: 1, level: "B" },
-      { techName: "Google Analytics", id: 2, level: "C" },
-    ],
-  };
-  const dummySoft = {
-    softTags: [
-      { techName: "커뮤니케이션", id: 1 },
-      { techName: "아유 하면할 수록 할게 나오네요", id: 2 },
-      { techName: "다른 어떤 소프트 스킬이 있겠죠", id: 3 },
-    ],
-  };
   const dummyTech = {
     techTags: [
       { techName: "React", id: 1 },
@@ -65,7 +72,15 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
       <div className={classes.profileItemsContainer}>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.BIO} />
-          {dummyBio.length > 0 ? <Bio bio={dummyBio} /> : <NoContent />}
+          {profileData.coverLetter ? (
+            profileData.coverLetter.length > 0 ? (
+              <Bio bio={profileData.coverLetter} />
+            ) : (
+              <NoContent />
+            )
+          ) : (
+            <NoContent />
+          )}
         </section>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.TECH} />
@@ -99,16 +114,26 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
             마우스를 올리면 {authorInfo.username}님이 설정한 레벨을 볼 수
             있어요.
           </p>
-          <div className={classes.hardContent}>
-            {dummyHard.hardTags.length > 0 ? (
-              dummyHard.hardTags.map((hardTag, index) => (
-                <HardProfile
-                  key={index}
-                  techName={hardTag.techName}
-                  id={hardTag.id}
-                  level={hardTag.level}
-                />
-              ))
+          <div
+            className={
+              classes.hardContent +
+              (!profileData.hardSkills || profileData.hardSkills.length === 0
+                ? " " + classes.centerContent
+                : "")
+            }
+          >
+            {profileData.hardSkills ? (
+              profileData.hardSkills.length > 0 ? (
+                profileData.hardSkills.map((hardTag, index) => (
+                  <HardProfile
+                    key={index}
+                    techName={hardTag.techName}
+                    level="A"
+                  />
+                ))
+              ) : (
+                <NoContent />
+              )
             ) : (
               <NoContent />
             )}
@@ -116,15 +141,22 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
         </section>
         <section className={classes.profileItem}>
           <TitleLine title={ProfileCats.SOFT} />
-          <div className={classes.softContent}>
-            {dummySoft.softTags.length > 0 ? (
-              dummySoft.softTags.map((softTag, index) => (
-                <SoftTag
-                  key={index}
-                  techName={softTag.techName}
-                  id={softTag.id}
-                />
-              ))
+          <div
+            className={
+              classes.softContent +
+              (!profileData.softSkills || profileData.softSkills.length === 0
+                ? " " + classes.centerContent
+                : "")
+            }
+          >
+            {profileData.softSkills ? (
+              profileData.softSkills.length > 0 ? (
+                profileData.softSkills.map((softTag, index) => (
+                  <SoftTag key={index} techName={softTag.techName} />
+                ))
+              ) : (
+                <NoContent />
+              )
             ) : (
               <NoContent />
             )}
@@ -135,8 +167,27 @@ const Profile: FC<AuthorProps> = ({ authorInfo }) => {
           <p className={classes.helpText}>
             제목을 클릭하면 프로젝트 링크로 이동합니다.
           </p>
-          <div className={classes.projContent}>{/* 조건부 */}</div>
-          <ProjCard />
+          <div
+            className={
+              classes.projContent +
+              (!profileData.projectDetails ||
+              profileData.projectDetails.length === 0
+                ? " " + classes.centerContent
+                : "")
+            }
+          >
+            {profileData.projectDetails ? (
+              profileData.projectDetails.length > 0 ? (
+                profileData.projectDetails.map((project, index) => (
+                  <ProjCard key={index} project={project} />
+                ))
+              ) : (
+                <NoContent />
+              )
+            ) : (
+              <NoContent />
+            )}
+          </div>
         </section>
       </div>
     </>
