@@ -1,0 +1,14 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel {
+  border: 5px solid gray;
+  padding: 1rem;
+}
+
+.mainContent {
+  border: 5px solid purple;
+  padding: 1rem;
+}
