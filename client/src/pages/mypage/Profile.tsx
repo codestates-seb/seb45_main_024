@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import classes from "./Profile.module.css";
 import NoContent from "../../components/mypage/NoContent";
 import editicon from "../../assets/icons/edit.svg";
@@ -12,9 +12,9 @@ import TechProfile from "../../components/mypage/TechProfile";
 import HardProfile from "../../components/mypage/HardProfile";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
-import authInstance from "../../utility/authInstance";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
+import { fetchProfileData } from "../../redux/mypage/profileSlice";
 
 interface AccessTokenType {
   id: number;
@@ -25,28 +25,8 @@ interface AccessTokenType {
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const authorInfo = useAppSelector(state => state.authorInfo);
+  const { profileData, status } = useAppSelector(state => state.profile);
   const navigate = useNavigate();
-  const [profileData, setProfileData] = useState<{
-    imageUrl: string | null;
-    email: string | null;
-    nickname: string | null;
-    coverLetter: string | null;
-    softSkills: { techName: string }[];
-    hardSkills: { techName: string }[];
-    projectDetails: {
-      projectTitle: string | null;
-      projectUrl: string | null;
-      imageUrl: string | null;
-    }[];
-  }>({
-    imageUrl: null,
-    email: null,
-    nickname: null,
-    coverLetter: null,
-    softSkills: [],
-    hardSkills: [],
-    projectDetails: [],
-  });
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
@@ -77,21 +57,23 @@ const Profile: FC = () => {
 
   // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await authInstance.get(
-          `/mypages/profile/${authorInfo.ownerId}`
-        );
-        console.log(res.data);
-        // console.log(res.headers);
-        setProfileData(res.data);
-      } catch (err) {
-        console.info("Error fetching profile data", err);
-        console.log(err.response);
-      }
-    };
-    fetchProfile();
-  }, [authorInfo.ownerId]);
+    dispatch(fetchProfileData(id));
+    console.log(status);
+    // const fetchProfile = async () => {
+    //   try {
+    //     const res = await authInstance.get(
+    //       `/mypages/profile/${authorInfo.ownerId}`
+    //     );
+    //     console.log(res.data);
+    //     // console.log(res.headers);
+    //     setProfileData(res.data);
+    //   } catch (err) {
+    //     console.info("Error fetching profile data", err);
+    //     console.log(err.response);
+    //   }
+    // };
+    // fetchProfile();
+  }, [dispatch, id]);
 
   const editProfileHandler = () => {
     navigate(`/mypage/${authorInfo.ownerId}/edit`);

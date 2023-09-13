@@ -5,7 +5,7 @@ import alertReducer from "./common/alertSlice";
 import loadingReducer from "./common/loadingSlice";
 import menuReducer from "./mypage/menuSlice";
 import authorInfoReducer from "./mypage/authorInfoSlice";
-
+import profileReducer from "./mypage/profileSlice";
 import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
 import { projectsReducer } from "./board/slices/projectsSlice";
 
@@ -17,6 +17,7 @@ const store = configureStore({
     loading: loadingReducer,
     menu: menuReducer,
     authorInfo: authorInfoReducer,
+    profile: profileReducer,
     users: usersReducer,
     projects: projectsReducer,
   },

@@ -9,22 +9,31 @@ import PlusBtn from "./PlusBtn";
 import SoftInput from "./SoftInput";
 import SoftTag from "./SoftTag";
 import HardInput from "./HardInput";
-import DropDownTag from "./DropDownTag";
+// import DropDownTag from "./DropDownTag";
+import { fetchProfileData } from "../../redux/mypage/profileSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useParams } from "react-router-dom";
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
 const CreateProfile: FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
+  const { profileData, status } = useAppSelector(state => state.profile);
   const [editorValue, setEditorValue] = useState<string>("");
-
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
 
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchProfileData(id));
+    }
+  }, [dispatch]);
+
   const editorChangeHandler = (value: string) => {
     setEditorValue(value);
   };
-  // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
-  // post로 보내는 api call도 있음. req body 구조 알아야.
 
   // 이하 코드 리팩토링 필수!
   const [softInput, setSoftInput] = useState("");
@@ -144,7 +153,14 @@ const CreateProfile: FC = () => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         {hardTags.map((hardTag, index) => (
-          <DropDownTag
+          // api 명세 바뀌면 수정 필요
+          // <DropDownTag
+          //   key={index}
+          //   techName={hardTag}
+          //   id={index}
+          //   onDelete={hardTagDeleteHandler}
+          // />
+          <SoftTag
             key={index}
             techName={hardTag}
             id={index}
