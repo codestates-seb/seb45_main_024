@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ACCOUNT_PROFILE")
+@Table(name = "ACCOUNT_PROFILES")
 public class AccountProfile extends Auditable {
 
 	@Id
