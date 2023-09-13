@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MemberBoardReplyDTO {
+    private long replyId;
     private long writerId;
     private String writerNickName;
     private String content;

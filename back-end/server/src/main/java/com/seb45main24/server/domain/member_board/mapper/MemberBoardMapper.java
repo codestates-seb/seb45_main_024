@@ -66,6 +66,7 @@ public interface MemberBoardMapper {
                 .map(reply -> {
                     MemberBoardReplyDTO memberBoardReplyDTO = new MemberBoardReplyDTO();
 
+                    memberBoardReplyDTO.setReplyId(reply.getReplyId());
                     memberBoardReplyDTO.setWriterId(reply.getWriter().getId());
                     memberBoardReplyDTO.setWriterNickName(reply.getWriter().getNickname());
                     memberBoardReplyDTO.setContent(reply.getContent());
