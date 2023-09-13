@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,6 +73,11 @@ public class TeamBoardService {
 
         return optionalTeamBoard.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.NOT_FOUND));
+    }
+
+    // 내가 쓴 팀찾기 게시글 조회
+    public List<TeamBoard> getTeamBoards(Long accountId) {
+        return teamBoardRepository.findTeamBoardsByAccountId(accountId);
     }
 
 }

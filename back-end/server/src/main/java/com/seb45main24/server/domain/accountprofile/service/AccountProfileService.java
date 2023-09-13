@@ -42,10 +42,14 @@ public class AccountProfileService {
 	private final AccountProfileMapper mapper;
 
 	@Transactional
-	public AccountProfile updateAccountProfile(Long loginAccountId, Long accountProfileId, ProfilePostRequest postRequest) {
+	public AccountProfile updateAccountProfile(Long loginAccountId, Long accountId, ProfilePostRequest postRequest) {
+
+		if(loginAccountId.equals(accountId)) {
 
 			AccountProfile accountProfile = mapper.requestToAccountProfile(postRequest);
-			Account account = findAccount(loginAccountId);
+
+			Account account = findAccount(accountId);
+			Long accountProfileId = account.getAccountProfile().getId();
 			AccountProfile findProfile = verifiedAccountProfile(accountProfileId);
 
 			Optional.ofNullable(accountProfile.getCoverLetter())
@@ -67,31 +71,35 @@ public class AccountProfileService {
 				List<ProjectDetails> projectDetailsList = projectDetailService.createProjectDetails(postRequest.getProjectDetails(), accountProfileId);
 				findProfile.setProjectDetails(projectDetailsList);
 			}
-
-
 			return accountProfileRepository.save(findProfile);
+		}
+		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
 
-	public ProfileResponse findAccountProfile(Long loginAccountId, Long accountProfileId) {
-		Account findAccount = findAccount(loginAccountId);
-		AccountProfile accountProfile = verifiedAccountProfile(accountProfileId);
+	public ProfileResponse findAccountProfile(Long loginAccountId, Long accountId) {
 
+		if(loginAccountId.equals(accountId)) {
 
-		ProfileResponse profileResponse = ProfileResponse.builder()
-			.imageUrl(findAccount.getImage().getImageUrl())
-			.email(findAccount.getEmail())
-			.nickname(findAccount.getNickname())
-			.coverLetter(accountProfile.getCoverLetter())
-			.hardSkills(tagsService.findHardSkillTag(accountProfileId))
-			.softSkills(tagsService.findSoftSkillTag(accountProfileId))
-			.projectDetails(projectDetailService.findProjectDetails(accountProfileId))
-			.build();
+			Account findAccount = findAccount(accountId);
+			Long accountProfileId = findAccount.getAccountProfile().getId();
+			AccountProfile accountProfile = verifiedAccountProfile(accountProfileId);
 
-		return profileResponse;
+			ProfileResponse profileResponse = ProfileResponse.builder()
+				.imageUrl(findAccount.getImage().getImageUrl())
+				.email(findAccount.getEmail())
+				.nickname(findAccount.getNickname())
+				.coverLetter(accountProfile.getCoverLetter())
+				.hardSkills(tagsService.findHardSkillTag(accountProfileId))
+				.softSkills(tagsService.findSoftSkillTag(accountProfileId))
+				.projectDetails(projectDetailService.findProjectDetails(accountProfileId))
+				.build();
+
+			return profileResponse;
+
+		}
+		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 
 	}
-
-
 
 
 	private Account findAccount(Long loginAccountId) {
