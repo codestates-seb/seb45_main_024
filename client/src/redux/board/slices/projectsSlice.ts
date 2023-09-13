@@ -50,7 +50,7 @@ const projectsSlice = createSlice({
 
     // Add
     builder.addCase(addProject.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addProject.fulfilled, (state, action) => {
       state.data.push(action.payload);
@@ -59,7 +59,7 @@ const projectsSlice = createSlice({
 
     // Edit
     builder.addCase(editProject.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editProject.fulfilled, (state, action) => {
       console.log("✅ EDIT PROJECT FULFILLED");

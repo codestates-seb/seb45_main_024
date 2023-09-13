@@ -176,23 +176,30 @@
           {
             "writerId": 1,
             "writerNickName": "유저AAA",
-            "content": "댓글입니다!!!!",
-            "createAt": "2023-09-13T10:19:42",
+            "content": "일반댓글: 댓글입니다!!!!",
+            "createAt": "2023-09-11T10:19:42",
             "apply": false
           },
           {
-            "writerId": 1,
+            "writerId": 2,
             "writerNickName": "유저BBB",
-            "content": "지원 댓글 : 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
-            "createAt": "2023-09-13T13:09:24",
+            "content": "지원댓글: 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
+            "createAt": "2023-09-12T13:09:24",
             "apply": true
           },
           {
-            "writerId": 1,
+            "writerId": 3,
             "writerNickName": "유저CCC",
-            "content": "그냥 댓글",
+            "content": "지원댓글<수락>: 지원하고 수락된 유저의 댓글내용",
             "createAt": "2023-09-13T13:09:32",
-            "apply": false
+            "apply": true
+          },
+          {
+            "writerId": 4,
+            "writerNickName": "유저DDD",
+            "content": "지원댓글<거절>: 지원하고 거절 유저의 댓글내용",
+            "createAt": "2023-09-14T13:09:32",
+            "apply": true
           }
         ],
         "startDate": "2023-01-18T11:22:33",

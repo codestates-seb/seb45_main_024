@@ -38,7 +38,6 @@ const commentsSlice = createSlice({
       console.log("✅ ADD TEST FULFILLED");
     });
     builder.addCase(addComment.rejected, (state, action) => {
-      console.log(action.payload);
       console.log("✅ ADD TEST REJECTED");
     });
 

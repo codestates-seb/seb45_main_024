@@ -3,7 +3,8 @@ import authInstance from "../../../utility/authInstance";
 
 interface reqCommentsType {
   content: string;
-  isApply?: boolean;
+  isApply: boolean;
+  memberBoardId: string;
 }
 
 interface editCommentParamsType {
