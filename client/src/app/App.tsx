@@ -10,7 +10,7 @@ import Profile from "../pages/mypage/Profile";
 import EditProfile from "../pages/mypage/EditProfile";
 import Review from "../pages/mypage/Review";
 import Summary from "../pages/mypage/Summary";
-// import MyInfo from "../pages/mypage/MyInfo";
+import MyInfo from "../pages/mypage/MyInfo";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
           { path: "edit", element: <EditProfile /> },
           { path: "review", element: <Review /> },
           { path: "summary", element: <Summary /> },
-          // { path: "info", element: <MyInfo /> },
+          { path: "myinfo", element: <MyInfo /> },
           //   path: "review",
           //   element: <Review />,
           //   children: [

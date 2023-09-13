@@ -1,25 +1,18 @@
 import { FC, useState } from "react";
 import classes from "./MyInfo.module.css";
-import EditInfo from "./EditInfo";
-import TitleLine from "./TitleLine";
-import ProfileCats from "./ProfileCats";
-import NoContent from "./NoContent";
-// import authInstance from "../../utility/authInstance";
+import EditInfo from "../../components/mypage/EditInfo";
+import TitleLine from "../../components/mypage/TitleLine";
+import ProfileCats from "../../components/mypage/ProfileCats";
+import NoContent from "../../components/mypage/NoContent";
+import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
-import SideMenu from "./Sidemenu";
+import SideMenu from "../../components/mypage/Sidemenu";
 import { useAppSelector } from "../../redux/hooks";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
-  const { id } = useParams<{ userId: string }>();
+  const { id } = useParams<{ id: string }>();
   const authorInfo = useAppSelector(state => state.authorInfo);
-
-  // const getUserId = () => {
-  //   return localStorage.getItem("userId");
-  //   //토큰으로 가지고 와도 상관없음(주인만 접근 가능한 페이지)
-  // };
-
-  // const UserId = getUserId();
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
 
@@ -32,32 +25,31 @@ const MyInfo: FC = () => {
   };
 
   const editProfileHandler = () => {
-    navigate(`/mypage/1/edit`);
-    // navigate(`/mypage/${userId}/edit`);
+    navigate(`/mypage/${id}/edit`);
   };
 
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
-  // const deleteAccountHandler = async () => {
-  //   const confirmation = window.confirm(
-  //     "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
-  //   );
+  const deleteAccountHandler = async () => {
+    const confirmation = window.confirm(
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
+    );
 
-  //   if (confirmation) {
-  //     try {
-  //       authInstance.delete(`/accounts/${userId}`).then((res) => {
-  //         alert("회원탈퇴가 완료되었습니다.");
-  //         navigate("/");
-  //       });
-  //     } catch (error) {
-  //       console.info("Failed to delete account", error);
-  //     }
-  //   }
-  // };
+    if (confirmation) {
+      try {
+        authInstance.delete(`/accounts/${id}`).then((res) => {
+          alert("회원탈퇴가 완료되었습니다.");
+          navigate("/");
+        });
+      } catch (error) {
+        console.info("Failed to delete account", error);
+      }
+    }
+  };
 
   return (
     <>
       <div className={classes.mainContainer}>
-        <SideMenu authorInfo={authorInfo} />
+        <SideMenu menu="myInfo" authorInfo={authorInfo} />
         <section className={classes.componentContainer}>
           {/* 프로필 이미지, 닉네임, 패스워드, 프로필정보 변경할 수 있는 버튼, 회원탈퇴 버튼 */}
           <section className={classes.infoHeaderBox}>
