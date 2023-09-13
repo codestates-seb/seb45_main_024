@@ -6,10 +6,10 @@ import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 const MyProfile: FC = () => {
   const navigate = useNavigate();
   const myProfileInfo = getTokensFromLocalStorage();
-  const myProfileId = myProfileInfo.Id;
+  const myProfileId = myProfileInfo.id;
 
   const handleNavigateMyProfile = () => {
-    navigate(`/mypage/${myProfileId}`);
+    navigate(`/mypage/${myProfileInfo.id}`);
   };
 
   return (
