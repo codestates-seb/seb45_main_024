@@ -71,6 +71,7 @@ public interface MemberBoardMapper {
                     memberBoardReplyDTO.setWriterNickName(reply.getWriter().getNickname());
                     memberBoardReplyDTO.setContent(reply.getContent());
                     memberBoardReplyDTO.setApply(reply.getIsApply());
+                    memberBoardReplyDTO.setAcceptType(reply.getAcceptType());
                     memberBoardReplyDTO.setCreateAt(reply.getCreatedAt());
 
                     return memberBoardReplyDTO;

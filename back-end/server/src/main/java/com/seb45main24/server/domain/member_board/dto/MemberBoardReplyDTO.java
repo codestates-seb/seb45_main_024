@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.member_board.dto;
 
+import com.seb45main24.server.domain.reply.entity.Reply;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,6 @@ public class MemberBoardReplyDTO {
     private String writerNickName;
     private String content;
     private boolean isApply;
+    private Reply.AcceptType acceptType;
     private LocalDateTime createAt;
 }
