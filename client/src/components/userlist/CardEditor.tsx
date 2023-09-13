@@ -40,7 +40,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const [date, setDate] = useState(new Date().toLocaleDateString());
   const [title, setTitle] = useState(newTitle);
   const [position, setPosition] = useState("포지션");
-  // console.log("title: ", title);
   // const [stack, setStack] = useState("")
 
   useEffect(() => {
@@ -83,6 +82,8 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     }
   }, [EDIT_CARD, originCard]);
 
+  // 수정일 경우 origin 데이터를 set하고, cardData를 props로 넘김
+  // 생성일 경우 빈 값이 담긴 cardData를 card 컴포넌트로 넘김
   const cardData = {
     // teamBoardId: 0,
     title: title,
@@ -93,20 +94,21 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     // modifiedAt: "",
   };
 
-  // const data = {
-  //   title: newTitle, // "제목형식string"
-  //   position: position, // "포지션형식string"
-  //   keywords: keywords, // ["키워드1", "키워드2"]
-  // };
-
   const data = {
-    title: "제목...",
-    position: "백엔드",
-    keywords: ["코딩", "작업", "테스트"],
+    title: newTitle, // "제목형식string"
+    position: position, // "포지션형식string"
+    keywords: keywords, // ["키워드1", "키워드2"]
   };
+
+  // const data = {
+  //   title: "제목...",
+  //   position: "백엔드",
+  //   keywords: ["코딩", "작업", "테스트"],
+  // };
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
+    debugger;
     console.log("🚀 CREATE/EDIT CARD", data);
 
     if (
@@ -170,6 +172,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
             selectedOption={position}
             onSelect={handlePositionSelect}
             borderRadius={4}
+            width={150}
           />
         </div>
         <div className={classes.inputAreaBottom}>

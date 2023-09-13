@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../../assets/icons/edit.svg";
+import DefaultProfileImg from "../../../assets/images/default_profile.svg";
 import { UserListDataType } from "../../../model/boardTypes";
 
 import classes from "./CardStyle.module.css";
@@ -31,7 +32,9 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
         <div
           className={classes.userImage}
           onClick={() => navigate("/mypage/:accountId")}
-        ></div>
+        >
+          <img src={DefaultProfileImg} alt="" />
+        </div>
         <div className={classes.keywordTag}>
           {keywords.map(item => (
             <span key={item}>&nbsp;#{item}</span>

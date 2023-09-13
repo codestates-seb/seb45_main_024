@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import DefaultProfileImg from "../../../assets/images/default_profile.svg";
 import { UserListDataType } from "../../../model/boardTypes";
 import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -13,10 +14,11 @@ interface CardEditProps {
 // New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
   const dispatch = useAppDispatch();
-  const titleRef = useRef<HTMLTextAreaElement>(null);
+  // const titleRef = useRef<HTMLTextAreaElement>(null);
   // console.log("REF: ", titleRef.current?.value);
 
   const { title, position, keywords, createdAt } = cardData;
+  console.log("cardData", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
 
   const [newTitle, setNewTitle] = useState(title);
   const date = getStringDate(createdAt);
@@ -52,7 +54,7 @@ const CardEdit = ({ cardData }: CardEditProps) => {
         <div className={classes.centerArea}>
           <div className={classes.title}>
             <textarea
-              ref={titleRef}
+              // ref={titleRef}
               placeholder="제목을 입력해주세요."
               onChange={handleChangeTitle}
               // onBlur={handleBlurTitle}
@@ -81,7 +83,9 @@ const CardEdit = ({ cardData }: CardEditProps) => {
       {/* BACK */}
       <div className={classes.back}>
         <div className={classes.centerArea}>
-          <div className={classes.userImage}></div>
+          <div className={classes.userImage}>
+            <img src={DefaultProfileImg} alt="" />
+          </div>
           <div className={classes.keywordTag}>
             {keywords.map(item => (
               <span key={item}>&nbsp;#{item}</span>

@@ -28,7 +28,7 @@ const projectsSlice = createSlice({
   extraReducers(builder) {
     // Fetch
     builder.addCase(fetchProjectList.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchProjectList.fulfilled, (state, action) => {
       state.data = action.payload;
@@ -39,7 +39,7 @@ const projectsSlice = createSlice({
 
     // Get
     builder.addCase(getProject.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getProject.fulfilled, (state, action) => {
       state.currentData = action.payload;
@@ -50,7 +50,7 @@ const projectsSlice = createSlice({
 
     // Add
     builder.addCase(addProject.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addProject.fulfilled, (state, action) => {
       state.data.push(action.payload);
@@ -59,7 +59,7 @@ const projectsSlice = createSlice({
 
     // Edit
     builder.addCase(editProject.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editProject.fulfilled, (state, action) => {
       console.log("✅ EDIT PROJECT FULFILLED");

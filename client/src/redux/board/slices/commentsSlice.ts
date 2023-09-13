@@ -19,7 +19,7 @@ const commentsSlice = createSlice({
   extraReducers(builder) {
     // GET
     builder.addCase(getComments.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getComments.fulfilled, (state, action) => {
       // state.data = action.payload;
@@ -30,7 +30,7 @@ const commentsSlice = createSlice({
 
     // ADD
     builder.addCase(addComment.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
       console.log("✅ ADD TEST PENDING");
     });
     builder.addCase(addComment.fulfilled, (state, action) => {
@@ -44,7 +44,7 @@ const commentsSlice = createSlice({
 
     // EDIT
     builder.addCase(editComment.pending, (state, action) => {
-      throw new Error(); // 서버 안될시 TEST
+      // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editComment.fulfilled, (state, action) => {
       console.log("✅ EDIT USER FULFILLED");
