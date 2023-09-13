@@ -53,4 +53,9 @@ public class AccountProfileController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	@GetMapping("/profile/{account-id}")
+	public ResponseEntity getMyPost(@LoginAccountId Long longinAccountId, @PathVariable("account-id") Long accountId) {
+		return null;
+	}
 }
