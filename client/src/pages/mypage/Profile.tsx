@@ -19,7 +19,8 @@ import { fetchProfileData } from "../../redux/mypage/profileSlice";
 interface AccessTokenType {
   id: number;
   visitorId: string;
-  username: string;
+  email: string;
+  nickname: string;
 }
 
 const Profile: FC = () => {
@@ -31,7 +32,8 @@ const Profile: FC = () => {
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
-  const username = AT.username;
+  const email = AT.nickname;
+  const nickname = AT.nickname;
 
   useEffect(() => {
     if (AT) {
@@ -40,7 +42,8 @@ const Profile: FC = () => {
           isAuthor: id! === visitorId,
           visitorId: visitorId,
           ownerId: id,
-          username: username,
+          email: email,
+          nickname: nickname,
         }),
       );
     } else {
@@ -49,7 +52,8 @@ const Profile: FC = () => {
           isAuthor: false,
           visitorId: "",
           ownerId: id,
-          username: "",
+          email: "",
+          nickname: "",
         }),
       );
     }
@@ -144,7 +148,7 @@ const Profile: FC = () => {
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.HARD} />
               <p className={classes.helpText}>
-                마우스를 올리면 {authorInfo.username}님이 설정한 레벨을 볼 수
+                마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
                 있어요.
               </p>
               <div

@@ -96,16 +96,16 @@ const MyInfo: FC = () => {
                 <div className={classes.infoitems}>
                   <div className={classes.infoitem}>
                     <p className={classes.fieldname}>닉네임</p>
-                    <p className={classes.fieldvalue}>(유저 이름)</p>
+                    <p className={classes.fieldvalue}>{authorInfo.nickname}</p>
                   </div>
                   <div className={classes.infoitem}>
                     <p className={classes.fieldname}>가입 이메일</p>
-                    <p className={classes.fieldvalue}>(유저 이메일)</p>
+                    <p className={classes.fieldvalue}>{authorInfo.email}</p>
                   </div>
                   <div className={classes.infoitem}>
                     <p className={classes.fieldname}>비밀번호</p>
                     <p className={`${classes.fieldvalue} ${classes.password}`}>
-                      (samplepassword)
+                      (비밀번호는 변경해주세요.)
                     </p>
                   </div>
                 </div>
@@ -128,7 +128,6 @@ const MyInfo: FC = () => {
                 >
                   프로필 수정하기
                 </button>
-                {/* 라우팅 변경 */}
               </div>
             </div>
           </section>

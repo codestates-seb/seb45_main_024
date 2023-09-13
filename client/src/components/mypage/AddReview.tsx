@@ -1,22 +1,23 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
-// import { authInstance } from "../../redux/utility/authInstance";
-import { useNavigate } from "react-router-dom";
+import authInstance from "../../utility/authInstance";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 
 interface AddReviewProps {
   onClose: () => void;
-  ownerId?: string | null;
 }
 
-const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
-  const navigate = useNavigate();
+const AddReview: FC<AddReviewProps> = ({ onClose }) => {
+  const authorInfo = useAppSelector(state => state.authorInfo);
+  const { id } = useParams<{ id: string }>();
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   // const [projectImage, setProjectImage] = useState<string>("");
   const [reviewTitle, setReviewTitle] = useState<string>("");
   const [reviewContent, setReviewContent] = useState<string>("");
 
-  const projectAddHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const projectAddHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -27,13 +28,12 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
         content: reviewContent,
       };
 
-      // authInstance.post(`/reviews/${ownerId}`, reviewFormData);
-      // navigate(`/mypage/${ownerId}`);
-      // navigate("/mypage/1");
-      // 아래로 하면 어떻게 되는지 확인. review에서 call을 하게 하면 가능?
-      navigate(-1);
+      await authInstance.post(`/reviews/${id}`, reviewFormData);
+      window.alert("리뷰가 등록되었습니다.");
+      window.location.href = `/mypage/${id}/review`;
     } catch (err) {
       console.error("Failed to add review", err);
+      window.alert(err.message);
     }
   };
 
@@ -85,10 +85,10 @@ const AddReview: FC<AddReviewProps> = ({ onClose, ownerId }) => {
       <div className={`${classes.formGroup} ${classes.review}`}>
         <div className={classes.formSubGroup}>
           <label className={classes.formLabel} htmlFor="reviewTitle">
-            (유저이름) 님의 역할은 무엇이었나요?
+            {authorInfo.username} 님의 역할은 무엇이었나요?
           </label>
           <p className={classes.formHint}>
-            프로젝트에서 (유저이름)님의 활약을 한 줄로 소개한다면?
+            프로젝트에서 {authorInfo.username}님의 활약을 한 줄로 소개한다면?
           </p>
         </div>
         <input

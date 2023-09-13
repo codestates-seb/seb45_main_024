@@ -4,14 +4,16 @@ interface AuthorInfoState {
   isAuthor: boolean;
   visitorId: string | null;
   ownerId: string | undefined;
-  username: string | undefined;
+  email: string | undefined;
+  nickname: string | undefined;
 }
 
 const initialState: AuthorInfoState = {
   isAuthor: true,
   visitorId: "",
   ownerId: "",
-  username: "",
+  email: "",
+  nickname: "",
 };
 
 const authorInfoSlice = createSlice({

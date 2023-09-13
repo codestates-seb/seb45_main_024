@@ -42,7 +42,7 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
         <div className={classes.profileImg}>
           <img src={logo_green_face} alt="sample profile" />
         </div>
-        <div className={classes.profileInfo}>{authorInfo.username}</div>
+        <div className={classes.profileInfo}>{authorInfo.nickname}</div>
       </div>
       <div className={classes.menuItemsContainer}>
         <ul className={classes.menuItems}>
