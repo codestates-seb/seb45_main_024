@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from "./EditProfile.module.css";
 import CreateProfile from "../../components/mypage/CreateProfile";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,8 +6,14 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditProfile: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  console.log(id);
-  // 제대로 오는지 확인
+  const [ profileFormData, setProfileFormData ] = useState<any>({
+    accountId: parseInt(id),
+    coverLetter: "",
+    // 이 부분은 리퀘에 없어서 일단 만들어두고 나중에 수정해야 함
+    softSkills: [],
+    hardSkills: [],
+    projectDetails: [],
+  });
 
   const cancelHandler = () => {
     navigate(`/mypage/${id}`);
@@ -27,7 +33,7 @@ const EditProfile: FC = () => {
         </div>
       </section>
       <section className={classes.componentContainer}>
-        <CreateProfile />
+        <CreateProfile setProfileFormData={setProfileFormData} />
       </section>
     </div>
   );

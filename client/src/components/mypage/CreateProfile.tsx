@@ -14,12 +14,28 @@ import { fetchProfileData } from "../../redux/mypage/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
 
+interface ProfileFormData {
+  accountId: number;
+  coverLetter?: string;
+  softSkills?: { techName: string }[];
+  hardSkills?: { techName: string }[];
+  projectDetails?: {
+    projectTitle?: string;
+    projectUrl?: string;
+    imageUrl?: string;
+  }[];
+}
+
+interface Props {
+  setProfileFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
+}
+
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
-const CreateProfile: FC = () => {
+const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const { profileData, status } = useAppSelector((state) => state.profile);
+  const { profileData, status } = useAppSelector(state => state.profile);
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
@@ -128,6 +144,21 @@ const CreateProfile: FC = () => {
     window.addEventListener("keyup", handleTechEnterPress);
     return () => window.removeEventListener("keyup", handleTechEnterPress);
   }, []);
+
+  useEffect(() => {
+    setProfileFormData({
+      accountId: Number(id),
+      coverLetter: editorValue,
+      softSkills: softTags.map(softTag => ({ techName: softTag })),
+      hardSkills: hardTags.map(hardTag => ({ techName: hardTag })),
+      projectDetails: projTags.map(projTag => ({
+        projectTitle: projTag.projectName,
+        projectUrl: projTag.projectLink,
+        imageUrl: projTag.projectImage,
+      })),
+    });
+  }, [editorValue, softTags, hardTags, projTags]);
+  // loop 안 걸리는지 확인 필요
 
   return (
     <form className={classes.createForm}>
