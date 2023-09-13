@@ -1,48 +1,40 @@
-.mainContainer{
-    display: grid;
-    grid-template-columns: repeat(12, 78px);
-    gap: 24px;
-  }
-  
-  .componentContainer{
-    grid-column: span 10;
-    padding-top: 50px;
-    padding-bottom: 200px;
-  }
-  
-
-.reviewContainer{
-
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
 }
 
-.titleBox{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.title{
-    font-size: 1.5rem;
-    font-weight: bold;
+.componentContainer {
+  grid-column: span 10;
+  padding-top: 50px;
+  padding-bottom: 200px;
 }
 
-.requestButton{
+.titleBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.subtitle{
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 1rem;
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
 }
-.addReviewContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin-top: 90px;
+.addReviewContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 90px;
 }
-.addReviewButton{
-    border: none;
-    color: white;
-    background-color: var(--color-main);
+.addReviewButton {
+  border: none;
+  color: white;
+  background-color: var(--color-main);
 }
