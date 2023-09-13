@@ -32,6 +32,12 @@
   font-weight: 600;
 }
 
+.centerContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .deleteButton {
   background-color: transparent;
   border: none;
