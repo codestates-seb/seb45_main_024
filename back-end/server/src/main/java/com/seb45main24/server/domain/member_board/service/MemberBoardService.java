@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,5 +69,10 @@ public class MemberBoardService {
                 new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
         return findMemberBoard;
+    }
+
+    // 내가 쓴 팀원찾기 게시글 조회
+    public List<MemberBoard> getMemberBoards(Long accountId) {
+        return repository.findMemberBoardsByWriter(accountId);
     }
 }
