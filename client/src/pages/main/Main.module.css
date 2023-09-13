@@ -4,8 +4,11 @@
 }
 
 .carousel {
-  border: 5px solid gray;
-  padding: 1rem;
+  /* border: 5px solid gray; */
+  padding-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .mainContent {

@@ -1,5 +1,3 @@
-.innerImg {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.imgFrame {
+  width: 1200px;
 }

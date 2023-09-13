@@ -1,13 +1,15 @@
-.field {
-  width: 1000px;
-  border: 3px solid gray;
-  overflow: hidden;
+.carouselContainer {
+  width: 1200px;
+  /* border: 3px solid gray; */
+  overflow: hidden; 
   display: flex;
-  flex-direction: column;
-  justify-content: center; 
 }
 
-.inner {
+.carouselInner {
+  width: 300%;
+  /* border: 3px solid green; */
   white-space: nowrap;
-  transition: transform 0.3s;
+  display: flex;
+  flex-direction: row;
+  scroll-behavior: smooth;
 }

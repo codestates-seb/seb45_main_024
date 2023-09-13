@@ -10,8 +10,7 @@ interface CarouselItemProps {
 
 const CarouselItem: FC<CarouselItemProps> = ({ item }) => {
   return (
-    <div className={classes.inner}>
-      <div></div>
+    <div className={classes.imgFrame}>
       <img alt="carousel" src={item.img} />
     </div>
   );
