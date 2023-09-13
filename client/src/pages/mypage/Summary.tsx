@@ -5,6 +5,7 @@ import { useAppSelector } from "../../redux/hooks";
 import authInstance from "../../utility/authInstance";
 import { useParams } from "react-router-dom";
 import NoContent from "../../components/mypage/NoContent";
+import Card from "../../components/userlist,projectlist/card/Card";
 
 const Summary: FC = () => {
   const authorInfo = useAppSelector(state => state.authorInfo);
@@ -58,7 +59,15 @@ const Summary: FC = () => {
               }
             >
               {userList.length > 0 ? (
-                <div>팀찾기 카드 렌더링</div>
+                userList.map(card => (
+                  <ul className={classes.cardWrapper}>
+                    <Card
+                      type="USER_CARD"
+                      cardData={card}
+                      key={card.teamBoardId}
+                    />
+                  </ul>
+                ))
               ) : (
                 <NoContent />
               )}
@@ -82,7 +91,15 @@ const Summary: FC = () => {
               }
             >
               {projectList.length > 0 ? (
-                <div>팀원찾기 카드 렌더링</div>
+                projectList.map(card => (
+                  <ul className={classes.cardWrapper}>
+                    <Card
+                      type="PROJECT_CARD"
+                      cardData={card}
+                      key={card.memberBoardId}
+                    />
+                  </ul>
+                ))
               ) : (
                 <NoContent />
               )}
