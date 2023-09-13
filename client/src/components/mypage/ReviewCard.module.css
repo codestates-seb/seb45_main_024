@@ -20,6 +20,11 @@
   color: white;
 }
 
+/* DateFormat span */
+.createdAt span {
+  font-size: 0.8rem;
+} 
+
 .helpText {
   font-size: 0.8rem;
   color: white;

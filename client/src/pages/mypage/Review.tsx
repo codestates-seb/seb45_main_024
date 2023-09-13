@@ -3,9 +3,9 @@ import classes from "./Review.module.css";
 import AddReview from "../../components/mypage/AddReview";
 import ReviewCard from "../../components/mypage/ReviewCard";
 import SideMenu from "../../components/mypage/Sidemenu";
-// import NoContent from "../../components/mypage/NoContent";
-// import authInstance from "../../utility/authInstance";
-// import { useParams } from "react-router-dom";
+import NoContent from "../../components/mypage/NoContent";
+import authInstance from "../../utility/authInstance";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
 const dummyReview = {
@@ -17,7 +17,9 @@ const dummyReview = {
 };
 
 const Review: FC = () => {
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const { id } = useParams<{ id: string }>();
+  // authorInfo 동작 안하면 id 사용하기
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<any>([]);
 
@@ -29,21 +31,19 @@ const Review: FC = () => {
     setShowAddReview(false);
   };
 
-  // useEffect(() => {
-  //   const fetchReview = async () => {
-  //     try {
-  //       const res = await authInstance.get(
-  //         `/reviews/${authorInfo.ownerId}?page=1`,
-  //       );
-  //       const reviewInfo = res.data;
-  //       console.log(reviewInfo);
-  //       setReviewData((prev) => [...reviewInfo]);
-  //     } catch (error) {
-  //       console.error("Failed to fetch review info", error);
-  //     }
-  //   };
-  //   fetchReview();
-  // }, []);
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const res = await authInstance.get(`/reviews/${id}?page=1`);
+        const reviewList = res.data.data;
+        console.log(reviewList);
+        setReviewData(reviewList);
+      } catch (error) {
+        console.error("Failed to fetch review info", error);
+      }
+    };
+    fetchReview();
+  }, []);
 
   return (
     <>
@@ -64,14 +64,14 @@ const Review: FC = () => {
             <h2 className={classes.subtitle}>
               {authorInfo.username} 님은 이런 동료입니다!
             </h2>
-            {/* {reviewData.length === 0 ? (
-          <NoContent />
-        ) : (
-          reviewData.map((review: any) => {
-            return <ReviewCard review={review} key={review.id} />;
-          })
-        )} */}
-            <ReviewCard review={dummyReview} />
+            {reviewData.length === 0 ? (
+              <NoContent />
+            ) : (
+              reviewData.map((review, index) => {
+                return <ReviewCard review={review} key={index} />;
+              })
+            )}
+            {/* <ReviewCard review={dummyReview} /> */}
           </div>
           <div className={classes.addReviewContainer}>
             <h2 className={classes.subtitle}>
