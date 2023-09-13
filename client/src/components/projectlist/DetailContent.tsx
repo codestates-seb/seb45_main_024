@@ -14,8 +14,15 @@ const DetailContent = () => {
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
-  const { title, content, startDate, endDate, position, createdAt } =
-    currentProject;
+  const {
+    title,
+    content,
+    writerNickName,
+    startDate,
+    endDate,
+    position,
+    createdAt,
+  } = currentProject || {};
   console.log("✅ CURRENT PROJECT", currentProject);
 
   // Format Date
@@ -52,7 +59,7 @@ const DetailContent = () => {
           className={classes.userImage}
           onClick={() => navigate("/mypage/:accountId")}
         ></div>
-        <div className={classes.username}>유저ABC</div>
+        <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>
         <div
           className={classes.edit}

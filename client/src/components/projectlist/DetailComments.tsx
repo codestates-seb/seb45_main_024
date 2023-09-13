@@ -5,9 +5,16 @@ import Checkbox from "../../components/userlist,projectlist/Checkbox";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Tooltip from "../../components/userlist,projectlist/Tooltip";
 
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
 import classes from "./DetailComments.module.css";
 
 const DetailComments = () => {
+  const currentProject = useAppSelector(state => state.projects.currentData);
+  const { replyList } = currentProject || {};
+
+  console.log("replyList", replyList);
+
   return (
     <section className={classes.comments}>
       <h4>댓글</h4>

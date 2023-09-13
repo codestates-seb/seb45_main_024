@@ -13,12 +13,12 @@ import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 interface ProjectState {
   data: ProjectListDataType[];
-  currentData: ProjectListDataType[];
+  currentData: ProjectListDataType | null;
 }
 
 const initialState: ProjectState = {
   data: [],
-  currentData: [],
+  currentData: null,
 };
 
 const projectsSlice = createSlice({
@@ -28,7 +28,7 @@ const projectsSlice = createSlice({
   extraReducers(builder) {
     // Fetch
     builder.addCase(fetchProjectList.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchProjectList.fulfilled, (state, action) => {
       state.data = action.payload;
@@ -39,7 +39,7 @@ const projectsSlice = createSlice({
 
     // Get
     builder.addCase(getProject.pending, (state, action) => {
-      // throw new Error(); // 서버 안될시 TEST
+      throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getProject.fulfilled, (state, action) => {
       state.currentData = action.payload;

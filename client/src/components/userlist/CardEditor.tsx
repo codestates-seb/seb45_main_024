@@ -108,7 +108,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
-    debugger;
     console.log("🚀 CREATE/EDIT CARD", data);
 
     if (
@@ -127,7 +126,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           .then(() => {
             console.log("🚀 CREATE 성공", data);
             window.alert("새 글이 등록되었습니다.");
-            // navigate("/userlist");
+            navigate("/userlist");
           })
           .catch(error => {
             console.warn("🚀 CREATE 실패", error, data);

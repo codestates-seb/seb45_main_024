@@ -17,10 +17,20 @@ export interface ProjectListDataType {
   status: string;
   views: number;
   position: string;
+  writerNickName?: string;
+  replyList?: ReplyDataType[];
   startDate: string;
   endDate: string;
   createdAt: string;
   modifiedAt: string;
+}
+
+export interface ReplyDataType {
+  writerId: number;
+  writerNickName: string;
+  content: string;
+  createAt: string;
+  apply: boolean;
 }
 
 export interface PageInfo {

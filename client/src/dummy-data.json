@@ -171,6 +171,30 @@
         "status": "팀원 구하는중",
         "views": 0,
         "position": "백엔드 3명",
+        "writerNickName": "nana",
+        "replyList": [
+          {
+            "writerId": 1,
+            "writerNickName": "유저AAA",
+            "content": "댓글입니다!!!!",
+            "createAt": "2023-09-13T10:19:42",
+            "apply": false
+          },
+          {
+            "writerId": 1,
+            "writerNickName": "유저BBB",
+            "content": "지원 댓글 : 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
+            "createAt": "2023-09-13T13:09:24",
+            "apply": true
+          },
+          {
+            "writerId": 1,
+            "writerNickName": "유저CCC",
+            "content": "그냥 댓글",
+            "createAt": "2023-09-13T13:09:32",
+            "apply": false
+          }
+        ],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:51:04",
