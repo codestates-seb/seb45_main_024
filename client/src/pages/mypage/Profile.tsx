@@ -57,7 +57,7 @@ const Profile: FC = () => {
 
   // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
-    dispatch(fetchProfileData(id));
+    dispatch(fetchProfileData(id!));
     console.log(status);
     // const fetchProfile = async () => {
     //   try {

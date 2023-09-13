@@ -43,7 +43,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchProfileData(id));
+      dispatch(fetchProfileData(id!));
     }
   }, [dispatch]);
 
