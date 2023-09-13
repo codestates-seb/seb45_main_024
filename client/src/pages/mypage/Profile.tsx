@@ -67,8 +67,9 @@ const Profile: FC = () => {
       dispatch(
         setAuthorInfo({
           isAuthor: false,
-          visitorId: null,
+          visitorId: "",
           ownerId: id,
+          username: "",
         }),
       );
     }
@@ -79,7 +80,7 @@ const Profile: FC = () => {
     const fetchProfile = async () => {
       try {
         const res = await authInstance.get(
-          `/mypages/profile/${authorInfo.ownerId}`,
+          `/mypages/profile/${authorInfo.ownerId}`
         );
         console.log(res.data);
         // console.log(res.headers);
