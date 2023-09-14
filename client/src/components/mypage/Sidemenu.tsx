@@ -12,7 +12,7 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
   const [selectedMenu, setSelectedMenu] = useState<string>("profile");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   useEffect(() => {
     setSelectedMenu(menu);
   }, [menu]);

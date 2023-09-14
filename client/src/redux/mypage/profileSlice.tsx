@@ -5,8 +5,8 @@ export interface ProfileData {
   email: string | null;
   nickname: string | null;
   coverLetter: string | null;
-  softSkills: { techName: string }[];
-  hardSkills: { techName: string }[];
+  softSkills: string[];
+  hardSkills: string[];
   projectDetails: {
     projectTitle: string | null;
     projectUrl: string | null;

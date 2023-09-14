@@ -55,6 +55,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [hardTags, setHardTags] = useState<string[]>([]);
   const [techTags, setTechTags] = useState<string[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
+  const [projSet, setProjSet] = useState<object[]>([]);
 
   // 초기값 설정
   useEffect(() => {
@@ -143,10 +144,10 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       coverLetter: editorValue,
       softSkills: softTags,
       hardSkills: hardTags,
-      projectDetails: projTags,
+      projectDetails: projSet,
       // projectDetails가 제대로 안 담김
     });
-  }, [editorValue, softTags, hardTags, projTags]);
+  }, [editorValue, softTags, hardTags, projSet]);
   // loop 안 걸리는지 확인 필요
 
   return (
@@ -256,6 +257,8 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             setProjectImage={setProjectImage}
             projTags={projTags}
             setProjTags={setProjTags}
+            projSet={projSet}
+            setProjSet={setProjSet}
           />
         </PlusBtn>
       </section>
