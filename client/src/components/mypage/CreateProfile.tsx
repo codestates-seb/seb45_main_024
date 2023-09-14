@@ -17,8 +17,8 @@ import { ProfileState } from "../../redux/mypage/profileSlice";
 interface ProfileFormData {
   accountId: number;
   coverLetter?: string;
-  softSkills?: { techName: string }[];
-  hardSkills?: { techName: string }[];
+  softSkills?: string[];
+  hardSkills?: string[];
   projectDetails?: {
     projectTitle?: string;
     projectUrl?: string;
@@ -35,7 +35,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData, status } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile,
+    (state: { profile: ProfileState }) => state.profile
   );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
@@ -86,7 +86,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
 
   const handleSoftEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && softInputRef.current.length > 0) {
-      console.log("hello", softInputRef.current);
       setSoftTags([...softTagsRef.current, softInputRef.current]);
       setSoftInput("");
     }
@@ -94,14 +93,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
 
   const handleHardEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && hardInputRef.current.length > 0) {
-      console.log("hello", hardInputRef.current);
       setHardTags([...hardTagsRef.current, hardInputRef.current]);
       setHardInput("");
     }
   };
   const handleTechEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && techInputRef.current.length > 0) {
-      console.log("hello", techInputRef.current);
       setTechTags([...techTagsRef.current, techInputRef.current]);
       setTechInput("");
     }
@@ -144,13 +141,10 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     setProfileFormData({
       accountId: Number(id),
       coverLetter: editorValue,
-      softSkills: softTags.map((softTag) => ({ techName: softTag })),
-      hardSkills: hardTags.map((hardTag) => ({ techName: hardTag })),
-      projectDetails: projTags.map((projTag) => ({
-        projectTitle: projTag.projectName,
-        projectUrl: projTag.projectLink,
-        imageUrl: projTag.projectImage,
-      })),
+      softSkills: softTags,
+      hardSkills: hardTags,
+      projectDetails: projTags,
+      // projectDetails가 제대로 안 담김
     });
   }, [editorValue, softTags, hardTags, projTags]);
   // loop 안 걸리는지 확인 필요
@@ -162,7 +156,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <QuillEditor
           onChange={editorChangeHandler}
           // 초기값 설정
-          initialValue={profileData.coverLetter || ""}
+          // initialValue={profileData.coverLetter || ""}
         />
       </section>
       <section className={classes.formItem}>

@@ -22,6 +22,7 @@ const EditProfile: FC = () => {
 
   const saveHandler = async () => {
     try {
+      console.log(profileFormData);
       const response = await authInstance.post(
         `/mypages/profile/${id}`,
         profileFormData,
