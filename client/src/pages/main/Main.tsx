@@ -10,8 +10,10 @@ const Main: FC = () => {
       <div className={classes.carousel}>
         <Carousel />
       </div>
-      <div className={classes.mainContent}>ingredient 일부?</div>
-      <div className={classes.mainContent}>recipe 일부?</div>
+      <div className={classes.introduce}>
+        <div className={classes.mainContent}>ingredient 일부?</div>
+        <div className={classes.mainContent}>recipe 일부?</div>
+      </div>
     </div>
   );
 };

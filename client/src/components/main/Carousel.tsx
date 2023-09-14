@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, useRef } from "react";
 import classes from "./Carousel.module.css";
 import CarouselItem from "./CarouselItem";
-import firstCarousel from "../../assets/images/carousel_first.svg";
-import secondCarousel from "../../assets/images/carousel_second.svg";
-import thirdCarousel from "../../assets/images/carousel_third.svg";
+import firstCarousel from "../../assets/images/carouselFirst.svg";
+import secondCarousel from "../../assets/images/carouselSecond.svg";
+import thirdCarousel from "../../assets/images/carouselThird.svg";
 
 interface CarouselItemProps {
   id: number;
@@ -26,25 +26,25 @@ const Carousel: FC = () => {
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  let prevSlide: number; // 이전 슬라이드 상태를 저장하는 변수
+  const [slideIdx, setSlideIdx] = useState(0);
+  let prevIdx: number; // 이전 슬라이드 상태를 저장하는 변수
   const slideRef = useRef(null);
 
   useEffect(() => {
     const timer = setInterval(
       () =>
-        setActiveIndex(idx => {
+        setSlideIdx(idx => {
           if (idx === 0) {
-            prevSlide = 0;
+            prevIdx = 0;
             return idx + 1;
           } else if (idx === 1) {
-            if (prevSlide === 0) {
+            if (prevIdx === 0) {
               return idx + 1;
-            } else if (prevSlide === 2) {
+            } else if (prevIdx === 2) {
               return idx - 1;
             }
           } else if (idx === 2) {
-            prevSlide = 2;
+            prevIdx = 2;
             return idx - 1;
           }
         }),
@@ -57,10 +57,8 @@ const Carousel: FC = () => {
 
   useEffect(() => {
     slideRef.current.style.transition = "all 1.6s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${
-      (activeIndex * 100) / 3
-    }%)`;
-  }, [activeIndex]);
+    slideRef.current.style.transform = `translateX(-${(slideIdx * 100) / 3}%)`;
+  }, [slideIdx]);
 
   return (
     <div className={classes.carouselContainer}>

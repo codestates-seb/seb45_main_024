@@ -3,6 +3,7 @@ import bell from "../../../assets/icons/bell.svg";
 import classes from "./Alarm.module.css";
 import AlarmItem from "./AlarmItem";
 // import profile from "../../assets/images/default_profile.svg";
+import authInstance from "../../../utility/authInstance";
 
 const Alarm: FC = () => {
   const DUMMY_DATA = [

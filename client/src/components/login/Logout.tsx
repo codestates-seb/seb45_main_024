@@ -20,7 +20,7 @@ const Logout: FC = () => {
       removeTokensFromLocalStorage();
       alert("로그아웃 성공");
       console.log("로그아웃 성공", response.data);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       alert("로그아웃 실패");
       console.error("로그아웃 실패", error);

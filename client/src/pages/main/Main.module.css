@@ -1,6 +1,7 @@
 .field {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .carousel {
@@ -14,4 +15,6 @@
 .mainContent {
   border: 5px solid purple;
   padding: 1rem;
+  padding: 0 1.5rem; 
+  max-width: 1200px; 
 }

@@ -1,5 +1,6 @@
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
+
 /* variables */
 :root {
   --color-main: #16433E;
@@ -92,6 +93,11 @@ main {
 
 .container {
   margin: 0 auto;
-  padding: 0 1.5rem;
-  max-width: 1200px;
+  padding: 0 1.5rem; 
+  max-width: 1200px; 
+}
+
+.full-container { 
+  padding: 0rem;
+  max-width: 100%;
 }
