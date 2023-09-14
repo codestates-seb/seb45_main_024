@@ -13,12 +13,13 @@ import java.util.List;
 @Builder
 @Getter
 public class MemberBoardResponseDTO {
-    private long memberBoardId;
+    private Long memberBoardId;
     private String title;
     private String content;
     private String status;
     private Integer views;
     private String position;
+    private Long writerId;
     private String writerNickName;
     private List<MemberBoardReplyDTO> replyList;
     private LocalDateTime startDate;
