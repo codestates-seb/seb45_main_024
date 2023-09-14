@@ -9,9 +9,13 @@ import MyProfile from "../MyProfile";
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
   // const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
   const isLoggedIn = getTokensFromLocalStorage();
   // const MyNickname = isLoggedIn.nickname;
+=======
+  const isLoggedIn = getTokensFromLocalStorage();
+>>>>>>> 7eabd653901bfdf48225f28c4452c0c3174f1190
 
   const handleNavigateLogin = () => {
     navigate("/login");
@@ -29,7 +33,7 @@ const HeaderRight: FC = () => {
           <div className={classes.profile}>
             <MyProfile />
             <div className={classes.nickname}>
-              <p>Nickname</p>
+              <p>{isLoggedIn.username}</p>
             </div>
           </div>
           <div>

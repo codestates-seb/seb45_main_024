@@ -8,6 +8,7 @@ import authorInfoReducer from "./mypage/authorInfoSlice";
 import profileReducer from "./mypage/profileSlice";
 import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
 import { projectsReducer } from "./board/slices/projectsSlice";
+import { commentsReducer } from "./board/slices/commentsSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,22 +21,35 @@ const store = configureStore({
     profile: profileReducer,
     users: usersReducer,
     projects: projectsReducer,
+    comments: commentsReducer,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { fetchUserCardList } from "./board/thunks/fetchUserCardList";
-export { getUserCard } from "./board/thunks/getUserCard";
-export { addUserCard } from "./board/thunks/addUserCard";
-export { editUserCard } from "./board/thunks/editUserCard";
-export { removeUserCard } from "./board/thunks/removeUserCard";
+export {
+  fetchUserCardList,
+  getUserCard,
+  addUserCard,
+  editUserCard,
+  removeUserCard,
+} from "./board/thunks/userCardThunks";
 
-export { fetchProjectList } from "./board/thunks/fetchProjectList";
-export { getProject } from "./board/thunks/getProject";
-export { addProject } from "./board/thunks/addProject";
-export { editProject } from "./board/thunks/editProject";
+export {
+  fetchProjectList,
+  getProject,
+  addProject,
+  editProject,
+  removeProject,
+} from "./board/thunks/projectsThunks";
+
+export {
+  getComments,
+  addComment,
+  editComment,
+  removeComment,
+} from "./board/thunks/commentsThunks";
 
 export { getNewTitle };
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import classes from "./Selectbox.module.css";
 import { ArrowDownSvg } from "../../assets/icons/arrowsSvg";
+import classes from "./Selectbox.module.css";
 
 type Props = {
   title: string;
   borderRadius?: number;
+  width?: number;
   options: string[];
   selectedOption: string;
   onSelect: (selected: string) => void;
@@ -13,6 +14,7 @@ type Props = {
 const Select = ({
   title,
   borderRadius = 20,
+  width = 120,
   options,
   selectedOption,
   onSelect,
@@ -35,6 +37,7 @@ const Select = ({
         onClick={handleToggle}
         style={{
           borderRadius: borderRadius,
+          width: width,
         }}
       >
         <span>{title}</span>
@@ -44,6 +47,7 @@ const Select = ({
         className={`${classes.selectList} ${toggle ? classes.open : ""}`}
         style={{
           borderRadius: borderRadius,
+          width: width,
         }}
       >
         {options.map(option => (
