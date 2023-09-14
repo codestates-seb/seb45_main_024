@@ -10,9 +10,9 @@ import SoftInput from "./SoftInput";
 import SoftTag from "./SoftTag";
 import HardInput from "./HardInput";
 // import DropDownTag from "./DropDownTag";
-import { fetchProfileData } from "../../redux/mypage/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
+import { ProfileState } from "../../redux/mypage/profileSlice";
 
 interface ProfileFormData {
   accountId: number;
@@ -34,18 +34,13 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useAppDispatch();
-  const { profileData, status } = useAppSelector(state => state.profile);
+  const { profileData, status } = useAppSelector(
+    (state: { profile: ProfileState }) => state.profile,
+  );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchProfileData(id!));
-    }
-  }, [dispatch]);
 
   const editorChangeHandler = (value: string) => {
     setEditorValue(value);
@@ -149,9 +144,9 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     setProfileFormData({
       accountId: Number(id),
       coverLetter: editorValue,
-      softSkills: softTags.map(softTag => ({ techName: softTag })),
-      hardSkills: hardTags.map(hardTag => ({ techName: hardTag })),
-      projectDetails: projTags.map(projTag => ({
+      softSkills: softTags.map((softTag) => ({ techName: softTag })),
+      hardSkills: hardTags.map((hardTag) => ({ techName: hardTag })),
+      projectDetails: projTags.map((projTag) => ({
         projectTitle: projTag.projectName,
         projectUrl: projTag.projectLink,
         imageUrl: projTag.projectImage,

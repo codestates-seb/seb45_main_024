@@ -1,39 +1,41 @@
 import { FC, useState } from "react";
 import classes from "./EditInfo.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { validationActions } from "../../redux/auth/validationSlice";
 import authInstance from "../../utility/authInstance";
-// 회원정보 수정 클릭하면 기존 회원정보가지고 와서 placeholder로 넣어주기
-// 저장하기 버튼 누르면 회원정보 수정되고 다시 MyInfo로 라우팅
+import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 
 interface EditFormProps {
   onClose: () => void;
 }
 
 interface MyInfoData {
-  // profileImage: string;
+  newImage: string;
   nickname: string;
   password: string;
   confirmPassword: string;
 }
 
 const EditInfo: FC<EditFormProps> = ({ onClose }) => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const passwordError = useAppSelector(state => state.validation.passwordError);
+  const passwordError = useAppSelector(
+    (state) => state.validation.passwordError
+  );
   const confirmPasswordError = useAppSelector(
-    state => state.validation.confirmPasswordError,
+    (state) => state.validation.confirmPasswordError
   );
   const [myInfo, setMyInfo] = useState<MyInfoData>({
-    // profileImage: "", -> 일단 제외
+    newImage: "",
     nickname: "",
     password: "",
     confirmPassword: "",
   });
   const myInfoChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
-    fieldName: string,
+    fieldName: string
   ) => {
     const { value } = event.target;
     setMyInfo({
@@ -41,21 +43,21 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       [fieldName]: value,
     });
     if (fieldName === "nickname") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         nickname: value,
       }));
       dispatch(validationActions.validNickname(value));
     }
     if (fieldName === "password") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         password: value,
       }));
       dispatch(validationActions.validPassword(value));
     }
     if (fieldName === "confirmPassword") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         confirmPassword: value,
       }));
@@ -63,18 +65,52 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
     }
   };
 
-  const infoSubmitHandler = (event: React.FormEvent) => {
+  const infoSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const infoData = {
       nickname: myInfo.nickname,
       password: myInfo.password,
+      newImage: myInfo.newImage,
     };
 
     // Patch /accounts/{accountId}: 회원정보 수정 엔드포인트, 아직 헤더 안넣었음.
-    authInstance
-      .patch("/accounts/1", infoData)
-      .then((res) => navigate("/mypage/1"));
+    try {
+      const res = await authInstance.patch(`/accounts/${id}`, infoData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(res.data);
+      dispatch(
+        setAuthorInfo({
+          isAuthor: true,
+          visitorId: id!,
+          ownerId: id,
+          email: myInfo.nickname,
+          nickname: myInfo.nickname,
+        }),
+      );
+      window.location.href = `/mypage/${id}/myinfo`;
+    } catch (error) {
+      console.error("Failed to edit info", error);
+    }
+    // authInstance
+    //   .patch("/accounts/:id", infoData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   })
+    //   .then((res) =>
+    //     dispatch(
+    //       setAuthorInfo({
+    //         isAuthor: true,
+    //         visitorId: id!,
+    //         ownerId: id,
+    //         email: myInfo.nickname,
+    //         nickname: myInfo.nickname,
+    //       })
+    //     )
+    //   )
+    //   .then(() => {
+    //     navigate("/mypage/:id/myinfo");
+    //   });
   };
 
   return (
@@ -85,7 +121,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="image"
             type="file"
-            onChange={e => myInfoChangeHandler(e, "profileImage")}
+            onChange={(e) => myInfoChangeHandler(e, "profileImage")}
           />
         </div>
         <div className={classes.edititem}>
@@ -93,8 +129,8 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="nickname"
             type="text"
-            placeholder="기존 닉네임"
-            onChange={e => myInfoChangeHandler(e, "nickname")}
+            placeholder="새로운 닉네임을 입력하세요"
+            onChange={(e) => myInfoChangeHandler(e, "nickname")}
           />
         </div>
         <div className={classes.edititem}>
@@ -103,8 +139,8 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="password"
             type="text"
-            placeholder="기존 비번"
-            onChange={e => myInfoChangeHandler(e, "password")}
+            placeholder="새로운 비밀번호를 입력하세요"
+            onChange={(e) => myInfoChangeHandler(e, "password")}
           />
         </div>
         {passwordError && (
@@ -117,19 +153,20 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="password"
             type="text"
             placeholder="비밀번호를 한 번 더 입력해주세요"
-            onChange={e => myInfoChangeHandler(e, "confirmPassword")}
+            onChange={(e) => myInfoChangeHandler(e, "confirmPassword")}
           />
         </div>
         {confirmPasswordError && (
           <p className={classes.helpText}>입력한 비밀번호와 일치해야 합니다</p>
         )}
         <div className={classes.actions}>
-          <button className={classes.button} onClick={onClose}>
+          <button type="button" className={classes.button} onClick={onClose}>
             취소
           </button>
           <button
             className={`${classes.button} ${classes.save}`}
             disabled={confirmPasswordError || passwordError}
+            type="submit"
           >
             저장하기
           </button>

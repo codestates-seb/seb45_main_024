@@ -1,7 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authInstance from "../../utility/authInstance";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ProfileDataState {
+export interface ProfileData {
   imageUrl: string | null;
   email: string | null;
   nickname: string | null;
@@ -16,42 +15,58 @@ interface ProfileDataState {
   status: "idle" | "loading" | "failed";
 }
 
-const initialState: ProfileDataState = {
-  imageUrl: null,
-  email: null,
-  nickname: null,
-  coverLetter: null,
-  softSkills: [],
-  hardSkills: [],
-  projectDetails: [],
+export interface ProfileState {
+  profileData?: ProfileData | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+}
+// interface ProfileState {
+//   imageUrl: string | null;
+//   email: string | null;
+//   nickname: string | null;
+//   coverLetter: string | null;
+//   softSkills: { techName: string }[];
+//   hardSkills: { techName: string }[];
+//   projectDetails: {
+//     projectTitle: string | null;
+//     projectUrl: string | null;
+//     imageUrl: string | null;
+//   }[];
+//   status: "idle" | "loading" | "failed";
+// }
+
+const initialState: ProfileState = {
+  profileData: null,
   status: "idle",
 };
+// const initialState: ProfileState = {
+//   imageUrl: null,
+//   email: null,
+//   nickname: null,
+//   coverLetter: null,
+//   softSkills: [],
+//   hardSkills: [],
+//   projectDetails: [],
+//   status: "idle",
+// };
 
-export const fetchProfileData = createAsyncThunk(
-  "profile/fetchProfileData",
-  async (authorId: string) => {
-    const response = await authInstance.get(`/mypages/profile/${authorId}`);
-    return response.data;
-  },
-);
+// export const fetchProfileData = createAsyncThunk(
+//   "profile/fetchProfileData",
+//   async (authorId: string) => {
+//     const response = await authInstance.get(`/mypages/profile/${authorId}`);
+//     return response.data;
+//   },
+// );
 
-const profileSlice = createSlice({
+export const profileSlice = createSlice({
   name: "profile",
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(fetchProfileData.pending, state => {
-        state.status = "loading";
-      })
-      .addCase(fetchProfileData.fulfilled, (state, action) => {
-        state.status = "idle";
-        return { ...state, ...action.payload };
-      })
-      .addCase(fetchProfileData.rejected, state => {
-        state.status = "failed";
-      });
+  reducers: {
+    setProfileData: (state, action: PayloadAction<any>) => {
+      state.profileData = action.payload;
+      state.status = "idle";
+    },
   },
 });
 
+export const { setProfileData } = profileSlice.actions;
 export default profileSlice.reducer;

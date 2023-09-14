@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from "./Profile.module.css";
 import NoContent from "../../components/mypage/NoContent";
 import editicon from "../../assets/icons/edit.svg";
@@ -14,7 +14,8 @@ import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
-import { fetchProfileData } from "../../redux/mypage/profileSlice";
+import authInstance from "../../utility/authInstance";
+import { setProfile } from "../../redux/mypage/profileSlice";
 
 interface AccessTokenType {
   id: number;
@@ -24,9 +25,9 @@ interface AccessTokenType {
 }
 
 const Profile: FC = () => {
+  const [profile, setProfile] = useState<any>({});
   const dispatch = useAppDispatch();
-  const authorInfo = useAppSelector(state => state.authorInfo);
-  const { profileData, status } = useAppSelector(state => state.profile);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   const navigate = useNavigate();
 
   const { id } = useParams<{ id: string }>();
@@ -44,7 +45,7 @@ const Profile: FC = () => {
           ownerId: id,
           email: email,
           nickname: nickname,
-        }),
+        })
       );
     } else {
       dispatch(
@@ -54,33 +55,30 @@ const Profile: FC = () => {
           ownerId: id,
           email: "",
           nickname: "",
-        }),
+        })
       );
     }
   }, []);
 
   // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
-    dispatch(fetchProfileData(id!));
-    console.log(status);
-    // const fetchProfile = async () => {
-    //   try {
-    //     const res = await authInstance.get(
-    //       `/mypages/profile/${authorInfo.ownerId}`
-    //     );
-    //     console.log(res.data);
-    //     // console.log(res.headers);
-    //     setProfileData(res.data);
-    //   } catch (err) {
-    //     console.info("Error fetching profile data", err);
-    //     console.log(err.response);
-    //   }
-    // };
-    // fetchProfile();
-  }, [dispatch, id]);
+    const fetchProfile = async () => {
+      try {
+        const res = await authInstance.get(`/mypages/profile/${id}`);
+        const profile = res.data;
+        console.log("profile", profile);
+        setProfile(profile);
+        // dispatch(setProfile(res.data));
+      } catch (err) {
+        console.info("Error fetching profile data", err);
+        // console.log(err.response);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const editProfileHandler = () => {
-    navigate(`/mypage/${authorInfo.ownerId}/edit`);
+    navigate(`/mypage/${id}/edit`);
   };
 
   const dummyTech = {
@@ -109,9 +107,9 @@ const Profile: FC = () => {
           <div className={classes.profileItemsContainer}>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.BIO} />
-              {profileData.coverLetter ? (
-                profileData.coverLetter.length > 0 ? (
-                  <Bio bio={profileData.coverLetter} />
+              {profile.coverLetter ? (
+                profile.coverLetter.length > 0 ? (
+                  <Bio bio={profile.coverLetter} />
                 ) : (
                   <NoContent />
                 )
@@ -151,23 +149,19 @@ const Profile: FC = () => {
                 마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
                 있어요.
               </p>
+              {/* <div className={classes.hardContent}> */}
               <div
                 className={
                   classes.hardContent +
-                  (!profileData.hardSkills ||
-                  profileData.hardSkills.length === 0
+                  (!profile.hardSkills || profile.hardSkills.length === 0
                     ? " " + classes.centerContent
                     : "")
                 }
               >
-                {profileData.hardSkills ? (
-                  profileData.hardSkills.length > 0 ? (
-                    profileData.hardSkills.map((hardTag, index) => (
-                      <HardProfile
-                        key={index}
-                        techName={hardTag.techName}
-                        level="A"
-                      />
+                {profile.hardSkills ? (
+                  profile.hardSkills.length > 0 ? (
+                    profile.hardSkills.map((hardTag, index) => (
+                      <HardProfile key={index} techName={hardTag} level="A" />
                     ))
                   ) : (
                     <NoContent />
@@ -179,19 +173,19 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.SOFT} />
+              {/* <div className={classes.softContent}> */}
               <div
                 className={
                   classes.softContent +
-                  (!profileData.softSkills ||
-                  profileData.softSkills.length === 0
+                  (!profile.softSkills || profile.softSkills.length === 0
                     ? " " + classes.centerContent
                     : "")
                 }
               >
-                {profileData.softSkills ? (
-                  profileData.softSkills.length > 0 ? (
-                    profileData.softSkills.map((softTag, index) => (
-                      <SoftTag key={index} techName={softTag.techName} />
+                {profile.softSkills ? (
+                  profile.softSkills.length > 0 ? (
+                    profile.softSkills.map((softTag, index) => (
+                      <SoftTag key={index} techName={softTag} />
                     ))
                   ) : (
                     <NoContent />
@@ -206,18 +200,19 @@ const Profile: FC = () => {
               <p className={classes.helpText}>
                 제목을 클릭하면 프로젝트 링크로 이동합니다.
               </p>
+              {/* <div className={classes.projContent}> */}
               <div
                 className={
                   classes.projContent +
-                  (!profileData.projectDetails ||
-                  profileData.projectDetails.length === 0
+                  (!profile.projectDetails ||
+                  profile.projectDetails.length === 0
                     ? " " + classes.centerContent
                     : "")
                 }
               >
-                {profileData.projectDetails ? (
-                  profileData.projectDetails.length > 0 ? (
-                    profileData.projectDetails.map((project, index) => (
+                {profile.projectDetails ? (
+                  profile.projectDetails.length > 0 ? (
+                    profile.projectDetails.map((project, index) => (
                       <ProjCard key={index} project={project} />
                     ))
                   ) : (

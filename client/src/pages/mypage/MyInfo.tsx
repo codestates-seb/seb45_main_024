@@ -105,7 +105,7 @@ const MyInfo: FC = () => {
                   <div className={classes.infoitem}>
                     <p className={classes.fieldname}>비밀번호</p>
                     <p className={`${classes.fieldvalue} ${classes.password}`}>
-                      (비밀번호는 변경해주세요.)
+                      (변경하세요)
                     </p>
                   </div>
                 </div>

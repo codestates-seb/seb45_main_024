@@ -53,16 +53,15 @@ const Review: FC = () => {
           <div className={classes.reviewContainer}>
             <div className={classes.titleBox}>
               <h1 className={classes.title}>
-                {authorInfo.username} 님과 프로젝트를 함께한 동료
+                {authorInfo.nickname} 님과 프로젝트를 함께한 동료
               </h1>
               {/* 작성자가 본인의 페이지에 들어온 경우만 해당 버튼 활성화 */}
-              {authorInfo.isAuthor && (
+              {/* {authorInfo.isAuthor && (
                 <button className={classes.requestButton}>평가 요청하기</button>
-              )}
-              {/* <button className={classes.requestButton}>평가 요청하기</button> */}
+              )} */}
             </div>
             <h2 className={classes.subtitle}>
-              {authorInfo.username} 님은 이런 동료입니다!
+              {authorInfo.nickname} 님은 이런 동료입니다!
             </h2>
             {reviewData.length === 0 ? (
               <NoContent />
@@ -75,7 +74,7 @@ const Review: FC = () => {
           </div>
           <div className={classes.addReviewContainer}>
             <h2 className={classes.subtitle}>
-              {authorInfo.username} 님과 함께 프로젝트를 하신 경험이 있으신가요?
+              {authorInfo.nickname} 님과 함께 프로젝트를 하신 경험이 있으신가요?
             </h2>
             {/* AddReview form 렌더링 */}
             {showAddReview ? (
