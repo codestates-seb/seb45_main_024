@@ -27,8 +27,9 @@ const Addproj: FC<AddprojProps> = ({
   setProjTags,
 }) => {
   // 아직 추가안 함.
-  // const projectAddHandler = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
+  const handleSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   //   // ProfileCreate에서 이 데이터로 참여한 프로젝트 태그 미리보기 생성 필요
   //   // 굳이 툴킷? 이 정도면 위로 올려도 될 듯
@@ -50,7 +51,7 @@ const Addproj: FC<AddprojProps> = ({
   };
 
   return (
-    <form className={classes.projectForm}>
+    <form className={classes.projectForm} onSubmit={handleSumbit}>
       <div className={classes.formGroup}>
         <label className={classes.formLabel} htmlFor="projectName">
           프로젝트 명

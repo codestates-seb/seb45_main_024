@@ -9,7 +9,7 @@ const EditProfile: FC = () => {
   const { id } = useParams<{ id: string }>();
   const [profileFormData, setProfileFormData] = useState<any>({
     accountId: parseInt(id!),
-    coverLetter: "",
+    // coverLetter: "",
     // 이 부분은 리퀘에 없어서 일단 만들어두고 나중에 수정해야 함
     softSkills: [],
     hardSkills: [],
@@ -23,12 +23,11 @@ const EditProfile: FC = () => {
   const saveHandler = async () => {
     try {
       console.log(profileFormData);
-      const response = await authInstance.post(
+      const response = await authInstance.patch(
         `/mypages/profile/${id}`,
         profileFormData,
       );
       console.log(response);
-      // navigate(`/mypage/${id}`);
       window.alert("프로필이 수정되었습니다.");
       window.location.href = `/mypage/${id}`;
     } catch (error) {

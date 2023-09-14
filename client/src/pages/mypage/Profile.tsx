@@ -15,7 +15,7 @@ import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
-import { setProfile } from "../../redux/mypage/profileSlice";
+// import { setProfile } from "../../redux/mypage/profileSlice";
 
 interface AccessTokenType {
   id: number;

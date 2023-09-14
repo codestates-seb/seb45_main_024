@@ -141,13 +141,13 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   useEffect(() => {
     setProfileFormData({
       accountId: Number(id),
-      coverLetter: editorValue,
+      // coverLetter: editorValue,
       softSkills: softTags,
       hardSkills: hardTags,
       projectDetails: projSet,
       // projectDetails가 제대로 안 담김
     });
-  }, [editorValue, softTags, hardTags, projSet]);
+  }, [softTags, hardTags, projSet]);
   // loop 안 걸리는지 확인 필요
 
   return (
