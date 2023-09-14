@@ -2,6 +2,7 @@ package com.seb45main24.server.domain.alarm.entity;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
+import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Alarm {
+public class Alarm extends Auditable {
     public enum AlarmType {
         ACCEPT,
         REPLY

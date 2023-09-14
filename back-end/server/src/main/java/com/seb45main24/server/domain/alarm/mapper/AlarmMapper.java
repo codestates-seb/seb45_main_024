@@ -8,6 +8,7 @@ import com.seb45main24.server.domain.alarm.entity.Alarm;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
 import org.mapstruct.Mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -35,6 +36,8 @@ public interface AlarmMapper {
         alarm.setWriter( writer );
         alarm.setTarget( target );
         alarm.setMemberBoard( memberBoard );
+        alarm.setCreatedAt(LocalDateTime.now());
+        alarm.setModifiedAt(LocalDateTime.now());
 
         return alarm;
     }
