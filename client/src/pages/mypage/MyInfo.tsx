@@ -8,11 +8,12 @@ import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { useAppSelector } from "../../redux/hooks";
+import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
 
@@ -31,15 +32,25 @@ const MyInfo: FC = () => {
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."
     );
 
     if (confirmation) {
       try {
-        authInstance.delete(`/accounts/${id}`).then((res) => {
-          alert("회원탈퇴가 완료되었습니다.");
-          window.location.href = "/";
-        });
+        authInstance
+          .delete(`/accounts/${id}`)
+          .then((res) => {
+            alert("회원탈퇴가 완료되었습니다.");
+          })
+          .then((res) => {
+            removeTokensFromLocalStorage();
+          })
+          .then((res) => {
+            authInstance.post("/accounts/logout");
+          })
+          .then((res) => {
+            window.location.href = "/signup";
+          });
       } catch (error) {
         console.info("Failed to delete account", error);
       }
@@ -51,7 +62,6 @@ const MyInfo: FC = () => {
       <div className={classes.mainContainer}>
         <SideMenu menu="myInfo" authorInfo={authorInfo} />
         <section className={classes.componentContainer}>
-          {/* 프로필 이미지, 닉네임, 패스워드, 프로필정보 변경할 수 있는 버튼, 회원탈퇴 버튼 */}
           <section className={classes.infoHeaderBox}>
             <h1 className={classes.headerTitle}>나의 정보</h1>
             <p className={classes.helptext}>
@@ -89,7 +99,7 @@ const MyInfo: FC = () => {
                 <div className={classes.profileImgContainer}>
                   <img
                     className={classes.profileimage}
-                    src="https://images.unsplash.com/photo-1682687980976-fec0915c6177?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+                    src={authorInfo.imgUrl}
                     alt="sampleProfile"
                   />
                 </div>
