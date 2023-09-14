@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
 const Review: FC = () => {
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   // authorInfo 동작 안하면 id 사용하기
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
