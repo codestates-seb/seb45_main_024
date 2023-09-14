@@ -1,3 +1,15 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+}
+
+.componentContainer {
+  grid-column: span 10;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
 .infoHeaderBox {
   padding: 24px;
 }
@@ -29,7 +41,7 @@
   margin-bottom: 16px;
 }
 
-.actions{
+.actions {
   display: flex;
   gap: 1rem;
 }
@@ -45,7 +57,7 @@
   color: var(--color-gray-3);
 }
 
-.deleteProfile{
+.deleteProfile {
   color: var(--color-state-error);
 }
 

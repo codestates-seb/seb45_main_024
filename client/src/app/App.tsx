@@ -6,8 +6,11 @@ import LoginPage from "../pages/login/LoginPage";
 import SignUpPage from "../pages/signup/SignUpPage";
 import Main from "../pages/main/Main";
 
-import Mypage from "../pages/mypage/Mypage";
+import Profile from "../pages/mypage/Profile";
 import EditProfile from "../pages/mypage/EditProfile";
+import Review from "../pages/mypage/Review";
+import Summary from "../pages/mypage/Summary";
+import MyInfo from "../pages/mypage/MyInfo";
 
 import UserList from "../pages/userList/UserList";
 import NewCard from "../pages/userList/NewCard";
@@ -49,19 +52,13 @@ const router = createBrowserRouter([
 
       /*** 📌 마이페이지 ***/
       {
-        path: "mypage/1",
-        // path: "mypage/:id",
+        path: "mypage/:id",
         children: [
-          { index: true, element: <Mypage /> },
+          { index: true, element: <Profile /> },
           { path: "edit", element: <EditProfile /> },
-          // {
-          //   path: "review",
-          //   element: <Review />,
-          //   children: [
-          //     { index: true, element: <ReviewList /> },
-          //     { path: "new", element: <NewReview /> },
-          //   ],
-          // },
+          { path: "review", element: <Review /> },
+          { path: "summary", element: <Summary /> },
+          { path: "myinfo", element: <MyInfo /> },
         ],
       },
 

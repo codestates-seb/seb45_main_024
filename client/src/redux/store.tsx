@@ -3,8 +3,9 @@ import validationReducer from "./auth/validationSlice";
 import loginReducer from "./auth/loginSlice";
 import alertReducer from "./common/alertSlice";
 import loadingReducer from "./common/loadingSlice";
-import menuReducer from "./menuSlice";
-
+import menuReducer from "./mypage/menuSlice";
+import authorInfoReducer from "./mypage/authorInfoSlice";
+import profileReducer from "./mypage/profileSlice";
 import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
 import { projectsReducer } from "./board/slices/projectsSlice";
 import { commentsReducer } from "./board/slices/commentsSlice";
@@ -16,6 +17,8 @@ const store = configureStore({
     alert: alertReducer,
     loading: loadingReducer,
     menu: menuReducer,
+    authorInfo: authorInfoReducer,
+    profile: profileReducer,
     users: usersReducer,
     projects: projectsReducer,
     comments: commentsReducer,

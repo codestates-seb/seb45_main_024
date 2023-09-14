@@ -6,19 +6,23 @@ interface AddprojProps {
   projectLink: string;
   projectImage: string;
   projTags: string[];
+  projSet: object[];
   setProjectName: React.Dispatch<React.SetStateAction<string>>;
   setProjectLink: React.Dispatch<React.SetStateAction<string>>;
   setProjectImage: React.Dispatch<React.SetStateAction<string>>;
   setProjTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setProjSet: React.Dispatch<React.SetStateAction<object[]>>;
 }
 
 const Addproj: FC<AddprojProps> = ({
   projectName,
   projectLink,
   projectImage,
+  projSet,
   setProjectName,
   setProjectLink,
   setProjectImage,
+  setProjSet,
   projTags,
   setProjTags,
 }) => {
@@ -33,9 +37,15 @@ const Addproj: FC<AddprojProps> = ({
   const addProjTagHandler = () => {
     if (projectName.length > 0) {
       setProjTags([...projTags, projectName]);
-      setProjectName("");
-      setProjectLink("");
-      setProjectImage("");
+      setProjectName(projectName);
+      setProjectLink(projectLink);
+      setProjectImage(projectImage);
+      projSet.push({
+        projectTitle: projectName,
+        projectUrl: projectLink,
+        imageUrl: projectImage,
+      });
+      setProjSet(projSet);
     }
   };
 

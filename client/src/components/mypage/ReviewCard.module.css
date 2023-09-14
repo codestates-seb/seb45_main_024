@@ -20,6 +20,12 @@
   color: white;
 }
 
+/* DateFormat span */
+.createdAt span {
+  font-size: 0.8rem;
+  color: white;
+} 
+
 .helpText {
   font-size: 0.8rem;
   color: white;
@@ -49,8 +55,6 @@
   padding: 8px;
 }
 
-.profileImage {
-}
 
 .cardContent {
   color: var(--color-gray-1);
@@ -63,7 +67,10 @@
 }
 
 .action {
-  padding: 0 16px 16px 16px;
+  /* position: absolute; */
+  /* bottom: 8px; */
+  /* right: 16px; */
+  padding: 0 16px 10px 0;
   text-decoration: none;
   text-align: right;
 }

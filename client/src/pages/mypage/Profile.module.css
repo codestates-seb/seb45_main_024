@@ -1,3 +1,16 @@
+.mainContainer{
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+}
+
+.componentContainer{
+  grid-column: span 10;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
+
 .editContainer {
   display: flex;
   justify-content: flex-end;
@@ -24,9 +37,9 @@
   justify-content: space-between;
 }
 
-.techContentContainer{
+.techContentContainer {
   display: flex;
-  gap: 16px
+  gap: 16px;
 }
 
 .helpContent {
@@ -50,10 +63,24 @@
   color: var(--color-gray-2);
 }
 
+.hardContent {
+  display: flex;
+  gap: 8px;
+}
+
 .softContent {
   margin-top: 16px;
   display: flex;
   gap: 8px;
+}
+
+
+.projContent{
+  display: flex;
+  gap: 24px;
+}
+.centerContent {
+  justify-content: center;
 }
 
 .softContent span {
@@ -62,5 +89,6 @@
 
 .helpText {
   font-size: 0.8rem;
-  color: var(--color-gray-3);
+  color: var(--color-gray-2);
 }
+

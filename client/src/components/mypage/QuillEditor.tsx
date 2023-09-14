@@ -3,11 +3,12 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 interface QuillEditorProps {
+  initialValue?: string;
   onChange: (value: string) => void;
 }
 
-const QuillEditor: FC<QuillEditorProps> = ({ onChange }) => {
-  const [value, setValue] = useState("");
+const QuillEditor: FC<QuillEditorProps> = ({ onChange, initialValue }) => {
+  const [value, setValue] = useState(initialValue || "");
 
   const changeHandler = (value: string) => {
     console.log(value);

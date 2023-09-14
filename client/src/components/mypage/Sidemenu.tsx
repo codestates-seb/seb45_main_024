@@ -1,70 +1,95 @@
-import { FC } from "react";
-import { changeMenu } from "../../redux/menuSlice";
+import { FC, useEffect, useState } from "react";
 import classes from "./Sidemenu.module.css";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
+import logo_green_face from "../../assets/images/logo_green_face.png";
+import { useNavigate, useParams } from "react-router-dom";
 
-interface AuthorProps {
-  authorInfo: {
-    isAuthor: boolean;
-    visitorId: string | null;
-    ownerId?: string | null;
-  };
+interface SideMenuProps {
+  menu: string;
 }
 
-const SideMenu: FC<AuthorProps> = ({ authorInfo }) => {
-  const dispatch = useAppDispatch();
-  const selectedMenu = useAppSelector(state => state.menu.selectedMenu);
+const SideMenu: FC<SideMenuProps> = ({ menu }) => {
+  const [selectedMenu, setSelectedMenu] = useState<string>("profile");
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const authorInfo = useAppSelector(state => state.authorInfo);
+  useEffect(() => {
+    setSelectedMenu(menu);
+  }, [menu]);
+  const summaryClickHandler = () => {
+    navigate(`/mypage/${id}/summary`);
+    setSelectedMenu("summary");
+  };
+
+  const profileClickHandler = () => {
+    navigate(`/mypage/${id}`);
+    setSelectedMenu("profile");
+  };
+
+  const reviewClickHandler = () => {
+    navigate(`/mypage/${id}/review`);
+    setSelectedMenu("review");
+  };
+  const myInfoClickHandler = () => {
+    navigate(`/mypage/${id}/myinfo`);
+    setSelectedMenu("myInfo");
+  };
 
   return (
     <div className={classes.sidemenuContainer}>
+      {/* 임의로 프로필 박스 */}
       <div className={classes.profileBox}>
-        <div className={classes.profileImg}>{/* 어디서 갖고옴 */}</div>
-        <div className={classes.profileInfo}>{/*닉네임 / 이메일*/}</div>
+        <div className={classes.profileImg}>
+          <img
+            src={
+              authorInfo.imgUrl && authorInfo.imgUrl !== ""
+                ? authorInfo.imgUrl
+                : logo_green_face
+            }
+            alt="img"
+          />
+        </div>
+        <div className={classes.profileInfo}>
+          <p>닉네임 {authorInfo.nickname}</p>
+          <p>{authorInfo.email}</p>
+        </div>
       </div>
       <div className={classes.menuItemsContainer}>
         <ul className={classes.menuItems}>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Summary" ? classes.selectedMenuItem : ""
+              selectedMenu === "summary" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Summary"))}
+            onClick={summaryClickHandler}
           >
             Summary
           </li>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Profile" ? classes.selectedMenuItem : ""
+              selectedMenu === "profile" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Profile"))}
+            onClick={profileClickHandler}
           >
             Profile
           </li>
           <li
             className={`${classes.menuItem} ${
-              selectedMenu === "Review" ? classes.selectedMenuItem : ""
+              selectedMenu === "review" ? classes.selectedMenuItem : ""
             }`}
-            onClick={() => dispatch(changeMenu("Review"))}
+            onClick={reviewClickHandler}
           >
             Peer Review
           </li>
           {authorInfo.isAuthor && (
             <li
               className={`${classes.menuItem} ${
-                selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
+                selectedMenu === "myInfo" ? classes.selectedMenuItem : ""
               }`}
-              onClick={() => dispatch(changeMenu("MyInfo"))}
+              onClick={myInfoClickHandler}
             >
               My Info
             </li>
           )}
-          {/* <li
-            className={`${classes.menuItem} ${
-              selectedMenu === "MyInfo" ? classes.selectedMenuItem : ""
-            }`}
-            onClick={() => dispatch(changeMenu("MyInfo"))}
-          >
-            My Info
-          </li> */}
         </ul>
       </div>
     </div>

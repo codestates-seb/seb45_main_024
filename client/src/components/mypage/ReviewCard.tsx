@@ -1,16 +1,15 @@
 import { FC } from "react";
 import classes from "./ReviewCard.module.css";
 import logo_green_face from "../../assets/images/logo_green_face.png";
+import DateFormat from "./DateFormat";
 
-// projectName, projectLink, projectImage, reviewTitle, reviewContent
 interface ReviewCardProps {
   review: {
     title: string;
     project_url: string;
     intro: string;
     content: string;
-    // id?: number; -> 확인 필요
-    // createdAt?: string; -> 확인 필요
+    createdAt: string;
   };
 }
 
@@ -18,7 +17,9 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
-        <p className={`${classes.helpText} ${classes.createdAt}`}>CreatedAt</p>
+        <p className={`${classes.helpText} ${classes.createdAt}`}>
+          <DateFormat date={review.createdAt} />
+        </p>
         <p className={classes.helpText}>함께한 프로젝트</p>
         <h1 className={classes.title}>{review.title}</h1>
       </div>

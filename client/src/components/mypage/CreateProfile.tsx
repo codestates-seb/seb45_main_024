@@ -9,13 +9,35 @@ import PlusBtn from "./PlusBtn";
 import SoftInput from "./SoftInput";
 import SoftTag from "./SoftTag";
 import HardInput from "./HardInput";
-import DropDownTag from "./DropDownTag";
+// import DropDownTag from "./DropDownTag";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useParams } from "react-router-dom";
+import { ProfileState } from "../../redux/mypage/profileSlice";
+
+interface ProfileFormData {
+  accountId: number;
+  coverLetter?: string;
+  softSkills?: string[];
+  hardSkills?: string[];
+  projectDetails?: {
+    projectTitle?: string;
+    projectUrl?: string;
+    imageUrl?: string;
+  }[];
+}
+
+interface Props {
+  setProfileFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
+}
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
-const CreateProfile: FC = () => {
+const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
+  const { id } = useParams<{ id: string }>();
+  const { profileData, status } = useAppSelector(
+    (state: { profile: ProfileState }) => state.profile
+  );
   const [editorValue, setEditorValue] = useState<string>("");
-
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
@@ -23,8 +45,6 @@ const CreateProfile: FC = () => {
   const editorChangeHandler = (value: string) => {
     setEditorValue(value);
   };
-  // edit 클릭하면 get으로 기술 스택 정보도 받아와야. -> Techtag 컴포넌트로 분리
-  // post로 보내는 api call도 있음. req body 구조 알아야.
 
   // 이하 코드 리팩토링 필수!
   const [softInput, setSoftInput] = useState("");
@@ -35,6 +55,21 @@ const CreateProfile: FC = () => {
   const [hardTags, setHardTags] = useState<string[]>([]);
   const [techTags, setTechTags] = useState<string[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
+  const [projSet, setProjSet] = useState<object[]>([]);
+
+  // 초기값 설정
+  useEffect(() => {
+    if (profileData) {
+      setSoftTags(profileData.softSkills);
+      setHardTags(profileData.hardSkills);
+      const projectTags = profileData.projectDetails.map((proj, index) => ({
+        projectName: proj.projectTitle,
+        projectLink: proj.projectUrl,
+        projectImage: proj.imageUrl,
+      }));
+      setProjTags(projectTags);
+    }
+  }, [profileData]);
 
   const softInputRef = useRef(softInput);
   const hardInputRef = useRef(hardInput);
@@ -52,7 +87,6 @@ const CreateProfile: FC = () => {
 
   const handleSoftEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && softInputRef.current.length > 0) {
-      console.log("hello", softInputRef.current);
       setSoftTags([...softTagsRef.current, softInputRef.current]);
       setSoftInput("");
     }
@@ -60,14 +94,12 @@ const CreateProfile: FC = () => {
 
   const handleHardEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && hardInputRef.current.length > 0) {
-      console.log("hello", hardInputRef.current);
       setHardTags([...hardTagsRef.current, hardInputRef.current]);
       setHardInput("");
     }
   };
   const handleTechEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && techInputRef.current.length > 0) {
-      console.log("hello", techInputRef.current);
       setTechTags([...techTagsRef.current, techInputRef.current]);
       setTechInput("");
     }
@@ -106,11 +138,27 @@ const CreateProfile: FC = () => {
     return () => window.removeEventListener("keyup", handleTechEnterPress);
   }, []);
 
+  useEffect(() => {
+    setProfileFormData({
+      accountId: Number(id),
+      coverLetter: editorValue,
+      softSkills: softTags,
+      hardSkills: hardTags,
+      projectDetails: projSet,
+      // projectDetails가 제대로 안 담김
+    });
+  }, [editorValue, softTags, hardTags, projSet]);
+  // loop 안 걸리는지 확인 필요
+
   return (
     <form className={classes.createForm}>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.BIO} />
-        <QuillEditor onChange={editorChangeHandler} />
+        <QuillEditor
+          onChange={editorChangeHandler}
+          // 초기값 설정
+          // initialValue={profileData.coverLetter || ""}
+        />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.TECH} />
@@ -144,7 +192,14 @@ const CreateProfile: FC = () => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         {hardTags.map((hardTag, index) => (
-          <DropDownTag
+          // api 명세 바뀌면 수정 필요
+          // <DropDownTag
+          //   key={index}
+          //   techName={hardTag}
+          //   id={index}
+          //   onDelete={hardTagDeleteHandler}
+          // />
+          <SoftTag
             key={index}
             techName={hardTag}
             id={index}
@@ -202,6 +257,8 @@ const CreateProfile: FC = () => {
             setProjectImage={setProjectImage}
             projTags={projTags}
             setProjTags={setProjTags}
+            projSet={projSet}
+            setProjSet={setProjSet}
           />
         </PlusBtn>
       </section>
