@@ -76,10 +76,7 @@ public class AccountProfileService {
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
 
-	public ProfileResponse findAccountProfile(Long loginAccountId, Long accountId) {
-
-		if(loginAccountId.equals(accountId)) {
-
+	public ProfileResponse findAccountProfile(Long accountId) {
 			Account findAccount = findAccount(accountId);
 			Long accountProfileId = findAccount.getAccountProfile().getId();
 			AccountProfile accountProfile = verifiedAccountProfile(accountProfileId);
@@ -95,10 +92,6 @@ public class AccountProfileService {
 				.build();
 
 			return profileResponse;
-
-		}
-		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
-
 	}
 
 
