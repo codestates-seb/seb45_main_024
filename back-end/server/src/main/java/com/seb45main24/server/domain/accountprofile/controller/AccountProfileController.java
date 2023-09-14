@@ -51,7 +51,7 @@ public class AccountProfileController {
 
 	@PatchMapping("/profile/{account-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
-												@PathVariable("account-profile-id") Long accountId,
+												@PathVariable("account-id") Long accountId,
 												@RequestBody @Valid ProfilePostRequest postRequest) {
 
 		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest);
