@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
 import authInstance from "../../utility/authInstance";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
 interface AddReviewProps {
@@ -9,6 +9,7 @@ interface AddReviewProps {
 }
 
 const AddReview: FC<AddReviewProps> = ({ onClose }) => {
+  const navigate = useNavigate();
   const authorInfo = useAppSelector(state => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   const [projectName, setProjectName] = useState<string>("");
@@ -30,7 +31,9 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
 
       await authInstance.post(`/reviews/${id}`, reviewFormData);
       window.alert("리뷰가 등록되었습니다.");
-      window.location.href = `/mypage/${id}/review`;
+      navigate(-1);
+      // profile로 감. 
+      // window.location.href = `/mypage/${id}/review`;
     } catch (err) {
       console.error("Failed to add review", err);
       window.alert("리뷰 등록에 실패했습니다.");
