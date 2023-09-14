@@ -12,7 +12,7 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
   const [selectedMenu, setSelectedMenu] = useState<string>("profile");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   useEffect(() => {
     setSelectedMenu(menu);
   }, [menu]);
@@ -40,9 +40,19 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
       {/* 임의로 프로필 박스 */}
       <div className={classes.profileBox}>
         <div className={classes.profileImg}>
-          <img src={logo_green_face} alt="sample profile" />
+          <img
+            src={
+              authorInfo.imgUrl && authorInfo.imgUrl !== ""
+                ? authorInfo.imgUrl
+                : logo_green_face
+            }
+            alt="img"
+          />
         </div>
-        <div className={classes.profileInfo}>{authorInfo.nickname}</div>
+        <div className={classes.profileInfo}>
+          <p>닉네임 {authorInfo.nickname}</p>
+          <p>{authorInfo.email}</p>
+        </div>
       </div>
       <div className={classes.menuItemsContainer}>
         <ul className={classes.menuItems}>
