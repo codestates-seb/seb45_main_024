@@ -9,12 +9,17 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.seb45main24.server.domain.accountprofile.dto.TechTagDto;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.entity.HardSkillTag;
+import com.seb45main24.server.domain.accountprofile.entity.ProfileTechTag;
 import com.seb45main24.server.domain.accountprofile.entity.SoftSkillTag;
+import com.seb45main24.server.domain.accountprofile.entity.TechTag;
 import com.seb45main24.server.domain.accountprofile.repository.HardSkillRepository;
+import com.seb45main24.server.domain.accountprofile.repository.ProfileTechTagRepository;
 import com.seb45main24.server.domain.accountprofile.repository.SoftSkillRepository;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
+import com.seb45main24.server.domain.accountprofile.repository.TechTagRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
 
@@ -25,7 +30,9 @@ import lombok.RequiredArgsConstructor;
 public class TagsService {
 	private final HardSkillRepository hardSkillRepository;
 	private final SoftSkillRepository softSkillRepository;
+	private final TechTagRepository techTagRepository;
 	private final AccountProfileRepository accountProfileRepository;
+	private final ProfileTechTagRepository profileTechTagRepository;
 
 	@Transactional
 	public List<SoftSkillTag> createSoftSkillTags(List<String> softSkillNames, Long accountProfileId) {
@@ -65,6 +72,33 @@ public class TagsService {
 		return hardSkillRepository.saveAll(newHardSkillTags);
 	}
 
+	@Transactional
+	public void createTechTags(List<Long> techTagIds, Long accountProfileId) {
+
+		List<TechTag> techTags = techTagIds.stream()
+			.map(tagId -> techTagRepository.findById(tagId)
+				.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND)))
+			.collect(Collectors.toList());
+
+		List<ProfileTechTag> existingTag = profileTechTagRepository.findByAccountProfileId(accountProfileId);
+		profileTechTagRepository.deleteAll(existingTag);
+
+		// AccountProfile 객체를 가져옴
+		AccountProfile accountProfile = accountProfileRepository.findById(accountProfileId)
+			.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+
+		// ProfileTechTag 객체 생성 및 연결
+		for (TechTag techTag : techTags) {
+			ProfileTechTag profileTechTag = new ProfileTechTag();
+			profileTechTag.setTechTag(techTag);
+			profileTechTag.setAccountProfile(accountProfile);
+
+			// ProfileTechTag 객체를 데이터베이스에 저장
+			profileTechTagRepository.save(profileTechTag);
+		}
+	}
+
+
 	public AccountProfile findAccountProfile(Long accountProfileId) {
 		Optional<AccountProfile> optional = accountProfileRepository.findById(accountProfileId);
 
@@ -73,6 +107,15 @@ public class TagsService {
 			return accountProfile;
 		}
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
+	}
+
+	// 회원 등록시 기본값 생성을 위한 메서드
+	public ProfileTechTag createTechTagDefault() {
+		ProfileTechTag profileTechTag = new ProfileTechTag();
+		profileTechTag.setAccountProfile(null);
+		profileTechTag.setTechTag(null);
+
+		return profileTechTagRepository.save(profileTechTag);
 	}
 
 	// 회원 등록시 기본값 생성을 위한 메서드
@@ -91,6 +134,14 @@ public class TagsService {
 		hardSkillTag.setCreatedAt(LocalDateTime.now());
 
 		return hardSkillRepository.save(hardSkillTag);
+	}
+
+	public ProfileTechTag createProfileTechTag(AccountProfile accountProfile) {
+		ProfileTechTag emptyTechTag = createTechTagDefault();
+
+		emptyTechTag.setAccountProfile(accountProfile);
+
+		return profileTechTagRepository.save(emptyTechTag);
 	}
 
 	public SoftSkillTag createEmptySoftSkillTag(AccountProfile accountProfile) {
@@ -125,6 +176,22 @@ public class TagsService {
 											.map(SoftSkillTag::getTagName)
 											.collect(Collectors.toList());
 		return softTagNames;
+
+	}
+
+	public List<TechTagDto> findTechTags(Long accountProfileId) {
+		AccountProfile accountProfile = accountProfileRepository.findById(accountProfileId)
+			.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+
+		// AccountProfile에 연결된 TechTag의 ID와 이름을 추출
+		List<TechTagDto> techTags = accountProfile.getTechTags().stream()
+			.map(profileTechTag -> {
+				TechTag techTag = profileTechTag.getTechTag();
+				return new TechTagDto(techTag.getId());
+			})
+			.collect(Collectors.toList());
+
+		return techTags;
 
 	}
 
