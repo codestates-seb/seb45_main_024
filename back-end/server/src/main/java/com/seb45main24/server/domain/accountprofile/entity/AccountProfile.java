@@ -54,18 +54,19 @@ public class AccountProfile extends Auditable {
 	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
 	private List<ProjectDetails> projectDetails = new ArrayList<>();
 
-	// @OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
-	// private Set<ProfileTechTag> techTags = new HashSet<>();
+	@OneToMany(mappedBy = "accountProfile", cascade = CascadeType.ALL)
+	private List<ProfileTechTag> techTags = new ArrayList<>();
 
 
 	@Builder
 	public AccountProfile(String coverLetter, Account account, List<HardSkillTag> hardSkillTags,
-		List<SoftSkillTag> softSkillTags, List<ProjectDetails> projectDetails) {
+		List<SoftSkillTag> softSkillTags, List<ProjectDetails> projectDetails, List<ProfileTechTag> techTags) {
 		this.coverLetter = coverLetter;
 		this.account = account;
 		this.hardSkillTags = hardSkillTags;
 		this.softSkillTags = softSkillTags;
 		this.projectDetails = projectDetails;
+		this.techTags = techTags;
 	}
 
 

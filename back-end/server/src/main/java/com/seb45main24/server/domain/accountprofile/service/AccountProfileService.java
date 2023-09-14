@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
@@ -21,8 +22,10 @@ import com.seb45main24.server.domain.accountprofile.dto.ProfilePostRequest;
 import com.seb45main24.server.domain.accountprofile.dto.ProfileResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.entity.HardSkillTag;
+import com.seb45main24.server.domain.accountprofile.entity.ProfileTechTag;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 import com.seb45main24.server.domain.accountprofile.entity.SoftSkillTag;
+import com.seb45main24.server.domain.accountprofile.entity.TechTag;
 import com.seb45main24.server.domain.accountprofile.mapper.AccountProfileMapper;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
@@ -57,6 +60,18 @@ public class AccountProfileService {
 
 				findProfile.setModifiedAt(LocalDateTime.now());
 
+
+			if(postRequest.getTechTags() != null) {
+
+				// profileRequest 객체 내부에서 techTagIds만 추출
+				List<Long> techTagIds = postRequest.getTechTags().stream()
+					.map(TechTag::getId)
+					.collect(Collectors.toList());
+
+				tagsService.createTechTags(techTagIds, accountProfileId);
+			}
+
+
 			if (postRequest.getHardSkills() != null) {
 				List<HardSkillTag> hardSkillTags = tagsService.createHardSkillTags(postRequest.getHardSkills(), accountProfileId);
 				findProfile.setHardSkillTags(hardSkillTags);
@@ -81,17 +96,18 @@ public class AccountProfileService {
 			Long accountProfileId = findAccount.getAccountProfile().getId();
 			AccountProfile accountProfile = verifiedAccountProfile(accountProfileId);
 
-			ProfileResponse profileResponse = ProfileResponse.builder()
-				.imageUrl(findAccount.getImage().getImageUrl())
-				.email(findAccount.getEmail())
-				.nickname(findAccount.getNickname())
-				.coverLetter(accountProfile.getCoverLetter())
-				.hardSkills(tagsService.findHardSkillTag(accountProfileId))
-				.softSkills(tagsService.findSoftSkillTag(accountProfileId))
-				.projectDetails(projectDetailService.findProjectDetails(accountProfileId))
-				.build();
+		ProfileResponse profileResponse = ProfileResponse.builder()
+			.imageUrl(findAccount.getImage().getImageUrl())
+			.email(findAccount.getEmail())
+			.nickname(findAccount.getNickname())
+			.coverLetter(accountProfile.getCoverLetter())
+			.hardSkills(tagsService.findHardSkillTag(accountProfileId))
+			.softSkills(tagsService.findSoftSkillTag(accountProfileId))
+			.techTags(tagsService.findTechTags(accountProfileId))
+			.projectDetails(projectDetailService.findProjectDetails(accountProfileId))
+			.build();
 
-			return profileResponse;
+		return profileResponse;
 	}
 
 
@@ -115,6 +131,7 @@ public class AccountProfileService {
 			.coverLetter("")
 			.hardSkillTags(new ArrayList<>())
 			.softSkillTags(new ArrayList<>())
+			.techTags(new ArrayList<>())
 			.projectDetails(new ArrayList<>())
 			.build();
 
@@ -126,6 +143,9 @@ public class AccountProfileService {
 
 		HardSkillTag hardSkillTag = tagsService.createEmptyHardSkillTag(accountProfile);
 		accountProfile.getHardSkillTags().add(hardSkillTag);
+
+		ProfileTechTag profileTechTag = tagsService.createProfileTechTag(accountProfile);
+		accountProfile.getTechTags().add(profileTechTag);
 
 		return accountProfile;
 
