@@ -60,6 +60,7 @@ public interface TeamBoardMapper {
         teamBoardResponseDto.position(teamBoard.getPosition());
         teamBoardResponseDto.keywords(teamBoard.getKeywords());
         teamBoardResponseDto.accountId(teamBoard.getAccount().getId());
+        teamBoardResponseDto.nickname(teamBoard.getAccount().getNickname());
         teamBoardResponseDto.createdAt(teamBoard.getCreatedAt() );
         teamBoardResponseDto.modifiedAt(teamBoard.getModifiedAt() );
 

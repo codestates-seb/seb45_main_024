@@ -84,7 +84,8 @@ public class TeamBoardController {
 
     // 팀찾기 게시글 리스트 조회
     @GetMapping
-    public ResponseEntity getTeamBoards(@Positive @RequestParam int page) {
+    public ResponseEntity getTeamBoards(@Positive @RequestParam int page,
+                                        @RequestParam(required = false) String keyword) {
         Page<TeamBoard> pageTeamBoards = teamBoardService.findTeamBoards(page - 1);
         List<TeamBoard> teamBoards = pageTeamBoards.getContent();
 
