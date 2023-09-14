@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import classes from "./Profile.module.css";
 import NoContent from "../../components/mypage/NoContent";
 import editicon from "../../assets/icons/edit.svg";
-import Bio from "../../components/mypage/Bio";
+import TagRemover from "../../components/mypage/TagRemover";
 import TitleLine from "../../components/mypage/TitleLine";
 import ProfileCats from "../../components/mypage/ProfileCats";
 import { useNavigate, useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
@@ -51,7 +51,7 @@ const Profile: FC = () => {
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          }),
+          })
         );
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -90,15 +90,17 @@ const Profile: FC = () => {
           <div className={classes.profileItemsContainer}>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.BIO} />
-              {profile.coverLetter ? (
-                profile.coverLetter.length > 0 ? (
-                  <Bio bio={profile.coverLetter} />
+              <div className={classes.bioContainer}>
+                {profile.coverLetter ? (
+                  profile.coverLetter.length > 0 ? (
+                    <TagRemover content={profile.coverLetter} />
+                  ) : (
+                    <NoContent />
+                  )
                 ) : (
                   <NoContent />
-                )
-              ) : (
-                <NoContent />
-              )}
+                )}
+              </div>
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.TECH} />

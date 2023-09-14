@@ -32,6 +32,10 @@
   gap: 80px;
 }
 
+.bioContainer{
+  padding: 24px;
+}
+
 .techContainer {
   display: flex;
   justify-content: space-between;
