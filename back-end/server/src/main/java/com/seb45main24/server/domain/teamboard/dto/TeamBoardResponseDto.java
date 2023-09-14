@@ -12,6 +12,7 @@ public class TeamBoardResponseDto {
     private Long teamBoardId;
     private String title;
     private String position;
+    private String nickname;
     private List<String> keywords;
     private Long accountId;
     private LocalDateTime createdAt;

@@ -85,6 +85,7 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.status( memberBoard.getStatus() );
         memberBoardResponseDTO.views( memberBoard.getViews() );
         memberBoardResponseDTO.position( memberBoard.getPosition() );
+        memberBoardResponseDTO.writerId( memberBoard.getWriter().getId() );
         memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
         memberBoardResponseDTO.replyList( memberBoardReplyDTOList );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );
