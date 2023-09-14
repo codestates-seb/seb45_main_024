@@ -20,11 +20,12 @@
 }
 
 .message div span {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   margin-left: 0.25rem;
 }
 
-.message div span span {
+.message div span p {
+  display: inline;
   font-weight: 700;
 }

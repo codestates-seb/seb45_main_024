@@ -1,0 +1,25 @@
+.carouselContainer {
+  width: 100%;
+  /* border: 3px solid gray; */
+  overflow: hidden; 
+  display: flex;
+}
+
+.carouselInner {
+  width: 300%;
+  /* border: 3px solid green; */
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  scroll-behavior: smooth;
+}
+
+.carouselItem {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+
+.carouselItem.active {
+  opacity: 1;
+}

@@ -13,7 +13,11 @@
 }
 
 .nickname {
-  margin-left: 1.25rem;
+  margin-left: 1.25rem; 
+}
+
+.nickname p {
+  font-weight: 700;
 }
 
 .right div button {
