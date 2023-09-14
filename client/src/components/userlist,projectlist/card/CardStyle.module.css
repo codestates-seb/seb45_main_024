@@ -120,6 +120,7 @@
 .back .topArea {
   display: flex;
   justify-content: flex-end;
+  height: 24px;
   & .edit {
     cursor: pointer;
   }

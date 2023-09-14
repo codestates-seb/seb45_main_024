@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../../assets/icons/edit.svg";
 import DefaultProfileImg from "../../../assets/images/default_profile.svg";
+import { getTokensFromLocalStorage } from "../../../utility/tokenStorage";
 import { UserListDataType } from "../../../model/boardTypes";
 
 import classes from "./CardStyle.module.css";
@@ -9,26 +10,34 @@ interface cardViewBackProps {
   cardData: UserListDataType;
 }
 
+interface AccessTokenType {
+  id: number;
+}
+
 const CardViewBack = ({ cardData }: cardViewBackProps) => {
-  const { teamBoardId, keywords } = cardData;
+  const { teamBoardId, keywords, accountId } = cardData;
   const navigate = useNavigate();
+
+  const { id } = getTokensFromLocalStorage() as AccessTokenType;
 
   return (
     <div className={classes.back}>
       <div className={classes.topArea}>
-        <span
-          className={classes.edit}
-          onClick={() => {
-            navigate(`/userlist/edit/${teamBoardId}`);
-          }}
-        >
-          <EditSvg width="24" height="24" />
-        </span>
+        {id === accountId && (
+          <span
+            className={classes.edit}
+            onClick={() => {
+              navigate(`/userlist/edit/${teamBoardId}`);
+            }}
+          >
+            <EditSvg width="24" height="24" />
+          </span>
+        )}
       </div>
       <div className={classes.centerArea}>
         <div
           className={classes.userImage}
-          onClick={() => navigate(`/mypage/:accountId`)}
+          onClick={() => navigate(`/mypage/${accountId}`)}
         >
           <img src={DefaultProfileImg} alt="" />
         </div>

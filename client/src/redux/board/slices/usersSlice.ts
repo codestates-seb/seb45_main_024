@@ -58,7 +58,7 @@ const usersSlice = createSlice({
       console.log("✅ ADD TEST PENDING");
     });
     builder.addCase(addUserCard.fulfilled, (state, action) => {
-      state.data.push(action.payload);
+      // state.data.push(action.payload);
       console.log("✅ ADD TEST FULFILLED");
     });
     builder.addCase(addUserCard.rejected, (state, action) => {
