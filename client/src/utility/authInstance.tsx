@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   TokenData,
-  getTokensFromLocalStorage,
+  // getTokensFromLocalStorage,
   saveTokensToLocalStorage,
   removeTokensFromLocalStorage,
 } from "./tokenStorage";
@@ -44,8 +44,9 @@ authInstance.interceptors.response.use(
     //TODO 여기가 문제였네
     //TODO 근데 왜 여기 주석처리 안 됐을 때 로그아웃은 잘 된 거지?
     //TODO 월욜에는 뭔 일이 있었길래 이 코드로 전부 잘 작동됐지?
-    //TODO 그럼 어떻게 새로운 액세스토큰 받아와서 저장하는 로직을 추가하지?
+    //TODO 객체 키를 변경했지만, 정말 이걸로 여전히 액세스토큰 새로 발급된 걸 받아올 수 있을까
     //TODO 포스팅 400 에러는 배드 리퀘였는데 왜 얘를 주석처리하니까 되는 걸까?
+    //TODO 뭐지 왜 되다가 안 된다는 걸까
     const newAccessToken = response.headers["Authorization"];
     if (newAccessToken) {
       removeTokensFromLocalStorage(); // 기존의 무효한 액세스 토큰 먼저 삭제

@@ -9,7 +9,7 @@ const MyProfile: FC = () => {
   const myProfileId = myProfileInfo.id;
 
   const handleNavigateMyProfile = () => {
-    navigate(`/mypage/${myProfileId}`);
+    navigate(`/mypage/${myProfileInfo.id}`);
   };
 
   return (

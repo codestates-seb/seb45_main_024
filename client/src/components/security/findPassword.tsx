@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./findPassword.module.css";
 import { validationActions } from "../../redux/auth/validationSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import authInstance from "../../utility/authInstance";
+import commonInstance from "../../utility/commonInstance";
 import { setLoading } from "../../redux/common/loadingSlice";
 import Loading from "../common/Loading";
 
@@ -53,7 +53,7 @@ const FindPassword: FC = () => {
     event.preventDefault();
     dispatch(setLoading(true));
     try {
-      const response = await authInstance.post(
+      const response = await commonInstance.post(
         `/accounts/sendMail?email=${formData.email}`,
         formData,
       );
