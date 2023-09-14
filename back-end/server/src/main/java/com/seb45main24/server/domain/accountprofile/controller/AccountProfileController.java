@@ -49,21 +49,21 @@ public class AccountProfileController {
 	private final MemberBoardService memberBoardService;
 	private final MemberBoardMapper memberBoardMapper;
 
-	@PatchMapping("/profile/{account-profile-id}")
+	@PatchMapping("/profile/{account-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
-												@PathVariable("account-profile-id") Long accountProfileId,
+												@PathVariable("account-profile-id") Long accountId,
 												@RequestBody @Valid ProfilePostRequest postRequest) {
 
-		accountProfileService.updateAccountProfile(loginAccountId, accountProfileId, postRequest);
-		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountProfileId);
+		accountProfileService.updateAccountProfile(loginAccountId, accountId, postRequest);
+		ProfileResponse response = accountProfileService.findAccountProfile(accountId);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/profile/{account-id}")
-	public ResponseEntity getAccountProfile(@LoginAccountId Long loginAccountId, @PathVariable("account-id") Long accountId) {
+	public ResponseEntity getAccountProfile(@PathVariable("account-id") Long accountId) {
 
-		ProfileResponse response = accountProfileService.findAccountProfile(loginAccountId, accountId);
+		ProfileResponse response = accountProfileService.findAccountProfile(accountId);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

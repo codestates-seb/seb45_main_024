@@ -102,7 +102,7 @@ public class AccountService {
 	}
 
 	public void deleteAccount(Account findAccount) {
-		accountRepository.save(findAccount);
+		accountRepository.delete(findAccount);
 	}
 
 	public Account findAccount(Long accountId) {
