@@ -6,6 +6,7 @@ interface AuthorInfoState {
   ownerId: string | undefined;
   email: string | undefined;
   nickname: string | undefined;
+  imgUrl: string | null;
 }
 
 const initialState: AuthorInfoState = {
@@ -14,6 +15,7 @@ const initialState: AuthorInfoState = {
   ownerId: "",
   email: "",
   nickname: "",
+  imgUrl: "",
 };
 
 const authorInfoSlice = createSlice({

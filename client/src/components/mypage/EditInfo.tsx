@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import classes from "./EditInfo.module.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { validationActions } from "../../redux/auth/validationSlice";
 import authInstance from "../../utility/authInstance";
@@ -19,13 +19,10 @@ interface MyInfoData {
 
 const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const passwordError = useAppSelector(
-    (state) => state.validation.passwordError
-  );
+  const passwordError = useAppSelector(state => state.validation.passwordError);
   const confirmPasswordError = useAppSelector(
-    (state) => state.validation.confirmPasswordError
+    state => state.validation.confirmPasswordError,
   );
   const [myInfo, setMyInfo] = useState<MyInfoData>({
     newImage: "",
@@ -35,7 +32,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   });
   const myInfoChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
-    fieldName: string
+    fieldName: string,
   ) => {
     const { value } = event.target;
     setMyInfo({
@@ -43,21 +40,21 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       [fieldName]: value,
     });
     if (fieldName === "nickname") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         nickname: value,
       }));
       dispatch(validationActions.validNickname(value));
     }
     if (fieldName === "password") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         password: value,
       }));
       dispatch(validationActions.validPassword(value));
     }
     if (fieldName === "confirmPassword") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         confirmPassword: value,
       }));
@@ -87,30 +84,15 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           ownerId: id,
           email: myInfo.nickname,
           nickname: myInfo.nickname,
+          imgUrl: myInfo.newImage,
         }),
       );
-      window.location.href = `/mypage/${id}/myinfo`;
+      const logout = await authInstance.post("/accounts/logout");
+      console.log(logout.data);
+      window.location.href = "/login";
     } catch (error) {
       console.error("Failed to edit info", error);
     }
-    // authInstance
-    //   .patch("/accounts/:id", infoData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   })
-    //   .then((res) =>
-    //     dispatch(
-    //       setAuthorInfo({
-    //         isAuthor: true,
-    //         visitorId: id!,
-    //         ownerId: id,
-    //         email: myInfo.nickname,
-    //         nickname: myInfo.nickname,
-    //       })
-    //     )
-    //   )
-    //   .then(() => {
-    //     navigate("/mypage/:id/myinfo");
-    //   });
   };
 
   return (
@@ -121,7 +103,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="image"
             type="file"
-            onChange={(e) => myInfoChangeHandler(e, "profileImage")}
+            onChange={e => myInfoChangeHandler(e, "profileImage")}
           />
         </div>
         <div className={classes.edititem}>
@@ -130,7 +112,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="nickname"
             type="text"
             placeholder="새로운 닉네임을 입력하세요"
-            onChange={(e) => myInfoChangeHandler(e, "nickname")}
+            onChange={e => myInfoChangeHandler(e, "nickname")}
           />
         </div>
         <div className={classes.edititem}>
@@ -140,7 +122,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="password"
             type="text"
             placeholder="새로운 비밀번호를 입력하세요"
-            onChange={(e) => myInfoChangeHandler(e, "password")}
+            onChange={e => myInfoChangeHandler(e, "password")}
           />
         </div>
         {passwordError && (
@@ -153,7 +135,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="password"
             type="text"
             placeholder="비밀번호를 한 번 더 입력해주세요"
-            onChange={(e) => myInfoChangeHandler(e, "confirmPassword")}
+            onChange={e => myInfoChangeHandler(e, "confirmPassword")}
           />
         </div>
         {confirmPasswordError && (

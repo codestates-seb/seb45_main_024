@@ -20,45 +20,19 @@ import { setProfile } from "../../redux/mypage/profileSlice";
 interface AccessTokenType {
   id: number;
   visitorId: string;
-  email: string;
+  username: string;
   nickname: string;
 }
 
 const Profile: FC = () => {
-  const [profile, setProfile] = useState<any>({});
   const dispatch = useAppDispatch();
-  const authorInfo = useAppSelector((state) => state.authorInfo);
   const navigate = useNavigate();
+  const [profile, setProfile] = useState<any>({});
+  const authorInfo = useAppSelector(state => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
-  const email = AT.nickname;
-  const nickname = AT.nickname;
-
-  useEffect(() => {
-    if (AT) {
-      dispatch(
-        setAuthorInfo({
-          isAuthor: id! === visitorId,
-          visitorId: visitorId,
-          ownerId: id,
-          email: email,
-          nickname: nickname,
-        })
-      );
-    } else {
-      // dispatch(
-      //   setAuthorInfo({
-      //     isAuthor: false,
-      //     visitorId: "",
-      //     ownerId: id,
-      //     email: "",
-      //     nickname: "",
-      //   })
-      // );
-    }
-  }, []);
 
   // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
@@ -69,9 +43,18 @@ const Profile: FC = () => {
         console.log("profile", profile);
         setProfile(profile);
         // dispatch(setProfile(res.data));
+        dispatch(
+          setAuthorInfo({
+            isAuthor: id! === visitorId,
+            visitorId: visitorId,
+            ownerId: id,
+            email: profile.email,
+            nickname: profile.nickname,
+            imgUrl: profile.imageUrl,
+          }),
+        );
       } catch (err) {
         console.info("Error fetching profile data", err);
-        // console.log(err.response);
       }
     };
     fetchProfile();
