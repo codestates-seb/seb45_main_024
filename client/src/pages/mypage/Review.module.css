@@ -25,6 +25,12 @@
   font-weight: bold;
   margin-top: 1rem;
 }
+
+.reviewCardContainer{
+  display: flex;
+  gap: 24px;
+}
+
 .addReviewContainer {
   display: flex;
   flex-direction: column;

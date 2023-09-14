@@ -8,16 +8,8 @@ import authInstance from "../../utility/authInstance";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
-const dummyReview = {
-  title: "프로젝트 제목 길어지면 어떻게 되는지 테스트입니다",
-  project_url: "https://www.google.com",
-  intro: "팀원 역할 소개 길어지면 어떻게 되는지 테스트입니다.",
-  content:
-    "팀원에 대한 리뷰입니다. 팀원에 대한 리뷰입니다. 얘도 길어지면 어떻게 되는지 테스트입니다.",
-};
-
 const Review: FC = () => {
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   // authorInfo 동작 안하면 id 사용하기
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
@@ -63,14 +55,15 @@ const Review: FC = () => {
             <h2 className={classes.subtitle}>
               {authorInfo.nickname} 님은 이런 동료입니다!
             </h2>
-            {reviewData.length === 0 ? (
-              <NoContent />
-            ) : (
-              reviewData.map((review, index) => {
-                return <ReviewCard review={review} key={index} />;
-              })
-            )}
-            {/* <ReviewCard review={dummyReview} /> */}
+            <section className={classes.reviewCardContainer}>
+              {reviewData.length === 0 ? (
+                <NoContent />
+              ) : (
+                reviewData.map((review, index) => {
+                  return <ReviewCard review={review} key={index} />;
+                })
+              )}
+            </section>
           </div>
           <div className={classes.addReviewContainer}>
             <h2 className={classes.subtitle}>

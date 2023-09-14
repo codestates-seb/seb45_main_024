@@ -23,6 +23,7 @@
 /* DateFormat span */
 .createdAt span {
   font-size: 0.8rem;
+  color: white;
 } 
 
 .helpText {
@@ -66,7 +67,9 @@
 }
 
 .action {
-  padding: 0 16px 16px 16px;
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
   text-decoration: none;
   text-align: right;
 }

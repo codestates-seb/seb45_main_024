@@ -48,15 +48,15 @@ const Profile: FC = () => {
         })
       );
     } else {
-      dispatch(
-        setAuthorInfo({
-          isAuthor: false,
-          visitorId: "",
-          ownerId: id,
-          email: "",
-          nickname: "",
-        })
-      );
+      // dispatch(
+      //   setAuthorInfo({
+      //     isAuthor: false,
+      //     visitorId: "",
+      //     ownerId: id,
+      //     email: "",
+      //     nickname: "",
+      //   })
+      // );
     }
   }, []);
 
