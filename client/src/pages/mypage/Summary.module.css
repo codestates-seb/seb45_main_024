@@ -32,10 +32,21 @@
   font-weight: 600;
 }
 
-.centerContent{
+.centerContent {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.listContainer{
+  display: flex;
+  gap: 24px;
+}
+
+.cardWrapper {
+  display: flex;
+  width: 282px;
+  padding: 0;
 }
 
 .deleteButton {

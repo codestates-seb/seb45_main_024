@@ -20,12 +20,11 @@ const Summary: FC = () => {
 
         // 테스트해봐야...
         console.log(res.data);
-        console.log(res.data.teamBoards);
-        console.log(res.data.data);
-        console.log(res.data.data.teamBoards);
 
         const userList = res.data.teamBoards;
+        console.log(userList);
         const projectList = res.data.memberBoards;
+        console.log(projectList);
 
         setUserList(userList);
         setProjectList(projectList);
@@ -53,7 +52,7 @@ const Summary: FC = () => {
             <div
               className={
                 classes.listContainer +
-                (!projectList || projectList.length === 0
+                (!userList || userList.length === 0
                   ? " " + classes.centerContent
                   : "")
               }

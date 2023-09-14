@@ -33,7 +33,8 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
       window.location.href = `/mypage/${id}/review`;
     } catch (err) {
       console.error("Failed to add review", err);
-      window.alert(err.message);
+      window.alert("리뷰 등록에 실패했습니다.");
+      window.location.href = `/mypage/${id}/review`;
     }
   };
 
