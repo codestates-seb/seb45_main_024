@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserCardList } from "../thunks/fetchUserCardList";
-import { getUserCard } from "../thunks/getUserCard";
-import { addUserCard } from "../thunks/addUserCard";
-import { editUserCard } from "../thunks/editUserCard";
-import { removeUserCard } from "../thunks/removeUserCard";
-
-import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
+import {
+  fetchUserCardList,
+  getUserCard,
+  addUserCard,
+  editUserCard,
+  removeUserCard,
+} from "../thunks/userCardThunks";
 
 import { UserListDataType } from "../../../model/boardTypes";
+
+import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 interface UserState {
   data: UserListDataType[];
@@ -53,11 +55,16 @@ const usersSlice = createSlice({
     // Add
     builder.addCase(addUserCard.pending, (state, action) => {
       // throw new Error(); // 서버 안될시 TEST
+      console.log("✅ ADD TEST PENDING");
     });
     builder.addCase(addUserCard.fulfilled, (state, action) => {
       state.data.push(action.payload);
+      console.log("✅ ADD TEST FULFILLED");
     });
-    builder.addCase(addUserCard.rejected, (state, action) => {});
+    builder.addCase(addUserCard.rejected, (state, action) => {
+      console.log("action.payload", action.payload);
+      console.log("✅ ADD TEST REJECTED");
+    });
 
     // Edit
     builder.addCase(editUserCard.pending, (state, action) => {

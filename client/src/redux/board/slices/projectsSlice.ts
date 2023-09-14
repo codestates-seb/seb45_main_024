@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { fetchProjectList } from "../thunks/fetchProjectList";
-import { getProject } from "../thunks/getProject";
-import { addProject } from "../thunks/addProject";
-import { editProject } from "../thunks/editProject";
-import { removeProject } from "../thunks/removeProject";
+import {
+  fetchProjectList,
+  getProject,
+  addProject,
+  editProject,
+  removeProject,
+} from "../thunks/projectsThunks";
 
 import { ProjectListDataType } from "../../../model/boardTypes";
 
@@ -12,12 +13,12 @@ import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 interface ProjectState {
   data: ProjectListDataType[];
-  currentData: ProjectListDataType[];
+  currentData: ProjectListDataType | null;
 }
 
 const initialState: ProjectState = {
   data: [],
-  currentData: [],
+  currentData: null,
 };
 
 const projectsSlice = createSlice({
