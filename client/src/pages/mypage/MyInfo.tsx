@@ -13,7 +13,7 @@ import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 const MyInfo: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
 
@@ -32,7 +32,7 @@ const MyInfo: FC = () => {
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
     );
 
     if (confirmation) {
