@@ -42,6 +42,7 @@
           height: 45px;
           border: 1px solid blue;
           border-radius: 50%;
+          cursor: pointer;
         }
 
         & .usernameAndDate {
@@ -69,8 +70,18 @@
         align-items: flex-end;
         margin-top: 0.75rem;
 
+        & > textarea {
+          width: 100%;
+        }
+
         & .content {
           
+        }
+
+        & .acceptArea {
+         & > div {
+
+         }
         }
       }
     }

@@ -18,6 +18,7 @@ const UserList = () => {
 
   const dispatch = useAppDispatch();
   const userCardData = useAppSelector(state => state.users.data);
+  console.log("✅ USER LIST", userCardData);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);

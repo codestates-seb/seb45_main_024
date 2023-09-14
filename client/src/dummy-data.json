@@ -72,12 +72,93 @@
         "accountId": 8,
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 9,
+        "title": "9번 게시글, 팀 찾습니다 9",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 10,
+        "title": "10번 게시글, 팀 찾습니다 10",
+        "position": "프론트엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 11,
+        "title": "11번 게시글, 팀 찾습니다 11",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 12,
+        "title": "12번 게시글, 팀 찾습니다 12",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 13,
+        "title": "13번 게시글, 팀 찾습니다 13",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 14,
+        "title": "14번 게시글, 팀 찾습니다 14",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 8,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 15,
+        "title": "15번 게시글, 팀 찾습니다 15",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 9,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 16,
+        "title": "16번 게시글, 팀 찾습니다 16",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 9,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
+      },
+      {
+        "teamBoardId": 17,
+        "title": "17번 게시글, 팀 찾습니다 17",
+        "position": "백엔드",
+        "keywords": ["교육", "미디어"],
+        "accountId": 1,
+        "createdAt": "2023-09-06T22:42:19",
+        "modifiedAt": "2023-09-06T22:42:19"
       }
     ],
     "pageInfo": {
       "page": 1,
       "size": 8,
-      "totalElements": 8,
+      "totalElements": 17,
       "totalPages": 1
     }
   },
@@ -90,6 +171,45 @@
         "status": "팀원 구하는중",
         "views": 0,
         "position": "백엔드 3명",
+        "writerNickName": "nana",
+        "replyList": [
+          {
+            "writerId": 1,
+            "writerNickName": "유저AAA",
+            "replyId": 1,
+            "content": "일반댓글: 댓글입니다!!!!",
+            "acceptType": "NONE",
+            "createAt": "2023-09-11T10:19:42",
+            "apply": false
+          },
+          {
+            "writerId": 2,
+            "writerNickName": "유저BBB",
+            "replyId": 2,
+            "content": "지원댓글: 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
+            "acceptType": "NONE",
+            "createAt": "2023-09-12T13:09:24",
+            "apply": true
+          },
+          {
+            "writerId": 3,
+            "writerNickName": "유저CCC",
+            "replyId": 3,
+            "content": "지원댓글<수락>: 지원하고 수락된 유저의 댓글내용",
+            "acceptType": "ACCEPT",
+            "createAt": "2023-09-13T13:09:32",
+            "apply": true
+          },
+          {
+            "writerId": 4,
+            "writerNickName": "유저DDD",
+            "replyId": 4,
+            "content": "지원댓글<거절>: 지원하고 거절 유저의 댓글내용",
+            "acceptType": "REFUSE",
+            "createAt": "2023-09-14T13:09:32",
+            "apply": true
+          }
+        ],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:51:04",
@@ -178,12 +298,24 @@
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
         "modifiedAt": "2023-09-11T01:20:02"
+      },
+      {
+        "memberBoardId": 9,
+        "title": "9번 게시글 입니다. 프로젝트 팀원 찾기 입니다.",
+        "content": "내용",
+        "status": "팀원 구하는중",
+        "views": 10,
+        "position": "백엔드 1명, 프론트엔드 2명",
+        "startDate": "2023-09-01T11:22:33",
+        "endDate": "2023-09-30T11:22:33",
+        "createdAt": "2023-09-11T01:20:02",
+        "modifiedAt": "2023-09-11T01:20:02"
       }
     ],
     "pageInfo": {
       "page": 1,
       "size": 10,
-      "totalElements": 8,
+      "totalElements": 9,
       "totalPages": 1
     }
   }
