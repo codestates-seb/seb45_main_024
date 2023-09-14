@@ -176,28 +176,36 @@
           {
             "writerId": 1,
             "writerNickName": "유저AAA",
+            "replyId": 1,
             "content": "일반댓글: 댓글입니다!!!!",
+            "acceptType": "NONE",
             "createAt": "2023-09-11T10:19:42",
             "apply": false
           },
           {
             "writerId": 2,
             "writerNickName": "유저BBB",
+            "replyId": 2,
             "content": "지원댓글: 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
+            "acceptType": "NONE",
             "createAt": "2023-09-12T13:09:24",
             "apply": true
           },
           {
             "writerId": 3,
             "writerNickName": "유저CCC",
+            "replyId": 3,
             "content": "지원댓글<수락>: 지원하고 수락된 유저의 댓글내용",
+            "acceptType": "ACCEPT",
             "createAt": "2023-09-13T13:09:32",
             "apply": true
           },
           {
             "writerId": 4,
             "writerNickName": "유저DDD",
+            "replyId": 4,
             "content": "지원댓글<거절>: 지원하고 거절 유저의 댓글내용",
+            "acceptType": "REFUSE",
             "createAt": "2023-09-14T13:09:32",
             "apply": true
           }

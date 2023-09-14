@@ -1,19 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authInstance from "../../../utility/authInstance";
+import { ReplyDataType } from "../../../model/boardTypes";
 
-interface reqCommentsType {
+interface reqPostCommentsType {
   content: string;
   isApply: boolean;
   memberBoardId: string;
 }
 
+interface reqEditCommentsType {
+  content: string;
+  acceptType: number;
+}
+
 interface editCommentParamsType {
-  targetId: string;
-  data: reqCommentsType;
+  targetId: number;
+  data: reqEditCommentsType;
 }
 
 /** GET 모든 댓글 조회 */
-// ❓ 해당 게시글의 댓글인지, 모든 게시글의 댓글인지 확인 필요
 const getComments = createAsyncThunk("comment/get", async () => {
   const response = await authInstance.get("replys");
 
@@ -23,7 +28,7 @@ const getComments = createAsyncThunk("comment/get", async () => {
 /** POST 댓글 작성 */
 const addComment = createAsyncThunk(
   "comment/add",
-  async (data: reqCommentsType) => {
+  async (data: reqPostCommentsType) => {
     const response = await authInstance.post("replys", data);
 
     return response.data;
@@ -43,11 +48,10 @@ const editComment = createAsyncThunk(
 /** DELETE 댓글 삭제 */
 const removeComment = createAsyncThunk(
   "comment/remove",
-  async targetComment => {
-    // await authInstance.delete(`replys/${targetComment.replyId}`);
-    // ? 확인해보기
+  async (targetId: number) => {
+    await authInstance.delete(`replys/${targetId}`);
 
-    return targetComment;
+    return targetId;
   },
 );
 

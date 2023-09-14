@@ -5,15 +5,12 @@ import { UserListDataType } from "../../../model/boardTypes";
 
 import classes from "./CardStyle.module.css";
 
-// type CardDataType = UserListDataType;
-
 interface cardViewBackProps {
   cardData: UserListDataType;
 }
 
 const CardViewBack = ({ cardData }: cardViewBackProps) => {
   const { teamBoardId, keywords } = cardData;
-
   const navigate = useNavigate();
 
   return (
@@ -31,7 +28,7 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
       <div className={classes.centerArea}>
         <div
           className={classes.userImage}
-          onClick={() => navigate("/mypage/:accountId")}
+          onClick={() => navigate(`/mypage/:accountId`)}
         >
           <img src={DefaultProfileImg} alt="" />
         </div>

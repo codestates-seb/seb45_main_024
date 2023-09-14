@@ -16,9 +16,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
-  /* gap px은 임시 */
-  grid-row-gap: 24px;
-  grid-column-gap: 24px;
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 1.5rem;
   width: 100%;
   height: 100%;
 }
@@ -27,8 +26,7 @@
 
 }
 
-
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .cardListArea {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -40,8 +38,8 @@
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 450px) {
   .cardListArea {
     grid-template-columns: repeat(1, 1fr);
   }
-}
+} 

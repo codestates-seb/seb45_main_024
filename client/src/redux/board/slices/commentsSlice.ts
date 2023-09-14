@@ -35,10 +35,10 @@ const commentsSlice = createSlice({
     });
     builder.addCase(addComment.fulfilled, (state, action) => {
       state.data.push(action.payload);
-      console.log("✅ ADD TEST FULFILLED");
+      console.log("✅ ADD COMMENT FULFILLED");
     });
     builder.addCase(addComment.rejected, (state, action) => {
-      console.log("✅ ADD TEST REJECTED");
+      console.log("✅ ADD COMMENT REJECTED");
     });
 
     // EDIT
@@ -46,17 +46,16 @@ const commentsSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editComment.fulfilled, (state, action) => {
-      console.log("✅ EDIT USER FULFILLED");
+      console.log("✅ EDIT COMMENT FULFILLED");
     });
     builder.addCase(editComment.rejected, (state, action) => {
-      console.log("✅ EDIT USER REJECTED");
+      console.log("✅ EDIT COMMENT REJECTED");
     });
 
     // REMOVE
-    builder.addCase(removeComment.fulfilled, (state, actino) => {
-      // state.data = state.data.filter(usercard => {
-      //   return usercard.teamBoardId !== actino.payload.teamBoardId;
-      // });
+    builder.addCase(removeComment.fulfilled, (state, action) => {
+      // console.log(state.data);
+      // console.log(action.payload);
     });
   },
 });

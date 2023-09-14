@@ -17,8 +17,8 @@ export interface ProjectListDataType {
   status: string;
   views: number;
   position: string;
-  writerNickName?: string;
-  replyList?: ReplyDataType[];
+  writerNickName: string;
+  replyList: ReplyDataType[];
   startDate: string;
   endDate: string;
   createdAt: string;
@@ -28,7 +28,9 @@ export interface ProjectListDataType {
 export interface ReplyDataType {
   writerId: number;
   writerNickName: string;
+  replyId: number;
   content: string;
+  acceptType: "NONE" | "ACCEPT" | "REFUSE";
   createAt: string;
   apply: boolean;
 }

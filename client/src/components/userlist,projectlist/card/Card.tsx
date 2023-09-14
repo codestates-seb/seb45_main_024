@@ -42,7 +42,7 @@ const Card = ({ type, cardData, isEdit }: CardProps) => {
           // navigate("/?");
         });
       // .catch(error => {
-      //   console.warn("POST USERCARD ERROR", error);
+      //   console.warn("REMOVE USERCARD ERROR", error);
       //   setError("Something went wrong");
       // })
       // .finally(() => setIsLoading(false));
@@ -67,7 +67,7 @@ const Card = ({ type, cardData, isEdit }: CardProps) => {
           // navigate("/?");
         });
       // .catch(error => {
-      //   console.warn("POST USERCARD ERROR", error);
+      //   console.warn("REMOVE PROJECT ERROR", error);
       //   setError("Something went wrong");
       // })
       // .finally(() => setIsLoading(false));
