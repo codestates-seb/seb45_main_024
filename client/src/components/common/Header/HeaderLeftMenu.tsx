@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./HeaderLeftMenu.module.css";
-import Logo from "../Logo";
+import CircleLogo from "../Logo/circleLogo";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const HeaderLeft: FC = () => {
@@ -20,7 +20,7 @@ const HeaderLeft: FC = () => {
 
   return (
     <div className={classes.left}>
-      <Logo />
+      <CircleLogo />
       <ul>
         <li className={isUserListActive ? classes.selectLi : ""}>
           <p
