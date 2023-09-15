@@ -60,6 +60,11 @@ public class TeamBoardService {
 
     }
 
+    // 게시글 검색
+    public Page<TeamBoard> searchTeamBoards(String title, String position, int page) {
+        return teamBoardRepository.findByTitleContainingAndPositionContaining(title, position, PageRequest.of(page, 10, Sort.by("createdAt").descending()));
+    }
+
     // 게시글 삭제
     public void deleteTeamBoard(long teamBoardId) {
         TeamBoard findTeamBoard = findVerifiedTeamBoard(teamBoardId);
