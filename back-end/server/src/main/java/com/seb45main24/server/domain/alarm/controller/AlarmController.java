@@ -50,13 +50,21 @@ public class AlarmController {
     }
 
     @PatchMapping
-    public ResponseEntity checkAlarm(@LoginAccountId Long loginAccountId) {
+    public ResponseEntity checkAllAlarm(@LoginAccountId Long loginAccountId) {
         List<Alarm> alarmList = service.findAlarmByIsChecked(loginAccountId);
 
         alarmList.stream().forEach(alarm -> {
             Alarm updateAlarm = mapper.patchAlramCheck(alarm.getAlarmId());
             service.updateAlarm(updateAlarm);
         });
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{alarm-id}")
+    public ResponseEntity checkAlarm(@PathVariable("alarm-id") @Positive long alarmId) {
+        Alarm alarm = mapper.patchAlramCheck(alarmId);
+        service.updateAlarm(alarm);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
