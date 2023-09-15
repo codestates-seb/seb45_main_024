@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.member_board.dto;
 
+import com.seb45main24.server.domain.member_board.entity.MemberBoard;
 import com.seb45main24.server.domain.reply.dto.ReplyResponseDTO;
 import com.seb45main24.server.domain.reply.entity.Reply;
 import com.seb45main24.server.global.auditing.Auditable;
@@ -16,7 +17,7 @@ public class MemberBoardResponseDTO {
     private Long memberBoardId;
     private String title;
     private String content;
-    private String status;
+    private MemberBoard.Status status;
     private Integer views;
     private String position;
     private Long writerId;
