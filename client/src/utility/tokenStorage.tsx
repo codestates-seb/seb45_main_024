@@ -16,9 +16,9 @@ export const getTokensFromLocalStorage = () => {
   if (token) {
     const tokenString = JSON.parse(token);
     // console.log(JSON.parse(token));
-    console.log(tokenString);
+    // console.log(tokenString);
     const decodedToken = jwt_decode(tokenString);
-    console.log(decodedToken);
+    // console.log(decodedToken);
     return decodedToken;
   }
   return null;

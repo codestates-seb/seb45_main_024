@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import classes from "./Sidemenu.module.css";
 import { useAppSelector } from "../../redux/hooks";
-import logo_green_face from "../../assets/images/logo_green_face.png";
+import default_profile from "../../assets/images/default_profile.svg";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface SideMenuProps {
@@ -12,7 +12,7 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
   const [selectedMenu, setSelectedMenu] = useState<string>("profile");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   useEffect(() => {
     setSelectedMenu(menu);
   }, [menu]);
@@ -40,14 +40,16 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
       {/* 임의로 프로필 박스 */}
       <div className={classes.profileBox}>
         <div className={classes.profileImg}>
-          <img
+          {/* 아직 이미지 추가 제대로 안 됨 */}
+          {/* <img
             src={
               authorInfo.imgUrl && authorInfo.imgUrl !== ""
                 ? authorInfo.imgUrl
-                : logo_green_face
+                : default_profile
             }
             alt="img"
-          />
+          /> */}
+          <img src={default_profile} alt="img" />
         </div>
         <div className={classes.profileInfo}>
           <p>닉네임 {authorInfo.nickname}</p>

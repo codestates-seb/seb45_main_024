@@ -15,7 +15,7 @@ import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
-// import { setProfile } from "../../redux/mypage/profileSlice";
+import { setProfileData } from "../../redux/mypage/profileSlice";
 
 interface AccessTokenType {
   id: number;
@@ -40,10 +40,10 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log("tecjTags", profile.techTags);
+        // console.log("techTags", profile.techTags);
         console.log("profile", profile);
         setProfile(profile);
-        // dispatch(setProfile(res.data));
+        dispatch(setProfileData(res.data));
         dispatch(
           setAuthorInfo({
             isAuthor: id! === visitorId,

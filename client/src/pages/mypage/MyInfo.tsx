@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { useAppSelector } from "../../redux/hooks";
 import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
+import default_profile from "../../assets/images/default_profile.svg";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
@@ -99,7 +100,8 @@ const MyInfo: FC = () => {
                 <div className={classes.profileImgContainer}>
                   <img
                     className={classes.profileimage}
-                    src={authorInfo.imgUrl}
+                    // src={authorInfo.imgUrl} -> 아직 제대로 안 들어감
+                    src={default_profile}
                     alt="sampleProfile"
                   />
                 </div>

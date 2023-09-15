@@ -10,7 +10,7 @@ import SoftInput from "./SoftInput";
 import SoftTag from "./SoftTag";
 import HardInput from "./HardInput";
 // import DropDownTag from "./DropDownTag";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
 import { ProfileState } from "../../redux/mypage/profileSlice";
 
@@ -32,9 +32,19 @@ interface Props {
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
+const HtmlStringToText = ({ htmlString, onTextExtracted }) => {
+  useEffect(() => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    onTextExtracted(doc.body.textContent || "");
+  }, [htmlString, onTextExtracted]);
+
+  return null;
+};
+
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
-  const { profileData, status } = useAppSelector(
+  const { profileData } = useAppSelector(
     (state: { profile: ProfileState }) => state.profile
   );
   const [editorValue, setEditorValue] = useState<string>("");
@@ -60,14 +70,36 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   // 초기값 설정
   useEffect(() => {
     if (profileData) {
-      setSoftTags(profileData.softSkills);
-      setHardTags(profileData.hardSkills);
-      const projectTags = profileData.projectDetails.map((proj, index) => ({
-        projectName: proj.projectTitle,
-        projectLink: proj.projectUrl,
-        projectImage: proj.imageUrl,
-      }));
-      setProjTags(projectTags);
+      if (profileData.coverLetter) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(
+          profileData.coverLetter,
+          "text/html",
+        );
+        setEditorValue(doc.body.textContent || "");
+      }
+      setSoftTags((prevSoftTags) =>
+        profileData.softSkills
+          ? [...new Set([...prevSoftTags, ...profileData.softSkills])]
+          : prevSoftTags
+      );
+      setHardTags((prevHardTags) =>
+        profileData.hardSkills
+          ? [...new Set([...prevHardTags, ...profileData.hardSkills])]
+          : prevHardTags
+      );
+      setProjTags((prevProjectTags) =>
+        profileData.projectDetails
+          ? [
+              ...new Set([
+                ...prevProjectTags,
+                ...profileData.projectDetails.map(
+                  (project: any) => project.projectTitle
+                ),
+              ]),
+            ]
+          : prevProjectTags
+      );
     }
   }, [profileData]);
 
@@ -155,8 +187,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.BIO} />
         <QuillEditor
           onChange={editorChangeHandler}
-          // 초기값 설정
-          // initialValue={profileData.coverLetter || ""}
+          initialValue={editorValue}
         />
       </section>
       <section className={classes.formItem}>
