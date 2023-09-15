@@ -21,7 +21,7 @@ interface ProfileFormData {
   coverLetter?: string;
   softSkills?: string[];
   hardSkills?: string[];
-  // selectedTechs?: number[];
+  techTags?: number[];
   projectDetails?: {
     projectTitle?: string;
     projectUrl?: string;
@@ -55,7 +55,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
 
   const [softTags, setSoftTags] = useState<string[]>([]);
   const [hardTags, setHardTags] = useState<string[]>([]);
-  const [techTags, setTechTags] = useState<TechTagType[]>([]);
+  const [techInfo, setTechInfo] = useState<TechTagType[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
   const [projSet, setProjSet] = useState<object[]>([]);
   const [selectedTechs, setSelectedTechs] = useState<number[]>([]);
@@ -147,17 +147,27 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     return () => window.removeEventListener("keyup", handleHardEnterPress);
   }, []);
 
+  const handleTagClick = (id: number, isActive: boolean) => {
+    setSelectedTechs((prevSelectedTechs) => {
+      if (isActive) {
+        return [...prevSelectedTechs, id];
+      } else {
+        return prevSelectedTechs.filter((techId) => techId !== id);
+      }
+    });
+  };
+
   // 리퀘스트 바디에 넣을 데이터
   useEffect(() => {
     setProfileFormData({
       accountId: Number(id),
       coverLetter: editorValue,
-      // techTags:
+      techTags: selectedTechs,
       softSkills: softTags,
       hardSkills: hardTags,
       projectDetails: projSet,
     });
-  }, [editorValue, techTags, softTags, hardTags, projSet]);
+  }, [editorValue, selectedTechs, softTags, hardTags, projSet]);
 
   return (
     <form className={classes.createForm}>
@@ -176,7 +186,14 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        <TechTags techTags={techTags} setTechTags={setTechTags} />
+        <TechTags
+          techInfo={techInfo}
+          setTechInfo={setTechInfo}
+          onTagClick={handleTagClick}
+        />
+        {/* <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} />
+        <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} />
+        <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} /> */}
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />

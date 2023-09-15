@@ -9,8 +9,8 @@ const EditProfile: FC = () => {
   const { id } = useParams<{ id: string }>();
   const [profileFormData, setProfileFormData] = useState<any>({
     accountId: parseInt(id!),
-    // coverLetter: "",
-    // 이 부분은 리퀘에 없어서 일단 만들어두고 나중에 수정해야 함
+    coverLetter: "",
+    techTags: [],
     softSkills: [],
     hardSkills: [],
     projectDetails: [],
