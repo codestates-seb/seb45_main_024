@@ -14,6 +14,13 @@ export interface TechTagType {
   tagType: string;
 }
 
+const tagTypeDisplayNames = {
+  BACK_END: "| 백엔드",
+  FRONT_END: "| 프론트엔드",
+  MOBILE: "| 모바일",
+  ETC: "| 기타",
+};
+
 const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
   // Tech tag 가져오기 /tags/tech :Get
   useEffect(() => {
@@ -36,7 +43,7 @@ const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
         ))} */}
         {["BACK_END", "FRONT_END", "MOBILE", "ETC"].map(type => (
           <div className={classes.tagTypeContainer} key={type}>
-            <h3 className={classes.tagType}>{type}</h3>
+            <h3 className={classes.tagType}>{tagTypeDisplayNames[type]}</h3>
             <div className={classes.tags}>
               {techTags
                 .filter(tag => tag.tagType === type)
