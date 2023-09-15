@@ -187,12 +187,17 @@ public class TagsService {
 		List<TechTagDto> techTags = accountProfile.getTechTags().stream()
 			.map(profileTechTag -> {
 				TechTag techTag = profileTechTag.getTechTag();
-				return new TechTagDto(techTag.getId());
+				return new TechTagDto(techTag.getId(), techTag.getTechName(), techTag.getTagType());
 			})
 			.collect(Collectors.toList());
 
 		return techTags;
 
+	}
+
+	public List<TechTag> findAllTechTag() {
+		List<TechTag> techTagList = techTagRepository.findAll();
+		return techTagList;
 	}
 
 }
