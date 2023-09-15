@@ -1,12 +1,15 @@
 package com.seb45main24.server.domain.accountprofile.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.seb45main24.server.domain.member_board.entity.MemberBoardTechTag;
+import com.seb45main24.server.domain.member_board.service.MemberBoardTechTagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +51,7 @@ public class AccountProfileController {
 	private final TeamBoardMapper teamBoardMapper;
 	private final MemberBoardService memberBoardService;
 	private final MemberBoardMapper memberBoardMapper;
+	private final MemberBoardTechTagService memberBoardTechTagService;
 
 	@PatchMapping("/profile/{account-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
@@ -78,7 +82,12 @@ public class AccountProfileController {
 
 		// 팀원찾기 조회 : 파라미터 아이디 이용해서 (member-board : accountId == writerId)
 		List<MemberBoard> memberBoards = memberBoardService.getMemberBoards(accountId);
-		List<MemberBoardResponseDTO> memberBoardResponseDto = memberBoardMapper.memberBoardListToMemberBoardResponseDtoList(memberBoards);
+		List<List<MemberBoardTechTag>> doubleTechTagList = new ArrayList<>();
+		memberBoards.stream().forEach(memberBoard ->
+				doubleTechTagList.add(memberBoardTechTagService.getTechTagByMemberBoardId(memberBoard.getMemberBoardId()))
+		);
+		List<MemberBoardResponseDTO> memberBoardResponseDto =
+				memberBoardMapper.memberBoardListToMemberBoardResponseDtoList(memberBoards, doubleTechTagList);
 
 		responseMap.put("teamBoards", teamBoardResponseDto);
 		responseMap.put("memberBoards", memberBoardResponseDto);

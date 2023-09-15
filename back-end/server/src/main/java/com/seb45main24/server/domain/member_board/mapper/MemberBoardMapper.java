@@ -6,17 +6,17 @@ import com.seb45main24.server.domain.member_board.dto.MemberBoardPostDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardReplyDTO;
 import com.seb45main24.server.domain.member_board.dto.MemberBoardResponseDTO;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
+import com.seb45main24.server.domain.member_board.entity.MemberBoardTechTag;
 import com.seb45main24.server.domain.reply.entity.Reply;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MemberBoardMapper {
-    List<MemberBoardResponseDTO> memberBoardListToMemberBoardResponseDtoList(List<MemberBoard> memberBoardList);
-
     default MemberBoard memberBoardPostDtoToMember(MemberBoardPostDTO memberBoardPostDTO) {
         MemberBoard memberBoard = new MemberBoard();
         Account writer = new Account();
@@ -54,7 +54,8 @@ public interface MemberBoardMapper {
         return memberBoard;
     }
 
-    default MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard) {
+    default MemberBoardResponseDTO memberBoardToMemberBoardResponseDto(MemberBoard memberBoard,
+                                                                       List<MemberBoardTechTag> techTagList) {
         if ( memberBoard == null ) {
             return null;
         }
@@ -77,6 +78,16 @@ public interface MemberBoardMapper {
                     return memberBoardReplyDTO;
                 }).collect(Collectors.toList());
 
+        List<String> tagNameList = techTagList.stream().map(
+                techTag -> {
+                    String name = techTag.getTechTag().getTechName();
+                    System.out.println(techTag.getMemberBoard().getMemberBoardId());
+                    System.out.println(name + "태그이름");
+
+                    return name;
+                }
+        ).collect(Collectors.toList());
+
         if ( memberBoard.getMemberBoardId() != null ) {
             memberBoardResponseDTO.memberBoardId( memberBoard.getMemberBoardId() );
         }
@@ -88,11 +99,28 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.writerId( memberBoard.getWriter().getId() );
         memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
         memberBoardResponseDTO.replyList( memberBoardReplyDTOList );
+        memberBoardResponseDTO.techTagList( tagNameList );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );
         memberBoardResponseDTO.endDate( memberBoard.getEndDate() );
         memberBoardResponseDTO.createdAt( memberBoard.getCreatedAt() );
         memberBoardResponseDTO.modifiedAt( memberBoard.getModifiedAt() );
 
         return memberBoardResponseDTO.build();
+    }
+
+    default List<MemberBoardResponseDTO> memberBoardListToMemberBoardResponseDtoList(List<MemberBoard> memberBoardList,
+                                                                                     List<List<MemberBoardTechTag>> doubleTechTagList) {
+        if ( memberBoardList == null ) {
+            return null;
+        }
+
+        List<MemberBoardResponseDTO> list = new ArrayList<MemberBoardResponseDTO>( memberBoardList.size() );
+        for(int i =0; i < memberBoardList.size(); i++) {
+            MemberBoard memberBoard = memberBoardList.get(i);
+            List<MemberBoardTechTag> techTagList = doubleTechTagList.get(i);
+            list.add( memberBoardToMemberBoardResponseDto( memberBoard, techTagList ) );
+        }
+
+        return list;
     }
 }

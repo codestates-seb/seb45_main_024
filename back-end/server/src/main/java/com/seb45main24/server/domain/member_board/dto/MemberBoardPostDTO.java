@@ -1,10 +1,12 @@
 package com.seb45main24.server.domain.member_board.dto;
 
+import com.seb45main24.server.domain.member_board.entity.MemberBoard;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class MemberBoardPostDTO {
@@ -13,12 +15,13 @@ public class MemberBoardPostDTO {
 
     @NotBlank
     private String content;
-
-    @NotBlank
-    private String status;
+    
+    private MemberBoard.Status status;
 
     @NotBlank
     private String position;
+
+    private List<Long> techTagIdList;
 
     private LocalDateTime startDate;
 
