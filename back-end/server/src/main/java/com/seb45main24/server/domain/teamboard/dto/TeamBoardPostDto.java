@@ -1,6 +1,5 @@
 package com.seb45main24.server.domain.teamboard.dto;
 
-import com.seb45main24.server.domain.account.entity.Account;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
@@ -20,6 +19,8 @@ public class TeamBoardPostDto {
 
     @Nullable
     private List<String> keywords;
+
+    private List<Long> techTagIdList;
 
     @Positive
     private Long accountId;
