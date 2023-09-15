@@ -11,7 +11,6 @@ const QuillEditor: FC<QuillEditorProps> = ({ onChange, initialValue }) => {
   const [value, setValue] = useState(initialValue || "");
 
   const changeHandler = (value: string) => {
-    // console.log(value);
     setValue(value);
     onChange(value);
   };

@@ -13,6 +13,7 @@ import HardInput from "./HardInput";
 import { useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
 import { ProfileState } from "../../redux/mypage/profileSlice";
+import authInstance from "../../utility/authInstance";
 
 interface ProfileFormData {
   accountId: number;
@@ -32,16 +33,6 @@ interface Props {
 
 const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭제됩니다.";
 
-const HtmlStringToText = ({ htmlString, onTextExtracted }) => {
-  useEffect(() => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, "text/html");
-    onTextExtracted(doc.body.textContent || "");
-  }, [htmlString, onTextExtracted]);
-
-  return null;
-};
-
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData } = useAppSelector(
@@ -59,11 +50,10 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   // 이하 코드 리팩토링 필수!
   const [softInput, setSoftInput] = useState("");
   const [hardInput, setHardInput] = useState("");
-  const [techInput, setTechInput] = useState("");
 
   const [softTags, setSoftTags] = useState<string[]>([]);
   const [hardTags, setHardTags] = useState<string[]>([]);
-  const [techTags, setTechTags] = useState<string[]>([]);
+  const [techTags, setTechTags] = useState<object[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
   const [projSet, setProjSet] = useState<object[]>([]);
 
@@ -74,7 +64,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(
           profileData.coverLetter,
-          "text/html",
+          "text/html"
         );
         setEditorValue(doc.body.textContent || "");
       }
@@ -103,40 +93,33 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     }
   }, [profileData]);
 
+  // 태그에서 마지막 한글자씩 추가되는 문제 해결
   const softInputRef = useRef(softInput);
   const hardInputRef = useRef(hardInput);
-  const techInputRef = useRef(techInput);
   softInputRef.current = softInput;
   hardInputRef.current = hardInput;
-  techInputRef.current = techInput;
 
   const softTagsRef = useRef(softTags);
   const hardTagsRef = useRef(hardTags);
-  const techTagsRef = useRef(techTags);
+
   softTagsRef.current = softTags;
   hardTagsRef.current = hardTags;
-  techTagsRef.current = techTags;
 
+  // 엔터키 누르면 태그 추가
   const handleSoftEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && softInputRef.current.length > 0) {
       setSoftTags([...softTagsRef.current, softInputRef.current]);
       setSoftInput("");
     }
   };
-
   const handleHardEnterPress = (e: KeyboardEvent) => {
     if (e.code === "Enter" && hardInputRef.current.length > 0) {
       setHardTags([...hardTagsRef.current, hardInputRef.current]);
       setHardInput("");
     }
   };
-  const handleTechEnterPress = (e: KeyboardEvent) => {
-    if (e.code === "Enter" && techInputRef.current.length > 0) {
-      setTechTags([...techTagsRef.current, techInputRef.current]);
-      setTechInput("");
-    }
-  };
 
+  // 태그 삭제
   const softTagDeleteHandler = (id: number) => {
     const updatedTags = softTags.filter((_, index) => index !== id);
     setSoftTags(updatedTags);
@@ -145,16 +128,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     const updatedTags = hardTags.filter((_, index) => index !== id);
     setHardTags(updatedTags);
   };
-  const techTagDeleteHandler = (id: number) => {
-    const updatedTags = techTags.filter((_, index) => index !== id);
-    setTechTags(updatedTags);
-  };
-
   const projTagDeleteHandler = (id: number) => {
     const updatedTags = projTags.filter((_, index) => index !== id);
     setProjTags(updatedTags);
   };
 
+  // keyup event 감지
   useEffect(() => {
     window.addEventListener("keyup", handleSoftEnterPress);
     return () => window.removeEventListener("keyup", handleSoftEnterPress);
@@ -165,11 +144,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     return () => window.removeEventListener("keyup", handleHardEnterPress);
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("keyup", handleTechEnterPress);
-    return () => window.removeEventListener("keyup", handleTechEnterPress);
-  }, []);
-
+  // 리퀘스트 바디에 넣을 데이터
   useEffect(() => {
     setProfileFormData({
       accountId: Number(id),
@@ -179,7 +154,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       projectDetails: projSet,
     });
   }, [editorValue, softTags, hardTags, projSet]);
-  // loop 안 걸리는지 확인 필요
 
   return (
     <form className={classes.createForm}>
@@ -194,23 +168,17 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.TECH} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            자신이 사용할 수 있는 기술 종류를 선택해주세요. 만약, 여기에 없다면
-            더하기 버튼으로 클릭할 수 있습니다.
+            자신이 사용할 수 있는 기술 종류를 선택해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        <TechTags />
-        {techTags.map((techTag, index) => (
-          <SoftTag
-            key={index}
-            techName={techTag}
-            id={index}
-            onDelete={techTagDeleteHandler}
-          />
-        ))}
-        <PlusBtn>
+        <TechTags techTags={techTags} setTechTags={setTechTags} />
+        {/* {techTags.map((techTag, index) => (
+          <SoftTag key={index} techName={techTag} id={index} />
+        ))} */}
+        {/* <PlusBtn>
           <HardInput input={techInput} setInput={setTechInput} />
-        </PlusBtn>
+        </PlusBtn> */}
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />

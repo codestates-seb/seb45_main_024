@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Tag from "./Tag";
 import classes from "./TechTags.module.css";
+import authInstance from "../../utility/authInstance";
 
 const sample = [
   "React",
@@ -14,42 +15,41 @@ const sample = [
   "MySQL",
 ];
 
-// asset/icon/arrow 관련 svg에서 -> 레벨 엮지 않는다고 했음. 드롭다운 필요 없어짐.
-// export const ArrowDownSvg = () => {
-//   return (
-//     <svg
-//       width="14"
-//       height="8"
-//       viewBox="0 0 14 8"
-//       fill="none"
-//       xmlns="http://www.w3.org/2000/svg"
-//     >
-//       <path
-//         d="M1 1L7 7L13 1"
-//         stroke="var(--color-gray-3)"
-//         strokeWidth="1.5"
-//         strokeLinecap="round"
-//         strokeLinejoin="round"
-//       />
-//     </svg>
-//   );
-// };
+interface TechTagsProps {
+  techTags: TechTagType[];
+  setTechTags: React.Dispatch<React.SetStateAction<TechTagType[]>>;
+}
 
-const TechTags: FC = () => {
-  // 개수 제한: 받아오는건 다 받아오고, 10개까지만 렌더링
-  // 더보기 버튼 클릭 시 나머지 렌더링
-  // onClick: techName을 TechStack에 추가해서 위로 올리기(CreateProfile에서 post 요청)
+export interface TechTagType {
+  id: number;
+  name: string;
+  tagType: string;
+}
+
+const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
+  // Tech tag 가져오기 /tags/tech :Get
+  useEffect(() => {
+    const getTechTags = async () => {
+      try {
+        const res = await authInstance.get("/tags/tech");
+        setTechTags(res.data);
+      } catch (err) {
+        console.error("Failed to get tech tags", err);
+      }
+    };
+    getTechTags();
+  }, []);
 
   return (
     <div className={classes.techContainer}>
       <div className={classes.tagsContainer}>
-        {sample.map((techName, index) => (
-          <Tag techName={techName} id={index} />
+        {techTags.map((tag, index) => (
+          <Tag techName={tag.name} id={tag.id} key={tag.id} />
         ))}
       </div>
-      <div className={classes.viewMoreContainer}>
+      {/* <div className={classes.viewMoreContainer}>
         <span className={classes.viewMore}>더보기</span>
-      </div>
+      </div> */}
     </div>
   );
 };
