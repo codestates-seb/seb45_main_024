@@ -49,9 +49,9 @@ const Summary: FC = () => {
     let endpoint;
 
     if (type === "USER_CARD") {
-      endpoint = isUserDelete && `/teamBoards/${id}`;
+      endpoint = isUserDelete && `/teamboards/${id}`;
     } else if (type === "PROJECT_CARD") {
-      endpoint = isProjDelete && `/memberBoards/${id}`;
+      endpoint = isProjDelete && `/memberboards/${id}`;
     }
 
     if (endpoint) {
