@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./TechProfile.module.css";
-import logo_green_face from "../../assets/images/logo_green_face.png";
+import default_profile from "../../assets/images/default_profile.svg";
 
 interface TechProfileProps {
   techName: string;
@@ -13,7 +13,7 @@ const TechProfile: FC<TechProfileProps> = ({ techName }) => {
       <div className={classes.techImgContainer}>
         <img
           className={classes.techImg}
-          src={logo_green_face}
+          src={default_profile}
           alt="sample image"
         />
       </div>

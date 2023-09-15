@@ -40,7 +40,7 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        // console.log("techTags", profile.techTags);
+        console.log("techTags", profile.techTags);
         console.log("profile", profile);
         setProfile(profile);
         dispatch(setProfileData(res.data));
@@ -63,14 +63,6 @@ const Profile: FC = () => {
 
   const editProfileHandler = () => {
     navigate(`/mypage/${id}/edit`);
-  };
-
-  const dummyTech = {
-    techTags: [
-      { techName: "React", id: 1 },
-      { techName: "TypeScript", id: 2 },
-      { techName: "Node.js", id: 3 },
-    ],
   };
 
   return (
@@ -108,10 +100,10 @@ const Profile: FC = () => {
               <div className={classes.techContainer}>
                 {/* 일단 Tech tag 임의로 만들어 둠 */}
                 <div className={classes.techContentContainer}>
-                  {dummyTech.techTags.length > 0 ? (
-                    dummyTech.techTags.map((techTag, index) => (
+                  {profile.techTags ? (
+                    profile.techTags.map((techTag, index) => (
                       <TechProfile
-                        key={index}
+                        key={techTag.id}
                         techName={techTag.techName}
                         id={techTag.id}
                       />
