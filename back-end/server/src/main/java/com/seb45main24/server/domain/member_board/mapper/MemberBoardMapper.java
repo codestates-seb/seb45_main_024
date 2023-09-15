@@ -81,8 +81,6 @@ public interface MemberBoardMapper {
         List<String> tagNameList = techTagList.stream().map(
                 techTag -> {
                     String name = techTag.getTechTag().getTechName();
-                    System.out.println(techTag.getMemberBoard().getMemberBoardId());
-                    System.out.println(name + "태그이름");
 
                     return name;
                 }
