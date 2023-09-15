@@ -62,13 +62,7 @@ public class AccountProfileService {
 
 
 			if(postRequest.getTechTags() != null) {
-
-				// profileRequest 객체 내부에서 techTagIds만 추출
-				List<Long> techTagIds = postRequest.getTechTags().stream()
-					.map(TechTag::getId)
-					.collect(Collectors.toList());
-
-				tagsService.createTechTags(techTagIds, accountProfileId);
+				tagsService.createTechTags(postRequest.getTechTags(), accountProfileId);
 			}
 
 
