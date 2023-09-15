@@ -34,7 +34,7 @@ const Alarm: FC = () => {
   //     writerId: 1,
   //     title: "테스트글입니다123",
   //     memberBoardId: 1,
-  //     checked: false,
+  //     checked: true,
   //   },
   //   {
   //     alarmId: 2,
@@ -43,7 +43,7 @@ const Alarm: FC = () => {
   //     writerId: 2,
   //     title: "테스트글입니다234",
   //     memberBoardId: 2,
-  //     checked: false,
+  //     checked: true,
   //   },
   //   {
   //     alarmId: 3,
@@ -62,7 +62,7 @@ const Alarm: FC = () => {
   //     writerId: 4,
   //     title: "프모",
   //     memberBoardId: 4,
-  //     checked: false,
+  //     checked: true,
   //   },
   // ];
 
@@ -116,9 +116,9 @@ const Alarm: FC = () => {
         <img
           alt="alarm"
           src={
-            alarmData.some((item: AlarmItemProps) => item.checked)
-              ? bell
-              : alarmBell
+            alarmData.some((item: AlarmItemProps) => item.checked === false)
+              ? alarmBell
+              : bell
           }
           onClick={handleActiveAlarmMenu}
           className={isShaking ? classes.shake : ""}
