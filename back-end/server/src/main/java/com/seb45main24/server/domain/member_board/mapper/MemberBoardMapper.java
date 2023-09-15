@@ -80,9 +80,10 @@ public interface MemberBoardMapper {
 
         List<String> tagNameList = techTagList.stream().map(
                 techTag -> {
+                    String id = techTag.getTechTag().getId().toString();
                     String name = techTag.getTechTag().getTechName();
 
-                    return name;
+                    return id + ":" +name;
                 }
         ).collect(Collectors.toList());
 
