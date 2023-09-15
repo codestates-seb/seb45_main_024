@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+.left ul li:hover {
+  border-bottom: 1px solid #679c97;
+}
+
 .menu {
   color: var(--color-main);
   font-size: 1.25rem;
@@ -39,4 +43,8 @@
 
 .selectedMenu {
   font-weight: 700;
+}
+
+.selectLi {
+  border-bottom: 2px solid var(--color-main);
 }

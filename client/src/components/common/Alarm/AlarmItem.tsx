@@ -1,23 +1,44 @@
 import { FC } from "react";
 import profile from "../../../assets/images/default_profile.svg";
 import classes from "./AlarmItem.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface AlarmItemProps {
-  // 추후 프로필 이미지 추가
-  // 확장 작업시, 타입도 추가
-  id: number;
-  nickname: string;
-  title: string;
+  alarmId?: number;
+  alarmType?: string;
+  writerNickname?: string;
+  writerId?: number;
+  title?: string;
+  memberBoardId?: number;
 }
 
 const AlarmItem: FC<AlarmItemProps> = props => {
+  const navigate = useNavigate();
+
+  const handleClickToArticle = () => {
+    navigate(`/projectlist/${props.memberBoardId}`);
+  };
+
+  if (!props.writerNickname || !props.title || !props.memberBoardId) {
+    return (
+      <li className={classes.message}>
+        <img alt="default_profile" src={profile} />
+        <div>
+          <span>
+            <p>아직 아무런 알람이 없습니다!</p>
+          </span>
+        </div>
+      </li>
+    );
+  }
+
   return (
     <li className={classes.message}>
       <img alt="default_profile" src={profile} />
-      <div>
+      <div onClick={handleClickToArticle}>
         <span>
-          <p>{props.nickname}</p> 님이 '<p>{props.title}</p>' 프로젝트 팀원으로
-          수락하셨습니다
+          <p>{props.writerNickname}</p> 님이 '<p>{props.title}</p>' 프로젝트
+          팀원으로 수락하셨습니다
         </span>
       </div>
     </li>

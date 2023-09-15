@@ -1,3 +1,7 @@
+li {
+  
+}
+
 .message {
   /* position: relative; */
   display: flex;
@@ -17,6 +21,17 @@
   align-items: center;
   justify-content: flex-start;
   z-index: 2;
+  transition: transform 0.3s ease; 
+}
+
+.message div:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.message div:active {
+  cursor: grab;
+  transform: scale(1.0);
 }
 
 .message div span {
@@ -29,3 +44,4 @@
   display: inline;
   font-weight: 700;
 }
+

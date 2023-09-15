@@ -22,7 +22,7 @@ const HeaderLeft: FC = () => {
     <div className={classes.left}>
       <Logo />
       <ul>
-        <li>
+        <li className={isUserListActive ? classes.selectLi : ""}>
           <p
             onClick={handleNavigateUserList}
             className={`${classes.menu} ${
@@ -32,7 +32,7 @@ const HeaderLeft: FC = () => {
             Ingredient
           </p>
         </li>
-        <li>
+        <li className={isProjectListActive ? classes.selectLi : ""}>
           <p
             onClick={handleNavigateProjectList}
             className={`${classes.menu} ${

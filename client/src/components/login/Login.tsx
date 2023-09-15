@@ -88,6 +88,7 @@ const Login: FC = () => {
       navigate("/");
       console.log("로그인됨");
       dispatch(validationActions.resetValidation());
+      alert("정상적으로 로그인됐습니다");
       // } else {
       //   setFormData({
       //     email: "",
