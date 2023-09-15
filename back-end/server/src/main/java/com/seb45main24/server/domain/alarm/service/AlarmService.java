@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,19 @@ public class AlarmService {
 
     public Alarm findAlarm(long alarmId) {
         return findVerifiedAlarm(alarmId);
+    }
+
+    public void updateAlarm(Alarm alarm) {
+        Alarm findAlarm = findVerifiedAlarm(alarm.getAlarmId());
+
+        Optional.ofNullable(alarm.getIsChecked())
+                .ifPresent(isChecked -> findAlarm.setIsChecked(isChecked));
+
+        repository.save(findAlarm);
+    }
+
+    public List<Alarm> findAlarmByIsChecked(long loginAccountId) {
+        return repository.findByTargetIdAndIsChecked(loginAccountId, false);
     }
 
     private Alarm findVerifiedAlarm(long alarmId) {

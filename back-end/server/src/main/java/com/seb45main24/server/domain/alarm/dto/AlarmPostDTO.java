@@ -8,7 +8,10 @@ import javax.validation.constraints.Positive;
 @Getter
 public class AlarmPostDTO {
     private Alarm.AlarmType alarmType;
+
     private Long loginAccountId;
+
+    private Boolean isChecked;
 
     @Positive
     private long targetId;

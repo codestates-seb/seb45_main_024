@@ -9,6 +9,7 @@ import lombok.Getter;
 public class AlarmResponseDTO {
     private long alarmId;
     private Alarm.AlarmType alarmType;
+    private boolean isChecked;
     private String writerNickname;
     private long writerId;
     private String title;

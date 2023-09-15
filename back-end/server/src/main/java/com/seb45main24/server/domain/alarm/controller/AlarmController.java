@@ -49,6 +49,18 @@ public class AlarmController {
         return ResponseEntity.created(location).build();
     }
 
+    @PatchMapping
+    public ResponseEntity checkAlarm(@LoginAccountId Long loginAccountId) {
+        List<Alarm> alarmList = service.findAlarmByIsChecked(loginAccountId);
+
+        alarmList.stream().forEach(alarm -> {
+            Alarm updateAlarm = mapper.patchAlramCheck(alarm.getAlarmId());
+            service.updateAlarm(updateAlarm);
+        });
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity getAlarmList(@LoginAccountId Long loginAccountId) {
         List<Alarm> test = repository.findByTargetId(loginAccountId);

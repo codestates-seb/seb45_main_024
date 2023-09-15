@@ -26,6 +26,8 @@ public class Alarm extends Auditable {
     @Enumerated(EnumType.STRING)
     private AlarmType alarmType;
 
+    private Boolean isChecked;
+
     @ManyToOne
     @JoinColumn(name = "WRITER_ID")
     private Account writer;
