@@ -136,12 +136,12 @@ public class TagsService {
 		return hardSkillRepository.save(hardSkillTag);
 	}
 
-	public ProfileTechTag createProfileTechTag(AccountProfile accountProfile) {
+	public void createProfileTechTag(AccountProfile accountProfile) {
 		ProfileTechTag emptyTechTag = createTechTagDefault();
 
 		emptyTechTag.setAccountProfile(accountProfile);
 
-		return profileTechTagRepository.save(emptyTechTag);
+		profileTechTagRepository.save(emptyTechTag);
 	}
 
 	public SoftSkillTag createEmptySoftSkillTag(AccountProfile accountProfile) {
@@ -180,19 +180,16 @@ public class TagsService {
 	}
 
 	public List<TechTagDto> findTechTags(Long accountProfileId) {
-		AccountProfile accountProfile = accountProfileRepository.findById(accountProfileId)
-			.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+		List<ProfileTechTag> profileTechTags = profileTechTagRepository.findByAccountProfileId(accountProfileId);
+		List<TechTagDto> techTagDtos = new ArrayList<>();
 
-		// AccountProfile에 연결된 TechTag의 ID와 이름을 추출
-		List<TechTagDto> techTags = accountProfile.getTechTags().stream()
-			.map(profileTechTag -> {
-				TechTag techTag = profileTechTag.getTechTag();
-				return new TechTagDto(techTag.getId());
-			})
-			.collect(Collectors.toList());
+		for (ProfileTechTag profileTechTag : profileTechTags) {
+			TechTag techTag = profileTechTag.getTechTag();
+			TechTagDto techTagDto = new TechTagDto(techTag.getId(), techTag.getTechName());
+			techTagDtos.add(techTagDto);
+		}
 
-		return techTags;
-
+		return techTagDtos;
 	}
 
 }

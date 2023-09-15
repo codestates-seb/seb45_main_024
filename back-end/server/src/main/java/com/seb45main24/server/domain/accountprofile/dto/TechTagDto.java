@@ -7,7 +7,8 @@ public class TechTagDto {
 	private Long id;
 	private String techName;
 
-	public TechTagDto(Long id) {
+	public TechTagDto(Long id, String techName) {
 		this.id = id;
+		this.techName = techName;
 	}
 }

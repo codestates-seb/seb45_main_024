@@ -125,7 +125,6 @@ public class AccountProfileService {
 			.coverLetter("")
 			.hardSkillTags(new ArrayList<>())
 			.softSkillTags(new ArrayList<>())
-			.techTags(new ArrayList<>())
 			.projectDetails(new ArrayList<>())
 			.build();
 
@@ -138,8 +137,7 @@ public class AccountProfileService {
 		HardSkillTag hardSkillTag = tagsService.createEmptyHardSkillTag(accountProfile);
 		accountProfile.getHardSkillTags().add(hardSkillTag);
 
-		ProfileTechTag profileTechTag = tagsService.createProfileTechTag(accountProfile);
-		accountProfile.getTechTags().add(profileTechTag);
+		tagsService.createProfileTechTag(accountProfile);
 
 		return accountProfile;
 

@@ -38,9 +38,6 @@ public class TechTag extends Auditable {
 	@Enumerated(EnumType.STRING)
 	public TagType tagType;
 
-	@OneToMany(mappedBy = "techTag")
-	private List<ProfileTechTag> profileTechTags = new ArrayList<>();
-
 	@ManyToOne
 	@JoinColumn(name = "team_board_id")
 	private TeamBoard teamBoard;
