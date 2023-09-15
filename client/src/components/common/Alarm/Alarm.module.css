@@ -64,3 +64,19 @@
   transform: translateY(-1.25rem);
   transition: 500ms ease;
 }
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(-10px); /* 왼쪽으로 10px 이동 */
+  }
+  30%, 50%, 70% {
+    transform: translateX(10px); /* 오른쪽으로 10px 이동 */
+  }
+}
+
+.shake {
+  animation: shake 3s; /* 3초 동안 반복 */
+}
