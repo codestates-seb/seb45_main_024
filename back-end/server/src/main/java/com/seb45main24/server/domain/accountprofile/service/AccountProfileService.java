@@ -62,13 +62,7 @@ public class AccountProfileService {
 
 
 			if(postRequest.getTechTags() != null) {
-
-				// profileRequest 객체 내부에서 techTagIds만 추출
-				List<Long> techTagIds = postRequest.getTechTags().stream()
-					.map(TechTag::getId)
-					.collect(Collectors.toList());
-
-				tagsService.createTechTags(techTagIds, accountProfileId);
+				tagsService.createTechTags(postRequest.getTechTags(), accountProfileId);
 			}
 
 
@@ -131,7 +125,6 @@ public class AccountProfileService {
 			.coverLetter("")
 			.hardSkillTags(new ArrayList<>())
 			.softSkillTags(new ArrayList<>())
-			.techTags(new ArrayList<>())
 			.projectDetails(new ArrayList<>())
 			.build();
 
@@ -144,8 +137,7 @@ public class AccountProfileService {
 		HardSkillTag hardSkillTag = tagsService.createEmptyHardSkillTag(accountProfile);
 		accountProfile.getHardSkillTags().add(hardSkillTag);
 
-		ProfileTechTag profileTechTag = tagsService.createProfileTechTag(accountProfile);
-		accountProfile.getTechTags().add(profileTechTag);
+		tagsService.createProfileTechTag(accountProfile);
 
 		return accountProfile;
 

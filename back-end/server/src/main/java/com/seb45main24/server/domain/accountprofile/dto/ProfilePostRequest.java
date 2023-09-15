@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ProfilePostRequest {
 	private Long accountId;
 	private String coverLetter;
-	private List<TechTag> techTags;
+	private List<Long> techTags;
 	private List<String> softSkills;
 	private List<String> hardSkills;
 	private List<ProjectDetailRequest> projectDetails;
