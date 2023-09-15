@@ -10,12 +10,12 @@
 .logo {
   margin-top: 5rem;
   margin-bottom: 1.25rem;
-  width: 20rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* circleLogo일 때는 width: 10rem; height: 10rem; */
+  /* flatLogo일 때는 width: 20rem; height: 8rem; */
 }
 
 .loginMessage span {

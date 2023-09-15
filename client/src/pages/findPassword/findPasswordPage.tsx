@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classes from "./findPasswordPage.module.css";
 import FindPassword from "../../components/security/findPassword";
-import FlatLogo from "../../components/common/Logo/flatLogo";
+import CircleLogo from "../../components/common/Logo/circleLogo";
 import { useNavigate } from "react-router-dom";
 
 const FindPasswordPage: FC = () => {
@@ -14,7 +14,7 @@ const FindPasswordPage: FC = () => {
     <div className={classes.field}>
       <div className={classes.container}>
         <div className={classes.logo}>
-          <FlatLogo />
+          <CircleLogo />
         </div>
         <FindPassword />
         <p className={classes.loginMessage}>

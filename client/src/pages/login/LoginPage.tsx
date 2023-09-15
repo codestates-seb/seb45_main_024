@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./LoginPage.module.css";
-import FlatLogo from "../../components/common/Logo/flatLogo";
+import CircleLogo from "../../components/common/Logo/circleLogo";
 import Login from "../../components/login/Login";
 import { useNavigate } from "react-router-dom";
 // import SocialLogin from "../../components/login/SocialLogin";
@@ -15,7 +15,7 @@ const LoginPage: FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.logo}>
-        <FlatLogo />
+        <CircleLogo />
       </div>
       {/* <SocialLogin /> */}
       <Login />

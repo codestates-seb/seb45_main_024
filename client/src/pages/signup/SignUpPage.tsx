@@ -1,5 +1,5 @@
 import { FC } from "react";
-import FlatLogo from "../../components/common/Logo/flatLogo";
+import CircleLogo from "../../components/common/Logo/circleLogo";
 import SignUp from "../../components/signup/SignUp";
 // import SocialSignUp from "../../components/signup/SocialSignUp";
 import classes from "./SignUpPage.module.css";
@@ -15,7 +15,7 @@ const SignUpPage: FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.logo}>
-        <FlatLogo />
+        <CircleLogo />
       </div>
       {/* <SocialSignUp /> */}
       <SignUp />
