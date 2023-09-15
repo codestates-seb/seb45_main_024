@@ -14,12 +14,14 @@ import { useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
 import { ProfileState } from "../../redux/mypage/profileSlice";
 import authInstance from "../../utility/authInstance";
+import { TechTagType } from "./TechTags";
 
 interface ProfileFormData {
   accountId: number;
   coverLetter?: string;
   softSkills?: string[];
   hardSkills?: string[];
+  selectedTechs?: number[];
   projectDetails?: {
     projectTitle?: string;
     projectUrl?: string;
@@ -53,9 +55,10 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
 
   const [softTags, setSoftTags] = useState<string[]>([]);
   const [hardTags, setHardTags] = useState<string[]>([]);
-  const [techTags, setTechTags] = useState<object[]>([]);
+  const [techTags, setTechTags] = useState<TechTagType[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
   const [projSet, setProjSet] = useState<object[]>([]);
+  const [selectedTechs, setSelectedTechs] = useState<[]>([]);
 
   // 초기값 설정
   useEffect(() => {
@@ -149,11 +152,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     setProfileFormData({
       accountId: Number(id),
       coverLetter: editorValue,
+      // techTags:
       softSkills: softTags,
       hardSkills: hardTags,
       projectDetails: projSet,
     });
-  }, [editorValue, softTags, hardTags, projSet]);
+  }, [editorValue, techTags, softTags, hardTags, projSet]);
 
   return (
     <form className={classes.createForm}>
@@ -172,7 +176,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        <TechTags techTags={techTags} setTechTags={setTechTags} />
+        <TechTags
+          techTags={techTags}
+          setTechTags={setTechTags}
+          selectedTechs={selectedTechs}
+          setSelectedTechs={setSelectedTechs}
+        />
         {/* {techTags.map((techTag, index) => (
           <SoftTag key={index} techName={techTag} id={index} />
         ))} */}

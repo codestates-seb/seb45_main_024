@@ -18,6 +18,8 @@ const sample = [
 interface TechTagsProps {
   techTags: TechTagType[];
   setTechTags: React.Dispatch<React.SetStateAction<TechTagType[]>>;
+  selectedTechs: number[];
+  setSelectedTechs: React.Dispatch<React.SetStateAction<[]>>;
 }
 
 export interface TechTagType {
@@ -26,7 +28,12 @@ export interface TechTagType {
   tagType: string;
 }
 
-const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
+const TechTags: FC<TechTagsProps> = ({
+  techTags,
+  setTechTags,
+  selectedTechs,
+  setSelectedTechs,
+}) => {
   // Tech tag 가져오기 /tags/tech :Get
   useEffect(() => {
     const getTechTags = async () => {
@@ -44,7 +51,13 @@ const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
     <div className={classes.techContainer}>
       <div className={classes.tagsContainer}>
         {techTags.map((tag, index) => (
-          <Tag techName={tag.name} id={tag.id} key={tag.id} />
+          <Tag
+            techName={tag.name}
+            id={tag.id}
+            key={tag.id}
+            selectedTechs={selectedTechs}
+            setSelectedTechs={setSelectedTechs}
+          />
         ))}
       </div>
       {/* <div className={classes.viewMoreContainer}>
