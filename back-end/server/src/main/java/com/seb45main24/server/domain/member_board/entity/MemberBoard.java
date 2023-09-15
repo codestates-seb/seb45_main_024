@@ -17,6 +17,11 @@ import java.util.List;
 @Setter
 @Entity
 public class MemberBoard extends Auditable {
+    public enum Status {
+        모집중,
+        모집완료
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberBoardId;
@@ -25,7 +30,8 @@ public class MemberBoard extends Auditable {
 
     private String content;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private Integer views;
 

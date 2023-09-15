@@ -13,7 +13,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AlarmMapper {
-    Alarm alarmPatchDtoToAlarm(AlarmPatchDTO alarmPatchDTO);
     List<AlarmResponseDTO> alarmListToAlarmResponseDtoList(List<Alarm> alarmList);
 
     default Alarm alarmPostDtoToAlarm(AlarmPostDTO alarmPostDTO) {
@@ -33,11 +32,20 @@ public interface AlarmMapper {
         memberBoard.setMemberBoardId(alarmPostDTO.getMemberId());
 
         alarm.setAlarmType( alarmPostDTO.getAlarmType() );
+        alarm.setIsChecked( false );
         alarm.setWriter( writer );
         alarm.setTarget( target );
         alarm.setMemberBoard( memberBoard );
         alarm.setCreatedAt(LocalDateTime.now());
         alarm.setModifiedAt(LocalDateTime.now());
+
+        return alarm;
+    }
+
+    default Alarm patchAlramCheck(long alramId) {
+        Alarm alarm = new Alarm();
+        alarm.setAlarmId(alramId);
+        alarm.setIsChecked(true);
 
         return alarm;
     }
@@ -54,6 +62,7 @@ public interface AlarmMapper {
         }
 
         alarmResponseDTO.alarmType(alarm.getAlarmType());
+        alarmResponseDTO.isChecked(alarm.getIsChecked());
         alarmResponseDTO.writerNickname(alarm.getWriter().getNickname());
         alarmResponseDTO.writerId(alarm.getWriter().getId());
         alarmResponseDTO.title(alarm.getMemberBoard().getTitle());

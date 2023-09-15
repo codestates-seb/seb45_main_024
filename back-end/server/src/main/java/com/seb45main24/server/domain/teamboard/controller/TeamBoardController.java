@@ -93,6 +93,18 @@ public class TeamBoardController {
                 mapper.teamBoardsToTeamBoardResponseDtos(teamBoards), pageTeamBoards), HttpStatus.OK);
 
     }
+// 팀찾기 게시글 검색
+    @GetMapping("/search")
+    public ResponseEntity searchTeamBoards(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String position,
+            @Positive @RequestParam int page) {
+        Page<TeamBoard> teamBoardList = teamBoardService.searchTeamBoards(title, position,page - 1);
+        List<TeamBoard> teamBoards = teamBoardList.getContent();
+
+        return new ResponseEntity<>(new MultiResponseDto<>(
+                mapper.teamBoardsToTeamBoardResponseDtos(teamBoards), teamBoardList), HttpStatus.OK);
+    }
 
     // 팀찾기 게시글 삭제
     @DeleteMapping("/{teamBoardId}")
