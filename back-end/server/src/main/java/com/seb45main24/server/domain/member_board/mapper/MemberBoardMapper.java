@@ -79,11 +79,13 @@ public interface MemberBoardMapper {
                 }).collect(Collectors.toList());
 
         List<String> tagNameList = techTagList.stream().map(
-                techTag -> {
-                    String name = techTag.getTechTag().getTechName();
+            techTag -> {
+                String name = techTag.getTechTag().getTechName();
+                System.out.println(techTag.getMemberBoard().getMemberBoardId());
+                System.out.println(name + "태그이름");
 
-                    return name;
-                }
+                return name;
+            }
         ).collect(Collectors.toList());
 
         if ( memberBoard.getMemberBoardId() != null ) {
