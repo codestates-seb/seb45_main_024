@@ -40,6 +40,7 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
+        console.log("tecjTags", profile.techTags);
         console.log("profile", profile);
         setProfile(profile);
         // dispatch(setProfile(res.data));

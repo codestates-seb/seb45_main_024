@@ -12,6 +12,8 @@ const Summary: FC = () => {
   const { id } = useParams<{ id: string }>();
   const [userList, setUserList] = useState([]);
   const [projectList, setProjectList] = useState([]);
+  const [isUserDelete, setIsUserDelete] = useState(false);
+  const [isProjDelete, setIsProjDelete] = useState(false);
 
   useEffect(() => {
     try {
@@ -35,6 +37,37 @@ const Summary: FC = () => {
     }
   }, []);
 
+  const deleteUserCardHandler = () => {
+    setIsUserDelete(!isUserDelete);
+  };
+
+  const deleteProjCardHandler = () => {
+    setIsProjDelete(!isProjDelete);
+  };
+
+  const handleCardClick = async (type: string, id: string) => {
+    let endpoint;
+
+    if (type === "USER_CARD") {
+      endpoint = isUserDelete && `/teamBoards/${id}`;
+    } else if (type === "PROJECT_CARD") {
+      endpoint = isProjDelete && `/memberBoards/${id}`;
+    }
+
+    if (endpoint) {
+      const confirmation = window.confirm("정말 삭제하시겠습니까?");
+      if (confirmation) {
+        try {
+          await authInstance.delete(endpoint);
+          console.log("Deleted successfully");
+          window.alert("삭제되었습니다.");
+        } catch (error) {
+          console.error("Error deleting card", error);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className={classes.mainContainer}>
@@ -43,10 +76,17 @@ const Summary: FC = () => {
           <div className={`${classes.cardContainer} ${classes.userlist}`}>
             <div className={classes.titleBox}>
               <h1 className={classes.title}>
-                저는 이런 프로젝트를 찾고 있어요.
+                {isUserDelete
+                  ? "삭제할 카드를 클릭해주세요"
+                  : "저는 이런 프로젝트를 찾고 있어요."}
               </h1>
               {authorInfo.isAuthor && (
-                <button className={classes.deleteButton}>Delete</button>
+                <button
+                  className={classes.deleteButton}
+                  onClick={deleteUserCardHandler}
+                >
+                  {isUserDelete ? "Done" : "Delete"}
+                </button>
               )}
             </div>
             <div
@@ -59,7 +99,12 @@ const Summary: FC = () => {
             >
               {userList.length > 0 ? (
                 userList.map(card => (
-                  <ul className={classes.cardWrapper}>
+                  <ul
+                    className={classes.cardWrapper}
+                    onClick={() =>
+                      handleCardClick("USER_CARD", card.teamBoardId.toString())
+                    }
+                  >
                     <Card
                       type="USER_CARD"
                       cardData={card}
@@ -75,10 +120,17 @@ const Summary: FC = () => {
           <div className={`${classes.cardContainer} ${classes.projlist}`}>
             <div className={classes.titleBox}>
               <h1 className={classes.title}>
-                저는 이런 프로젝트를 기획했어요.
+                {isProjDelete
+                  ? "삭제할 카드를 클릭해주세요"
+                  : "저는 이런 프로젝트를 기획했어요."}
               </h1>
               {authorInfo.isAuthor && (
-                <button className={classes.deleteButton}>Delete</button>
+                <button
+                  className={classes.deleteButton}
+                  onClick={deleteProjCardHandler}
+                >
+                  {isProjDelete ? "Done" : "Delete"}
+                </button>
               )}
             </div>
             <div
@@ -91,7 +143,15 @@ const Summary: FC = () => {
             >
               {projectList.length > 0 ? (
                 projectList.map(card => (
-                  <ul className={classes.cardWrapper}>
+                  <ul
+                    className={classes.cardWrapper}
+                    onClick={() =>
+                      handleCardClick(
+                        "PROJECT_CARD",
+                        card.memberBoardId.toString(),
+                      )
+                    }
+                  >
                     <Card
                       type="PROJECT_CARD"
                       cardData={card}
