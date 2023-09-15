@@ -105,7 +105,6 @@ const DetailContent = () => {
       </div>
       <div className={classes.description}>
         <h3>프로젝트 소개</h3>
-        {/* <div>{content}</div> */}
         <div
           className="quillEditor quillEditor_view"
           dangerouslySetInnerHTML={{ __html: content }}
