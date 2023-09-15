@@ -18,6 +18,7 @@ export interface ProjectListDataType {
   views: number;
   position: string;
   writerNickName: string;
+  writerId: number;
   replyList: ReplyDataType[];
   startDate: string;
   endDate: string;

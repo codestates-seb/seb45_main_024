@@ -23,7 +23,7 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
   return (
     <div className={classes.back}>
       <div className={classes.topArea}>
-        {id === accountId && (
+        {id === accountId ? (
           <span
             className={classes.edit}
             onClick={() => {
@@ -32,7 +32,7 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
           >
             <EditSvg width="24" height="24" />
           </span>
-        )}
+        ) : null}
       </div>
       <div className={classes.centerArea}>
         <div

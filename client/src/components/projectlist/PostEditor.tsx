@@ -31,7 +31,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [position, setPosition] = useState("포지션");
-  const [status, setStatus] = useState("모집중");
+  const [status, setStatus] = useState("팀원 구하는중"); // 모집중 0, 모집완료 1
   const [startDate, setStartDate] = useState<string>(
     sliceISOString(new Date()),
   );
