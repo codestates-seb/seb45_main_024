@@ -14,6 +14,7 @@ public class TeamBoardResponseDto {
     private String position;
     private String nickname;
     private List<String> keywords;
+    private List<String> techTagList;
     private Long accountId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

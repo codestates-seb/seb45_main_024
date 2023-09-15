@@ -19,6 +19,8 @@ public class TeamBoardPatchDto {
     @Nullable
     private List<String> keywords;
 
+    private List<Long> techTagIdList;
+
     public void setTeamBoardId(Long teamBoardId) {
         this.teamBoardId = teamBoardId;
 

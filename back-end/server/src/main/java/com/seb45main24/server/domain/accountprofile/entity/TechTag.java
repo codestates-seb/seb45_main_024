@@ -38,11 +38,6 @@ public class TechTag extends Auditable {
 	@Enumerated(EnumType.STRING)
 	public TagType tagType;
 
-	@ManyToOne
-	@JoinColumn(name = "team_board_id")
-	private TeamBoard teamBoard;
-
-
 	public enum TagType {
 		BACK_END("백엔드"),
 		FRONT_END("프론트엔드"),
