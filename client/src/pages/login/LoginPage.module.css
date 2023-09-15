@@ -15,3 +15,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.signUpMessage {
+  margin-top: 1rem;
+}
+
+.signUpMessage span {
+  font-weight: 900;
+  color: var(--color-main);
+  transition: color 0.3s, cursor 0.3s;
+}
+
+.signUpMessage span:hover {
+  cursor: pointer;
+  color: #BDBDBD;
+}
+
+.signUpMessage span:active {
+  cursor: grab;
+  color: #4F4F4F;
+}

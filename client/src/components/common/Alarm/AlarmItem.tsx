@@ -33,7 +33,7 @@ const AlarmItem: FC<AlarmItemProps> = props => {
         <img alt="default_profile" src={profile} />
         <div className={classes.message}>
           <span>
-            <p>아직 아무런 알람이 없습니다!</p>
+            <p>아직 아무런 알람이 없습니다. 잠시 스무디를 둘러봐요.</p>
           </span>
         </div>
       </li>
