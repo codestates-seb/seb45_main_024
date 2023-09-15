@@ -5,10 +5,8 @@ import lombok.Getter;
 @Getter
 public class TechTagDto {
 	private Long id;
-	private String techName;
 
-	public TechTagDto(Long id, String techName) {
+	public TechTagDto(Long id) {
 		this.id = id;
-		this.techName = techName;
 	}
 }

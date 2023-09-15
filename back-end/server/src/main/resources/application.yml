@@ -46,3 +46,15 @@ jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 120
   refresh-token-expiration-minutes: 420
+
+cloud:
+  aws:
+    s3:
+      bucket: main-project-024-bucket
+    credentials:
+      access-key: ${CREDENTIALS_ACCESSKEY}  # IAM 계정 - access key
+      secret-key: ${CREDENTIALS_SECRETKEY}  # IAM 계정 - secret access key
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("classpath:application-aws.yml")
 public class S3Config {
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
@@ -23,10 +24,10 @@ public class S3Config {
     private String region;
 
     @Bean
-    public AmazonS3 s3Builder() {
+    public AmazonS3Client s3Builder() {
         BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
 
-        return AmazonS3ClientBuilder.standard()
+        return (AmazonS3Client) AmazonS3ClientBuilder.standard()
                 .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials)).build();
     }
