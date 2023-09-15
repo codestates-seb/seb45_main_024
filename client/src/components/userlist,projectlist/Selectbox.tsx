@@ -2,11 +2,17 @@ import { useState } from "react";
 import { ArrowDownSvg } from "../../assets/icons/arrowsSvg";
 import classes from "./Selectbox.module.css";
 
+// interface techTagList {
+//   id: number;
+//   name: string;
+//   tagType: string;
+// }
+
 type Props = {
   title: string;
   borderRadius?: number;
   width?: number;
-  options: string[];
+  options: string[]; // ? | techTagList[] | undefined;
   selectedOption: string;
   onSelect: (selected: string) => void;
 };

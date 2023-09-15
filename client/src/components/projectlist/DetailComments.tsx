@@ -6,11 +6,16 @@ import { ReactComponent as DeleteSvg } from "../../assets/icons/delete.svg";
 import Checkbox from "../../components/userlist,projectlist/Checkbox";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Tooltip from "../../components/userlist,projectlist/Tooltip";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 
 import { addComment, editComment, removeComment } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailComments.module.css";
+
+interface AccessTokenType {
+  id: number;
+}
 
 const DetailComments = () => {
   const navigate = useNavigate();
@@ -19,7 +24,12 @@ const DetailComments = () => {
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
 
-  const { replyList: comments } = currentProject || {};
+  const { replyList: comments, writerId } = currentProject || {};
+  const { id } = getTokensFromLocalStorage() as AccessTokenType;
+
+  // 작성자가 본인인지 확인
+  const isMyProject = writerId === id;
+  console.log("게시글 작성자인가요? ", isMyProject);
 
   console.log("replyList", comments);
 
@@ -64,10 +74,17 @@ const DetailComments = () => {
   const [editableCommentId, setEditableCommentId] = useState<number | null>(
     null,
   );
+
   const [editedComment, setEditedComment] = useState("");
 
   const onEditComment = (targetId: number) => {
     console.log("🚀 댓글 수정요청");
+
+    const originComment = comments?.filter(
+      comment => comment.replyId === targetId,
+    );
+    console.log("originComment", originComment[0].content);
+    setEditedComment(originComment[0].content);
 
     if (comments?.find(comment => comment.replyId === targetId)) {
       console.log(targetId);
@@ -76,15 +93,15 @@ const DetailComments = () => {
       setEditableCommentId(null);
     }
 
-    setIsEdit(!isEdit);
+    setIsEdit(true);
   };
 
-  //   {
-  //     "content" : "댓글 수정",
-  //     "acceptType" : 1
-  // }
+  // const editCommentData = {
+  //   content: "댓글 수정",
+  //   acceptType: 0,
+  // };
 
-  const editCommentData = {
+  const editData = {
     content: editedComment,
     acceptType: 0,
   };
@@ -92,12 +109,17 @@ const DetailComments = () => {
   const onSubmitEditComment = (targetId: number) => {
     console.log("🚀 댓글 수정반영");
 
-    dispatch(editComment({ targetId, editCommentData }))
+    dispatch(
+      editComment({
+        targetId,
+        data: editData,
+      }),
+    )
       .unwrap()
       .then(() => {
         console.log("EDIT", targetId);
         window.alert("댓글이 수정되었습니다.");
-        // window.location.reload();
+        window.location.reload();
       })
       .catch(error => {
         console.warn(
@@ -105,7 +127,7 @@ const DetailComments = () => {
           error,
           "targetId: ",
           targetId,
-          editCommentData,
+          editData,
         );
         // setError("Something went wrong");
       });
@@ -173,48 +195,62 @@ const DetailComments = () => {
                 </div>
               </div>
               <div className={classes.editArea}>
-                <div className={classes.edit}>
-                  {editableCommentId === comment.replyId ? (
-                    <div onClick={() => onSubmitEditComment(comment.replyId)}>
-                      V 수정하기
+                {comment.writerId === id ? (
+                  <>
+                    <div className={classes.edit}>
+                      {isEdit && editableCommentId === comment.replyId ? (
+                        <div
+                          onClick={() => onSubmitEditComment(comment.replyId)}
+                        >
+                          V 수정하기
+                        </div>
+                      ) : (
+                        <EditSvg
+                          width="16"
+                          height="16"
+                          onClick={() => onEditComment(comment.replyId)}
+                        />
+                      )}
                     </div>
-                  ) : (
-                    <EditSvg
-                      width="16"
-                      height="16"
-                      onClick={() => onEditComment(comment.replyId)}
-                    />
-                  )}
-                </div>
-                <div
-                  className={classes.delete}
-                  onClick={() => onRemoveComment(comment.replyId)}
-                >
-                  <DeleteSvg width="16" height="16" />
-                </div>
+                    <div
+                      className={classes.delete}
+                      onClick={() => onRemoveComment(comment.replyId)}
+                    >
+                      <DeleteSvg width="16" height="16" />
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
             <div className={classes.contents}>
-              {editableCommentId === comment.replyId ? (
+              {isEdit && editableCommentId === comment.replyId ? (
                 <textarea
                   className={classes.content}
                   value={editedComment}
                   onChange={handleChangeEditComment}
                 />
               ) : (
-                <div className={classes.content}>{comment.content}</div>
-              )}
-
-              {comment.acceptType === "NONE" && comment.apply && (
-                <div className={classes.acceptArea}>
-                  <ActionButton type="outline" handleClick={handleAcceptBtn}>
-                    수락하기
-                  </ActionButton>
-                  <ActionButton type="outline" handleClick={handleRejectBtn}>
-                    거절하기
-                  </ActionButton>
+                <div className={classes.content}>
+                  {/* 지원댓글 표시 (스타일은 임시) */}
+                  {comment.apply ? (
+                    <span className={classes.applyComment}>지원댓글</span>
+                  ) : null}
+                  {comment.content}
                 </div>
               )}
+
+              {isMyProject &&
+                comment.acceptType === "NONE" &&
+                comment.apply && (
+                  <div className={classes.acceptArea}>
+                    <ActionButton type="outline" handleClick={handleAcceptBtn}>
+                      수락하기
+                    </ActionButton>
+                    <ActionButton type="outline" handleClick={handleRejectBtn}>
+                      거절하기
+                    </ActionButton>
+                  </div>
+                )}
               {comment.acceptType === "ACCEPT" && (
                 <div className={classes.acceptArea}>
                   <Tooltip type="APPROVE">팀원으로 수락한 유저입니다.</Tooltip>

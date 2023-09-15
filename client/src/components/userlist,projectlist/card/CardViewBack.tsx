@@ -15,7 +15,7 @@ interface AccessTokenType {
 }
 
 const CardViewBack = ({ cardData }: cardViewBackProps) => {
-  const { teamBoardId, keywords, accountId } = cardData;
+  const { teamBoardId, keywords, accountId, nickname } = cardData;
   const navigate = useNavigate();
 
   const { id } = getTokensFromLocalStorage() as AccessTokenType;
@@ -49,7 +49,8 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
       </div>
       <div className={classes.bottomArea}>
         <div className={classes.infoText}>
-          유저AAA님이 더 궁금하신가요?
+          <span className={classes.nickname}>{nickname}</span>님이 더
+          궁금하신가요?
           <br />
           프로필 사진을 클릭해 보세요!
         </div>

@@ -68,7 +68,7 @@
 
   & .description {
     margin: 1.875rem 0 6.25rem;
-    & h3 {
+    & > h3 {
       padding-bottom: 1.5rem;
       margin-bottom : 1rem;
       font-size: 1.5rem;
@@ -80,3 +80,4 @@
     text-align: right;
   }
 }
+

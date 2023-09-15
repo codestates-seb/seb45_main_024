@@ -6,6 +6,7 @@ export interface UserListDataType {
   position: string;
   keywords: string[];
   accountId: number;
+  nickname: string;
   createdAt: string;
   modifiedAt: string;
 }

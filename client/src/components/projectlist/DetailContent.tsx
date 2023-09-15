@@ -8,6 +8,7 @@ import { getProject } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailContent.module.css";
+import "./QuillEditor.css";
 
 interface AccessTokenType {
   id: number;
@@ -104,7 +105,11 @@ const DetailContent = () => {
       </div>
       <div className={classes.description}>
         <h3>프로젝트 소개</h3>
-        <div>{content}</div>
+        {/* <div>{content}</div> */}
+        <div
+          className="quillEditor quillEditor_view"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </div>
       {id === writerId ? (
         <div className={classes.completeBtn}>

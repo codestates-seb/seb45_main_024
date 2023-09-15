@@ -161,6 +161,12 @@
     color: var(--color-gray-3);
     font-size: 0.625rem;
     text-align: center;
+
+    & .nickname {
+      font-size: 0.74rem;
+      color: inherit;
+      font-weight: 700;
+    }
   }
 }
 

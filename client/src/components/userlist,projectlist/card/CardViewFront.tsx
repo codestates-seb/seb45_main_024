@@ -15,11 +15,11 @@ interface CardViewFrontType {
 const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
   const isProjectCard = type === "PROJECT_CARD";
   const { title, position, createdAt } = cardData as UserListDataType;
-  const { views, status } = cardData as ProjectListDataType;
+  const { views, status, writerNickName } = cardData as ProjectListDataType;
 
   let statusText;
-  if (status === "팀원 구하는중") statusText = "모집중";
-  else statusText = "음?";
+  if (status === "모집중") statusText = "모집중";
+  else statusText = "모집완료";
 
   const date: string = new Date(createdAt).toLocaleDateString();
 
@@ -40,7 +40,9 @@ const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
         )}
       </div>
       <div className={classes.centerArea}>
-        {isProjectCard && <span className={classes.username}>유저ABC</span>}
+        {isProjectCard && (
+          <span className={classes.username}>{writerNickName}</span>
+        )}
         <div className={classes.title}>{title}</div>
       </div>
       <div className={classes.bottomArea}>
