@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping(" /mypages/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewRepository reviewRepository;
