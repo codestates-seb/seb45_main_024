@@ -185,7 +185,7 @@ public class TagsService {
 
 		for (ProfileTechTag profileTechTag : profileTechTags) {
 			TechTag techTag = profileTechTag.getTechTag();
-			TechTagDto techTagDto = new TechTagDto(techTag.getId(), techTag.getTechName());
+			TechTagDto techTagDto = new TechTagDto(techTag.getId(), techTag.getTechName(), techTag.getTagType());
 			techTagDtos.add(techTagDto);
 		}
 
