@@ -21,7 +21,7 @@ interface ProfileFormData {
   coverLetter?: string;
   softSkills?: string[];
   hardSkills?: string[];
-  selectedTechs?: number[];
+  // selectedTechs?: number[];
   projectDetails?: {
     projectTitle?: string;
     projectUrl?: string;
@@ -58,7 +58,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [techTags, setTechTags] = useState<TechTagType[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
   const [projSet, setProjSet] = useState<object[]>([]);
-  const [selectedTechs, setSelectedTechs] = useState<[]>([]);
+  const [selectedTechs, setSelectedTechs] = useState<number[]>([]);
 
   // 초기값 설정
   useEffect(() => {
@@ -176,18 +176,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        <TechTags
-          techTags={techTags}
-          setTechTags={setTechTags}
-          selectedTechs={selectedTechs}
-          setSelectedTechs={setSelectedTechs}
-        />
-        {/* {techTags.map((techTag, index) => (
-          <SoftTag key={index} techName={techTag} id={index} />
-        ))} */}
-        {/* <PlusBtn>
-          <HardInput input={techInput} setInput={setTechInput} />
-        </PlusBtn> */}
+        <TechTags techTags={techTags} setTechTags={setTechTags} />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />

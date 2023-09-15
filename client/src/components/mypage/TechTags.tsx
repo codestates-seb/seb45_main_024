@@ -3,23 +3,9 @@ import Tag from "./Tag";
 import classes from "./TechTags.module.css";
 import authInstance from "../../utility/authInstance";
 
-const sample = [
-  "React",
-  "Angular",
-  "Vue",
-  "Node.js",
-  "Python",
-  "Java",
-  "React Native",
-  "Spring",
-  "MySQL",
-];
-
 interface TechTagsProps {
   techTags: TechTagType[];
   setTechTags: React.Dispatch<React.SetStateAction<TechTagType[]>>;
-  selectedTechs: number[];
-  setSelectedTechs: React.Dispatch<React.SetStateAction<[]>>;
 }
 
 export interface TechTagType {
@@ -28,12 +14,7 @@ export interface TechTagType {
   tagType: string;
 }
 
-const TechTags: FC<TechTagsProps> = ({
-  techTags,
-  setTechTags,
-  selectedTechs,
-  setSelectedTechs,
-}) => {
+const TechTags: FC<TechTagsProps> = ({ techTags, setTechTags }) => {
   // Tech tag 가져오기 /tags/tech :Get
   useEffect(() => {
     const getTechTags = async () => {
@@ -50,14 +31,20 @@ const TechTags: FC<TechTagsProps> = ({
   return (
     <div className={classes.techContainer}>
       <div className={classes.tagsContainer}>
-        {techTags.map((tag, index) => (
-          <Tag
-            techName={tag.name}
-            id={tag.id}
-            key={tag.id}
-            selectedTechs={selectedTechs}
-            setSelectedTechs={setSelectedTechs}
-          />
+        {/* {techTags.map((tag, _) => (
+          <Tag techName={tag.name} id={tag.id} key={tag.id} />
+        ))} */}
+        {["BACK_END", "FRONT_END", "MOBILE", "ETC"].map(type => (
+          <div className={classes.tagTypeContainer} key={type}>
+            <h3 className={classes.tagType}>{type}</h3>
+            <div className={classes.tags}>
+              {techTags
+                .filter(tag => tag.tagType === type)
+                .map(tag => (
+                  <Tag techName={tag.name} id={tag.id} key={tag.id} />
+                ))}
+            </div>
+          </div>
         ))}
       </div>
       {/* <div className={classes.viewMoreContainer}>
