@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class MemberBoardPatchDTO {
@@ -20,6 +21,8 @@ public class MemberBoardPatchDTO {
 
     @NotBlank
     private String position;
+
+    private List<Long> techTagIdList;
 
     private LocalDateTime startDate;
 

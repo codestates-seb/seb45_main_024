@@ -5,6 +5,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class MemberBoardPostDTO {
@@ -19,6 +20,8 @@ public class MemberBoardPostDTO {
 
     @NotBlank
     private String position;
+
+    private List<Long> techTagIdList;
 
     private LocalDateTime startDate;
 
