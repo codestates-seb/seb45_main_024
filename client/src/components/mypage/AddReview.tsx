@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
 import authInstance from "../../utility/authInstance";
-import { useParams , useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
 interface AddReviewProps {
@@ -14,7 +14,6 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
   const { id } = useParams<{ id: string }>();
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
-  // const [projectImage, setProjectImage] = useState<string>("");
   const [reviewTitle, setReviewTitle] = useState<string>("");
   const [reviewContent, setReviewContent] = useState<string>("");
 
@@ -71,28 +70,13 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           onChange={e => setProjectLink(e.target.value)}
         />
       </div>
-      {/* <div className={classes.formGroup}>
-        <div className={classes.formSubGroup}>
-          <label className={classes.formLabel} htmlFor="projectImage">
-            관련 이미지가 있나요?
-          </label>
-          <p className={classes.formHint}>해당 이미지는 썸네일로 활용됩니다.</p>
-        </div>
-        <input
-          className={classes.formInput}
-          id="projectImage"
-          type="file"
-          value={projectImage}
-          onChange={e => setProjectImage(e.target.value)}
-        />
-      </div> */}
       <div className={`${classes.formGroup} ${classes.review}`}>
         <div className={classes.formSubGroup}>
           <label className={classes.formLabel} htmlFor="reviewTitle">
-            {authorInfo.username} 님의 역할은 무엇이었나요?
+            {authorInfo.nickname} 님의 역할은 무엇이었나요?
           </label>
           <p className={classes.formHint}>
-            프로젝트에서 {authorInfo.username}님의 활약을 한 줄로 소개한다면?
+            프로젝트에서 {authorInfo.nickname}님의 활약을 한 줄로 소개한다면?
           </p>
         </div>
         <input

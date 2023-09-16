@@ -28,13 +28,12 @@ const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
 
-  // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -123,11 +122,10 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.HARD} />
-              <p className={classes.helpText}>
+              {/* <p className={classes.helpText}>
                 마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
                 있어요.
-              </p>
-              {/* <div className={classes.hardContent}> */}
+              </p> */}
               <div
                 className={
                   classes.hardContent +
@@ -151,7 +149,6 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.SOFT} />
-              {/* <div className={classes.softContent}> */}
               <div
                 className={
                   classes.softContent +
@@ -178,7 +175,6 @@ const Profile: FC = () => {
               <p className={classes.helpText}>
                 제목을 클릭하면 프로젝트 링크로 이동합니다.
               </p>
-              {/* <div className={classes.projContent}> */}
               <div
                 className={
                   classes.projContent +

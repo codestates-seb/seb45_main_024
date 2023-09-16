@@ -9,11 +9,9 @@ import PlusBtn from "./PlusBtn";
 import SoftInput from "./SoftInput";
 import SoftTag from "./SoftTag";
 import HardInput from "./HardInput";
-// import DropDownTag from "./DropDownTag";
 import { useAppSelector } from "../../redux/hooks";
 import { useParams } from "react-router-dom";
 import { ProfileState } from "../../redux/mypage/profileSlice";
-import authInstance from "../../utility/authInstance";
 import { TechTagType } from "./TechTags";
 
 interface ProfileFormData {
@@ -38,7 +36,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile
+    (state: { profile: ProfileState }) => state.profile,
   );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
@@ -67,31 +65,31 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(
           profileData.coverLetter,
-          "text/html"
+          "text/html",
         );
         setEditorValue(doc.body.textContent || "");
       }
-      setSoftTags((prevSoftTags) =>
+      setSoftTags(prevSoftTags =>
         profileData.softSkills
           ? [...new Set([...prevSoftTags, ...profileData.softSkills])]
-          : prevSoftTags
+          : prevSoftTags,
       );
-      setHardTags((prevHardTags) =>
+      setHardTags(prevHardTags =>
         profileData.hardSkills
           ? [...new Set([...prevHardTags, ...profileData.hardSkills])]
-          : prevHardTags
+          : prevHardTags,
       );
-      setProjTags((prevProjectTags) =>
+      setProjTags(prevProjectTags =>
         profileData.projectDetails
           ? [
               ...new Set([
                 ...prevProjectTags,
                 ...profileData.projectDetails.map(
-                  (project: any) => project.projectTitle
+                  (project:any) => project.projectTitle,
                 ),
               ]),
             ]
-          : prevProjectTags
+          : prevProjectTags,
       );
     }
   }, [profileData]);
@@ -191,9 +189,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           setTechInfo={setTechInfo}
           onTagClick={handleTagClick}
         />
-        {/* <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} />
-        <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} />
-        <TechInfo techInfo={techInfo} setTechInfo={setTechInfo} /> */}
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />
@@ -205,13 +200,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
         {hardTags.map((hardTag, index) => (
-          // api 명세 바뀌면 수정 필요
-          // <DropDownTag
-          //   key={index}
-          //   techName={hardTag}
-          //   id={index}
-          //   onDelete={hardTagDeleteHandler}
-          // />
           <SoftTag
             key={index}
             techName={hardTag}

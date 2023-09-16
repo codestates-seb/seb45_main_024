@@ -12,7 +12,7 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
   const [selectedMenu, setSelectedMenu] = useState<string>("profile");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   useEffect(() => {
     setSelectedMenu(menu);
   }, [menu]);
@@ -37,7 +37,6 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
 
   return (
     <div className={classes.sidemenuContainer}>
-      {/* 임의로 프로필 박스 */}
       <div className={classes.profileBox}>
         <div className={classes.profileImg}>
           {/* 아직 이미지 추가 제대로 안 됨 */}

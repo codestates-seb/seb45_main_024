@@ -12,7 +12,7 @@ const Tag: FC<Props> = ({ techName, id, onTagClick }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const handleTagClick = () => {
-    setIsActive((prev) => !prev);
+    setIsActive(prev => !prev);
     onTagClick(id, !isActive);
   };
   return (

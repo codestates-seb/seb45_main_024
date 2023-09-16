@@ -10,11 +10,16 @@ import SideMenu from "../../components/mypage/Sidemenu";
 import { useAppSelector } from "../../redux/hooks";
 import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 import default_profile from "../../assets/images/default_profile.svg";
+import { ProfileState } from "../../redux/mypage/profileSlice";
+import TagRemover from "../../components/mypage/TagRemover";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const { profileData } = useAppSelector(
+    (state: { profile: ProfileState }) => state.profile
+  );
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
 
@@ -33,7 +38,7 @@ const MyInfo: FC = () => {
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."
     );
 
     if (confirmation) {
@@ -130,7 +135,17 @@ const MyInfo: FC = () => {
               <div className={classes.profilepreview}>
                 <div className={classes.profileContent}>
                   <TitleLine title={ProfileCats.BIO} />
-                  <NoContent />
+                  <div className={classes.bioContainer}>
+                    {profileData.coverLetter ? (
+                      profileData.coverLetter.length > 0 ? (
+                        <TagRemover content={profileData.coverLetter} />
+                      ) : (
+                        <NoContent />
+                      )
+                    ) : (
+                      <NoContent />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className={classes.overlay}>

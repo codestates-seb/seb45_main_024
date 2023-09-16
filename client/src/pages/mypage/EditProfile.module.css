@@ -34,7 +34,5 @@
 .componentContainer {
   grid-column: span 10;
   padding-top: 90px;
-  /* header 높이가 90px */
-  /* height: 100vh; */
   padding-bottom: 100px;
 }
