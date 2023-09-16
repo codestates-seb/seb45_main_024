@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
 import { setProfileData } from "../../redux/mypage/profileSlice";
+import { TechDesc } from "../../components/mypage/format/TechDesc";
 
 interface AccessTokenType {
   id: number;
@@ -25,14 +26,21 @@ interface AccessTokenType {
 }
 
 const Profile: FC = () => {
+  const [desc, setDesc] = useState<string>("");
+  const [selectedTechName, setSelectedTechName] = useState<string>("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
+
+  const onTechProfileClick = (techName: string) => {
+    setSelectedTechName(techName);
+    setDesc(TechDesc[techName]);
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -49,7 +57,7 @@ const Profile: FC = () => {
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          }),
+          })
         );
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -102,6 +110,7 @@ const Profile: FC = () => {
                         key={techTag.id}
                         techName={techTag.techName}
                         id={techTag.id}
+                        onClick={() => onTechProfileClick(techTag.techName)}
                       />
                     ))
                   ) : (
@@ -109,10 +118,9 @@ const Profile: FC = () => {
                   )}
                 </div>
                 <div className={classes.helpContent}>
-                  <h2 className={classes.helpTitle}>언어</h2>
+                  <h2 className={classes.helpTitle}>{selectedTechName}</h2>
                   <p className={classes.helpDesc}>
-                    클릭한 기술 스택에 대한 설명이 들어갈 예정입니다. 아마도
-                    gpt로 처리할 예정이구요. 이 정도만 할거에요. 이 이상은 안돼.
+                    {desc ? desc : "기술을 선택해주세요."}
                   </p>
                 </div>
               </div>
