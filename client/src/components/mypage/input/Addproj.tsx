@@ -31,10 +31,6 @@ const Addproj: FC<AddprojProps> = ({
     e.preventDefault();
   };
 
-  //   // ProfileCreate에서 이 데이터로 참여한 프로젝트 태그 미리보기 생성 필요
-  //   // 굳이 툴킷? 이 정도면 위로 올려도 될 듯
-  // };
-
   const addProjTagHandler = () => {
     if (projectName.length > 0) {
       setProjTags([...projTags, projectName]);

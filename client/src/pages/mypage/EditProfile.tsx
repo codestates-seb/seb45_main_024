@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import classes from "./EditProfile.module.css";
-import CreateProfile from "../../components/mypage/CreateProfile";
+import CreateProfile from "../../components/mypage/input/CreateProfile";
 import { useNavigate, useParams } from "react-router-dom";
 import authInstance from "../../utility/authInstance";
 

@@ -1,6 +1,6 @@
 import { FC, useState, ReactNode } from "react";
 import classes from "./PlusBtn.module.css";
-import addicon from "../../assets/icons/add.svg";
+import addicon from "../../../assets/icons/add.svg";
 
 interface PlusBtnProps {
   children: ReactNode;

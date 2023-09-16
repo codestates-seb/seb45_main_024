@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
-import authInstance from "../../utility/authInstance";
+import authInstance from "../../../utility/authInstance";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface AddReviewProps {
   onClose: () => void;
