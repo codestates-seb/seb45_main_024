@@ -16,22 +16,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seb45main24.server.domain.account.entity.Account;
-import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.global.auth.dto.LoginDto;
 import com.seb45main24.server.global.auth.jwt.JwtTokenizer;
+import com.seb45main24.server.global.auth.refreshtoken.repository.RefreshTokenRepository;
+import com.seb45main24.server.global.auth.refreshtoken.service.AuthService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 /** 클라이언트의 로그인 인증 요청을 처리하는 엔트리포인트 역할을 하는 JwtAuthenticationFilter **/
 
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenizer jwtTokenizer;
+	private final AuthService authService;
 
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
-		this.authenticationManager = authenticationManager;
-		this.jwtTokenizer = jwtTokenizer;
-	}
 
 	@SneakyThrows
 	@Override
@@ -55,6 +55,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		String accessToken = delegateAccessToken(account);
 		String refreshToken = delegateRefreshToken(account);
+
+		authService.saveRefreshToken(refreshToken, account.getEmail());
 
 		response.setHeader("Authorization", "Bearer " + accessToken);
 		response.setHeader("Refresh", refreshToken);

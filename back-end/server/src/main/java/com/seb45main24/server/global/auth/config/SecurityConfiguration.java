@@ -29,6 +29,8 @@ import com.seb45main24.server.global.auth.filter.JwtAuthenticationFilter;
 import com.seb45main24.server.global.auth.filter.JwtVerificationFilter;
 import com.seb45main24.server.global.auth.handler.AccountAuthenticationFailureHandler;
 import com.seb45main24.server.global.auth.jwt.JwtTokenizer;
+import com.seb45main24.server.global.auth.refreshtoken.repository.RefreshTokenRepository;
+import com.seb45main24.server.global.auth.refreshtoken.service.AuthService;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
 
 @Configuration
@@ -36,12 +38,14 @@ public class SecurityConfiguration {
 	private final JwtTokenizer jwtTokenizer;
 	private final CustomAuthorityUtils customAuthorityUtils;
 	private final AccountRepository accountRepository;
+	private final AuthService authService;
 
 	public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils customAuthorityUtils,
-		AccountRepository accountRepository) {
+		AccountRepository accountRepository, AuthService authService) {
 		this.jwtTokenizer = jwtTokenizer;
 		this.customAuthorityUtils = customAuthorityUtils;
 		this.accountRepository = accountRepository;
+		this.authService = authService;
 	}
 
 	@Bean
@@ -97,7 +101,7 @@ public class SecurityConfiguration {
 		public void configure(HttpSecurity builder) throws Exception {
 			AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, authService);
 			jwtAuthenticationFilter.setFilterProcessesUrl("/accounts/login");
 
 			// handler 추가
@@ -105,9 +109,9 @@ public class SecurityConfiguration {
 
 			JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils);
 
+
 			builder.addFilter(jwtAuthenticationFilter)
 					.addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class); // Spring Security Filter Chain에 추가
 		}
 	}
-
 }

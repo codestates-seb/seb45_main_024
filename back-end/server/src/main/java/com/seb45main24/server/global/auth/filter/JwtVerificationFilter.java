@@ -18,7 +18,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.seb45main24.server.global.auth.dto.TokenPrincipalDto;
 import com.seb45main24.server.global.auth.jwt.JwtTokenizer;
+import com.seb45main24.server.global.auth.refreshtoken.entity.RefreshToken;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 
 public class JwtVerificationFilter extends OncePerRequestFilter {
 	private final JwtTokenizer jwtTokenizer;
