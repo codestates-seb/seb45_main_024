@@ -11,6 +11,9 @@ import com.seb45main24.server.domain.member_board.repository.MemberBoardReposito
 import com.seb45main24.server.domain.member_board.service.MemberBoardService;
 import com.seb45main24.server.domain.member_board.service.MemberBoardTechTagService;
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
+import com.seb45main24.server.domain.project.entity.Project;
+import com.seb45main24.server.domain.project.mapper.ProjectMapper;
+import com.seb45main24.server.domain.project.service.ProjectService;
 import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -32,15 +35,21 @@ public class MemberBoardController {
     private final MemberBoardMapper mapper;
     private final MemberBoardService service;
     private final MemberBoardTechTagService techTagService;
+    private final ProjectService projectService;
+    private final ProjectMapper projectMapper;
 
     public MemberBoardController(MemberBoardRepository repository,
                                  MemberBoardMapper mapper,
                                  MemberBoardService service,
-                                 MemberBoardTechTagService techTagService) {
+                                 MemberBoardTechTagService techTagService,
+                                 ProjectService projectService,
+                                 ProjectMapper projectMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.service = service;
         this.techTagService = techTagService;
+        this.projectService = projectService;
+        this.projectMapper = projectMapper;
     }
 
     @PostMapping
@@ -67,6 +76,10 @@ public class MemberBoardController {
                     memberBoardTechTag.setMemberBoard(member);
                     techTagService.createTechTag(memberBoardTechTag);
                 });
+
+        memberBoardPostDTO.setMemberBoardId(createMemberBoard.getMemberBoardId());
+        Project project = projectMapper.memberPostDtoToProject(memberBoardPostDTO);
+        projectService.createProject(project);
 
         URI location = UriComponentsBuilder.newInstance()
                 .path("/members" + "/{createMemberBoard.getMemberBoardId()}")

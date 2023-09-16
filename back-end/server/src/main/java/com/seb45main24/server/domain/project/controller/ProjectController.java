@@ -29,18 +29,18 @@ public class ProjectController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity postProject(@Valid @RequestBody ProjectPostDTO projectPostDTO) {
-        Project project = mapper.projectPostDtoToProject(projectPostDTO);
-
-        Project createProject = service.createProject(project);
-
-        URI location = UriComponentsBuilder.newInstance()
-                .path("/projects" + "/{createProject.getProjectId()}")
-                .buildAndExpand(createProject.getProjectId()).toUri();
-
-        return ResponseEntity.created(location).build();
-    }
+//    @PostMapping
+//    public ResponseEntity postProject(@Valid @RequestBody ProjectPostDTO projectPostDTO) {
+//        Project project = mapper.projectPostDtoToProject(projectPostDTO);
+//
+//        Project createProject = service.createProject(project);
+//
+//        URI location = UriComponentsBuilder.newInstance()
+//                .path("/projects" + "/{createProject.getProjectId()}")
+//                .buildAndExpand(createProject.getProjectId()).toUri();
+//
+//        return ResponseEntity.created(location).build();
+//    }
 
     @DeleteMapping("/{project-id}")
     public ResponseEntity deleteProject(@PathVariable("project-id") @Positive long projectId) {
