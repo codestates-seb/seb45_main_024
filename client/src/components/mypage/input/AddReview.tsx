@@ -28,11 +28,9 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
         content: reviewContent,
       };
 
-      await authInstance.post(`/reviews/${id}`, reviewFormData);
-      window.alert("리뷰가 등록되었습니다.");
-      navigate(-1);
-      // profile로 감. 
-      // window.location.href = `/mypage/${id}/review`;
+      await authInstance.post(`/mypages/reviews/${id}`, reviewFormData);
+      window.alert("리뷰가 등록되었습니다."); 
+      window.location.href = `/mypage/${id}/review`;
     } catch (err) {
       console.error("Failed to add review", err);
       window.alert("리뷰 등록에 실패했습니다.");

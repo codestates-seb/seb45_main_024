@@ -16,6 +16,7 @@ const Review: FC = () => {
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<any>([]);
   const { getProfile } = useFetchProfile();
+
   useEffect(() => {
     if (!authorInfo.nickname) {
       getProfile(id!);
@@ -32,7 +33,7 @@ const Review: FC = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const res = await authInstance.get(`/reviews/${id}?page=1`);
+        const res = await authInstance.get(`/mypages/reviews/${id}?page=1`);
         const reviewList = res.data.data;
         console.log(reviewList);
         setReviewData(reviewList);
