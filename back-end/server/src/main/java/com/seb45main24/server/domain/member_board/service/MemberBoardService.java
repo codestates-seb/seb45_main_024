@@ -88,4 +88,14 @@ public class MemberBoardService {
     public List<MemberBoard> getMemberBoards(Long accountId) {
         return repository.findMemberBoardsByWriter(accountId);
     }
+
+    public Page<MemberBoard> getMemberBoardListByTitle(String keyword, int page){
+        return repository.findByTitleContaining(keyword,
+                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+    }
+
+    public Page<MemberBoard> getMemberBoardListByPosition(String position, int page){
+        return repository.findByPositionContaining(position,
+                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+    }
 }
