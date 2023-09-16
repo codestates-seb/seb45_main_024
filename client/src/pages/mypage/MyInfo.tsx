@@ -1,21 +1,35 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import classes from "./MyInfo.module.css";
-import EditInfo from "../../components/mypage/EditInfo";
-import TitleLine from "../../components/mypage/TitleLine";
-import ProfileCats from "../../components/mypage/ProfileCats";
-import NoContent from "../../components/mypage/NoContent";
+import EditInfo from "../../components/mypage/input/EditInfo";
+import TitleLine from "../../components/mypage/view/TitleLine";
+import ProfileCats from "../../components/mypage/format/ProfileCats";
+import NoContent from "../../components/mypage/view/NoContent";
 import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { useAppSelector } from "../../redux/hooks";
 import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
+import default_profile from "../../assets/images/default_profile.svg";
+import { ProfileState } from "../../redux/mypage/profileSlice";
+import TagRemover from "../../components/mypage/format/TagRemover";
+import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const { profileData } = useAppSelector(
+    (state: { profile: ProfileState }) => state.profile
+  );
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
+
+  const { getProfile } = useFetchProfile();
+  useEffect(() => {
+    if (!authorInfo.nickname) {
+      getProfile(id!);
+    }
+  }, [authorInfo.nickname]);
 
   const showEditFormhandler = () => {
     setShowEditForm(!showEditForm);
@@ -32,7 +46,7 @@ const MyInfo: FC = () => {
   // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."
     );
 
     if (confirmation) {
@@ -99,7 +113,8 @@ const MyInfo: FC = () => {
                 <div className={classes.profileImgContainer}>
                   <img
                     className={classes.profileimage}
-                    src={authorInfo.imgUrl}
+                    // src={authorInfo.imgUrl} -> 아직 제대로 안 들어감
+                    src={default_profile}
                     alt="sampleProfile"
                   />
                 </div>
@@ -128,7 +143,17 @@ const MyInfo: FC = () => {
               <div className={classes.profilepreview}>
                 <div className={classes.profileContent}>
                   <TitleLine title={ProfileCats.BIO} />
-                  <NoContent />
+                  <div className={classes.bioContainer}>
+                    {profileData.coverLetter ? (
+                      profileData.coverLetter.length > 0 ? (
+                        <TagRemover content={profileData.coverLetter} />
+                      ) : (
+                        <NoContent />
+                      )
+                    ) : (
+                      <NoContent />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className={classes.overlay}>

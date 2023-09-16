@@ -27,7 +27,7 @@ const HeaderRight: FC = () => {
           <div className={classes.profile}>
             <MyProfile />
             <div className={classes.nickname}>
-              <p>{isLoggedIn.nickname}</p>
+              <p>{isLoggedIn.username}</p>
             </div>
           </div>
           <div>

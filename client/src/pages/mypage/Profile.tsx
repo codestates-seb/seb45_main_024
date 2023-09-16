@@ -1,21 +1,21 @@
 import { FC, useEffect, useState } from "react";
-import classes from "./Profile.module.css";
-import NoContent from "../../components/mypage/NoContent";
-import editicon from "../../assets/icons/edit.svg";
-import Bio from "../../components/mypage/Bio";
-import TitleLine from "../../components/mypage/TitleLine";
-import ProfileCats from "../../components/mypage/ProfileCats";
 import { useNavigate, useParams } from "react-router-dom";
-import ProjCard from "../../components/mypage/ProjCard";
-import SoftTag from "../../components/mypage/SoftTag";
-import TechProfile from "../../components/mypage/TechProfile";
-import HardProfile from "../../components/mypage/HardProfile";
+import classes from "./Profile.module.css";
+import editicon from "../../assets/icons/edit.svg";
+import NoContent from "../../components/mypage/view/NoContent";
+import TagRemover from "../../components/mypage/format/TagRemover";
+import TitleLine from "../../components/mypage/view/TitleLine";
+import ProfileCats from "../../components/mypage/format/ProfileCats";
+import ProjCard from "../../components/mypage/view/ProjCard";
+import SoftTag from "../../components/mypage/tag/SoftTag";
+import TechProfile from "../../components/mypage/view/TechProfile";
+import HardProfile from "../../components/mypage/view/HardProfile";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
-import { setProfile } from "../../redux/mypage/profileSlice";
+import { setProfileData } from "../../redux/mypage/profileSlice";
 
 interface AccessTokenType {
   id: number;
@@ -34,20 +34,18 @@ const Profile: FC = () => {
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
 
-  // get(`/mypages/profile/{id}`) : 엔드포인트
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log("profile", profile);
+        console.log(profile);
         setProfile(profile);
-        // dispatch(setProfile(res.data));
+        dispatch(setProfileData(res.data));
         dispatch(
           setAuthorInfo({
             isAuthor: id! === visitorId,
-            visitorId: visitorId,
-            ownerId: id,
+            authorId: id,
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
@@ -62,14 +60,6 @@ const Profile: FC = () => {
 
   const editProfileHandler = () => {
     navigate(`/mypage/${id}/edit`);
-  };
-
-  const dummyTech = {
-    techTags: [
-      { techName: "React", id: 1 },
-      { techName: "TypeScript", id: 2 },
-      { techName: "Node.js", id: 3 },
-    ],
   };
 
   return (
@@ -90,25 +80,26 @@ const Profile: FC = () => {
           <div className={classes.profileItemsContainer}>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.BIO} />
-              {profile.coverLetter ? (
-                profile.coverLetter.length > 0 ? (
-                  <Bio bio={profile.coverLetter} />
+              <div className={classes.bioContainer}>
+                {profile.coverLetter ? (
+                  profile.coverLetter.length > 0 ? (
+                    <TagRemover content={profile.coverLetter} />
+                  ) : (
+                    <NoContent />
+                  )
                 ) : (
                   <NoContent />
-                )
-              ) : (
-                <NoContent />
-              )}
+                )}
+              </div>
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.TECH} />
               <div className={classes.techContainer}>
-                {/* 일단 Tech tag 임의로 만들어 둠 */}
                 <div className={classes.techContentContainer}>
-                  {dummyTech.techTags.length > 0 ? (
-                    dummyTech.techTags.map((techTag, index) => (
+                  {profile.techTags ? (
+                    profile.techTags.map((techTag, index) => (
                       <TechProfile
-                        key={index}
+                        key={techTag.id}
                         techName={techTag.techName}
                         id={techTag.id}
                       />
@@ -128,11 +119,6 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.HARD} />
-              <p className={classes.helpText}>
-                마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
-                있어요.
-              </p>
-              {/* <div className={classes.hardContent}> */}
               <div
                 className={
                   classes.hardContent +
@@ -156,7 +142,6 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.SOFT} />
-              {/* <div className={classes.softContent}> */}
               <div
                 className={
                   classes.softContent +
@@ -183,7 +168,6 @@ const Profile: FC = () => {
               <p className={classes.helpText}>
                 제목을 클릭하면 프로젝트 링크로 이동합니다.
               </p>
-              {/* <div className={classes.projContent}> */}
               <div
                 className={
                   classes.projContent +

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./TechProfile.module.css";
-import logo_green_face from "../../assets/images/logo_green_face.png";
+import GetLogo from "../format/GetLogo";
 
 interface TechProfileProps {
   techName: string;
@@ -11,11 +11,7 @@ const TechProfile: FC<TechProfileProps> = ({ techName }) => {
   return (
     <div className={classes.techContent}>
       <div className={classes.techImgContainer}>
-        <img
-          className={classes.techImg}
-          src={logo_green_face}
-          alt="sample image"
-        />
+        <GetLogo logoTitle={techName} />
       </div>
       <p className={classes.techTitle}>{techName}</p>
     </div>

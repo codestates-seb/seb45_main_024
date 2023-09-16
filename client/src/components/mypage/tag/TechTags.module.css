@@ -6,8 +6,25 @@
 
 .tagsContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tagTypeContainer{
+  display: flex;
+  flex-direction: column;
   gap: 4px;
+}
+
+.tagType{
+  font-weight: 500;
+  color: var(--color-gray-1);
+}
+
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px
 }
 
 .viewMoreContainer {

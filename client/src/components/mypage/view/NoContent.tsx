@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./NoContent.module.css";
-import facelogo from "../../assets/images/logo_green_face.png";
+import facelogo from "../../../assets/images/logo_green_face.png";
 
 const NoContent: FC = () => {
   return (
