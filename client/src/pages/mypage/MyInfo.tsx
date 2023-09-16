@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import classes from "./MyInfo.module.css";
-import EditInfo from "../../components/mypage/EditInfo";
-import TitleLine from "../../components/mypage/TitleLine";
+import EditInfo from "../../components/mypage/input/EditInfo";
+import TitleLine from "../../components/mypage/view/TitleLine";
 import ProfileCats from "../../components/mypage/format/ProfileCats";
-import NoContent from "../../components/mypage/NoContent";
+import NoContent from "../../components/mypage/view/NoContent";
 import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import SideMenu from "../../components/mypage/Sidemenu";

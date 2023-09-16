@@ -1,11 +1,11 @@
 import { FC, useState, useEffect } from "react";
-import classes from "./Review.module.css";
-import AddReview from "../../components/mypage/AddReview";
-import ReviewCard from "../../components/mypage/ReviewCard";
-import SideMenu from "../../components/mypage/Sidemenu";
-import NoContent from "../../components/mypage/NoContent";
-import authInstance from "../../utility/authInstance";
 import { useParams } from "react-router-dom";
+import classes from "./Review.module.css";
+import AddReview from "../../components/mypage/input/AddReview";
+import ReviewCard from "../../components/mypage/view/ReviewCard";
+import SideMenu from "../../components/mypage/Sidemenu";
+import NoContent from "../../components/mypage/view/NoContent";
+import authInstance from "../../utility/authInstance";
 import { useAppSelector } from "../../redux/hooks";
 
 const Review: FC = () => {

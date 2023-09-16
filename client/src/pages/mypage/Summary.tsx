@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 import classes from "./Summary.module.css";
 import SideMenu from "../../components/mypage/Sidemenu";
-import { useAppSelector } from "../../redux/hooks";
-import authInstance from "../../utility/authInstance";
-import { useParams } from "react-router-dom";
-import NoContent from "../../components/mypage/NoContent";
+import NoContent from "../../components/mypage/view/NoContent";
 import Card from "../../components/userlist,projectlist/card/Card";
+import authInstance from "../../utility/authInstance";
 
 const Summary: FC = () => {
   const authorInfo = useAppSelector(state => state.authorInfo);

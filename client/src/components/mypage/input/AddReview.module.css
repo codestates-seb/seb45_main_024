@@ -1,0 +1,71 @@
+.projectForm {
+  /* grid-column: span 7; */
+  width: 83%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.formGroup {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.formSubGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-size: 1.2rem;
+  max-width: fit-content;
+}
+
+.formInput {
+  width: 60%;
+}
+
+.review input, 
+.review textarea {
+    width: 100%;
+}
+
+.formHint {
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+}
+
+.warning {
+    color: var(--color-state-error);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cancelButton {
+  max-width: fit-content;
+}
+
+.submitButton {
+  max-width: fit-content;
+  background-color: var(--color-main);
+  color: white;
+}
