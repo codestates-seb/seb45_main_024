@@ -29,7 +29,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
       };
 
       await authInstance.post(`/mypages/reviews/${id}`, reviewFormData);
-      window.alert("리뷰가 등록되었습니다."); 
+      window.alert("리뷰가 등록되었습니다.");
       window.location.href = `/mypage/${id}/review`;
     } catch (err) {
       console.error("Failed to add review", err);
