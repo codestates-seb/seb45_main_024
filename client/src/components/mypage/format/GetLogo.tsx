@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import zeplin from "../../../assets/tech/zeplin.svg";
 
 interface GetLogoProp {
   logoTitle: string;
@@ -6,9 +7,23 @@ interface GetLogoProp {
 
 const GetLogo: FC<GetLogoProp> = ({ logoTitle }) => {
   const [logoSrc, setLogoSrc] = useState<string | null>(null);
-  const logoName = logoTitle.toLowerCase();
+  let logoName = logoTitle.toLowerCase();
+
+  // 예외: vuejs, amazonwebservices
+  if (logoName === "vue") {
+    logoName = "vuejs";
+  } else if (logoName === "aws") {
+    logoName = "amazonwebservices";
+  } else if (logoName === "reactnative") {
+    logoName = "react";
+  }
 
   useEffect(() => {
+    if (logoName === "zeplin") {
+      setLogoSrc(zeplin);
+      return;
+    }
+
     const originalURL = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${logoName}/${logoName}-original.svg`;
     const plainURL = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${logoName}/${logoName}-plain.svg`;
 

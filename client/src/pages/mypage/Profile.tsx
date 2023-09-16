@@ -16,7 +16,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
 import { setProfileData } from "../../redux/mypage/profileSlice";
-import GetLogo from "../../components/mypage/format/GetLogo";
 
 interface AccessTokenType {
   id: number;
@@ -29,7 +28,7 @@ const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
@@ -40,17 +39,17 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
+        console.log(profile);
         setProfile(profile);
         dispatch(setProfileData(res.data));
         dispatch(
           setAuthorInfo({
             isAuthor: id! === visitorId,
-            visitorId: visitorId,
-            ownerId: id,
+            authorId: id,
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          })
+          }),
         );
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -120,10 +119,6 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.HARD} />
-              {/* <p className={classes.helpText}>
-                마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
-                있어요.
-              </p> */}
               <div
                 className={
                   classes.hardContent +

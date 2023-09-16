@@ -44,6 +44,8 @@
 .techContentContainer {
   display: flex;
   gap: 16px;
+  width: 70%;
+  flex-wrap: wrap;
 }
 
 .helpContent {
