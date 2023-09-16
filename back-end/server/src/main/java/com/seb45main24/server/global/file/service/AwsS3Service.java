@@ -34,7 +34,7 @@ public class AwsS3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 
-	@Value("{cloud.aws.se.endpoint}")
+	@Value("${cloud.aws.s3.endpoint}")
 	private String s3EndPoint;
 
 	private final AmazonS3 amazonS3;
