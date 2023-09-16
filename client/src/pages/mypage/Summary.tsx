@@ -1,19 +1,51 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import classes from "./Summary.module.css";
 import SideMenu from "../../components/mypage/Sidemenu";
 import NoContent from "../../components/mypage/view/NoContent";
 import Card from "../../components/userlist,projectlist/card/Card";
 import authInstance from "../../utility/authInstance";
+import { setProfileData } from "../../redux/mypage/profileSlice";
+import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 
 const Summary: FC = () => {
+  const dispatch = useAppDispatch();
   const authorInfo = useAppSelector(state => state.authorInfo);
   const { id } = useParams<{ id: string }>();
+  // const navigate = useNavigate();
   const [userList, setUserList] = useState([]);
   const [projectList, setProjectList] = useState([]);
   const [isUserDelete, setIsUserDelete] = useState(false);
   const [isProjDelete, setIsProjDelete] = useState(false);
+  const AT = getTokensFromLocalStorage();
+  const visitorId = AT.id.toString();
+
+  useEffect(() => {
+    console.log(authorInfo);
+    const getProfile = async () => {
+      try {
+        const res = await authInstance.get(`/mypages/profile/${id}`);
+        const profile = res.data;
+        dispatch(setProfileData(profile));
+        dispatch(
+          setAuthorInfo({
+            isAuthor: id! === visitorId,
+            visitorId: visitorId,
+            ownerId: id,
+            email: profile.email,
+            nickname: profile.nickname,
+            imgUrl: profile.imageUrl,
+          }),
+        );
+      } catch (err) {
+        console.info("Error fetching profile data", err);
+      }
+    };
+    getProfile();
+    console.log(authorInfo);
+  }, []);
 
   useEffect(() => {
     try {
@@ -45,7 +77,7 @@ const Summary: FC = () => {
     setIsProjDelete(!isProjDelete);
   };
 
-  const handleCardClick = async (type: string, id: string) => {
+  const handleCardClick = async (type: string, id: string, userid: string) => {
     let endpoint;
 
     if (type === "USER_CARD") {
@@ -61,6 +93,8 @@ const Summary: FC = () => {
           await authInstance.delete(endpoint);
           console.log("Deleted successfully");
           window.alert("삭제되었습니다.");
+          window.location.href = `/mypage/${userid}/summary`;
+          // navigate(`/mypage/${userid}/summary`);
         } catch (error) {
           console.error("Error deleting card", error);
         }
@@ -98,11 +132,15 @@ const Summary: FC = () => {
               }
             >
               {userList.length > 0 ? (
-                userList.map(card => (
+                userList.map((card) => (
                   <ul
                     className={classes.cardWrapper}
                     onClick={() =>
-                      handleCardClick("USER_CARD", card.teamBoardId.toString())
+                      handleCardClick(
+                        "USER_CARD",
+                        card.teamBoardId.toString(),
+                        id!,
+                      )
                     }
                   >
                     <Card
@@ -142,13 +180,14 @@ const Summary: FC = () => {
               }
             >
               {projectList.length > 0 ? (
-                projectList.map(card => (
+                projectList.map((card) => (
                   <ul
                     className={classes.cardWrapper}
                     onClick={() =>
                       handleCardClick(
                         "PROJECT_CARD",
                         card.memberBoardId.toString(),
+                        id!,
                       )
                     }
                   >
