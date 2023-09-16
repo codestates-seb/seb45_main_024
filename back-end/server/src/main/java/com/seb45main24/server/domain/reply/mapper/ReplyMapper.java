@@ -3,6 +3,7 @@ package com.seb45main24.server.domain.reply.mapper;
 
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
+import com.seb45main24.server.domain.reply.dto.ReplyAcceptDTO;
 import com.seb45main24.server.domain.reply.dto.ReplyPatchDTO;
 import com.seb45main24.server.domain.reply.dto.ReplyPostDTO;
 import com.seb45main24.server.domain.reply.dto.ReplyResponseDTO;
@@ -44,7 +45,19 @@ public interface ReplyMapper {
 
         reply.setReplyId( replyPatchDTO.getReplyId() );
         reply.setContent( replyPatchDTO.getContent() );
-        reply.setAcceptType( replyPatchDTO.getAcceptType() );
+
+        return reply;
+    }
+
+    default Reply replyAcceptDtoToReply(ReplyAcceptDTO replyAcceptDTO) {
+        if ( replyAcceptDTO == null ) {
+            return null;
+        }
+
+        Reply reply = new Reply();
+
+        reply.setReplyId( replyAcceptDTO.getReplyId() );
+        reply.setAcceptType( replyAcceptDTO.getAcceptType() );
 
         return reply;
     }

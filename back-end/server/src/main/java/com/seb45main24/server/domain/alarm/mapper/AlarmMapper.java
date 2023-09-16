@@ -6,6 +6,8 @@ import com.seb45main24.server.domain.alarm.dto.AlarmPostDTO;
 import com.seb45main24.server.domain.alarm.dto.AlarmResponseDTO;
 import com.seb45main24.server.domain.alarm.entity.Alarm;
 import com.seb45main24.server.domain.member_board.entity.MemberBoard;
+import com.seb45main24.server.domain.reply.dto.ReplyAcceptDTO;
+import com.seb45main24.server.domain.reply.dto.ReplyPostDTO;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
@@ -15,23 +17,25 @@ import java.util.List;
 public interface AlarmMapper {
     List<AlarmResponseDTO> alarmListToAlarmResponseDtoList(List<Alarm> alarmList);
 
-    default Alarm alarmPostDtoToAlarm(AlarmPostDTO alarmPostDTO) {
-        if ( alarmPostDTO == null ) {
+    default Alarm replyAcceptDtoToAlarm(ReplyAcceptDTO replyAcceptDTO) {
+        if ( replyAcceptDTO == null ) {
             return null;
         }
 
         Alarm alarm = new Alarm();
 
         Account writer = new Account();
-        writer.setId(alarmPostDTO.getLoginAccountId());
+        writer.setId(replyAcceptDTO.getAccountId());
+        System.out.println("account: " + replyAcceptDTO.getAccountId());
 
         Account target = new Account();
-        target.setId(alarmPostDTO.getTargetId());
+        target.setId(replyAcceptDTO.getWriterId());
+        System.out.println("target: " + replyAcceptDTO.getWriterId());
 
         MemberBoard memberBoard = new MemberBoard();
-        memberBoard.setMemberBoardId(alarmPostDTO.getMemberId());
+        memberBoard.setMemberBoardId(replyAcceptDTO.getMemberBoardId());
 
-        alarm.setAlarmType( alarmPostDTO.getAlarmType() );
+        alarm.setAlarmType( replyAcceptDTO.getAlarmType() );
         alarm.setIsChecked( false );
         alarm.setWriter( writer );
         alarm.setTarget( target );

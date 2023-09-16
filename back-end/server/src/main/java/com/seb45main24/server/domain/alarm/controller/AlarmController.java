@@ -6,6 +6,9 @@ import com.seb45main24.server.domain.alarm.mapper.AlarmMapper;
 import com.seb45main24.server.domain.alarm.repository.AlarmRepository;
 import com.seb45main24.server.domain.alarm.service.AlarmService;
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
+import com.seb45main24.server.domain.project.entity.Project;
+import com.seb45main24.server.domain.project.mapper.ProjectMapper;
+import com.seb45main24.server.domain.project.service.ProjectService;
 import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,30 +27,39 @@ public class AlarmController {
     private final AlarmRepository repository;
     private final AlarmMapper mapper;
     private final AlarmService service;
+    private final ProjectService projectService;
+    private final ProjectMapper projectMapper;
 
     public AlarmController(AlarmRepository repository,
                            AlarmMapper mapper,
-                           AlarmService service) {
+                           AlarmService service,
+                           ProjectService projectService,
+                           ProjectMapper projectMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.service = service;
+        this.projectService = projectService;
+        this.projectMapper = projectMapper;
     }
 
-    @PostMapping
-    public ResponseEntity postAlarm(@Valid @RequestBody AlarmPostDTO alarmPostDTO,
-                                    @LoginAccountId Long loginAccountId) {
-        alarmPostDTO.setLoginAccountId(loginAccountId);
-
-        Alarm alarm = mapper.alarmPostDtoToAlarm(alarmPostDTO);
-
-        Alarm createAlarm = service.createAlarm(alarm);
-
-        URI location = UriComponentsBuilder.newInstance()
-                .path("/alarms" + "/{createAlarm.getAlarmId()}")
-                .buildAndExpand(createAlarm.getAlarmId()).toUri();
-
-        return ResponseEntity.created(location).build();
-    }
+//    @PostMapping
+//    public ResponseEntity postAlarm(@Valid @RequestBody AlarmPostDTO alarmPostDTO,
+//                                    @LoginAccountId Long loginAccountId) {
+//        alarmPostDTO.setLoginAccountId(loginAccountId);
+//
+//        Alarm alarm = mapper.alarmPostDtoToAlarm(alarmPostDTO);
+//
+//        Alarm createAlarm = service.createAlarm(alarm);
+//
+//        Project project = projectMapper.alarmPostDtoToProject(alarmPostDTO);
+//        projectService.createProject(project);
+//
+//        URI location = UriComponentsBuilder.newInstance()
+//                .path("/alarms" + "/{createAlarm.getAlarmId()}")
+//                .buildAndExpand(createAlarm.getAlarmId()).toUri();
+//
+//        return ResponseEntity.created(location).build();
+//    }
 
     @PatchMapping
     public ResponseEntity checkAllAlarm(@LoginAccountId Long loginAccountId) {

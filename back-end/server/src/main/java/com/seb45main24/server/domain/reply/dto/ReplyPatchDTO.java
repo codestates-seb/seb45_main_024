@@ -12,8 +12,6 @@ public class ReplyPatchDTO {
     @NotBlank
     private String content;
 
-    private Reply.AcceptType acceptType;
-
     public void setReplyId(long replyId) {
         this.replyId = replyId;
     }
