@@ -39,8 +39,6 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log("techTags", profile.techTags);
-        console.log("profile", profile);
         setProfile(profile);
         dispatch(setProfileData(res.data));
         dispatch(
