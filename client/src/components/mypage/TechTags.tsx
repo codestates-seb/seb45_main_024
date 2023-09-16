@@ -50,7 +50,7 @@ const TechTags: FC<TechTagsProps> = ({ techInfo, setTechInfo, onTagClick }) => {
                 .filter((tag) => tag.tagType === type)
                 .map((tag) => (
                   <Tag
-                    techName={tag.name}
+                    techName={tag.techName}
                     id={tag.id}
                     key={tag.id}
                     onTagClick={onTagClick}
