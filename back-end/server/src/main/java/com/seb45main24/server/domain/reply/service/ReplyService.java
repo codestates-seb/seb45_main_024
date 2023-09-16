@@ -43,6 +43,10 @@ public class ReplyService {
         repository.delete(reply);
     }
 
+    public Reply findReply(long replyId) {
+        return findVerifiedReply(replyId);
+    }
+
     private Reply findVerifiedReply(long replyId){
         Optional<Reply> optionalReply = repository.findById(replyId);
 

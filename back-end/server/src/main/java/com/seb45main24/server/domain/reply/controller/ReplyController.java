@@ -1,5 +1,12 @@
 package com.seb45main24.server.domain.reply.controller;
 
+import com.seb45main24.server.domain.alarm.entity.Alarm;
+import com.seb45main24.server.domain.alarm.mapper.AlarmMapper;
+import com.seb45main24.server.domain.alarm.service.AlarmService;
+import com.seb45main24.server.domain.project.entity.Project;
+import com.seb45main24.server.domain.project.mapper.ProjectMapper;
+import com.seb45main24.server.domain.project.service.ProjectService;
+import com.seb45main24.server.domain.reply.dto.ReplyAcceptDTO;
 import com.seb45main24.server.domain.reply.dto.ReplyPatchDTO;
 import com.seb45main24.server.domain.reply.dto.ReplyPostDTO;
 import com.seb45main24.server.domain.reply.entity.Reply;
@@ -23,12 +30,26 @@ public class ReplyController {
     private final ReplyMapper mapper;
     private final ReplyService service;
 
+    private final AlarmService alarmService;
+    private final AlarmMapper alarmMapper;
+
+    private final ProjectService projectService;
+    private final ProjectMapper projectMapper;
+
     public ReplyController(ReplyRepository repository,
                            ReplyMapper mapper,
-                           ReplyService service){
+                           ReplyService service,
+                           AlarmService alarmService,
+                           AlarmMapper alarmMapper,
+                           ProjectService projectService,
+                           ProjectMapper projectMapper){
         this.repository = repository;
         this.mapper = mapper;
         this.service = service;
+        this.alarmService = alarmService;
+        this.alarmMapper = alarmMapper;
+        this.projectService = projectService;
+        this.projectMapper = projectMapper;
     }
 
     @PostMapping
@@ -56,6 +77,29 @@ public class ReplyController {
         Reply reply = mapper.replyPatchDtoToReply(replyPatchDTO);
 
         Reply updateReply = service.updateReply(reply);
+
+        return new ResponseEntity<>(mapper.replyToReplyResponseDto(updateReply), HttpStatus.OK);
+    }
+
+    @PatchMapping("/alarm/{reply-id}")
+    public ResponseEntity patchAlarmReply(@PathVariable("reply-id") @Positive long replyId,
+                                          @Valid @RequestBody ReplyAcceptDTO replyAcceptDTO,
+                                          @LoginAccountId Long loginAccountId) {
+        Reply findReply = service.findReply(replyId);
+        replyAcceptDTO.setAccountId(loginAccountId);
+        replyAcceptDTO.setReplyId(replyId);
+        replyAcceptDTO.setMemberBoardId(findReply.getMemberBoard().getMemberBoardId());
+        replyAcceptDTO.setWriterId(findReply.getWriter().getId());
+
+        Reply reply = mapper.replyAcceptDtoToReply(replyAcceptDTO);
+
+        Reply updateReply = service.updateReply(reply);
+
+        Alarm alarm = alarmMapper.replyAcceptDtoToAlarm(replyAcceptDTO);
+        alarmService.createAlarm(alarm);
+
+        Project project = projectMapper.replyAcceptDtoToProject(replyAcceptDTO);
+        projectService.createProject(project);
 
         return new ResponseEntity<>(mapper.replyToReplyResponseDto(updateReply), HttpStatus.OK);
     }
