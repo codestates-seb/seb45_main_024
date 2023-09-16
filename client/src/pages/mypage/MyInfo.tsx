@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import classes from "./MyInfo.module.css";
 import EditInfo from "../../components/mypage/EditInfo";
 import TitleLine from "../../components/mypage/TitleLine";
-import ProfileCats from "../../components/mypage/ProfileCats";
+import ProfileCats from "../../components/mypage/format/ProfileCats";
 import NoContent from "../../components/mypage/NoContent";
 import authInstance from "../../utility/authInstance";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 import default_profile from "../../assets/images/default_profile.svg";
 import { ProfileState } from "../../redux/mypage/profileSlice";
-import TagRemover from "../../components/mypage/TagRemover";
+import TagRemover from "../../components/mypage/format/TagRemover";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
