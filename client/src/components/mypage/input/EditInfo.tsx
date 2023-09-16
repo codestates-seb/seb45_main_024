@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import classes from "./EditInfo.module.css";
 import { useParams } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { validationActions } from "../../redux/auth/validationSlice";
-import authInstance from "../../utility/authInstance";
-import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { validationActions } from "../../../redux/auth/validationSlice";
+import authInstance from "../../../utility/authInstance";
+import { setAuthorInfo } from "../../../redux/mypage/authorInfoSlice";
 
 interface EditFormProps {
   onClose: () => void;

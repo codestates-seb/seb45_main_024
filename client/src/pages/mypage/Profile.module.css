@@ -32,6 +32,10 @@
   gap: 80px;
 }
 
+.bioContainer{
+  margin-top: 16px;
+}
+
 .techContainer {
   display: flex;
   justify-content: space-between;
@@ -40,6 +44,8 @@
 .techContentContainer {
   display: flex;
   gap: 16px;
+  width: 70%;
+  flex-wrap: wrap;
 }
 
 .helpContent {
@@ -64,6 +70,7 @@
 }
 
 .hardContent {
+  /* margin-top: 16px; */
   display: flex;
   gap: 8px;
 }

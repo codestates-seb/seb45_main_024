@@ -11,14 +11,13 @@ const QuillEditor: FC<QuillEditorProps> = ({ onChange, initialValue }) => {
   const [value, setValue] = useState(initialValue || "");
 
   const changeHandler = (value: string) => {
-    console.log(value);
     setValue(value);
     onChange(value);
   };
 
   return (
     <>
-      <ReactQuill theme="snow" value={value} onChange={changeHandler} />
+      <ReactQuill theme="snow" value={initialValue} onChange={changeHandler} />
     </>
   );
 };

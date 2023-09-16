@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthorInfoState {
   isAuthor: boolean;
-  visitorId: string | null;
-  ownerId: string | undefined;
+  authorId: string | undefined;
   email: string | undefined;
   nickname: string | undefined;
   imgUrl: string | null;
@@ -11,8 +10,7 @@ interface AuthorInfoState {
 
 const initialState: AuthorInfoState = {
   isAuthor: true,
-  visitorId: "",
-  ownerId: "",
+  authorId: "",
   email: "",
   nickname: "",
   imgUrl: "",

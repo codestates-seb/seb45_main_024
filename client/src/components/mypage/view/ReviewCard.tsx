@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classes from "./ReviewCard.module.css";
-import logo_green_face from "../../assets/images/logo_green_face.png";
-import DateFormat from "./DateFormat";
+import logo_green_face from "../../../assets/images/logo_green_face.png";
+import DateFormat from "../format/DateFormat";
 
 interface ReviewCardProps {
   review: {

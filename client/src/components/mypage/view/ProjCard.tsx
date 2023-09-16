@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classes from "./ProjCard.module.css";
-import logo_white from "../../assets/images/logo_white.png";
-import { ProjectDetails } from "../../pages/mypage/Profile";
+import logo_white from "../../../assets/images/logo_white.png";
+import { ProjectDetails } from "../../../pages/mypage/Profile";
 
 interface ProjectProps {
   project: ProjectDetails;
