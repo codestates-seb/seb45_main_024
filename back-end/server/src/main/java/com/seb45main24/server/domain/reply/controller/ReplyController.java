@@ -81,7 +81,7 @@ public class ReplyController {
         return new ResponseEntity<>(mapper.replyToReplyResponseDto(updateReply), HttpStatus.OK);
     }
 
-    @PatchMapping("/alarm/{reply-id}")
+    @PatchMapping("/accept/{reply-id}")
     public ResponseEntity patchAlarmReply(@PathVariable("reply-id") @Positive long replyId,
                                           @Valid @RequestBody ReplyAcceptDTO replyAcceptDTO,
                                           @LoginAccountId Long loginAccountId) {
@@ -95,11 +95,13 @@ public class ReplyController {
 
         Reply updateReply = service.updateReply(reply);
 
-        Alarm alarm = alarmMapper.replyAcceptDtoToAlarm(replyAcceptDTO);
-        alarmService.createAlarm(alarm);
+        if(replyAcceptDTO.getAcceptType() == Reply.AcceptType.ACCEPT) {
+            Alarm alarm = alarmMapper.replyAcceptDtoToAlarm(replyAcceptDTO);
+            alarmService.createAlarm(alarm);
 
-        Project project = projectMapper.replyAcceptDtoToProject(replyAcceptDTO);
-        projectService.createProject(project);
+            Project project = projectMapper.replyAcceptDtoToProject(replyAcceptDTO);
+            projectService.createProject(project);
+        }
 
         return new ResponseEntity<>(mapper.replyToReplyResponseDto(updateReply), HttpStatus.OK);
     }
