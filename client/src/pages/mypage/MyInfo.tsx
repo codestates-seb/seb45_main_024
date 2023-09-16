@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import classes from "./MyInfo.module.css";
 import EditInfo from "../../components/mypage/input/EditInfo";
 import TitleLine from "../../components/mypage/view/TitleLine";
@@ -12,6 +12,7 @@ import { removeTokensFromLocalStorage } from "../../utility/tokenStorage";
 import default_profile from "../../assets/images/default_profile.svg";
 import { ProfileState } from "../../redux/mypage/profileSlice";
 import TagRemover from "../../components/mypage/format/TagRemover";
+import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 
 const MyInfo: FC = () => {
   const navigate = useNavigate();
@@ -22,6 +23,13 @@ const MyInfo: FC = () => {
   );
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
+
+  const { getProfile } = useFetchProfile();
+  useEffect(() => {
+    if (!authorInfo.nickname) {
+      getProfile(id!);
+    }
+  }, [authorInfo.nickname]);
 
   const showEditFormhandler = () => {
     setShowEditForm(!showEditForm);

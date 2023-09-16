@@ -1,64 +1,35 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import classes from "./Summary.module.css";
 import SideMenu from "../../components/mypage/Sidemenu";
 import NoContent from "../../components/mypage/view/NoContent";
 import Card from "../../components/userlist,projectlist/card/Card";
 import authInstance from "../../utility/authInstance";
-import { setProfileData } from "../../redux/mypage/profileSlice";
-import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
-import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
+import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 
 const Summary: FC = () => {
-  const dispatch = useAppDispatch();
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   // const navigate = useNavigate();
   const [userList, setUserList] = useState([]);
   const [projectList, setProjectList] = useState([]);
   const [isUserDelete, setIsUserDelete] = useState(false);
   const [isProjDelete, setIsProjDelete] = useState(false);
-  const AT = getTokensFromLocalStorage();
-  const visitorId = AT.id.toString();
+  const { getProfile } = useFetchProfile();
 
   useEffect(() => {
-    console.log(authorInfo);
-    const getProfile = async () => {
-      try {
-        const res = await authInstance.get(`/mypages/profile/${id}`);
-        const profile = res.data;
-        dispatch(setProfileData(profile));
-        dispatch(
-          setAuthorInfo({
-            isAuthor: id! === visitorId,
-            visitorId: visitorId,
-            ownerId: id,
-            email: profile.email,
-            nickname: profile.nickname,
-            imgUrl: profile.imageUrl,
-          }),
-        );
-      } catch (err) {
-        console.info("Error fetching profile data", err);
-      }
-    };
-    getProfile();
-    console.log(authorInfo);
-  }, []);
+    if (!authorInfo.nickname) {
+      getProfile(id!);
+    }
+  }, [authorInfo.nickname]);
 
   useEffect(() => {
     try {
       const getLists = async () => {
         const res = await authInstance.get(`/mypages/summary/${id}`);
-
-        // 테스트해봐야...
-        console.log(res.data);
-
         const userList = res.data.teamBoards;
-        console.log(userList);
         const projectList = res.data.memberBoards;
-        console.log(projectList);
 
         setUserList(userList);
         setProjectList(projectList);
@@ -134,12 +105,13 @@ const Summary: FC = () => {
               {userList.length > 0 ? (
                 userList.map((card) => (
                   <ul
+                    key={card.teamBoardId}
                     className={classes.cardWrapper}
                     onClick={() =>
                       handleCardClick(
                         "USER_CARD",
                         card.teamBoardId.toString(),
-                        id!,
+                        id!
                       )
                     }
                   >
@@ -182,12 +154,13 @@ const Summary: FC = () => {
               {projectList.length > 0 ? (
                 projectList.map((card) => (
                   <ul
+                    key={card.memberBoardId}
                     className={classes.cardWrapper}
                     onClick={() =>
                       handleCardClick(
                         "PROJECT_CARD",
                         card.memberBoardId.toString(),
-                        id!,
+                        id!
                       )
                     }
                   >
