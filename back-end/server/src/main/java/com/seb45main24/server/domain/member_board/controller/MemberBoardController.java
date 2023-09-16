@@ -128,6 +128,8 @@ public class MemberBoardController {
     public ResponseEntity getMemberBoard(@PathVariable("memberBoard-id") @Positive long memberBoardId) {
         MemberBoard memberBoard = service.findMemberBoard(memberBoardId);
 
+        service.addView(memberBoard);
+
         List<MemberBoardTechTag> techTagList = techTagService.getTechTagByMemberBoardId(memberBoardId);
 
         MemberBoardResponseDTO memberBoardResponseDTO =

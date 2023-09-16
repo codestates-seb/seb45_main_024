@@ -47,6 +47,15 @@ public class MemberBoardService {
         return saveMemberBoard;
     }
 
+    public void addView(MemberBoard memberBoard) {
+        MemberBoard findMemberBoard = findVerifiedMemberBoard(memberBoard.getMemberBoardId());
+
+        Optional.ofNullable(memberBoard.getViews())
+                .ifPresent(view -> findMemberBoard.setViews(++view));
+
+        repository.save(findMemberBoard);
+    }
+
     public MemberBoard findMemberBoard(long memberBoardId) {
         return findVerifiedMemberBoard(memberBoardId);
     }
