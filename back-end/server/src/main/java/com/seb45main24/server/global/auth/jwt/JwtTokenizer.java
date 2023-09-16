@@ -9,7 +9,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.seb45main24.server.global.auth.refreshtoken.entity.RefreshToken;
+import com.seb45main24.server.global.exception.advice.BusinessLogicException;
+import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
+
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -50,7 +55,7 @@ public class JwtTokenizer {
 			.compact(); // JWT 생성하고 직렬화
 	}
 
-	public String generatedRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) { // AccessToken 만료시 새로 생성하는 메서드
+	public String generatedRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) { // 리프레쉬 토큰생성
 		Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
 		return Jwts.builder()
@@ -61,7 +66,7 @@ public class JwtTokenizer {
 			.compact();
 	}
 
-	public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) { // JWT 내에 저장된 클레임(사용자오 관련된 정보, 즉 페이로드) 파싱하고 가져오는 메서드
+	public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) { // JWT 내에 저장된 클레임(사용자와 관련된 정보, 즉 페이로드) 파싱하고 가져오는 메서드
 		Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
 		Jws<Claims> claims = Jwts.parserBuilder()
@@ -97,6 +102,43 @@ public class JwtTokenizer {
 		return key;
 	}
 
+	public String validateRefreshToken(RefreshToken token) {
+		String refreshToken = token.getRefreshToken(); // 저장된 리프레시 토큰 가져오기
+		Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+
+			Claims claims = Jwts.parser()
+				.setSigningKey(key)
+				.parseClaimsJws(refreshToken)
+				.getBody();
+
+			try {
+				// refresh 토큰의 만료시간이 지나지 않았을 경우 새로운 access 토큰 생성
+				if (!claims.getExpiration().before(new Date())) {
+					return recreationAccessToken(claims.get("sub").toString());
+				}
+
+			} catch (Exception e) {
+				// refresh 토큰이 만료되었을 경우 로그인 필요
+				throw new BusinessLogicException(ExceptionCode.TOKEN_EXPIRATION);
+			}
+			throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+	}
 
 
+	public String recreationAccessToken(String userEmail) {
+		Claims claims = Jwts.claims().setSubject(userEmail);
+		Date now = new Date();
+		Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+
+		// AccessToken 만들기
+		String accessToken = Jwts.builder()
+			.setClaims(claims)
+			.setIssuedAt(now) // 토큰 발행 시간 정보
+			.setExpiration(new Date(now.getTime() + accessTokenExpirationMinutes))
+			.signWith(key)
+			.compact();
+
+		return accessToken;
+	}
 }
+

@@ -15,7 +15,9 @@ public enum ExceptionCode {
 	DUPLICATED_SELECT(400, "이미 채택된 Answer가 있습니다"),
 	ACCESS_TOKEN_EXPIRATION(400, "로그인이 필요한 기능입니다."),
 	LOGIN_FAILURE(401, "이메일, 비밀번호가 틀렸습니다."),
-	NON_ACCESS(403, "자신에게는 리뷰 등록을 할 수 없습니다.");
+	NON_ACCESS(403, "자신에게는 리뷰 등록을 할 수 없습니다."),
+	TOKEN_EXPIRATION(402, "토큰이 만료되어 로그인이 필요합니다."),
+	ACCESS_DENIED(403, "유효한 토큰이 아닙니다.");
 
 	@Getter
 	private int status;
