@@ -64,6 +64,11 @@ public class MemberBoardService {
         return repository.findAll(PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
     }
 
+    public Page<MemberBoard> findMemberBoardListByView(int page) {
+        return repository.findAll(PageRequest.of(page, 10, Sort.by("views").descending()
+                .and(Sort.by("memberBoardId").descending())));
+    }
+
     public void deleteMemberBoard(int memberBoardId) {
         MemberBoard memberBoard = findMemberBoard(memberBoardId);
 

@@ -153,6 +153,21 @@ public class MemberBoardController {
                 pageMemberBoards), HttpStatus.OK);
     }
 
+    @GetMapping("/view")
+    public ResponseEntity getMemberBoardListByView(@Positive @RequestParam int page) {
+        Page<MemberBoard> pageMemberBoards = service.findMemberBoardListByView(page - 1);
+        List<MemberBoard> memberBoardList = pageMemberBoards.getContent();
+
+        List<List<MemberBoardTechTag>> doubleTechTagList = new ArrayList<>();
+        memberBoardList.stream().forEach(memberBoard ->
+                doubleTechTagList.add(techTagService.getTechTagByMemberBoardId(memberBoard.getMemberBoardId()))
+        );
+
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.memberBoardListToMemberBoardResponseDtoList(
+                memberBoardList, doubleTechTagList),
+                pageMemberBoards), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{memberBoard-id}")
     public ResponseEntity deleteMemberBoard(@PathVariable("memberBoard-id") @Positive int memberBoardId) {
         service.deleteMemberBoard(memberBoardId);
