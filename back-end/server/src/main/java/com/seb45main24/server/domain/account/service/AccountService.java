@@ -1,13 +1,9 @@
 package com.seb45main24.server.domain.account.service;
 
-import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
-import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
 import com.seb45main24.server.domain.image.dto.UploadImage;
@@ -25,7 +20,7 @@ import com.seb45main24.server.domain.image.repository.ImageRepository;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
-import com.seb45main24.server.global.utils.ImageUtils;
+import com.seb45main24.server.global.file.service.AwsS3Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,12 +32,9 @@ public class AccountService {
 	private final PasswordEncoder passwordEncoder;
 	private final CustomAuthorityUtils authorityUtils;
 	private final ImageRepository imageRepository;
-	private final ImageUtils imageUtils;
+	private final AwsS3Service awsS3Service;
 	private final AccountProfileRepository accountProfileRepository;
 	private final AccountProfileService accountProfileService;
-
-	@Value("${multipart.default.path}")
-	private String defaultPath;
 
 	public Account createAccount(Account account) {
 
@@ -55,8 +47,6 @@ public class AccountService {
 
 		List<String> roles = authorityUtils.createRoles(account.getEmail());
 		account.setRoles(roles);
-
-		String fileName = imageUtils.getDefaultImageFileName();
 
 		// 디폴트 이미지 넣기
 		Image defaultImage = createDefaultImage();
@@ -90,11 +80,11 @@ public class AccountService {
 		});
 
 		if (newImage != null && !newImage.isEmpty()) {
-			UploadImage uploadImage = imageUtils.uploadImage(newImage, findAccount.getImage().getImageUrl());
+			UploadImage uploadImage = awsS3Service.updateImage(newImage, findAccount.getImage().getImageName());
 			if (uploadImage != null) {
-				findAccount.getImage().setOriginName(uploadImage.getOriginName());
-				findAccount.getImage().setSize(uploadImage.getSize());
+				findAccount.getImage().setImageName(uploadImage.getImageName());
 				findAccount.getImage().setImageUrl(uploadImage.getImageUrl());
+				findAccount.getImage().setModifiedAt(LocalDateTime.now());
 			}
 		}
 
@@ -152,15 +142,12 @@ public class AccountService {
 
 	// 디폴트 이미지 생성하기
 	private Image createDefaultImage() {
-		String fileName = imageUtils.getDefaultImageFileName();
+		String defaultUrl = awsS3Service.getDefaultProfileImageUrl();
 
 		return Image.builder()
-			.originName(fileName)
-			.saveName(imageUtils.generatedSaveImageName(fileName))
-			.size(imageUtils.getImageSize())
-			.createdAt(LocalDateTime.now())
-			.imageClsf(Image.ImageClassification.PROFILE_IMG)
-			.imageUrl(defaultPath)
+			.imageName("default-profile.png")
+			.imageType(Image.ImageClassification.PROFILE_IMG)
+			.imageUrl(defaultUrl)
 			.build();
 	}
 }

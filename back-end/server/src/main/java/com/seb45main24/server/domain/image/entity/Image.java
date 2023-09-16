@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
+import com.seb45main24.server.global.auditing.Auditable;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -27,38 +28,27 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "IMAGES")
-public class Image {
+public class Image extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IMAGE_ID")
 	private Long id;
 
-	private String originName; // 원본 파일명
-
-	private String saveName; // 저장 파일명(UUID 고유 식별자)
-
-	private Long size; // 파일 크기
+	private String imageName;
 
 	private String imageUrl;
 
-	private LocalDateTime createdAt;
-
 	@Enumerated(EnumType.STRING)
-	private ImageClassification imageClsf;
+	private ImageClassification imageType;
 
 	@Builder
-	public Image(Long id, String originName, String saveName, Long size, String imageUrl, LocalDateTime createdAt,
-		ImageClassification imageClsf) {
+	public Image(Long id, String imageName, String imageUrl, ImageClassification imageType) {
 		this.id = id;
-		this.originName = originName;
-		this.saveName = saveName;
-		this.size = size;
+		this.imageName = imageName;
 		this.imageUrl = imageUrl;
-		this.createdAt = createdAt;
-		this.imageClsf = imageClsf;
+		this.imageType = imageType;
 	}
-
 
 	public enum ImageClassification {
 		PROFILE_IMG("프로필 이미지"),
