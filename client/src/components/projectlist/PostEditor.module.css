@@ -55,7 +55,7 @@
       }
     }
 
-    &.stackList {
+    & .stackList {
       & ul {
         display: flex;
 

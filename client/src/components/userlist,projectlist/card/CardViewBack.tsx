@@ -18,12 +18,17 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
   const { teamBoardId, keywords, accountId, nickname } = cardData;
   const navigate = useNavigate();
 
-  const { id } = getTokensFromLocalStorage() as AccessTokenType;
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+  let tokenId;
+
+  if (token) {
+    tokenId = token.id;
+  }
 
   return (
     <div className={classes.back}>
       <div className={classes.topArea}>
-        {id === accountId ? (
+        {tokenId === accountId ? (
           <span
             className={classes.edit}
             onClick={() => {

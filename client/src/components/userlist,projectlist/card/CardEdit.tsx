@@ -5,6 +5,11 @@ import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getNewTitle } from "../../../redux/store";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+
 import classes from "./CardStyle.module.css";
 
 interface CardEditProps {
@@ -17,14 +22,11 @@ const CardEdit = ({ cardData }: CardEditProps) => {
   // const titleRef = useRef<HTMLTextAreaElement>(null);
   // console.log("REF: ", titleRef.current?.value);
 
-  const { title, position, keywords, createdAt } = cardData;
-  console.log("cardData", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
+  const { title, position, keywords, createdAt, techTagList } = cardData;
+  console.log("✅ CARD DATA", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
 
   const [newTitle, setNewTitle] = useState(title);
   const date = getStringDate(createdAt);
-
-  // 임시 기술스택
-  const stack = ["React", "JavaScript"];
 
   useEffect(() => {
     setNewTitle(title);
@@ -72,8 +74,16 @@ const CardEdit = ({ cardData }: CardEditProps) => {
               readOnly
             />
           </div>
+          {/* <Swiper
+            slidesPerView={5}
+            spaceBetween={10}
+            freeMode={true}
+            className={classes.stack}
+          >
+            {techTagList?.map(el => <SwiperSlide key={el}>{el}</SwiperSlide>)}
+          </Swiper> */}
           <ul className={classes.stack}>
-            {stack.map(item => (
+            {techTagList.map(item => (
               <li key={item}>{item}</li>
             ))}
           </ul>

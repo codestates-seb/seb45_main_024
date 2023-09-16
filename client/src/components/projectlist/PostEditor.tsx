@@ -9,6 +9,7 @@ import SelectBox from "../userlist,projectlist/Selectbox";
 import Tag from "../userlist,projectlist/Tag";
 
 import { sliceISOString, requestFormatDate } from "../../utility/formatDate";
+import { extractTextAfterColon } from "../../utility/exceptColonFromTechResponse";
 
 import { ProjectListDataType } from "../../model/boardTypes";
 
@@ -18,11 +19,19 @@ import { useAppDispatch } from "../../redux/hooks";
 import classes from "./PostEditor.module.css";
 import "./QuillEditor.css";
 
+// 임시
 import commonInstance from "../../utility/commonInstance";
+import dummyData from "../../dummy-data.json";
 
 interface PostEditorProps {
   isEdit?: boolean;
   originPost?: ProjectListDataType;
+}
+
+interface TechTagTypes {
+  id: number;
+  techName: string;
+  tagType: "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
 }
 
 const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
@@ -56,20 +65,48 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const requestPositionInfo = positionInfo.join(", "); // ex. "프론트엔드 1명, 백엔드 1명"
 
   // 기술스택 예시
+
+  const [techTagList, setTechTagList] = useState<TechTagTypes[]>([]); // 테크 태그 리스트
+  const [selectedTechTag, setSelectedTechTag] = useState([]); // 선택된 태그
+
+  // selectedTechTag 배열의 각 요소에 대한 id 값을 찾아서 새로운 배열로 반환 (req 목적)
+  const selectedTechIds = selectedTechTag.map(selectedTech => {
+    const tech = techTagList.find(tag => tag.techName === selectedTech);
+    return tech ? tech.id : null; // 해당 기술이 없으면 null 반환
+  });
+
   useEffect(() => {
     getTechTags();
-  }, []);
+  }, [techTagList]); // 실서버에서 에러나면 의존성 []로 바꾸기
 
-  const [techTagList, setTechTagList] = useState([]);
-
+  // 기술태그 GET 요청
   const getTechTags = async () => {
-    const response = await commonInstance.get("tags/tech");
+    try {
+      throw new Error();
 
-    setTechTagList(response.data.map(data => data.name));
+      const response = await commonInstance.get("tags/tech");
+      const data = await response.data;
+
+      setTechTagList(data);
+    } catch (error) {
+      // 서버 연결 안되었을 경우 더미데이터 노출
+      console.warn(error);
+
+      const data = dummyData["tags/tech"].data;
+      console.log(data);
+
+      setTechTagList(data);
+    }
   };
 
   const handleTechTagSelect = (selected: string) => {
-    setTechTag(selected);
+    // 이미 선택된 선택 X
+    if (!selectedTechTag.includes(selected)) {
+      setTechTag(selected);
+      setSelectedTechTag(prev => {
+        return [...prev, selected];
+      });
+    }
   };
 
   const handlePositionSelect = (selected: string) => {
@@ -90,18 +127,27 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const onCreateTag = (position: string) => {
     const combText = `${position} ${positionNumber}명`;
 
-    // if (positionInfo.map(item => positionInfo.includes(item))) {
-    //   return;
-    // }
-
-    setPositionInfo(prev => {
-      return [...prev, combText];
-    });
+    // 같은 포지션은 중복 추가 금지 (삭제 후 다시 추가)
+    if (
+      position !== "포지션" &&
+      !positionInfo.find(item => item.includes(position))
+    ) {
+      setPositionInfo(prev => {
+        return [...prev, combText];
+      });
+    }
   };
 
+  // 포지션 태그 삭제
   const onDeleteTag = (target: string) => {
     const updatedTag = positionInfo.filter(tag => tag !== target);
     setPositionInfo(updatedTag);
+  };
+
+  // 기술 태그 삭제
+  const onDeleteTechTag = (target: string) => {
+    const updatedTag = selectedTechTag.filter(tag => tag !== target);
+    setSelectedTechTag(updatedTag);
   };
 
   // Date
@@ -121,6 +167,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
       setPositionInfo(
         originPost?.position.split(", ").map(item => item.trim()),
       );
+      setSelectedTechTag(extractTextAfterColon(originPost?.techTagList));
       setStatus(originPost?.status);
       setStartDate(sliceISOString(originPost?.startDate));
       setEndDate(sliceISOString(originPost?.endDate));
@@ -135,7 +182,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
     content: content,
     status: status,
     position: requestPositionInfo,
-    techTagIdList: [1, 2, 3], // 추가
+    techTagIdList: selectedTechIds,
     startDate: requestStartDate,
     endDate: requestEndDate,
   };
@@ -303,22 +350,32 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
             <dd>
               <SelectBox
                 title={techTag}
-                options={techTagList}
+                options={techTagList.map(tag => tag.techName)}
                 selectedOption={techTag}
                 onSelect={handleTechTagSelect}
                 borderRadius={4}
+                width={160}
+                techTags={true}
               />
             </dd>
           </dl>
-          <dl>
-            <dt style={{ visibility: "hidden" }}>선택된 기술 스택</dt>
-            <dd className={classes.stackList}>
-              <ul>
-                <li>React</li>
-                <li>TypeScript</li>
-              </ul>
-            </dd>
-          </dl>
+          {techTagList.length > 0 && (
+            <dl>
+              <dt style={{ visibility: "hidden" }}>선택된 기술 스택</dt>
+              <dd>
+                <ul>
+                  {selectedTechTag.map(list => (
+                    <Tag
+                      key={list}
+                      type="KEYWORD_TAG"
+                      text={list}
+                      onDelete={onDeleteTechTag}
+                    />
+                  ))}
+                </ul>
+              </dd>
+            </dl>
+          )}
         </div>
         <div className={classes.description}>
           <h3>프로젝트 소개</h3>

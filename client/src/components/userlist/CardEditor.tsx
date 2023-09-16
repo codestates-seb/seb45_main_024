@@ -7,12 +7,21 @@ import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Tag from "../userlist,projectlist/Tag";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
+import {
+  extractNumbersBeforeColon,
+  extractTextAfterColon,
+} from "../../utility/exceptColonFromTechResponse";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./CardEditor.module.css";
+
+// 임시
+import authInstance from "../../utility/authInstance";
+import dummyData from "../../dummy-data.json";
 
 type CardType = "NEW_CARD" | "EDIT_CARD";
 
@@ -21,8 +30,19 @@ interface CardEditorProps {
   originCard?: UserListDataType;
 }
 
+interface AccessTokenType {
+  id: number;
+}
+
+// 타입 따로 빼두기
+interface TechTagTypes {
+  id: number;
+  techName: string;
+  tagType: "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
+}
+
 const CardEditor = ({ type, originCard }: CardEditorProps) => {
-  // console.log("originCard", originCard);
+  console.log("✅ ORIGIN CARD", originCard);
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
 
@@ -36,15 +56,50 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
-  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
-  const [date, setDate] = useState(new Date().toLocaleDateString());
-  const [title, setTitle] = useState(newTitle);
-  const [position, setPosition] = useState("포지션");
-  // const [stack, setStack] = useState("")
+  // 나의 기술스택 조회
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+  let tokenId: number;
+
+  const [myTechTags, setMyTechTags] = useState<TechTagTypes[]>([]);
+
+  if (token) {
+    tokenId = token.id;
+  }
 
   useEffect(() => {
-    setTitle(newTitle);
-  }, [newTitle]);
+    getMyTechTags();
+  }, []);
+
+  const getMyTechTags = async () => {
+    try {
+      throw new Error();
+
+      const response = await authInstance.get(`/mypages/profile/${tokenId}`);
+      const techData = await response.data.techTags; // [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
+      setMyTechTags(techData);
+    } catch (error) {
+      // 서버 연결 안되었을 경우 더미데이터 노출
+      console.warn(error);
+
+      const techData = dummyData.mypages.techTags;
+      console.log(techData);
+
+      setMyTechTags(techData);
+    }
+  };
+
+  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
+  const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [title, setTitle] = useState(originCard?.title);
+  const [position, setPosition] = useState("포지션");
+
+  // const [selectedTechTag, setSelectedTechTag] = useState(null);
+  const [techTags, setTechTags] = useState<number[]>([]);
+
+  // useEffect(() => {
+  //   setTitle(newTitle);
+  // }, [newTitle]);
 
   // 지원포지션 예시
   const positionList = ["프론트엔드", "백엔드"];
@@ -53,15 +108,36 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     setPosition(selected);
   };
 
+  // 기술스택 선택
+  const onSelectTechTags = (selectedId: number) => {
+    console.log(selectedId);
+
+    const isSelected = techTags.includes(selectedId);
+    console.log("isSelected", isSelected);
+
+    if (isSelected) {
+      // 선택된 태그일 경우
+      const updatedTechTags = techTags.filter(id => id !== selectedId);
+      setTechTags(updatedTechTags);
+    } else {
+      // 선택되지 않은 태그일 경우
+      setTechTags(prev => [...prev, selectedId]);
+    }
+  };
+
   // 키워드 예시
   const [keywords, setKeywords] = useState<string[]>([]);
 
   // 키워드 추가
   const onCreateTag = (keyword: string) => {
     const trimKeyword = keyword.split(" ").join(""); // 공백 허용 X
-    setKeywords(prev => {
-      return [...prev, trimKeyword];
-    });
+
+    // 같은 키워드 추가 금지
+    if (!keywords.includes(trimKeyword)) {
+      setKeywords(prev => {
+        return [...prev, trimKeyword];
+      });
+    }
   };
 
   // 키워드 삭제
@@ -75,36 +151,32 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   /** EDIT CARD인 경우 (카드 수정) */
   useEffect(() => {
     if (EDIT_CARD) {
+      // const techId = extractNumbersBeforeColon(originCard?.techTagList);
+
       setDate(originCard?.createdAt);
       setTitle(originCard?.title);
       setPosition(originCard?.position);
       setKeywords(originCard?.keywords);
+      setTechTags(extractNumbersBeforeColon(originCard?.techTagList));
     }
   }, [EDIT_CARD, originCard]);
 
   // 수정일 경우 origin 데이터를 set하고, cardData를 props로 넘김
   // 생성일 경우 빈 값이 담긴 cardData를 card 컴포넌트로 넘김
   const cardData = {
-    // teamBoardId: 0,
     title: title,
     position: position,
     keywords: keywords,
-    // accountId: 0,
     createdAt: date,
-    // modifiedAt: "",
+    techTagList: techTags,
   };
 
   const data = {
-    title: newTitle, // "제목형식string"
+    title: title, // "제목형식string"
     position: position, // "포지션형식string"
     keywords: keywords, // ["키워드1", "키워드2"]
+    techTagIdList: techTags, // [1,3,5]
   };
-
-  // const data = {
-  //   title: "제목...",
-  //   position: "백엔드",
-  //   keywords: ["코딩", "작업", "테스트"],
-  // };
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
@@ -177,6 +249,19 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         <div className={classes.inputAreaBottom}>
           <section className={classes.stack}>
             <h2 className={classes.title}>프로젝트에서 사용할 기술 스택</h2>
+            <ul>
+              {myTechTags.map(techTag => (
+                <li
+                  key={techTag.id}
+                  onClick={() => onSelectTechTags(techTag.id)}
+                  className={
+                    techTags.includes(techTag.id) ? `${classes.selected}` : ""
+                  }
+                >
+                  {techTag.techName}
+                </li>
+              ))}
+            </ul>
           </section>
           <section className={classes.keyword}>
             <h2 className={classes.title}>내가 원하는 프로젝트의 키워드</h2>

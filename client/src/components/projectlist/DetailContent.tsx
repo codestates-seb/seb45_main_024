@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../assets/icons/edit.svg";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { getStringDate } from "../../utility/formatDate";
+import { extractTextAfterColon } from "../../utility/exceptColonFromTechResponse";
 
 import { getProject } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -27,6 +28,7 @@ const DetailContent = () => {
     content,
     writerId,
     writerNickName,
+    techTagList,
     startDate,
     endDate,
     position,
@@ -39,8 +41,7 @@ const DetailContent = () => {
   const startDateString = getStringDate(startDate);
   const endDateString = getStringDate(endDate);
 
-  // 기술스택 임시
-  const stack = ["React", "JavaScipt"];
+  const techTagNames = extractTextAfterColon(techTagList);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -95,8 +96,8 @@ const DetailContent = () => {
         <dl>
           <dt>기술 스택</dt>
           <dd>
-            <ul>
-              {stack.map(item => {
+            <ul className={classes.techTags}>
+              {techTagNames?.map(item => {
                 return <li key={item}>{item}</li>;
               })}
             </ul>

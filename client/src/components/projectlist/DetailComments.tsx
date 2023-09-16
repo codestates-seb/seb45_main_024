@@ -13,6 +13,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailComments.module.css";
 
+// 임시
+import authInstance from "../../utility/authInstance";
+
 interface AccessTokenType {
   id: number;
 }
@@ -48,7 +51,7 @@ const DetailComments = () => {
     setContent(e.target.value);
   };
 
-  const handleAcceptBtn = () => {};
+  // const handleAcceptBtn = () => {};
 
   const handleRejectBtn = () => {};
 
@@ -160,6 +163,21 @@ const DetailComments = () => {
     }
   };
 
+  // BY 동준
+  // 수락 버튼 함수(api 콜)
+  const handleAcceptBtn = async (writerId, memberBoardId) => {
+    try {
+      await authInstance.post("/alarms", {
+        alarmType: 0,
+        targetId: writerId,
+        memberId: memberBoardId,
+      });
+      console.log("알람 전송");
+    } catch (error) {
+      console.error("알람 전송 안 됨", error);
+    }
+  };
+
   return (
     <section className={classes.comments}>
       <h4>댓글</h4>
@@ -243,7 +261,19 @@ const DetailComments = () => {
                 comment.acceptType === "NONE" &&
                 comment.apply && (
                   <div className={classes.acceptArea}>
-                    <ActionButton type="outline" handleClick={handleAcceptBtn}>
+                    {/* <ActionButton type="outline" handleClick={handleAcceptBtn}>
+                      수락하기
+                    </ActionButton> */}
+                    {/* BY 동준 */}
+                    <ActionButton
+                      type="outline"
+                      handleClick={() =>
+                        handleAcceptBtn(
+                          comment.writerId,
+                          currentProject?.memberBoardId,
+                        )
+                      }
+                    >
                       수락하기
                     </ActionButton>
                     <ActionButton type="outline" handleClick={handleRejectBtn}>

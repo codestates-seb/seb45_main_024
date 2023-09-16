@@ -6,6 +6,13 @@
         "title": "첫번째 게시글 입니다. 이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "이런태그", "저런태그"],
+        "techTagList": [
+          "2:Spring",
+          "6:MySQL",
+          "13:JavaScript",
+          "14:TypeScript",
+          "15: React"
+        ],
         "accountId": 1,
         "nickname": "nana",
         "createdAt": "2023-09-01T19:42:19",
@@ -16,6 +23,7 @@
         "title": "취업용 포트폴리오 함께 작업할 백엔드 팀원 구합니다.",
         "position": "백엔드",
         "keywords": ["포트폴리오", "사이드프로젝트"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 2,
         "nickname": "dada",
         "createdAt": "2023-09-02T19:42:19",
@@ -26,6 +34,7 @@
         "title": "사이드프로젝트 함께 하실 분!!",
         "position": "프론트엔드",
         "keywords": ["포트폴리오", "사이드프로젝트", "반응형웹", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 3,
         "nickname": "baba",
         "createdAt": "2023-09-03T19:42:19",
@@ -36,6 +45,7 @@
         "title": "이 글은 4번 게시글입니다. 게시글 4번 입니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 4,
         "nickname": "hey",
         "createdAt": "2023-09-04T19:42:19",
@@ -46,6 +56,7 @@
         "title": "5번 게시글, 팀 찾습니다 5",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 5,
         "nickname": "yoyo",
         "createdAt": "2023-09-05T19:42:19",
@@ -56,6 +67,7 @@
         "title": "6번 게시글, 팀 찾습니다 6",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 6,
         "nickname": "soso",
         "createdAt": "2023-09-06T19:42:19",
@@ -66,6 +78,7 @@
         "title": "7번 게시글, 팀 찾습니다 7",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "테스트", "good", "내가하고싶은건"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 6,
         "nickname": "soso",
         "createdAt": "2023-09-06T21:42:19",
@@ -76,6 +89,7 @@
         "title": "8번 게시글, 팀 찾습니다 8",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -86,6 +100,7 @@
         "title": "9번 게시글, 팀 찾습니다 9",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -96,6 +111,7 @@
         "title": "10번 게시글, 팀 찾습니다 10",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -106,6 +122,7 @@
         "title": "11번 게시글, 팀 찾습니다 11",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -116,6 +133,7 @@
         "title": "12번 게시글, 팀 찾습니다 12",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -126,6 +144,7 @@
         "title": "13번 게시글, 팀 찾습니다 13",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -136,6 +155,7 @@
         "title": "14번 게시글, 팀 찾습니다 14",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
@@ -146,6 +166,7 @@
         "title": "15번 게시글, 팀 찾습니다 15",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 9,
         "nickname": "elle",
         "createdAt": "2023-09-06T22:42:19",
@@ -156,6 +177,7 @@
         "title": "16번 게시글, 팀 찾습니다 16",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 9,
         "nickname": "elle",
         "createdAt": "2023-09-06T22:42:19",
@@ -166,6 +188,7 @@
         "title": "17번 게시글, 팀 찾습니다 17",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 1,
         "nickname": "nana",
         "createdAt": "2023-09-06T22:42:19",
@@ -188,6 +211,13 @@
         "status": "모집중",
         "views": 0,
         "position": "백엔드 3명",
+        "techTagList": [
+          "2:Spring",
+          "6:MySQL",
+          "13:JavaScript",
+          "14:TypeScript",
+          "15: React"
+        ],
         "writerId": 6,
         "writerNickName": "nana",
         "replyList": [
@@ -276,6 +306,7 @@
         "status": "모집중",
         "views": 11,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
@@ -288,6 +319,7 @@
         "status": "모집중",
         "views": 100,
         "position": "백엔드 1명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-03T01:20:02",
@@ -300,6 +332,7 @@
         "status": "팀원 구하는중",
         "views": 10,
         "position": "백엔드 2명, 디자이너 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-09T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-02T01:20:02",
@@ -313,6 +346,7 @@
         "views": 1,
         "position": "백엔드 1명",
         "startDate": "2023-01-18T11:22:33",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-02T01:20:02",
         "modifiedAt": "2023-09-06T01:20:02"
@@ -325,6 +359,7 @@
         "views": 123,
         "position": "프론트엔드 2명",
         "startDate": "2023-01-18T11:22:33",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
         "modifiedAt": "2023-09-06T01:20:02"
@@ -336,6 +371,7 @@
         "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
@@ -348,6 +384,7 @@
         "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
@@ -360,6 +397,7 @@
         "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-09-01T11:22:33",
         "endDate": "2023-09-30T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
@@ -373,6 +411,63 @@
       "totalPages": 1
     }
   },
+  "mypages": {
+    "imageUrl": "/Users/gimjaehui/main/images/default.png",
+    "email": "nana@test.com",
+    "nickname": "test123",
+    "coverLetter": "안녕하세요. nana입니다.",
+    "techTags": [
+      {
+        "id": 1,
+        "techName": "Java",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 3,
+        "techName": "Nodejs",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 5,
+        "techName": "Express",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 7,
+        "techName": "MongoDB",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 9,
+        "techName": "Django",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 11,
+        "techName": "GraphQL",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 12,
+        "techName": "FireBase",
+        "tagType": "BACK_END"
+      }
+    ],
+    "softSkills": ["팀 협업", "문제 해결"],
+    "hardSkills": ["웹 개발"],
+    "projectDetails": [
+      {
+        "projectTitle": "프로젝트 1",
+        "projectUrl": "웹 애플리케이션 개발",
+        "imageUrl": "url"
+      },
+      {
+        "projectTitle": "프로젝트 2",
+        "projectUrl": "데이터베이스 설계 및 관리",
+        "imageUrl": "url"
+      }
+    ]
+  },
   "tags/tech": {
     "data": [
       {
@@ -381,154 +476,154 @@
         "tagType": "BACK_END"
       },
       {
-          "id": 2,
-          "name": "Spring",
-          "tagType": "BACK_END"
+        "id": 2,
+        "name": "Spring",
+        "tagType": "BACK_END"
       },
       {
-          "id": 3,
-          "name": "Nodejs",
-          "tagType": "BACK_END"
+        "id": 3,
+        "name": "Nodejs",
+        "tagType": "BACK_END"
       },
       {
-          "id": 4,
-          "name": "Go",
-          "tagType": "BACK_END"
+        "id": 4,
+        "name": "Go",
+        "tagType": "BACK_END"
       },
       {
-          "id": 5,
-          "name": "Express",
-          "tagType": "BACK_END"
+        "id": 5,
+        "name": "Express",
+        "tagType": "BACK_END"
       },
       {
-          "id": 6,
-          "name": "MySQL",
-          "tagType": "BACK_END"
+        "id": 6,
+        "name": "MySQL",
+        "tagType": "BACK_END"
       },
       {
-          "id": 7,
-          "name": "MongoDB",
-          "tagType": "BACK_END"
+        "id": 7,
+        "name": "MongoDB",
+        "tagType": "BACK_END"
       },
       {
-          "id": 8,
-          "name": "Python",
-          "tagType": "BACK_END"
+        "id": 8,
+        "name": "Python",
+        "tagType": "BACK_END"
       },
       {
-          "id": 9,
-          "name": "Django",
-          "tagType": "BACK_END"
+        "id": 9,
+        "name": "Django",
+        "tagType": "BACK_END"
       },
       {
-          "id": 10,
-          "name": "php",
-          "tagType": "BACK_END"
+        "id": 10,
+        "name": "php",
+        "tagType": "BACK_END"
       },
       {
-          "id": 11,
-          "name": "GraphQL",
-          "tagType": "BACK_END"
+        "id": 11,
+        "name": "GraphQL",
+        "tagType": "BACK_END"
       },
       {
-          "id": 12,
-          "name": "FireBase",
-          "tagType": "BACK_END"
+        "id": 12,
+        "name": "FireBase",
+        "tagType": "BACK_END"
       },
       {
-          "id": 13,
-          "name": "JavaScript",
-          "tagType": "FRONT_END"
+        "id": 13,
+        "name": "JavaScript",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 14,
-          "name": "TypeScript",
-          "tagType": "FRONT_END"
+        "id": 14,
+        "name": "TypeScript",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 15,
-          "name": "React",
-          "tagType": "FRONT_END"
+        "id": 15,
+        "name": "React",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 16,
-          "name": "Vue",
-          "tagType": "FRONT_END"
+        "id": 16,
+        "name": "Vue",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 17,
-          "name": "Svelte",
-          "tagType": "FRONT_END"
+        "id": 17,
+        "name": "Svelte",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 18,
-          "name": "Nextjs",
-          "tagType": "FRONT_END"
+        "id": 18,
+        "name": "Nextjs",
+        "tagType": "FRONT_END"
       },
       {
-          "id": 19,
-          "name": "Flutter",
-          "tagType": "MOBILE"
+        "id": 19,
+        "name": "Flutter",
+        "tagType": "MOBILE"
       },
       {
-          "id": 20,
-          "name": "Swift",
-          "tagType": "MOBILE"
+        "id": 20,
+        "name": "Swift",
+        "tagType": "MOBILE"
       },
       {
-          "id": 21,
-          "name": "Kotlin",
-          "tagType": "MOBILE"
+        "id": 21,
+        "name": "Kotlin",
+        "tagType": "MOBILE"
       },
       {
-          "id": 22,
-          "name": "ReactNative",
-          "tagType": "MOBILE"
+        "id": 22,
+        "name": "ReactNative",
+        "tagType": "MOBILE"
       },
       {
-          "id": 23,
-          "name": "Unity",
-          "tagType": "MOBILE"
+        "id": 23,
+        "name": "Unity",
+        "tagType": "MOBILE"
       },
       {
-          "id": 24,
-          "name": "AWS",
-          "tagType": "ETC"
+        "id": 24,
+        "name": "AWS",
+        "tagType": "ETC"
       },
       {
-          "id": 25,
-          "name": "Kubernetes",
-          "tagType": "ETC"
+        "id": 25,
+        "name": "Kubernetes",
+        "tagType": "ETC"
       },
       {
-          "id": 26,
-          "name": "Docker",
-          "tagType": "ETC"
+        "id": 26,
+        "name": "Docker",
+        "tagType": "ETC"
       },
       {
-          "id": 27,
-          "name": "Git",
-          "tagType": "ETC"
+        "id": 27,
+        "name": "Git",
+        "tagType": "ETC"
       },
       {
-          "id": 28,
-          "name": "Figma",
-          "tagType": "ETC"
+        "id": 28,
+        "name": "Figma",
+        "tagType": "ETC"
       },
       {
-          "id": 29,
-          "name": "Zeplin",
-          "tagType": "ETC"
+        "id": 29,
+        "name": "Zeplin",
+        "tagType": "ETC"
       },
       {
-          "id": 30,
-          "name": "Jest",
-          "tagType": "ETC"
+        "id": 30,
+        "name": "Jest",
+        "tagType": "ETC"
       },
       {
-          "id": 31,
-          "name": "C",
-          "tagType": "ETC"
+        "id": 31,
+        "name": "C",
+        "tagType": "ETC"
       }
     ]
   }

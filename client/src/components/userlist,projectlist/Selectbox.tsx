@@ -12,9 +12,10 @@ type Props = {
   title: string;
   borderRadius?: number;
   width?: number;
-  options: string[]; // ? | techTagList[] | undefined;
+  options: string[];
   selectedOption: string;
   onSelect: (selected: string) => void;
+  techTags?: boolean;
 };
 
 const Select = ({
@@ -24,6 +25,7 @@ const Select = ({
   options,
   selectedOption,
   onSelect,
+  techTags,
 }: Props) => {
   const [toggle, setToggle] = useState(false);
 
@@ -37,7 +39,7 @@ const Select = ({
   };
 
   return (
-    <div className={classes.selectbox}>
+    <div className={`${classes.selectbox} ${techTags ? classes.techTags : ""}`}>
       <div
         className={classes.seletTitle}
         onClick={handleToggle}

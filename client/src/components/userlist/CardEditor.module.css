@@ -38,10 +38,33 @@ main {
 
   & .inputAreaBottom {
     display: flex;
+    gap: 1rem;
     margin-top: 2rem;
 
     & section {
       width: 50%;
+
+      &.stack {
+        border: 1px solid salmon;
+
+        & ul {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+
+          & li {
+            overflow: hidden;
+            width: 50px;
+            height: 50px;
+            border: 1px solid slateblue;
+            border-radius: 50%;
+
+            &.selected {
+              background-color: slateblue;
+            }
+          }
+        }
+      }
 
       & .title {
         margin-bottom: 0.75rem;

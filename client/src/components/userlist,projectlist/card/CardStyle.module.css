@@ -44,7 +44,6 @@
 .front {
   background: linear-gradient(-12deg, var(--color-white) 50%, var(--color-sub) 50% );
 }
-
 .front .topArea {
 
   & .meta {
@@ -99,6 +98,8 @@
 }
 
 .front .bottomArea {
+  overflow: hidden;
+  cursor: default;
 
   & .position input {
     font-size: 1.125rem;
@@ -107,7 +108,22 @@
   & .stack {
     display: flex;
     margin-top: 0.75rem;
-    
+
+    & > div > div {
+      /* 기술스택 이미지 삽입시 */
+      /* overflow:hidden;
+      width: 40px !important;
+      height: 40px !important;
+      border: 1px solid var(--color-main);
+      border-radius: 50%;
+      font-size: 0.25rem; */
+      
+      /* 기술스택 이미지 삽입전 임시 */
+      overflow:hidden;
+      padding: 0.25rem 1rem;
+      background-color:var(--color-sub);
+      border-radius: 16px;
+    }
   }
 }
 
@@ -185,6 +201,10 @@
       height: 6rem;
       font-weight: 700;
       font-size: 1.25rem;
+    }
+
+    & .bottomArea .stack {
+      
     }
   }
 

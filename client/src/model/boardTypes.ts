@@ -1,14 +1,15 @@
 /* User List, Project List의 GET 요청의 Response data type */
 
 export interface UserListDataType {
-  teamBoardId: number;
+  teamBoardId?: number;
   title: string;
   position: string;
   keywords: string[];
-  accountId: number;
-  nickname: string;
+  accountId?: number;
+  techTagList: string[];
+  nickname?: string;
   createdAt: string;
-  modifiedAt: string;
+  modifiedAt?: string;
 }
 
 export interface ProjectListDataType {
@@ -21,6 +22,7 @@ export interface ProjectListDataType {
   writerNickName: string;
   writerId: number;
   replyList: ReplyDataType[];
+  techTagList: string[];
   startDate: string;
   endDate: string;
   createdAt: string;

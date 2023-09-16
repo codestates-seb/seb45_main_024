@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate /* useSearchParams */ } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import Pagination from "../../components/userlist,projectlist/Pagination";
 import Card from "../../components/userlist,projectlist/card/Card";
-import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 
 import { fetchUserCardList } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -44,8 +44,14 @@ const UserList = () => {
   // const currentPage = query.get("page") === null ? 1 : query.get("page");
 
   const onCreateNewCard = () => {
-    // TODO :: 로그인하지 않은 사용자면 로그인 페이지로 이동
-    navigate("/userlist/new");
+    const token = getTokensFromLocalStorage();
+
+    if (!token) {
+      window.alert("회원만 카드를 작성할 수 있어요!");
+      navigate("/login");
+    } else {
+      navigate("/userlist/new");
+    }
   };
 
   /** Fetch User Card */
