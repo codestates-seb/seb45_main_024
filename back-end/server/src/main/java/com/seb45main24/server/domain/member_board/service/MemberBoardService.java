@@ -47,12 +47,26 @@ public class MemberBoardService {
         return saveMemberBoard;
     }
 
+    public void addView(MemberBoard memberBoard) {
+        MemberBoard findMemberBoard = findVerifiedMemberBoard(memberBoard.getMemberBoardId());
+
+        Optional.ofNullable(memberBoard.getViews())
+                .ifPresent(view -> findMemberBoard.setViews(++view));
+
+        repository.save(findMemberBoard);
+    }
+
     public MemberBoard findMemberBoard(long memberBoardId) {
         return findVerifiedMemberBoard(memberBoardId);
     }
 
     public Page<MemberBoard> findMemberBoardList(int page) {
         return repository.findAll(PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+    }
+
+    public Page<MemberBoard> findMemberBoardListByView(int page) {
+        return repository.findAll(PageRequest.of(page, 10, Sort.by("views").descending()
+                .and(Sort.by("memberBoardId").descending())));
     }
 
     public void deleteMemberBoard(int memberBoardId) {
@@ -73,5 +87,15 @@ public class MemberBoardService {
     // 내가 쓴 팀원찾기 게시글 조회
     public List<MemberBoard> getMemberBoards(Long accountId) {
         return repository.findMemberBoardsByWriter(accountId);
+    }
+
+    public Page<MemberBoard> getMemberBoardListByTitle(String keyword, int page){
+        return repository.findByTitleContaining(keyword,
+                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+    }
+
+    public Page<MemberBoard> getMemberBoardListByPosition(String position, int page){
+        return repository.findByPositionContaining(position,
+                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
     }
 }
