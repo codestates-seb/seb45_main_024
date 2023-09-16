@@ -1,7 +1,6 @@
 package com.seb45main24.server.domain.teamboard.entity;
 
 import com.seb45main24.server.domain.account.entity.Account;
-import com.seb45main24.server.domain.accountprofile.entity.TechTag;
 import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,10 @@ import java.util.List;
 public class TeamBoard extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "team_board_id")
     private Long teamBoardId;
+
 
     @Column(nullable = false)
     private String title;
@@ -35,6 +37,4 @@ public class TeamBoard extends Auditable {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teamBoard")
-    private List<TechTag> techTags = new ArrayList<>();
 }

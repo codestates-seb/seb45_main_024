@@ -10,6 +10,8 @@ import javax.validation.Valid;
 
 import com.seb45main24.server.domain.member_board.entity.MemberBoardTechTag;
 import com.seb45main24.server.domain.member_board.service.MemberBoardTechTagService;
+import com.seb45main24.server.domain.teamboard.entity.TeamBoardTechTag;
+import com.seb45main24.server.domain.teamboard.service.TeamBoardTechTagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +54,7 @@ public class AccountProfileController {
 	private final MemberBoardService memberBoardService;
 	private final MemberBoardMapper memberBoardMapper;
 	private final MemberBoardTechTagService memberBoardTechTagService;
+	private final TeamBoardTechTagService teamBoardTechTagService;
 
 	@PatchMapping("/profile/{account-id}")
 	public ResponseEntity patchAccountProfile(@LoginAccountId Long loginAccountId,
@@ -78,7 +81,10 @@ public class AccountProfileController {
 
 		// 팀찾기 조회 : 파라미터 아이디 이용해서
 		List<TeamBoard> teamBoards = teamBoardService.getTeamBoards(accountId);
-		List<TeamBoardResponseDto> teamBoardResponseDto = teamBoardMapper.teamBoardsToTeamBoardResponseDtos(teamBoards);
+		List<List<TeamBoardTechTag>> techTagLists = new ArrayList<>();
+		teamBoards.stream().forEach(teamBoard ->
+				techTagLists.add(teamBoardTechTagService.getTechTagByTeamBoardId(teamBoard.getTeamBoardId())));
+		List<TeamBoardResponseDto> teamBoardResponseDto = teamBoardMapper.teamBoardsToTeamBoardResponseDtoList(teamBoards, techTagLists);
 
 		// 팀원찾기 조회 : 파라미터 아이디 이용해서 (member-board : accountId == writerId)
 		List<MemberBoard> memberBoards = memberBoardService.getMemberBoards(accountId);
