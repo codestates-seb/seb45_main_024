@@ -10,6 +10,8 @@ import java.util.List;
 
 @Getter
 public class MemberBoardPostDTO {
+    private Long memberBoardId;
+
     @NotBlank
     private String title;
 
@@ -32,5 +34,8 @@ public class MemberBoardPostDTO {
 
     public void setLoginAccountId(Long loginAccountId) {
         this.loginAccountId = loginAccountId;
+    }
+    public void setMemberBoardId(Long memberBoardId) {
+        this.memberBoardId = memberBoardId;
     }
 }

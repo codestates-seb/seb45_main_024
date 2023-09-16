@@ -28,6 +28,7 @@ public class MemberBoard extends Auditable {
 
     private String title;
 
+    @Column(length = 1000)
     private String content;
 
     @Enumerated(EnumType.STRING)
