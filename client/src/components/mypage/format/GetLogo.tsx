@@ -9,7 +9,7 @@ const GetLogo: FC<GetLogoProp> = ({ logoTitle }) => {
   const [logoSrc, setLogoSrc] = useState<string | null>(null);
   let logoName = logoTitle.toLowerCase();
 
-  // 예외: vuejs, amazonwebservices
+  // 예외: vuejs, amazonwebservices, reactnative
   if (logoName === "vue") {
     logoName = "vuejs";
   } else if (logoName === "aws") {

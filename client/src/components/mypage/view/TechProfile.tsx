@@ -1,6 +1,5 @@
 import { FC } from "react";
 import classes from "./TechProfile.module.css";
-import default_profile from "../../../assets/images/default_profile.svg";
 import GetLogo from "../format/GetLogo";
 
 interface TechProfileProps {
