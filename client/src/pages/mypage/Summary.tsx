@@ -9,9 +9,8 @@ import authInstance from "../../utility/authInstance";
 import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 
 const Summary: FC = () => {
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   const { id } = useParams<{ id: string }>();
-  // const navigate = useNavigate();
   const [userList, setUserList] = useState([]);
   const [projectList, setProjectList] = useState([]);
   const [isUserDelete, setIsUserDelete] = useState(false);
@@ -48,7 +47,13 @@ const Summary: FC = () => {
     setIsProjDelete(!isProjDelete);
   };
 
-  const handleCardClick = async (type: string, id: string, userid: string) => {
+  const handleCardClick = async (
+    event,
+    type: string,
+    id: string,
+    userid: string,
+  ) => {
+    event.stopPropagation();
     let endpoint;
 
     if (type === "USER_CARD") {
@@ -62,10 +67,8 @@ const Summary: FC = () => {
       if (confirmation) {
         try {
           await authInstance.delete(endpoint);
-          console.log("Deleted successfully");
           window.alert("삭제되었습니다.");
           window.location.href = `/mypage/${userid}/summary`;
-          // navigate(`/mypage/${userid}/summary`);
         } catch (error) {
           console.error("Error deleting card", error);
         }
@@ -103,15 +106,16 @@ const Summary: FC = () => {
               }
             >
               {userList.length > 0 ? (
-                userList.map((card) => (
+                userList.map(card => (
                   <ul
                     key={card.teamBoardId}
                     className={classes.cardWrapper}
-                    onClick={() =>
+                    onClick={event =>
                       handleCardClick(
+                        event,
                         "USER_CARD",
                         card.teamBoardId.toString(),
-                        id!
+                        id!,
                       )
                     }
                   >
@@ -152,15 +156,16 @@ const Summary: FC = () => {
               }
             >
               {projectList.length > 0 ? (
-                projectList.map((card) => (
+                projectList.map(card => (
                   <ul
                     key={card.memberBoardId}
                     className={classes.cardWrapper}
-                    onClick={() =>
+                    onClick={event =>
                       handleCardClick(
+                        event,
                         "PROJECT_CARD",
                         card.memberBoardId.toString(),
-                        id!
+                        id!,
                       )
                     }
                   >
