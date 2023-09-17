@@ -35,6 +35,7 @@ const usersSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchUserCardList.fulfilled, (state, action) => {
+      // console.log()
       state.data = action.payload;
     });
     builder.addCase(fetchUserCardList.rejected, (state, action) => {

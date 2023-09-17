@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
@@ -56,20 +56,47 @@ const ProjectList = () => {
     }
   };
 
+  // 페이지네이션
+  // const [totalProject, setTotalProject] = useState(0);
+
+  const [query, setQuery] = useSearchParams();
+
+  const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
+  const currentPage = query.get("page") === null ? "1" : query.get("page");
+
   /** Fetch Project List */
   useEffect(() => {
+    getProjects();
+  }, [dispatch, currentPage]);
+
+  // interface queryParamsDataType {
+  //   currentPage: string;
+  //   currentSize: string;
+  // }
+
+  const queryParamsData = {
+    currentPage: currentPage,
+    currentSize: currentSize,
+  };
+
+  const getProjects = () => {
     console.log("🚀 GET PROJECT LIST");
     setIsLoading(true);
     setError(null);
 
-    dispatch(fetchProjectList())
+    dispatch(fetchProjectList(queryParamsData))
       .unwrap()
       .catch(error => {
         console.warn("🚀 GET PROJECTLIST ERROR", error);
         setError("Something went wrong");
       })
       .finally(() => setIsLoading(false));
-  }, [dispatch]);
+  };
+
+  const handleChangePage = page => {
+    query.set("page", page);
+    setQuery(query);
+  };
 
   // ProjectListContents 정의
   let projectListContent;
@@ -148,9 +175,9 @@ const ProjectList = () => {
 
       <div className={classes.pagination}>
         <Pagination
-          totalCards={32}
-          currentPage={1}
-          // onChangePage={}
+          currentPage={currentPage}
+          totalCards={27}
+          onChangePage={handleChangePage}
         />
       </div>
     </main>

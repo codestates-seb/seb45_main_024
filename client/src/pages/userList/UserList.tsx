@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
@@ -19,6 +19,7 @@ const UserList = () => {
   const dispatch = useAppDispatch();
   const userCardData = useAppSelector(state => state.users.data);
   console.log("✅ USER LIST", userCardData);
+  // console.log("✅ TOT", userCardData);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -39,9 +40,13 @@ const UserList = () => {
   };
 
   // pagination 관련: 추후 작업
-  // const [totalCard, setTotalCard] = useState(0);
   // const [query, setQuery] = useSearchParams();
+
+  // // const currentSort = query.get("sort") === null ? "new" : query.get("sort");
   // const currentPage = query.get("page") === null ? 1 : query.get("page");
+
+  // const [totalCard, setTotalCard] = useState(0);
+  // console.log("totalCard", totalCard)
 
   const onCreateNewCard = () => {
     const token = getTokensFromLocalStorage();

@@ -17,12 +17,26 @@ interface editProjectParamsType {
   data: reqDataType;
 }
 
-/** GET 모든 프로젝트 조회 */
-const fetchProjectList = createAsyncThunk("projectlist/fetch", async () => {
-  const response = await commonInstance.get(`memberboards/?page=1`);
+interface QueryParamsType {
+  currentPage: string;
+  currentSize: string;
+}
 
-  return response.data.data;
-});
+/** GET 모든 프로젝트 조회 */
+const fetchProjectList = createAsyncThunk(
+  "projectlist/fetch",
+  async ({ currentPage, currentSize }: QueryParamsType) => {
+    const response = await commonInstance.get(
+      `memberboards/?page=${currentPage}&size=${currentSize}`,
+    );
+
+    // const listData = response.data.data;
+    // const pageInfo = response.data.pageInfo;
+
+    return response.data.data;
+    // return { listData, pageInfo };
+  },
+);
 
 /** GET 프로젝트 조회 */
 const getProject = createAsyncThunk("project/get", async (targetId: string) => {
