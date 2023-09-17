@@ -174,7 +174,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       techTags: selectedTechs,
       softSkills: softTags,
       hardSkills: hardTags,
-      // projectDetails: projSet,
     });
   }, [editorValue, selectedTechs, softTags, hardTags]);
 

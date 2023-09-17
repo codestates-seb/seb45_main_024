@@ -22,7 +22,7 @@ const Addproj: FC<AddprojProps> = ({
   projectLink,
   projectImage,
   projSet,
-  projectId,
+  // projectId,
   setProjectId,
   setProjectName,
   setProjectLink,
@@ -66,12 +66,6 @@ const Addproj: FC<AddprojProps> = ({
       setProjectName(projectName);
       setProjectLink(projectLink);
       setProjectImage(projectImage);
-      // projSet.push({
-      //   projectId: projectId,
-      //   projectTitle: projectName,
-      // });
-      // setProjSet(projSet);
-      // console.log(projSet);
     }
   };
 
