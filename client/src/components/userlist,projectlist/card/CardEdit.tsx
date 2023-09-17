@@ -1,14 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import DefaultProfileImg from "../../../assets/images/default_profile.svg";
 import { UserListDataType } from "../../../model/boardTypes";
 import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getNewTitle } from "../../../redux/store";
+import GetLogo from "../../mypage/format/GetLogo";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+
+import { fetchTechTags } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/hooks";
 
 import classes from "./CardStyle.module.css";
 
@@ -19,14 +23,22 @@ interface CardEditProps {
 // New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
   const dispatch = useAppDispatch();
-  // const titleRef = useRef<HTMLTextAreaElement>(null);
-  // console.log("REF: ", titleRef.current?.value);
+  const techTagData = useAppSelector(state => state.techTags.data);
+  // console.log("techTagData", techTagData);
 
   const { title, position, keywords, createdAt, techTagList } = cardData;
   console.log("✅ CARD DATA", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
 
-  const [newTitle, setNewTitle] = useState(title);
+  useEffect(() => {
+    // console.log("프로젝트에서 사용할 기술스택 변경");
+  }, [techTagList]);
+
+  // console.log("TTTTT 선택된 기술스택", techTagList);
+
+  const [newTitle, setNewTitle] = useState("");
   const date = getStringDate(createdAt);
+
+  console.log("TTTTTTTTTTT newTitle", newTitle);
 
   useEffect(() => {
     setNewTitle(title);
@@ -35,14 +47,31 @@ const CardEdit = ({ cardData }: CardEditProps) => {
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
     dispatch(getNewTitle(e.target.value));
+    // onSetNewTitle(e.target.value);
   };
 
-  // const handleBlurTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   console.log("🚀 BLUR!!");
-  //   setNewTitle(e.target.value);
-  //   dispatch(getNewTitle(newTitle));
-  //   console.log("newTitle", newTitle);
-  // };
+  /** GET 기술태그 */
+  useEffect(() => {
+    getTechTags();
+  }, []);
+
+  const getTechTags = () => {
+    dispatch(fetchTechTags())
+      .unwrap()
+      .then(() => {
+        console.log("🚀 GET TECH TAGS 성공");
+        // setTechTagList(techTagData);
+      })
+      .catch(error => {
+        console.warn("🚀 GET TECH TAGS 실패", error);
+        // setTechTagList(techTagData);
+      });
+  };
+
+  // 기술태그 넘버로 이름 찾기 (for 카드 렌더링)
+  const selectedTechNames = techTagData
+    .filter(item => techTagList.includes(item.id))
+    .map(item => item.techName);
 
   return (
     <div className={`${classes.card} ${classes.edit}`}>
@@ -74,19 +103,18 @@ const CardEdit = ({ cardData }: CardEditProps) => {
               readOnly
             />
           </div>
-          {/* <Swiper
+          <Swiper
             slidesPerView={5}
             spaceBetween={10}
             freeMode={true}
-            className={classes.stack}
+            className={classes.techTags}
           >
-            {techTagList?.map(el => <SwiperSlide key={el}>{el}</SwiperSlide>)}
-          </Swiper> */}
-          <ul className={classes.stack}>
-            {techTagList.map(item => (
-              <li key={item}>{item}</li>
+            {selectedTechNames?.map(techName => (
+              <SwiperSlide key={techName}>
+                <GetLogo logoTitle={techName} />
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         </div>
       </div>
 

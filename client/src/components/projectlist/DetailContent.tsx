@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailContent.module.css";
 import "./QuillEditor.css";
+import GetLogo from "../mypage/format/GetLogo";
 
 interface AccessTokenType {
   id: number;
@@ -97,8 +98,12 @@ const DetailContent = () => {
           <dt>기술 스택</dt>
           <dd>
             <ul className={classes.techTags}>
-              {techTagNames?.map(item => {
-                return <li key={item}>{item}</li>;
+              {techTagNames?.map(techName => {
+                return (
+                  <li key={techName} className={classes.techTag}>
+                    <GetLogo logoTitle={techName} />
+                  </li>
+                );
               })}
             </ul>
           </dd>

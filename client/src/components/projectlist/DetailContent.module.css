@@ -83,14 +83,11 @@
       & .techTags {
         display: flex;
         flex-wrap: wrap;
+        gap: 0.5rem;
 
-        & li {
-          padding: 0.25rem 1rem;
-          margin-right: 0.25rem;
-          margin-bottom: 0.25rem;
-          background-color:var(--color-sub);
-          border-radius: 16px;
-          font-size: 1.25rem;
+        & .techTag {
+          width: 40px;
+          height: 40px;
         }
       }
     }

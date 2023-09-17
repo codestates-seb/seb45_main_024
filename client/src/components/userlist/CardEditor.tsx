@@ -22,6 +22,7 @@ import classes from "./CardEditor.module.css";
 // 임시
 import authInstance from "../../utility/authInstance";
 import dummyData from "../../dummy-data.json";
+import GetLogo from "../mypage/format/GetLogo";
 
 type CardType = "NEW_CARD" | "EDIT_CARD";
 
@@ -50,8 +51,14 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const newTitle = useAppSelector(state => state.users.editTitle);
-  // console.log("newTitle: ", newTitle);
+  const editTitle = useAppSelector(state => state.users.editTitle);
+  // console.log("TTTTTT newTitle: ", newTitle);
+  const [newTitle, setNewTitle] = useState(editTitle);
+
+  useEffect(() => {
+    setNewTitle(editTitle);
+    console.log("TTTTTT newTitle: ", newTitle);
+  }, [editTitle]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -72,7 +79,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   const getMyTechTags = async () => {
     try {
-      throw new Error();
+      // throw new Error();
 
       const response = await authInstance.get(`/mypages/profile/${tokenId}`);
       const techData = await response.data.techTags; // [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
@@ -94,12 +101,9 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const [title, setTitle] = useState(originCard?.title);
   const [position, setPosition] = useState("포지션");
 
-  // const [selectedTechTag, setSelectedTechTag] = useState(null);
-  const [techTags, setTechTags] = useState<number[]>([]);
+  console.log("TTTTTT title", title);
 
-  // useEffect(() => {
-  //   setTitle(newTitle);
-  // }, [newTitle]);
+  const [techTags, setTechTags] = useState<number[]>([]);
 
   // 지원포지션 예시
   const positionList = ["프론트엔드", "백엔드"];
@@ -155,6 +159,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
       setDate(originCard?.createdAt);
       setTitle(originCard?.title);
+      // setTitle(newTitle);
       setPosition(originCard?.position);
       setKeywords(originCard?.keywords);
       setTechTags(extractNumbersBeforeColon(originCard?.techTagList));
@@ -172,7 +177,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   };
 
   const data = {
-    title: title, // "제목형식string"
+    title: newTitle, // "제목형식string"
     position: position, // "포지션형식string"
     keywords: keywords, // ["키워드1", "키워드2"]
     techTagIdList: techTags, // [1,3,5]
@@ -230,7 +235,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   return (
     <main>
       <div className={classes.previewArea}>
-        <ul>
+        <ul className={classes.editCardFrontAndBack}>
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
         </ul>
@@ -247,23 +252,46 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           />
         </div>
         <div className={classes.inputAreaBottom}>
-          <section className={classes.stack}>
+          <section className={classes.techTagsSection}>
             <h2 className={classes.title}>프로젝트에서 사용할 기술 스택</h2>
-            <ul>
-              {myTechTags.map(techTag => (
-                <li
-                  key={techTag.id}
-                  onClick={() => onSelectTechTags(techTag.id)}
-                  className={
-                    techTags.includes(techTag.id) ? `${classes.selected}` : ""
-                  }
-                >
-                  {techTag.techName}
-                </li>
-              ))}
+            <ul className={classes.techTags}>
+              {myTechTags.length > 0 ? (
+                <>
+                  {myTechTags.map(techData => (
+                    <li
+                      key={techData.id}
+                      onClick={() => onSelectTechTags(techData.id)}
+                      className={
+                        techTags.includes(techData.id)
+                          ? `${classes.selected}`
+                          : ""
+                      }
+                    >
+                      <GetLogo logoTitle={techData.techName} />
+                    </li>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <li className={classes.TechTagInfoText}>
+                    😮 현재 추가되어있는 기술스택이 없습니다.
+                  </li>
+                  <li className={classes.TechTagInfoText}>
+                    마이페이지에서 내가 사용할 수 있는 기술스택을 추가해 주세요!
+                  </li>
+                  <li
+                    className={classes.TechTagInfoText}
+                    onClick={() =>
+                      navigate(`/mypage/${tokenId}`, { replace: true })
+                    }
+                  >
+                    마이페이지로 바로가기 &gt;
+                  </li>
+                </>
+              )}
             </ul>
           </section>
-          <section className={classes.keyword}>
+          <section className={classes.keywordSection}>
             <h2 className={classes.title}>내가 원하는 프로젝트의 키워드</h2>
             <SearchInput
               placeholder="Enter를 눌러 키워드를 추가해 보세요!"

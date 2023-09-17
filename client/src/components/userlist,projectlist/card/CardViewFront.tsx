@@ -3,6 +3,7 @@ import {
   ProjectListDataType,
 } from "../../../model/boardTypes";
 import { extractTextAfterColon } from "../../../utility/exceptColonFromTechResponse";
+import GetLogo from "../../mypage/format/GetLogo";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -52,17 +53,19 @@ const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
       </div>
       <div className={classes.bottomArea} onClick={e => e.stopPropagation()}>
         <div className={classes.position}>{position}</div>
+        {/* 기술스택 */}
         <Swiper
-          slidesPerView={3}
+          slidesPerView={5}
           spaceBetween={10}
           freeMode={true}
-          className={classes.stack}
+          className={classes.techTags}
         >
-          {techTagNames?.map(el => <SwiperSlide key={el}>{el}</SwiperSlide>)}
+          {techTagNames?.map(techName => (
+            <SwiperSlide key={techName} className={classes.techTag}>
+              <GetLogo logoTitle={techName} />
+            </SwiperSlide>
+          ))}
         </Swiper>
-        {/* <ul className={classes.stack}>
-          {techTagNames?.map(el => <li key={el}>{el}</li>)}
-          </ul> */}
       </div>
     </div>
   );

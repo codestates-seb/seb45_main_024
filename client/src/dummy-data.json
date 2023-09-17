@@ -11,7 +11,7 @@
           "6:MySQL",
           "13:JavaScript",
           "14:TypeScript",
-          "15: React"
+          "15:React"
         ],
         "accountId": 1,
         "nickname": "nana",
@@ -23,7 +23,7 @@
         "title": "취업용 포트폴리오 함께 작업할 백엔드 팀원 구합니다.",
         "position": "백엔드",
         "keywords": ["포트폴리오", "사이드프로젝트"],
-        "techTagList": ["2:Spring", "6:MySQL"],
+        "techTagList": ["2:Spring", "6:MySQL", "16:Vue", "17:Svelte", "19:Flutter", "20:Swift"],
         "accountId": 2,
         "nickname": "dada",
         "createdAt": "2023-09-02T19:42:19",
@@ -216,7 +216,7 @@
           "6:MySQL",
           "13:JavaScript",
           "14:TypeScript",
-          "15: React"
+          "15:React"
         ],
         "writerId": 6,
         "writerNickName": "nana",
@@ -306,7 +306,7 @@
         "status": "모집중",
         "views": 11,
         "position": "백엔드 1명, 프론트엔드 2명",
-        "techTagList": ["2:Spring", "6:MySQL"],
+        "techTagList": ["2:Spring", "6:MySQL", "16:Vue", "17:Svelte", "19:Flutter", "20:Swift"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
