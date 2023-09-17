@@ -11,7 +11,7 @@ public class ReviewPostDto {
     private String title;
 
     @NotBlank
-    private String project_url;
+    private String projectUrl;
 
     @NotBlank
     private String intro;
@@ -20,10 +20,13 @@ public class ReviewPostDto {
     private String content;
 
     @Positive
-    private Long accountId;
+    private Long revieweeId;   // 리뷰대상자  accountId
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    @Positive
+    private Long reviewerId;
+
+    public void setRevieweeId(Long revieweeId) {
+        this.revieweeId = revieweeId;
     }
 
 }
