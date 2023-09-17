@@ -9,7 +9,6 @@ import ProfileCats from "../../components/mypage/format/ProfileCats";
 import ProjCard from "../../components/mypage/view/ProjCard";
 import SoftTag from "../../components/mypage/tag/SoftTag";
 import TechProfile from "../../components/mypage/view/TechProfile";
-import HardProfile from "../../components/mypage/view/HardProfile";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -17,6 +16,7 @@ import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
 import { setProfileData } from "../../redux/mypage/profileSlice";
 import { TechDesc } from "../../components/mypage/format/TechDesc";
+import GetLogo from "../../components/mypage/format/GetLogo";
 
 interface AccessTokenType {
   id: number;
@@ -57,7 +57,7 @@ const Profile: FC = () => {
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          }),
+          })
         );
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -118,7 +118,12 @@ const Profile: FC = () => {
                   )}
                 </div>
                 <div className={classes.helpContent}>
-                  <h2 className={classes.helpTitle}>{selectedTechName}</h2>
+                  <div className={classes.helpHeader}>
+                    <h2 className={classes.helpTitle}>{selectedTechName}</h2>
+                    <div className={classes.logoImg}>
+                      <GetLogo logoTitle={selectedTechName} />
+                    </div>
+                  </div>
                   <p className={classes.helpDesc}>
                     {desc ? desc : "기술을 선택해주세요."}
                   </p>
