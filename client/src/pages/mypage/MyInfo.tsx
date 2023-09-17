@@ -53,10 +53,10 @@ const MyInfo: FC = () => {
         authInstance
           .delete(`/accounts/${id}`)
           .then((res) => {
-            alert("회원탈퇴가 완료되었습니다.");
+            removeTokensFromLocalStorage();
           })
           .then((res) => {
-            removeTokensFromLocalStorage();
+            alert("회원탈퇴가 완료되었습니다.");
           })
           .then((res) => {
             authInstance.post("/accounts/logout");
@@ -143,8 +143,8 @@ const MyInfo: FC = () => {
                 <div className={classes.profileContent}>
                   <TitleLine title={ProfileCats.BIO} />
                   <div className={classes.bioContainer}>
-                    {profileData.coverLetter ? (
-                      profileData.coverLetter.length > 0 ? (
+                    {profileData?.coverLetter ? (
+                      profileData?.coverLetter.length > 0 ? (
                         <TagRemover content={profileData.coverLetter} />
                       ) : (
                         <NoContent />
