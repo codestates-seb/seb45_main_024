@@ -13,6 +13,7 @@ public class ReplyResponseDTO {
     private String content;
     private Boolean isApply;
     private String writerNickName;
+    private String writerImageURL;
     private Reply.AcceptType acceptType;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

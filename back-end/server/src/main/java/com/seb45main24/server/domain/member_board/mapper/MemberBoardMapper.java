@@ -70,6 +70,7 @@ public interface MemberBoardMapper {
                     memberBoardReplyDTO.setReplyId(reply.getReplyId());
                     memberBoardReplyDTO.setWriterId(reply.getWriter().getId());
                     memberBoardReplyDTO.setWriterNickName(reply.getWriter().getNickname());
+                    memberBoardReplyDTO.setWriterImageURL(reply.getWriter().getImage().getImageUrl());
                     memberBoardReplyDTO.setContent(reply.getContent());
                     memberBoardReplyDTO.setApply(reply.getIsApply());
                     memberBoardReplyDTO.setAcceptType(reply.getAcceptType());

@@ -12,6 +12,7 @@ public class MemberBoardReplyDTO {
     private long replyId;
     private long writerId;
     private String writerNickName;
+    private String writerImageURL;
     private String content;
     private boolean isApply;
     private Reply.AcceptType acceptType;
