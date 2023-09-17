@@ -30,4 +30,8 @@ public class AmazonS3Controller {
 	public ResponseEntity uploadImage(@RequestPart MultipartFile multipartFile) {
 		return new ResponseEntity(awsS3Service.uploadImage(multipartFile), HttpStatus.OK);
 	}
+	@PostMapping("/projectImage")
+	public ResponseEntity uploadProjectImage(@RequestPart MultipartFile multipartFile) {
+		return new ResponseEntity(awsS3Service.uploadProjectImage(multipartFile), HttpStatus.OK);
+	}
 }

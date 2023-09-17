@@ -38,12 +38,10 @@ public class Image extends Auditable {
 	private String imageName;
 
 	private String imageUrl;
-
-	@Enumerated(EnumType.STRING)
-	private ImageClassification imageType;
+	private String imageType;
 
 	@Builder
-	public Image(Long id, String imageName, String imageUrl, ImageClassification imageType) {
+	public Image(Long id, String imageName, String imageUrl, String imageType) {
 		this.id = id;
 		this.imageName = imageName;
 		this.imageUrl = imageUrl;
