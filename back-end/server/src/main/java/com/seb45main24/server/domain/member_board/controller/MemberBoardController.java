@@ -196,6 +196,32 @@ public class MemberBoardController {
                 pageMemberBoardList), HttpStatus.OK);
     }
 
+    @GetMapping("/view/search")
+    public ResponseEntity getMemberBoardListByTitleSortView(@RequestParam(required = false) String title,
+                                                    @RequestParam(required = false) String position,
+                                                    @RequestParam @Positive int page,
+                                                    @RequestParam @Positive int size) {
+        Page<MemberBoard> pageMemberBoardList = null;
+
+        if(title != null) {
+            pageMemberBoardList = service.getMemberBoardListByTitleSortView(title, page - 1, size);
+
+        } else {
+            pageMemberBoardList = service.getMemberBoardListByPositionSortView(position, page - 1, size);
+        }
+
+        List<MemberBoard> memberBoardList = pageMemberBoardList.getContent();
+
+        List<List<MemberBoardTechTag>> doubleTechTagList = new ArrayList<>();
+        memberBoardList.stream().forEach(memberBoard ->
+                doubleTechTagList.add(techTagService.getTechTagByMemberBoardId(memberBoard.getMemberBoardId()))
+        );
+
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.memberBoardListToMemberBoardResponseDtoList(
+                memberBoardList, doubleTechTagList),
+                pageMemberBoardList), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{memberBoard-id}")
     public ResponseEntity deleteMemberBoard(@PathVariable("memberBoard-id") @Positive int memberBoardId) {
         service.deleteMemberBoard(memberBoardId);
