@@ -13,12 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailComments.module.css";
 
-// 임시
 import authInstance from "../../utility/authInstance";
-
-interface AccessTokenType {
-  id: number;
-}
 
 const DetailComments = () => {
   const navigate = useNavigate();
@@ -198,6 +193,7 @@ const DetailComments = () => {
           <ActionButton buttonType="submit">댓글 등록하기</ActionButton>
         </div>
       </form>
+      {/*TODO 여기다여기! 여기에 comment.wirterId가 있다!!! */}
       <ul className={classes.commentsArea}>
         {comments?.map(comment => (
           <li key={comment.replyId} className={classes.comment}>

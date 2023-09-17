@@ -33,7 +33,7 @@ const Carousel: FC = () => {
   useEffect(() => {
     const timer = setInterval(
       () =>
-        setSlideIdx(idx => {
+        setSlideIdx((idx: number) => {
           if (idx === 0) {
             prevIdx = 0;
             return idx + 1;

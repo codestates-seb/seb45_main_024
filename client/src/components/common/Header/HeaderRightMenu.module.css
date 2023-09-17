@@ -14,10 +14,13 @@
 
 .nickname {
   margin-left: 1.25rem; 
+  display: flex;
+  justify-content: center;
 }
 
 .nickname p {
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .right div button {

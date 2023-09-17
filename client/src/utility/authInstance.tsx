@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  TokenData,
   // getTokensFromLocalStorage,
   saveTokensToLocalStorage,
   removeTokensFromLocalStorage,
