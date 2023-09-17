@@ -22,14 +22,14 @@ public class AuthService {
 	private final RefreshTokenRepository refreshTokenRepository;
 
 
-	public String validateRefreshToken(String refreshToken) {
+	public String validateRefreshToken(String refreshToken, String expAccessToken) {
 		RefreshToken refreshToken1 = getRefreshToken(refreshToken);
-		String createdAccessToken = jwtTokenizer.validateRefreshToken(refreshToken1);
+		String createdAccessToken = jwtTokenizer.validateRefreshToken(refreshToken1, expAccessToken);
 
-		// 기존에 저장된 리프레쉬 토큰 삭제
+		// 기존에 데이터베이스에 저장된 리프레쉬 토큰 삭제
 		refreshTokenRepository.delete(refreshToken1);
 
-		return createdAccessToken;
+		return "Bearer " + createdAccessToken;
 	}
 
 	public RefreshToken getRefreshToken(String refreshToken) { // 해당하는 refresh token이 존재하지 않으면 유효하지 않은 토큰

@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -102,7 +103,7 @@ public class JwtTokenizer {
 		return key;
 	}
 
-	public String validateRefreshToken(RefreshToken token) {
+	public String validateRefreshToken(RefreshToken token, String expAccessToken) {
 		String refreshToken = token.getRefreshToken(); // 저장된 리프레시 토큰 가져오기
 		Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
 
@@ -114,7 +115,7 @@ public class JwtTokenizer {
 			try {
 				// refresh 토큰의 만료시간이 지나지 않았을 경우 새로운 access 토큰 생성
 				if (!claims.getExpiration().before(new Date())) {
-					return recreationAccessToken(claims.get("sub").toString());
+					return recreationAccessToken(expAccessToken);
 				}
 
 			} catch (Exception e) {
@@ -125,20 +126,50 @@ public class JwtTokenizer {
 	}
 
 
-	public String recreationAccessToken(String userEmail) {
-		Claims claims = Jwts.claims().setSubject(userEmail);
-		Date now = new Date();
-		Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+	public String recreationAccessToken(String expAccessToken) {
 
-		// AccessToken 만들기
-		String accessToken = Jwts.builder()
-			.setClaims(claims)
-			.setIssuedAt(now) // 토큰 발행 시간 정보
-			.setExpiration(new Date(now.getTime() + accessTokenExpirationMinutes))
-			.signWith(key)
-			.compact();
+		String accessToken = extractAccessTokenFromHeader(expAccessToken);
 
-		return accessToken;
+		// 기존 액세스 토큰에서 사용자 정보를 가져와서 새로운 액세스 토큰에 추가
+		Jws<Claims> existingAccessTokenClaims = getNewClaims(accessToken, getSecretKey());
+
+		// 클래임을 이용하여 새로운 액세스 토큰 생성
+		String newAccessToken = delegateNewAccessToken(existingAccessTokenClaims.getBody());
+
+		return newAccessToken;
+	}
+
+	private String delegateNewAccessToken(Claims existingClaims) {
+		// 기존 액세스 토큰에서 추출한 클레임을 사용하여 새로운 액세스 토큰 생성
+		Map<String, Object> newClaims = new HashMap<>();
+		newClaims.putAll(existingClaims);
+
+		String subject = existingClaims.getSubject();
+		Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+		String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
+
+		String newAccessToken = generateAccessToken(newClaims, subject, expiration, base64EncodedSecretKey);
+
+		return newAccessToken;
+	}
+
+	private String extractAccessTokenFromHeader(String expAccessToken) {
+		// "Bearer " 다음의 토큰 부분 추출
+		if (expAccessToken != null && expAccessToken.startsWith("Bearer ")) {
+			return expAccessToken.replace("Bearer ", "");
+		}
+		throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
+	}
+
+	private Jws<Claims> getNewClaims(String jws, String base64EncodedSecretKey) {
+		Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(base64EncodedSecretKey));
+
+		Jws<Claims> claims = Jwts.parserBuilder()
+			.setSigningKey(key) // 서명을 확인하고 토큰이 변조되지 않았음을 보장
+			.build()
+			.parseClaimsJws(jws);
+
+		return claims;
 	}
 }
 

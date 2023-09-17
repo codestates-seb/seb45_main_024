@@ -129,7 +129,7 @@ public class AccountService {
 	@Transactional
 	public void changePassword(String tmpPassword, Long accountId) {
 		Account info = accountRepository.findById(accountId).orElseThrow(() ->
-			new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
+							new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
 		// 임시 비밀번호로 업데이트
 		info.setPassword(tmpPassword);
 
