@@ -97,6 +97,7 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.position( memberBoard.getPosition() );
         memberBoardResponseDTO.writerId( memberBoard.getWriter().getId() );
         memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
+        memberBoardResponseDTO.writerImageURL( memberBoard.getWriter().getImage().getImageUrl() );
         memberBoardResponseDTO.replyList( memberBoardReplyDTOList );
         memberBoardResponseDTO.techTagList( tagNameList );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );

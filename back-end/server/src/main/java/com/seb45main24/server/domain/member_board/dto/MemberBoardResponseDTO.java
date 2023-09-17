@@ -22,6 +22,7 @@ public class MemberBoardResponseDTO {
     private String position;
     private Long writerId;
     private String writerNickName;
+    private String writerImageURL;
     private List<MemberBoardReplyDTO> replyList;
     private List<String> techTagList;
     private LocalDateTime startDate;
