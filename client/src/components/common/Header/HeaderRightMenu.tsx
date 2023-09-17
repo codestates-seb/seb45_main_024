@@ -34,7 +34,7 @@ const HeaderRight: FC = () => {
     <div className={classes.right}>
       {isLoggedIn ? (
         <>
-          {/* <Alarm /> */}
+          <Alarm />
           <div className={classes.profile}>
             <div>
               <MyProfile />
