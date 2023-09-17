@@ -18,8 +18,9 @@ const UserList = () => {
 
   const dispatch = useAppDispatch();
   const userCardData = useAppSelector(state => state.users.data);
-  console.log("✅ USER LIST", userCardData);
-  // console.log("✅ TOT", userCardData);
+  const userCardPageInfo = useAppSelector(state => state.users.pageInfo);
+  // console.log("✅ USER LIST", userCardData);
+  // console.log("✅ USER PAGE INFO", userCardPageInfo);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -39,15 +40,6 @@ const UserList = () => {
     setPositionSelect(selected);
   };
 
-  // pagination 관련: 추후 작업
-  // const [query, setQuery] = useSearchParams();
-
-  // // const currentSort = query.get("sort") === null ? "new" : query.get("sort");
-  // const currentPage = query.get("page") === null ? 1 : query.get("page");
-
-  // const [totalCard, setTotalCard] = useState(0);
-  // console.log("totalCard", totalCard)
-
   const onCreateNewCard = () => {
     const token = getTokensFromLocalStorage();
 
@@ -59,20 +51,40 @@ const UserList = () => {
     }
   };
 
+  // 페이지네이션
+  const [query, setQuery] = useSearchParams();
+
+  const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
+  const currentPage = query.get("page") === null ? "1" : query.get("page");
+
   /** Fetch User Card */
   useEffect(() => {
+    getUserCards();
+  }, [dispatch, currentPage]);
+
+  const queryParamsData = {
+    currentPage: currentPage,
+    currentSize: currentSize,
+  };
+
+  const getUserCards = () => {
     console.log("🚀 GET USER LIST");
     setIsLoading(true);
     setError(null);
 
-    dispatch(fetchUserCardList())
+    dispatch(fetchUserCardList(queryParamsData))
       .unwrap()
       .catch(error => {
         console.warn("GET USERLIST ERROR", error);
         setError("Something went wrong");
       })
       .finally(() => setIsLoading(false));
-  }, [dispatch]);
+  };
+
+  const handleChangePage = page => {
+    query.set("page", page);
+    setQuery(query);
+  };
 
   // CardListContent 정의
   let CardListContent;
@@ -144,9 +156,9 @@ const UserList = () => {
 
       <div className={classes.pagination}>
         <Pagination
-          totalCards={32}
-          currentPage={1}
-          // onChangePage={}
+          currentPage={currentPage}
+          totalCards={userCardPageInfo.totalElements}
+          onChangePage={handleChangePage}
         />
       </div>
     </main>

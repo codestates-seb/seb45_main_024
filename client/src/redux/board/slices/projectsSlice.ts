@@ -7,18 +7,18 @@ import {
   removeProject,
 } from "../thunks/projectsThunks";
 
-import { ProjectListDataType } from "../../../model/boardTypes";
+import { ProjectListResponse } from "../../../model/boardTypes";
 
 import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
-interface ProjectState {
-  data: ProjectListDataType[];
-  currentData: ProjectListDataType | null;
-}
-
-const initialState: ProjectState = {
+const initialState: ProjectListResponse = {
   data: [],
-  currentData: null,
+  pageInfo: {
+    page: 1,
+    size: 8,
+    totalElements: 0,
+    totalpages: 0,
+  },
 };
 
 const projectsSlice = createSlice({
@@ -31,7 +31,8 @@ const projectsSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchProjectList.fulfilled, (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.listData;
+      state.pageInfo = action.payload.pageInfo;
     });
     builder.addCase(fetchProjectList.rejected, (state, action) => {
       state.data = dummyData.memberboards.data; // 서버 안될시 TEST

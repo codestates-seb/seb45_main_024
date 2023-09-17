@@ -27,18 +27,14 @@ const CardEdit = ({ cardData }: CardEditProps) => {
   // console.log("techTagData", techTagData);
 
   const { title, position, keywords, createdAt, techTagList } = cardData;
-  console.log("✅ CARD DATA", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
+  // console.log("✅ CARD DATA", cardData); // 생성일 경우 빈값이 든게 오고, 수정일 경우 origin 데이터가 든게 옴
 
   useEffect(() => {
     // console.log("프로젝트에서 사용할 기술스택 변경");
   }, [techTagList]);
 
-  // console.log("TTTTT 선택된 기술스택", techTagList);
-
   const [newTitle, setNewTitle] = useState("");
   const date = getStringDate(createdAt);
-
-  console.log("TTTTTTTTTTT newTitle", newTitle);
 
   useEffect(() => {
     setNewTitle(title);

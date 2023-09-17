@@ -30,11 +30,10 @@ const fetchProjectList = createAsyncThunk(
       `memberboards/?page=${currentPage}&size=${currentSize}`,
     );
 
-    // const listData = response.data.data;
-    // const pageInfo = response.data.pageInfo;
+    const listData = response.data.data;
+    const pageInfo = response.data.pageInfo;
 
-    return response.data.data;
-    // return { listData, pageInfo };
+    return { listData, pageInfo };
   },
 );
 

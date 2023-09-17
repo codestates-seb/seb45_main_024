@@ -19,7 +19,9 @@ const ProjectList = () => {
 
   const dispatch = useAppDispatch();
   const projectListData = useAppSelector(state => state.projects.data);
-  console.log("✅ PROJECT LIST", projectListData);
+  const projectListPageInfo = useAppSelector(state => state.projects.pageInfo);
+  // console.log("✅ PROJECT LIST", projectListData);
+  // console.log("✅ PAGE PAGE INFO", projectListPageInfo);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -57,8 +59,6 @@ const ProjectList = () => {
   };
 
   // 페이지네이션
-  // const [totalProject, setTotalProject] = useState(0);
-
   const [query, setQuery] = useSearchParams();
 
   const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
@@ -68,11 +68,6 @@ const ProjectList = () => {
   useEffect(() => {
     getProjects();
   }, [dispatch, currentPage]);
-
-  // interface queryParamsDataType {
-  //   currentPage: string;
-  //   currentSize: string;
-  // }
 
   const queryParamsData = {
     currentPage: currentPage,
@@ -148,12 +143,12 @@ const ProjectList = () => {
           selectedOption={sortSelect}
           onSelect={handleSortSelect}
         />
-        <Selectbox
+        {/* <Selectbox
           title={stackSelect}
           options={stackList}
           selectedOption={stackSelect}
           onSelect={handleStackSelect}
-        />
+        /> */}
         <Selectbox
           title={positionSelect}
           options={positionList}
@@ -176,7 +171,7 @@ const ProjectList = () => {
       <div className={classes.pagination}>
         <Pagination
           currentPage={currentPage}
-          totalCards={27}
+          totalCards={projectListPageInfo.totalElements}
           onChangePage={handleChangePage}
         />
       </div>

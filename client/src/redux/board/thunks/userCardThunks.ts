@@ -14,12 +14,25 @@ interface editCardParamsType {
   data: reqDataType;
 }
 
-/** GET 모든 카드 조회 */
-const fetchUserCardList = createAsyncThunk("userlist/fetch", async () => {
-  const response = await commonInstance.get(`teamboards/?page=1`);
+interface QueryParamsType {
+  currentPage: string;
+  currentSize: string;
+}
 
-  return response.data.data;
-});
+/** GET 모든 카드 조회 */
+const fetchUserCardList = createAsyncThunk(
+  "userlist/fetch",
+  async ({ currentPage, currentSize }: QueryParamsType) => {
+    const response = await commonInstance.get(
+      `teamboards/?page=${currentPage}&size=${currentSize}`,
+    );
+
+    const listData = response.data.data;
+    const pageInfo = response.data.pageInfo;
+
+    return { listData, pageInfo };
+  },
+);
 
 /** GET 카드 조회 */
 // ❓ 사용 여부 확인 및 테스트 필요
