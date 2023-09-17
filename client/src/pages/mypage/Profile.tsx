@@ -1,21 +1,22 @@
 import { FC, useEffect, useState } from "react";
-import classes from "./Profile.module.css";
-import NoContent from "../../components/mypage/NoContent";
-import editicon from "../../assets/icons/edit.svg";
-import Bio from "../../components/mypage/Bio";
-import TitleLine from "../../components/mypage/TitleLine";
-import ProfileCats from "../../components/mypage/ProfileCats";
 import { useNavigate, useParams } from "react-router-dom";
-import ProjCard from "../../components/mypage/ProjCard";
-import SoftTag from "../../components/mypage/SoftTag";
-import TechProfile from "../../components/mypage/TechProfile";
-import HardProfile from "../../components/mypage/HardProfile";
+import classes from "./Profile.module.css";
+import editicon from "../../assets/icons/edit.svg";
+import NoContent from "../../components/mypage/view/NoContent";
+import TagRemover from "../../components/mypage/format/TagRemover";
+import TitleLine from "../../components/mypage/view/TitleLine";
+import ProfileCats from "../../components/mypage/format/ProfileCats";
+import ProjCard from "../../components/mypage/view/ProjCard";
+import SoftTag from "../../components/mypage/tag/SoftTag";
+import TechProfile from "../../components/mypage/view/TechProfile";
 import SideMenu from "../../components/mypage/Sidemenu";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setAuthorInfo } from "../../redux/mypage/authorInfoSlice";
 import authInstance from "../../utility/authInstance";
-import { setProfile } from "../../redux/mypage/profileSlice";
+import { setProfileData } from "../../redux/mypage/profileSlice";
+import { TechDesc } from "../../components/mypage/format/TechDesc";
+import GetLogo from "../../components/mypage/format/GetLogo";
 
 interface AccessTokenType {
   id: number;
@@ -25,33 +26,38 @@ interface AccessTokenType {
 }
 
 const Profile: FC = () => {
+  const [desc, setDesc] = useState<string>("");
+  const [selectedTechName, setSelectedTechName] = useState<string>("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
 
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
 
-  // get(`/mypages/profile/{id}`) : 엔드포인트
+  const onTechProfileClick = (techName: string) => {
+    setSelectedTechName(techName);
+    setDesc(TechDesc[techName]);
+  };
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log("profile", profile);
+        console.log(profile);
         setProfile(profile);
-        // dispatch(setProfile(res.data));
+        dispatch(setProfileData(res.data));
         dispatch(
           setAuthorInfo({
             isAuthor: id! === visitorId,
-            visitorId: visitorId,
-            ownerId: id,
+            authorId: id,
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          }),
+          })
         );
       } catch (err) {
         console.info("Error fetching profile data", err);
@@ -62,14 +68,6 @@ const Profile: FC = () => {
 
   const editProfileHandler = () => {
     navigate(`/mypage/${id}/edit`);
-  };
-
-  const dummyTech = {
-    techTags: [
-      { techName: "React", id: 1 },
-      { techName: "TypeScript", id: 2 },
-      { techName: "Node.js", id: 3 },
-    ],
   };
 
   return (
@@ -90,27 +88,29 @@ const Profile: FC = () => {
           <div className={classes.profileItemsContainer}>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.BIO} />
-              {profile.coverLetter ? (
-                profile.coverLetter.length > 0 ? (
-                  <Bio bio={profile.coverLetter} />
+              <div className={classes.bioContainer}>
+                {profile.coverLetter ? (
+                  profile.coverLetter.length > 0 ? (
+                    <TagRemover content={profile.coverLetter} />
+                  ) : (
+                    <NoContent />
+                  )
                 ) : (
                   <NoContent />
-                )
-              ) : (
-                <NoContent />
-              )}
+                )}
+              </div>
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.TECH} />
               <div className={classes.techContainer}>
-                {/* 일단 Tech tag 임의로 만들어 둠 */}
                 <div className={classes.techContentContainer}>
-                  {dummyTech.techTags.length > 0 ? (
-                    dummyTech.techTags.map((techTag, index) => (
+                  {profile.techTags ? (
+                    profile.techTags.map((techTag, index) => (
                       <TechProfile
-                        key={index}
+                        key={techTag.id}
                         techName={techTag.techName}
                         id={techTag.id}
+                        onClick={() => onTechProfileClick(techTag.techName)}
                       />
                     ))
                   ) : (
@@ -118,21 +118,20 @@ const Profile: FC = () => {
                   )}
                 </div>
                 <div className={classes.helpContent}>
-                  <h2 className={classes.helpTitle}>언어</h2>
+                  <div className={classes.helpHeader}>
+                    <h2 className={classes.helpTitle}>{selectedTechName}</h2>
+                    <div className={classes.logoImg}>
+                      <GetLogo logoTitle={selectedTechName} />
+                    </div>
+                  </div>
                   <p className={classes.helpDesc}>
-                    클릭한 기술 스택에 대한 설명이 들어갈 예정입니다. 아마도
-                    gpt로 처리할 예정이구요. 이 정도만 할거에요. 이 이상은 안돼.
+                    {desc ? desc : "기술을 선택해주세요."}
                   </p>
                 </div>
               </div>
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.HARD} />
-              <p className={classes.helpText}>
-                마우스를 올리면 {authorInfo.nickname}님이 설정한 레벨을 볼 수
-                있어요.
-              </p>
-              {/* <div className={classes.hardContent}> */}
               <div
                 className={
                   classes.hardContent +
@@ -144,7 +143,7 @@ const Profile: FC = () => {
                 {profile.hardSkills ? (
                   profile.hardSkills.length > 0 ? (
                     profile.hardSkills.map((hardTag, index) => (
-                      <HardProfile key={index} techName={hardTag} level="A" />
+                      <SoftTag key={index} techName={hardTag} />
                     ))
                   ) : (
                     <NoContent />
@@ -156,7 +155,6 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.SOFT} />
-              {/* <div className={classes.softContent}> */}
               <div
                 className={
                   classes.softContent +
@@ -183,7 +181,6 @@ const Profile: FC = () => {
               <p className={classes.helpText}>
                 제목을 클릭하면 프로젝트 링크로 이동합니다.
               </p>
-              {/* <div className={classes.projContent}> */}
               <div
                 className={
                   classes.projContent +

@@ -9,6 +9,7 @@
   & .writeArea {
 
     & textarea {
+      resize: none;
       width: 100%; 
       margin: 0.75rem 0;
     }
@@ -67,18 +68,34 @@
       & .contents {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: flex-start;
         margin-top: 0.75rem;
+        width: 100%;
 
         & > textarea {
           width: 100%;
         }
 
         & .content {
+          flex: 1;
+          margin-right: 1rem;
+
+          & .applyComment {
+            padding: 0.2rem 0.5rem;
+            margin-right: 4px;
+            color: var(--color-main);
+            background-color: var(--color-sub);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            vertical-align: bottom;
+          }
           
         }
 
         & .acceptArea {
+          display: flex;
+
          & > div {
 
          }

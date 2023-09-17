@@ -1,23 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { sliceISOString, requestFormatDate } from "../../utility/formatDate";
-import ActionButton from "../userlist,projectlist/ActionButton";
-import SelectBox from "../userlist,projectlist/Selectbox";
-import Tag from "../userlist,projectlist/Tag";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
+import ActionButton from "../userlist,projectlist/ActionButton";
+import SelectBox from "../userlist,projectlist/Selectbox";
+import Tag from "../userlist,projectlist/Tag";
+import GetLogo from "../mypage/format/GetLogo";
+
+import { sliceISOString, requestFormatDate } from "../../utility/formatDate";
+import { extractTextAfterColon } from "../../utility/exceptColonFromTechResponse";
+
 import { ProjectListDataType } from "../../model/boardTypes";
 
-import { addProject } from "../../redux/store";
-import { editProject } from "../../redux/store";
-import { useAppDispatch } from "../../redux/hooks";
+import { addProject, editProject, fetchTechTags } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./PostEditor.module.css";
+import "./QuillEditor.css";
 
 interface PostEditorProps {
   isEdit?: boolean;
   originPost?: ProjectListDataType;
+}
+
+interface TechTagTypes {
+  id: number;
+  techName: string;
+  tagType: "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
 }
 
 const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
@@ -26,12 +37,14 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   // const { projectId } = useParams() as { projectId: string };
 
   const dispatch = useAppDispatch();
+  const techTagData = useAppSelector(state => state.techTags.data);
 
-  /* 포함되어야 할 정보 : 제목, 내용, 포지션, 기술스택(일단제외), 모집상태, 시작날짜, 종료날짜 */
+  /* 포함되어야 할 정보 : 제목, 내용, 포지션, 기술스택, 모집상태, 시작날짜, 종료날짜 */
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [position, setPosition] = useState("포지션");
-  const [status, setStatus] = useState("모집중");
+  const [techTag, setTechTag] = useState("기술스택");
+  const [status, setStatus] = useState("모집중"); // 모집중 0, 모집완료 1
   const [startDate, setStartDate] = useState<string>(
     sliceISOString(new Date()),
   );
@@ -48,6 +61,46 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const [positionNumber, setPositionNumber] = useState<number | string>(1);
   const [positionInfo, setPositionInfo] = useState<string[]>([]); // ex. ["프론트엔드 1명", "백엔드 1명"]
   const requestPositionInfo = positionInfo.join(", "); // ex. "프론트엔드 1명, 백엔드 1명"
+
+  // 기술스택 예시
+  const [techTagList, setTechTagList] = useState<TechTagTypes[]>([]); // 테크 태그 리스트
+  const [selectedTechTag, setSelectedTechTag] = useState([]); // 선택된 태그
+  console.log("🔥 로직 확인필요 techTagList", techTagList);
+  // const [isTechTagLoading, setIsTechTagLoading] = useState(false);
+
+  // selectedTechTag 배열의 각 요소에 대한 id 값을 찾아서 새로운 배열로 반환 (req 목적)
+  const selectedTechIds = selectedTechTag.map(selectedTech => {
+    const tech = techTagList.find(tag => tag.techName === selectedTech);
+    return tech ? tech.id : null; // 해당 기술이 없으면 null 반환
+  });
+
+  useEffect(() => {
+    getTechTags();
+  }, []);
+
+  /** GET 기술태그 */
+  const getTechTags = () => {
+    dispatch(fetchTechTags())
+      .unwrap()
+      .then(() => {
+        console.log("🚀 GET TECH TAGS 성공");
+        setTechTagList(techTagData);
+      })
+      .catch(error => {
+        console.warn("🚀 GET TECH TAGS 실패", error);
+        setTechTagList(techTagData);
+      });
+  };
+
+  const handleTechTagSelect = (selected: string) => {
+    // 이미 선택된 선택 X
+    if (!selectedTechTag.includes(selected)) {
+      setTechTag(selected);
+      setSelectedTechTag(prev => {
+        return [...prev, selected];
+      });
+    }
+  };
 
   const handlePositionSelect = (selected: string) => {
     setPosition(selected);
@@ -67,18 +120,28 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const onCreateTag = (position: string) => {
     const combText = `${position} ${positionNumber}명`;
 
-    // if (positionInfo.map(item => positionInfo.includes(item))) {
-    //   return;
-    // }
-
-    setPositionInfo(prev => {
-      return [...prev, combText];
-    });
+    // 같은 포지션은 중복 추가 금지 (삭제 후 다시 추가)
+    if (
+      position !== "포지션" &&
+      !positionInfo.find(item => item.includes(position))
+    ) {
+      setPositionInfo(prev => {
+        return [...prev, combText];
+      });
+    }
   };
 
+  // 포지션 태그 삭제
   const onDeleteTag = (target: string) => {
     const updatedTag = positionInfo.filter(tag => tag !== target);
     setPositionInfo(updatedTag);
+  };
+
+  // 기술 태그 삭제
+  const onDeleteTechTag = (target: string) => {
+    console.log(target);
+    const updatedTag = selectedTechTag.filter(tag => tag !== target);
+    setSelectedTechTag(updatedTag);
   };
 
   // Date
@@ -98,6 +161,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
       setPositionInfo(
         originPost?.position.split(", ").map(item => item.trim()),
       );
+      setSelectedTechTag(extractTextAfterColon(originPost?.techTagList));
       setStatus(originPost?.status);
       setStartDate(sliceISOString(originPost?.startDate));
       setEndDate(sliceISOString(originPost?.endDate));
@@ -112,6 +176,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
     content: content,
     status: status,
     position: requestPositionInfo,
+    techTagIdList: selectedTechIds,
     startDate: requestStartDate,
     endDate: requestEndDate,
   };
@@ -187,6 +252,21 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
     }
   };
 
+  // react-quill
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "underline", "strike", "blockquote", "link"],
+          [{ color: [] }],
+          [{ list: "ordered" }, { list: "bullet" }],
+        ],
+      },
+    }),
+    [],
+  );
+
   return (
     <main className={classes.detail}>
       <form onSubmit={handleSubmit}>
@@ -242,7 +322,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
               </span>
             </dd>
           </dl>
-          {positionInfo.length > 0 && (
+          {positionInfo.length > 0 ? (
             <dl>
               <dt style={{ visibility: "hidden" }}>선택된 포지션 및 인원</dt>
               <dd>
@@ -258,30 +338,39 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
                 </ul>
               </dd>
             </dl>
-          )}
-          <dl>
+          ) : null}
+          <dl className={classes.techTagList}>
             <dt>기술 스택</dt>
             <dd>
               <SelectBox
-                title="기술스택"
-                options={["옵션1"]}
-                selectedOption="포지션"
-                onSelect={() => {
-                  console.log("임시입니다.");
-                }}
+                title={techTag}
+                options={techTagList?.map(techTag => techTag.techName)}
+                selectedOption={techTag}
+                onSelect={handleTechTagSelect}
                 borderRadius={4}
+                width={160}
+                techTags={true}
               />
             </dd>
           </dl>
-          {/* <dl>
-            <dt style={{ visibility: "hidden" }}>선택된 기술 스택</dt>
-            <dd className={classes.stackList}>
-              <ul>
-                <li>React</li>
-                <li>TypeScript</li>
-              </ul>
-            </dd>
-          </dl> */}
+          {selectedTechTag.length > 0 ? (
+            <dl>
+              <dt style={{ visibility: "hidden" }}>선택된 기술 스택</dt>
+              <dd>
+                <ul className={classes.techTags}>
+                  {selectedTechTag.map(techName => (
+                    <li
+                      key={techName}
+                      className={classes.techTag}
+                      onClick={() => onDeleteTechTag(techName)}
+                    >
+                      <GetLogo logoTitle={techName} />
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </dl>
+          ) : null}
         </div>
         <div className={classes.description}>
           <h3>프로젝트 소개</h3>
@@ -290,7 +379,8 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
             placeholder="프로젝트를 소개해 주세요!"
             value={content}
             onChange={setContent}
-            style={{ height: "500px" }}
+            modules={modules}
+            className="quillEditor"
           />
         </div>
         <div className={classes.buttonArea}>

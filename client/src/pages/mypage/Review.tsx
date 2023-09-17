@@ -1,20 +1,26 @@
 import { FC, useState, useEffect } from "react";
-import classes from "./Review.module.css";
-import AddReview from "../../components/mypage/AddReview";
-import ReviewCard from "../../components/mypage/ReviewCard";
-import SideMenu from "../../components/mypage/Sidemenu";
-import NoContent from "../../components/mypage/NoContent";
-import authInstance from "../../utility/authInstance";
 import { useParams } from "react-router-dom";
+import classes from "./Review.module.css";
+import AddReview from "../../components/mypage/input/AddReview";
+import ReviewCard from "../../components/mypage/view/ReviewCard";
+import SideMenu from "../../components/mypage/Sidemenu";
+import NoContent from "../../components/mypage/view/NoContent";
+import authInstance from "../../utility/authInstance";
 import { useAppSelector } from "../../redux/hooks";
+import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 
 const Review: FC = () => {
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   const { id } = useParams<{ id: string }>();
-  // authorInfo 동작 안하면 id 사용하기
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<any>([]);
+  const { getProfile } = useFetchProfile();
 
+  useEffect(() => {
+    if (!authorInfo.nickname) {
+      getProfile(id!);
+    }
+  }, [authorInfo.nickname]);
   const showAddReviewhandler = () => {
     setShowAddReview(!showAddReview);
   };
@@ -26,7 +32,7 @@ const Review: FC = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const res = await authInstance.get(`/reviews/${id}?page=1`);
+        const res = await authInstance.get(`/mypages/reviews/${id}?page=1`);
         const reviewList = res.data.data;
         console.log(reviewList);
         setReviewData(reviewList);
@@ -47,10 +53,6 @@ const Review: FC = () => {
               <h1 className={classes.title}>
                 {authorInfo.nickname} 님과 프로젝트를 함께한 동료
               </h1>
-              {/* 작성자가 본인의 페이지에 들어온 경우만 해당 버튼 활성화 */}
-              {/* {authorInfo.isAuthor && (
-                <button className={classes.requestButton}>평가 요청하기</button>
-              )} */}
             </div>
             <h2 className={classes.subtitle}>
               {authorInfo.nickname} 님은 이런 동료입니다!
@@ -73,7 +75,7 @@ const Review: FC = () => {
             {showAddReview ? (
               <AddReview
                 onClose={closeAddReviewHandler}
-                ownerId={authorInfo.ownerId}
+                ownerId={authorInfo.authorId}
               />
             ) : (
               <button

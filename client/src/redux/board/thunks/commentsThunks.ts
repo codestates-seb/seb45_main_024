@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authInstance from "../../../utility/authInstance";
-import { ReplyDataType } from "../../../model/boardTypes";
 
 interface reqPostCommentsType {
   content: string;
@@ -13,9 +12,9 @@ interface reqEditCommentsType {
   acceptType: number;
 }
 
-interface editCommentParamsType {
+export interface editCommentParamsType {
   targetId: number;
-  data: reqEditCommentsType;
+  data: reqEditCommentsType[];
 }
 
 /** GET 모든 댓글 조회 */
@@ -40,7 +39,6 @@ const editComment = createAsyncThunk(
   "comment/edit",
   async ({ targetId, data }: editCommentParamsType) => {
     const response = await authInstance.patch(`replys/${targetId}`, data);
-
     return response.data;
   },
 );

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import classes from "./EditProfile.module.css";
-import CreateProfile from "../../components/mypage/CreateProfile";
+import CreateProfile from "../../components/mypage/input/CreateProfile";
 import { useNavigate, useParams } from "react-router-dom";
 import authInstance from "../../utility/authInstance";
 
@@ -10,7 +10,7 @@ const EditProfile: FC = () => {
   const [profileFormData, setProfileFormData] = useState<any>({
     accountId: parseInt(id!),
     coverLetter: "",
-    // 이 부분은 리퀘에 없어서 일단 만들어두고 나중에 수정해야 함
+    techTags: [],
     softSkills: [],
     hardSkills: [],
     projectDetails: [],
@@ -23,12 +23,11 @@ const EditProfile: FC = () => {
   const saveHandler = async () => {
     try {
       console.log(profileFormData);
-      const response = await authInstance.post(
+      const response = await authInstance.patch(
         `/mypages/profile/${id}`,
         profileFormData,
       );
       console.log(response);
-      // navigate(`/mypage/${id}`);
       window.alert("프로필이 수정되었습니다.");
       window.location.href = `/mypage/${id}`;
     } catch (error) {

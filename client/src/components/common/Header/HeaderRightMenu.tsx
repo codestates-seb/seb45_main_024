@@ -20,7 +20,7 @@ interface UserData {
 
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
-  const isLoggedIn: UserData = getTokensFromLocalStorage();
+  const isLoggedIn = getTokensFromLocalStorage();
 
   const handleNavigateLogin = () => {
     navigate("/login");
@@ -40,7 +40,7 @@ const HeaderRight: FC = () => {
               <MyProfile />
             </div>
             <div className={classes.nickname}>
-              <p>{isLoggedIn.nickname}</p>
+              <p>{isLoggedIn.username}</p>
             </div>
           </div>
           <div>

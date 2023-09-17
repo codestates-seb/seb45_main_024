@@ -2,6 +2,12 @@ import { useState } from "react";
 import { ArrowDownSvg } from "../../assets/icons/arrowsSvg";
 import classes from "./Selectbox.module.css";
 
+// interface techTagList {
+//   id: number;
+//   name: string;
+//   tagType: string;
+// }
+
 type Props = {
   title: string;
   borderRadius?: number;
@@ -9,6 +15,7 @@ type Props = {
   options: string[];
   selectedOption: string;
   onSelect: (selected: string) => void;
+  techTags?: boolean;
 };
 
 const Select = ({
@@ -18,6 +25,7 @@ const Select = ({
   options,
   selectedOption,
   onSelect,
+  techTags,
 }: Props) => {
   const [toggle, setToggle] = useState(false);
 
@@ -31,7 +39,7 @@ const Select = ({
   };
 
   return (
-    <div className={classes.selectbox}>
+    <div className={`${classes.selectbox} ${techTags ? classes.techTags : ""}`}>
       <div
         className={classes.seletTitle}
         onClick={handleToggle}

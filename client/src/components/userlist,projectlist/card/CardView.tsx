@@ -17,7 +17,7 @@ interface CardViewProps {
 }
 
 const CardView = ({ type, cardData }: CardViewProps) => {
-  const isPorjectCard = type === "PROJECT_CARD";
+  const isProjectCard = type === "PROJECT_CARD";
   const { memberBoardId } = cardData as ProjectListDataType;
 
   const navigate = useNavigate();
@@ -25,12 +25,16 @@ const CardView = ({ type, cardData }: CardViewProps) => {
   return (
     <div
       className={`${classes.card} ${
-        isPorjectCard ? classes.project : classes.user
+        isProjectCard ? classes.project : classes.user
       }`}
-      onClick={isPorjectCard ? () => navigate(`${memberBoardId}`) : undefined}
+      onClick={
+        isProjectCard
+          ? () => navigate(`/projectlist/${memberBoardId}`)
+          : undefined
+      }
     >
       <CardViewFront type={type} cardData={cardData} />
-      {!isPorjectCard && (
+      {!isProjectCard && (
         <CardViewBack cardData={cardData as UserListDataType} />
       )}
     </div>

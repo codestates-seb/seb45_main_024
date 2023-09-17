@@ -1,0 +1,23 @@
+.techContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.techImgContainer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.techTitle {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+}

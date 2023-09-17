@@ -14,9 +14,10 @@ export const getTokensFromLocalStorage = () => {
   const token = localStorage.getItem("accessToken");
   if (token) {
     const tokenString = JSON.parse(token);
-    console.log(tokenString);
+    // console.log(JSON.parse(token));
+    // console.log(tokenString);
     const decodedToken = jwt_decode(tokenString);
-    console.log(decodedToken);
+    // console.log(decodedToken);
     return decodedToken;
   }
   console.log(localStorage.getItem("refreshToken"));

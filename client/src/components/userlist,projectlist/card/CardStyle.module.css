@@ -44,7 +44,6 @@
 .front {
   background: linear-gradient(-12deg, var(--color-white) 50%, var(--color-sub) 50% );
 }
-
 .front .topArea {
 
   & .meta {
@@ -99,15 +98,28 @@
 }
 
 .front .bottomArea {
+  overflow: hidden;
+  cursor: default;
 
   & .position input {
     font-size: 1.125rem;
   }
 
-  & .stack {
+  & .techTags {
     display: flex;
     margin-top: 0.75rem;
-    
+    min-height: 40px;
+
+    & .techTag {
+      /* 기술스택 이미지 삽입시 */
+      overflow:hidden;
+      width: 32px !important;
+      height: 32px !important;
+
+      & img {
+        vertical-align: bottom;
+      }
+    }
   }
 }
 
@@ -120,6 +132,7 @@
 .back .topArea {
   display: flex;
   justify-content: flex-end;
+  height: 24px;
   & .edit {
     cursor: pointer;
   }
@@ -160,6 +173,12 @@
     color: var(--color-gray-3);
     font-size: 0.625rem;
     text-align: center;
+
+    & .nickname {
+      font-size: 0.74rem;
+      color: inherit;
+      font-weight: 700;
+    }
   }
 }
 
@@ -178,6 +197,10 @@
       height: 6rem;
       font-weight: 700;
       font-size: 1.25rem;
+    }
+
+    & .bottomArea .stack {
+      
     }
   }
 
