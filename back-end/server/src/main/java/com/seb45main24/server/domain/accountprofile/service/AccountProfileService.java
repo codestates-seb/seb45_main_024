@@ -81,6 +81,7 @@ public class AccountProfileService {
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
 
+
 	public ProfileResponse findAccountProfile(Long accountId) {
 			Account findAccount = findAccount(accountId);
 			Long accountProfileId = findAccount.getAccountProfile().getId();

@@ -3,6 +3,8 @@ package com.seb45main24.server.domain.accountprofile.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ public class ProjectDetailsController {
 		ProjectDetails content = projectDetailService.createProjectDetails(loginAccountId, request);
 
 		ProjectDetailResponse response = ProjectDetailResponse.builder()
+			.projectDetailId(content.getId())
 			.accountId(loginAccountId)
 			.projectUrl(content.getProjectUrl())
 			.projectTitle(content.getProjectTitle())
@@ -37,5 +40,13 @@ public class ProjectDetailsController {
 			.build();
 
 		return new ResponseEntity(response, HttpStatus.OK);
+	}
+
+
+	@DeleteMapping("/projectDetails/{project-detail-id}")
+	public ResponseEntity deleteProjectDetails(@LoginAccountId Long loginAccountId, @PathVariable("project-detail-id") Long projectDetailId) {
+
+		projectDetailService.deleteProjectDetail(projectDetailId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
