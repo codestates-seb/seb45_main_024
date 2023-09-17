@@ -13,6 +13,7 @@ import { useAppSelector } from "../../../redux/hooks";
 import { useParams } from "react-router-dom";
 import { ProfileState } from "../../../redux/mypage/profileSlice";
 import { TechTagType } from "../tag/TechTags";
+import authInstance from "../../../utility/authInstance";
 
 interface ProfileFormData {
   accountId: number;
@@ -20,11 +21,11 @@ interface ProfileFormData {
   softSkills?: string[];
   hardSkills?: string[];
   techTags?: number[];
-  projectDetails?: {
-    projectTitle?: string;
-    projectUrl?: string;
-    imageUrl?: string;
-  }[];
+  // projectDetails?: {
+  //   projectTitle?: string;
+  //   projectUrl?: string;
+  //   imageUrl?: string;
+  // }[];
 }
 
 interface Props {
@@ -42,6 +43,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
+  const [projectId, setProjectId] = useState<number>(0);
 
   const editorChangeHandler = (value: string) => {
     setEditorValue(value);
@@ -55,10 +57,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [hardTags, setHardTags] = useState<string[]>([]);
   const [techInfo, setTechInfo] = useState<TechTagType[]>([]);
   const [projTags, setProjTags] = useState<string[]>([]);
-  const [projSet, setProjSet] = useState<object[]>([]);
+  const [projSet, setProjSet] = useState<
+    { projectTitle: string; projectId: number }[]
+  >([]);
   const [selectedTechs, setSelectedTechs] = useState<number[]>([]);
 
-  // 초기값 설정
+  // 초기값 설정 -> 프로젝트 부분 수정
   useEffect(() => {
     if (profileData) {
       if (profileData.coverLetter) {
@@ -124,9 +128,21 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     const updatedTags = hardTags.filter((_, index) => index !== id);
     setHardTags(updatedTags);
   };
-  const projTagDeleteHandler = (id: number) => {
-    const updatedTags = projTags.filter((_, index) => index !== id);
-    setProjTags(updatedTags);
+
+  const projTagDeleteHandler = async (id: number) => {
+    const project = projSet.find((proj) => proj.projectId === id);
+    if (project) {
+      try {
+        const response = await authInstance.delete(
+          `/mypages/profile/projectDetails/${project.projectId}`
+        );
+        console.log(response);
+        const updatedTags = projSet.filter((proj) => proj.projectId !== id);
+        setProjSet(updatedTags);
+      } catch (err) {
+        console.info("Error deleting project", err);
+      }
+    }
   };
 
   // keyup event 감지
@@ -158,12 +174,12 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       techTags: selectedTechs,
       softSkills: softTags,
       hardSkills: hardTags,
-      projectDetails: projSet,
+      // projectDetails: projSet,
     });
-  }, [editorValue, selectedTechs, softTags, hardTags, projSet]);
+  }, [editorValue, selectedTechs, softTags, hardTags]);
 
   return (
-    <form className={classes.createForm}>
+    <div className={classes.createForm}>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.BIO} />
         <QuillEditor
@@ -230,17 +246,19 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {projTags.map((projTag, index) => (
+        {projSet.map((proj, index) => (
           <SoftTag
             key={index}
-            techName={projTag}
-            id={index}
+            techName={proj.projectTitle}
+            id={proj.projectId}
             onDelete={projTagDeleteHandler}
           />
         ))}
         <PlusBtn>
           <Addproj
             projectName={projectName}
+            projectId={projectId}
+            setProjectId={setProjectId}
             setProjectName={setProjectName}
             projectLink={projectLink}
             setProjectLink={setProjectLink}
@@ -253,7 +271,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           />
         </PlusBtn>
       </section>
-    </form>
+    </div>
   );
 };
 
