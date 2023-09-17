@@ -87,7 +87,7 @@ public class SecurityConfiguration {
 		configuration.setAllowedHeaders(List.of("*"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE")); // 지정한 HTTP Method에 대한 HTTP 통신 허용
 		configuration.setAllowCredentials(true);
-		configuration.setExposedHeaders(List.of("Authorization"));
+		configuration.setExposedHeaders(List.of("*"));
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration); // 앞에서 구성한 CORS 정책 적용하기
