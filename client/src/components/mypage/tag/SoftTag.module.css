@@ -3,12 +3,12 @@
   gap: 8px;
   border-radius: 24px;
   width: fit-content;
-  border: 1px solid var(--color-gray-3);
+  border: 1px solid var(--color-main);
   padding: 4px 14px;
-  background-color: var(--color-main);
-  border: none;
+  /* background-color: var(--color-main); */
+  /* border: none; */
 }
 
 .tagContainer span {
-  color: white;
+  color: var(--color-main);
 }

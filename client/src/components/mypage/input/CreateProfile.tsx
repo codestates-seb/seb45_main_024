@@ -36,7 +36,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile,
+    (state: { profile: ProfileState }) => state.profile
   );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
@@ -70,27 +70,27 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         // setEditorValue(doc.body.textContent || "");
         setEditorValue(profileData.coverLetter);
       }
-      setSoftTags(prevSoftTags =>
+      setSoftTags((prevSoftTags) =>
         profileData.softSkills
           ? [...new Set([...prevSoftTags, ...profileData.softSkills])]
-          : prevSoftTags,
+          : prevSoftTags
       );
-      setHardTags(prevHardTags =>
+      setHardTags((prevHardTags) =>
         profileData.hardSkills
           ? [...new Set([...prevHardTags, ...profileData.hardSkills])]
-          : prevHardTags,
+          : prevHardTags
       );
-      setProjTags(prevProjectTags =>
+      setProjTags((prevProjectTags) =>
         profileData.projectDetails
           ? [
               ...new Set([
                 ...prevProjectTags,
                 ...profileData.projectDetails.map(
-                  (project:any) => project.projectTitle,
+                  (project: any) => project.projectTitle
                 ),
               ]),
             ]
-          : prevProjectTags,
+          : prevProjectTags
       );
     }
   }, [profileData]);
@@ -195,8 +195,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.HARD} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            더하기 버튼을 클릭하여 프로그래밍 기술 외에 내가 가지고 있는 하드
-            스킬을 추가해주세요.
+            프로그래밍 기술 외에 내가 가지고 있는 하드 스킬을 추가해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
@@ -208,15 +207,13 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             onDelete={hardTagDeleteHandler}
           />
         ))}
-        <PlusBtn>
-          <HardInput input={hardInput} setInput={setHardInput} />
-        </PlusBtn>
+        <HardInput input={hardInput} setInput={setHardInput} />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.SOFT} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            더하기 버튼을 클릭하여 내가 가진 소프트 스킬 역량을 작성해주세요.
+            내가 가진 소프트 스킬 역량을 작성해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
@@ -228,9 +225,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             onDelete={softTagDeleteHandler}
           />
         ))}
-        <PlusBtn>
-          <SoftInput input={softInput} setInput={setSoftInput} />
-        </PlusBtn>
+        <SoftInput input={softInput} setInput={setSoftInput} />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.PROJ} />

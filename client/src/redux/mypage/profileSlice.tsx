@@ -4,6 +4,11 @@ export interface ProfileData {
   imageUrl: string | null;
   email: string | null;
   nickname: string | null;
+  techTags: {
+    id: number;
+    techName: string;
+    tagType: string;
+  }[];
   coverLetter: string | null;
   softSkills: string[];
   hardSkills: string[];

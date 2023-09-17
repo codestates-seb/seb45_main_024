@@ -138,7 +138,7 @@ const Profile: FC = () => {
                 {profile.hardSkills ? (
                   profile.hardSkills.length > 0 ? (
                     profile.hardSkills.map((hardTag, index) => (
-                      <HardProfile key={index} techName={hardTag} level="A" />
+                      <SoftTag key={index} techName={hardTag} />
                     ))
                   ) : (
                     <NoContent />
