@@ -17,9 +17,9 @@ import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 const MyInfo: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const authorInfo = useAppSelector((state) => state.authorInfo);
+  const authorInfo = useAppSelector(state => state.authorInfo);
   const { profileData } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile
+    (state: { profile: ProfileState }) => state.profile,
   );
 
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
@@ -45,23 +45,23 @@ const MyInfo: FC = () => {
 
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
-      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."
+      "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요.",
     );
 
     if (confirmation) {
       try {
         authInstance
           .delete(`/accounts/${id}`)
-          .then((res) => {
+          .then(res => {
             alert("회원탈퇴가 완료되었습니다.");
           })
-          .then((res) => {
+          .then(res => {
             removeTokensFromLocalStorage();
           })
-          .then((res) => {
+          .then(res => {
             authInstance.post("/accounts/logout");
           })
-          .then((res) => {
+          .then(res => {
             window.location.href = "/signup";
           });
       } catch (error) {
@@ -143,7 +143,7 @@ const MyInfo: FC = () => {
                 <div className={classes.profileContent}>
                   <TitleLine title={ProfileCats.BIO} />
                   <div className={classes.bioContainer}>
-                    {profileData.coverLetter ? (
+                    {profileData?.coverLetter ? (
                       profileData.coverLetter.length > 0 ? (
                         <TagRemover content={profileData.coverLetter} />
                       ) : (

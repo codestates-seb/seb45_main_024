@@ -1,4 +1,161 @@
 .field {
+  width: 100vw;
+  height: 89vh;
+  background-color: #D0E1B2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoText p {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.logoText span {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.textBox {
+  width: 70vw;
+  height: 20vh;
+  /* border: 1px solid purple; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textBox img {
+  position: relative;
+}
+
+.textS {
+  width: 75px;
+  height: 75px;
+  animation: bounce 1.05s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.textM {
+  width: 75px;
+  height: 75px;
+  animation: bounce 1.05s infinite 0.15s;
+  animation-timing-function: ease-in-out;
+}
+
+.face {
+  margin-left: 10px;
+  width: 112.5px;
+  height: 112.5px;
+  animation: bounce 1.05s infinite 0.3s;
+  animation-timing-function: ease-in-out;
+  transition: transform 0.3s ease; 
+}
+
+.face:hover {
+  animation-play-state: paused; /* 호버 시 애니메이션 일시 정지 */
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+.face:active {
+  transform: scale(1.0);
+  cursor: grab;
+}
+
+.dropdownMenu_active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 2000ms ease;
+}
+
+.dropdownMenu_inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1.25rem);
+  transition: 2000ms ease;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.textT {
+  width: 75px;
+  height: 75px;
+  animation: bounce 1.05s infinite 0.45s;
+  animation-timing-function: ease-in-out;
+}
+
+.textH {
+  width: 75px;
+  height: 75px;
+  animation: bounce 1.05s infinite 0.6s;
+  animation-timing-function: ease-in-out;
+}
+
+.textI {
+  width: 50px;
+  height: 75px;
+  animation: bounce 1.05s infinite 0.75s;
+  animation-timing-function: ease-in-out;
+}
+
+.textE {
+  width: 75px;
+  height: 75px;
+  animation: bounce 1.05s infinite 0.9s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    top: 0;
+  }
+  50% {
+    top: -20px; /* 이미지가 위로 이동할 거리를 조절하세요 */
+  }
+}
+
+.smo {
+  position: absolute;
+  width: 40%;
+  height: 50%;
+  left: 0.7rem;
+  top: 12rem;
+  z-index: 2;
+}
+
+.oth {
+  position: absolute;
+  width: 40%;
+  height: 50%;
+  right: 0.5rem;
+  top: 4rem;
+  z-index: 1.01;
+}
+
+.ie {
+  position: absolute;
+  width: 40%;
+  height: 50%; 
+  right: 9rem;
+  bottom: 0.2rem;
+  z-index: 1.01;
+}
+
+/* .field {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +163,7 @@
 
 .carousel {
   /* border: 5px solid gray; */
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -17,4 +174,4 @@
   padding: 1rem;
   padding: 0 1.5rem; 
   max-width: 1200px; 
-}
+} */ 

@@ -2,11 +2,11 @@
 // TODO 객체 키 리스폰 보고 알잘딱깔센 수정하기
 import jwt_decode from "jwt-decode";
 
-export const saveTokensToLocalStorage = token => {
+export const saveTokensToLocalStorage = (token: string) => {
   localStorage.setItem("accessToken", JSON.stringify(token));
 };
 
-export const saveRefreshTokenToLocalStorage = token => {
+export const saveRefreshTokenToLocalStorage = (token: string) => {
   localStorage.setItem("refreshToken", JSON.stringify(token));
 };
 
@@ -20,7 +20,6 @@ export const getTokensFromLocalStorage = () => {
     // console.log(decodedToken);
     return decodedToken;
   }
-  console.log(localStorage.getItem("refreshToken"));
   return null;
 };
 

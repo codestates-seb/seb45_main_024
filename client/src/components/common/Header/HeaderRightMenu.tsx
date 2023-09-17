@@ -34,13 +34,13 @@ const HeaderRight: FC = () => {
     <div className={classes.right}>
       {isLoggedIn ? (
         <>
-          <Alarm />
+          {/* <Alarm /> */}
           <div className={classes.profile}>
             <div>
               <MyProfile />
             </div>
             <div className={classes.nickname}>
-              <p>{isLoggedIn.username}</p>
+              <p>{isLoggedIn.nickname}</p>
             </div>
           </div>
           <div>
