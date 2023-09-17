@@ -5,11 +5,12 @@ import GetLogo from "../format/GetLogo";
 interface TechProfileProps {
   techName: string;
   id: number;
+  onClick?: () => void;
 }
 
-const TechProfile: FC<TechProfileProps> = ({ techName }) => {
+const TechProfile: FC<TechProfileProps> = ({ techName, onClick }) => {
   return (
-    <div className={classes.techContent}>
+    <div className={classes.techContent} onClick={onClick}>
       <div className={classes.techImgContainer}>
         <GetLogo logoTitle={techName} />
       </div>

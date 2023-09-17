@@ -17,7 +17,41 @@ const QuillEditor: FC<QuillEditorProps> = ({ onChange, initialValue }) => {
 
   return (
     <>
-      <ReactQuill theme="snow" value={initialValue} onChange={changeHandler} />
+      <ReactQuill
+        theme="snow"
+        value={initialValue ? initialValue : value}
+        placeholder="자신을 잘 표현할 수 있는 자기소개를 부탁드려요!
+        + 경력사항 기재 시에는 회사명, 직군, 재직기간을 작성해주세요!"
+        onChange={changeHandler}
+        modules={{
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+              { list: "ordered" },
+              { list: "bullet" },
+              { indent: "-1" },
+              { indent: "+1" },
+            ],
+            ["link"],
+            ["clean"],
+          ],
+        }}
+        formats={{
+          formats: [
+            "header",
+            "bold",
+            "italic",
+            "underline",
+            "strike",
+            "blockquote",
+            "list",
+            "bullet",
+            "indent",
+            "link",
+          ],
+        }}
+      />
     </>
   );
 };

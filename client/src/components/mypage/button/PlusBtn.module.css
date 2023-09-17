@@ -3,7 +3,6 @@
   gap: 8px;
 }
 
-
 .plusBtn {
   display: flex;
   justify-content: center;
@@ -17,7 +16,6 @@
 .plusBtn:hover {
   background-color: var(--color-sub);
 }
-
 
 .plusIcon {
   width: 36px;

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./ReviewCard.module.css";
-import logo_green_face from "../../../assets/images/logo_green_face.png";
+// import logo_green_face from "../../../assets/images/logo_green_face.png";
 import DateFormat from "../format/DateFormat";
 
 interface ReviewCardProps {
@@ -23,7 +23,8 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
         <p className={classes.helpText}>함께한 프로젝트</p>
         <h1 className={classes.title}>{review.title}</h1>
       </div>
-      <div className={classes.cardAuthor}>
+      {/* 아직 리스폰스에 없음 */}
+      {/* <div className={classes.cardAuthor}>
         <div className={classes.profileImageContainer}>
           <img
             className={classes.profileImage}
@@ -31,7 +32,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
             alt="sample profile image"
           />
         </div>
-      </div>
+      </div> */}
       <div className={classes.cardContent}>
         <h2 className={`${classes.title} ${classes.content}`}>
           {review.intro}

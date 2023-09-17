@@ -12,7 +12,6 @@ import { useFetchProfile } from "../../components/mypage/useFetchProfile";
 const Review: FC = () => {
   const authorInfo = useAppSelector((state) => state.authorInfo);
   const { id } = useParams<{ id: string }>();
-  // authorInfo 동작 안하면 id 사용하기
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState<any>([]);
   const { getProfile } = useFetchProfile();
@@ -54,10 +53,6 @@ const Review: FC = () => {
               <h1 className={classes.title}>
                 {authorInfo.nickname} 님과 프로젝트를 함께한 동료
               </h1>
-              {/* 작성자가 본인의 페이지에 들어온 경우만 해당 버튼 활성화 */}
-              {/* {authorInfo.isAuthor && (
-                <button className={classes.requestButton}>평가 요청하기</button>
-              )} */}
             </div>
             <h2 className={classes.subtitle}>
               {authorInfo.nickname} 님은 이런 동료입니다!
@@ -80,7 +75,7 @@ const Review: FC = () => {
             {showAddReview ? (
               <AddReview
                 onClose={closeAddReviewHandler}
-                ownerId={authorInfo.ownerId}
+                ownerId={authorInfo.authorId}
               />
             ) : (
               <button

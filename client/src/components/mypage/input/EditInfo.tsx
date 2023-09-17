@@ -71,7 +71,6 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       newImage: myInfo.newImage,
     };
 
-    // Patch /accounts/{accountId}: 회원정보 수정 엔드포인트, 아직 헤더 안넣었음.
     try {
       const res = await authInstance.patch(`/accounts/${id}`, infoData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -80,8 +79,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       dispatch(
         setAuthorInfo({
           isAuthor: true,
-          visitorId: id!,
-          ownerId: id,
+          authorId: id,
           email: myInfo.nickname,
           nickname: myInfo.nickname,
           imgUrl: myInfo.newImage,

@@ -16,11 +16,12 @@
 }
 
 .tagContainer.active {
-    background-color: var(--color-main);
+    background-color: #679C97;
     border: none;
 }
 
 
 .tagContainer.active span {
     color: white;
+    font-weight: 600;
 }
