@@ -139,8 +139,9 @@ public class MemberBoardController {
     }
 
     @GetMapping
-    public ResponseEntity getMemberBoardList(@Positive @RequestParam int page) {
-        Page<MemberBoard> pageMemberBoards = service.findMemberBoardList(page - 1);
+    public ResponseEntity getMemberBoardList(@Positive @RequestParam int page,
+                                             @Positive @RequestParam int size) {
+        Page<MemberBoard> pageMemberBoards = service.findMemberBoardList(page - 1, size);
         List<MemberBoard> memberBoardList = pageMemberBoards.getContent();
 
         List<List<MemberBoardTechTag>> doubleTechTagList = new ArrayList<>();
@@ -154,8 +155,9 @@ public class MemberBoardController {
     }
 
     @GetMapping("/view")
-    public ResponseEntity getMemberBoardListByView(@Positive @RequestParam int page) {
-        Page<MemberBoard> pageMemberBoards = service.findMemberBoardListByView(page - 1);
+    public ResponseEntity getMemberBoardListByView(@Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<MemberBoard> pageMemberBoards = service.findMemberBoardListByView(page - 1, size);
         List<MemberBoard> memberBoardList = pageMemberBoards.getContent();
 
         List<List<MemberBoardTechTag>> doubleTechTagList = new ArrayList<>();
@@ -171,14 +173,15 @@ public class MemberBoardController {
     @GetMapping("/search")
     public ResponseEntity getMemberBoardListByTitle(@RequestParam(required = false) String title,
                                                     @RequestParam(required = false) String position,
-                                                    @RequestParam @Positive int page) {
+                                                    @RequestParam @Positive int page,
+                                                    @RequestParam @Positive int size) {
         Page<MemberBoard> pageMemberBoardList = null;
 
         if(title != null) {
-            pageMemberBoardList = service.getMemberBoardListByTitle(title, page - 1);
+            pageMemberBoardList = service.getMemberBoardListByTitle(title, page - 1, size);
 
         } else {
-            pageMemberBoardList = service.getMemberBoardListByPosition(position, page - 1);
+            pageMemberBoardList = service.getMemberBoardListByPosition(position, page - 1, size);
         }
 
         List<MemberBoard> memberBoardList = pageMemberBoardList.getContent();
