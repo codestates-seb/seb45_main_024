@@ -21,7 +21,7 @@ const authInstance = axios.create({
 // request 인터셉터: 모든 api 요청 전에 실행
 authInstance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem("jwtTokens");
+    const token = localStorage.getItem("accessToken");
     const tokenString = JSON.parse(token);
     // const realAccessToken = token?.accessToken.slice(7);
     if (token) {
