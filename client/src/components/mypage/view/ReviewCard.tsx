@@ -23,6 +23,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
         <p className={classes.helpText}>함께한 프로젝트</p>
         <h1 className={classes.title}>{review.title}</h1>
       </div>
+      {/* 아직 리스폰스에 없음 */}
       {/* <div className={classes.cardAuthor}>
         <div className={classes.profileImageContainer}>
           <img
