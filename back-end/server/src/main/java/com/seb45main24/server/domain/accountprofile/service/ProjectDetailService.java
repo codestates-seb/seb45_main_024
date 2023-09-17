@@ -35,6 +35,7 @@ public class ProjectDetailService {
 	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
 		AccountProfile accountProfile = findAccountProfile(accountProfileId);
 
+
 		List<ProjectDetails> existingProjectDetailTags = projectDetailsRepository.findByAccountProfileId(accountProfile.getId());
 		existingProjectDetailTags.forEach(tag -> projectDetailsRepository.delete(tag));
 
@@ -44,7 +45,6 @@ public class ProjectDetailService {
 			ProjectDetails projectDetails = new ProjectDetails();
 			projectDetails.setProjectTitle(detailRequest.getProjectTitle());
 			projectDetails.setProjectUrl(detailRequest.getProjectUrl());
-			projectDetails.setImageUrl(detailRequest.getImageUrl());
 			projectDetails.setAccountProfile(accountProfile);
 
 			projectDetailsList.add(projectDetails);
