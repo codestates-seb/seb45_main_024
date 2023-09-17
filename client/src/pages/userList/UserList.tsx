@@ -25,16 +25,8 @@ const UserList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
-  // filter 관련 :: 추후 작업
-  const stackList = ["기술스택1", "기술스택2"];
-  const positionList = ["전체", "프론트엔드", "백엔드", "디자이너"];
-
-  const [stackSelect, setStackSelect] = useState("기술스택");
-  const [positionSelect, setPositionSelect] = useState("포지션");
-
-  const handleStackSelect = (selected: string) => {
-    setStackSelect(selected);
-  };
+  const positionList = ["전체", "프론트엔드", "백엔드"];
+  const [positionSelect, setPositionSelect] = useState("전체");
 
   const handlePositionSelect = (selected: string) => {
     setPositionSelect(selected);
@@ -57,14 +49,27 @@ const UserList = () => {
   const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
   const currentPage = query.get("page") === null ? "1" : query.get("page");
 
+  // 포지션필터
+  const currentFilter = positionSelect === "전체" ? "" : positionSelect;
+
+  // 검색
+  const [currentSearch, setCurrentSearch] = useState("");
+  // console.log("currentSearch", currentSearch);
+  const onSearchTitle = (text: string) => {
+    // console.log("SUBMIT", text);
+    setCurrentSearch(text);
+  };
+
   /** Fetch User Card */
   useEffect(() => {
     getUserCards();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, currentFilter, currentSearch]);
 
   const queryParamsData = {
     currentPage: currentPage,
     currentSize: currentSize,
+    currentFilter: currentFilter,
+    currentSearch: currentSearch,
   };
 
   const getUserCards = () => {
@@ -130,12 +135,12 @@ const UserList = () => {
         <ActionButton handleClick={onCreateNewCard}>카드 작성하기</ActionButton>
       </div>
       <div className={classes.searchArea}>
-        <Selectbox
+        {/* <Selectbox
           title={stackSelect}
           options={stackList}
           selectedOption={stackSelect}
           onSelect={handleStackSelect}
-        />
+        /> */}
         <Selectbox
           title={positionSelect}
           options={positionList}
@@ -143,10 +148,8 @@ const UserList = () => {
           onSelect={handlePositionSelect}
         />
         <SearchInput
-          placeholder="제목, 키워드 등을 검색해보세요."
-          onSubmit={() => {
-            console.log("SUBMIT 클릭");
-          }}
+          placeholder="제목을 검색해보세요."
+          onSubmit={text => onSearchTitle(text)}
         >
           <SearchSvg stroke="var(--color-gray-4)" />
         </SearchInput>

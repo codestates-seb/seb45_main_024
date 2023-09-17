@@ -17,15 +17,23 @@ interface editCardParamsType {
 interface QueryParamsType {
   currentPage: string;
   currentSize: string;
+  currentFilter: string;
+  currentSearch: string;
 }
 
 /** GET 모든 카드 조회 */
 const fetchUserCardList = createAsyncThunk(
   "userlist/fetch",
-  async ({ currentPage, currentSize }: QueryParamsType) => {
-    const response = await commonInstance.get(
-      `teamboards/?page=${currentPage}&size=${currentSize}`,
-    );
+  async ({
+    currentPage,
+    currentSize,
+    currentFilter,
+    currentSearch,
+  }: QueryParamsType) => {
+    const url = `teamboards/search?page=${currentPage}&size=${currentSize}&title=${currentSearch}&position=${currentFilter}`;
+
+    const response = await commonInstance.get(url);
+    // console.log("🚀🚀🚀", url);
 
     const listData = response.data.data;
     const pageInfo = response.data.pageInfo;

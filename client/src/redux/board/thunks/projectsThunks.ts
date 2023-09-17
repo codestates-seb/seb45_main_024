@@ -18,17 +18,51 @@ interface editProjectParamsType {
 }
 
 interface QueryParamsType {
+  currentSort?: string;
   currentPage: string;
   currentSize: string;
+  currentFilter?: string;
+  currentSearch?: string;
 }
 
 /** GET 모든 프로젝트 조회 */
 const fetchProjectList = createAsyncThunk(
   "projectlist/fetch",
-  async ({ currentPage, currentSize }: QueryParamsType) => {
-    const response = await commonInstance.get(
-      `memberboards/?page=${currentPage}&size=${currentSize}`,
-    );
+  async ({
+    currentSort,
+    currentPage,
+    currentSize,
+    currentFilter,
+    currentSearch,
+  }: QueryParamsType) => {
+    const searchParamsPosition = `search?position=${currentFilter}`;
+    const searchParamsTitle = `search?title=${currentSearch}`;
+
+    // const url = `memberboards/${searchParams}&page=${currentPage}&size=${currentSize}`;
+
+    let url = `memberboards/?page=${currentPage}&size=${currentSize}`;
+
+    // 임시 조건문
+    if (currentFilter === "" && currentSort === "view") {
+      url = `memberboards/${currentSort}?page=${currentPage}&size=${currentSize}`;
+    } else if (currentFilter !== "" && currentSort === "view") {
+      url = `memberboards/${currentSort}/${searchParamsPosition}&page=${currentPage}&size=${currentSize}`;
+    } else if (currentFilter !== "" && currentSort === "") {
+      url = `memberboards/${searchParamsPosition}&page=${currentPage}&size=${currentSize}`;
+    } else if (currentSearch !== "") {
+      url = `memberboards/${searchParamsTitle}&page=${currentPage}&size=${currentSize}`;
+    }
+
+    const response = await commonInstance.get(url);
+    // console.log("🚀🚀🚀", url);
+
+    /**
+     * 최신순 (기본) /memberboards/?page=1&size=8   /memberboards?page=1&size=8
+     * 조회순       /memberboards/view?page=1&size=8
+     * 포지션검색    /memberboards/search?position=백엔드&page=1&size=8
+     * 제목검색     /memberboards/search?title=라우&page=1&size=8
+     * 포지션+조회순 /memberboards/view/search?position=백엔드&page=1&size=8
+     */
 
     const listData = response.data.data;
     const pageInfo = response.data.pageInfo;

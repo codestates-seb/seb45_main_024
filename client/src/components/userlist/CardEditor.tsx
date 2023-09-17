@@ -43,7 +43,7 @@ interface TechTagTypes {
 }
 
 const CardEditor = ({ type, originCard }: CardEditorProps) => {
-  console.log("✅ ORIGIN CARD", originCard);
+  // console.log("✅ ORIGIN CARD", originCard);
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
 

@@ -27,9 +27,9 @@ const DetailComments = () => {
 
   // 작성자가 본인인지 확인
   const isMyProject = writerId === id;
-  console.log("게시글 작성자인가요? ", isMyProject);
+  // console.log("게시글 작성자인가요? ", isMyProject);
 
-  console.log("replyList", comments);
+  // console.log("replyList", comments);
 
   // 댓글 등록
   const [content, setContent] = useState("");
@@ -201,7 +201,12 @@ const DetailComments = () => {
               <div
                 className={classes.userImage}
                 onClick={() => navigate(`/mypage/${comment.writerId}`)}
-              ></div>
+              >
+                <img
+                  src={comment.writerImageURL}
+                  alt={`${comment.writerNickName} 프로필사진`}
+                />
+              </div>
               <div className={classes.usernameAndDate}>
                 <div className={classes.username}>{comment.writerNickName}</div>
                 <div className={classes.date}>

@@ -29,13 +29,14 @@ const DetailContent = () => {
     content,
     writerId,
     writerNickName,
+    writerImageURL,
     techTagList,
     startDate,
     endDate,
     position,
     createdAt,
   } = currentProject || {};
-  console.log("✅ CURRENT PROJECT", currentProject);
+  // console.log("✅ CURRENT PROJECT", currentProject);
 
   // Format Date
   const createdDate = getStringDate(createdAt);
@@ -69,7 +70,9 @@ const DetailContent = () => {
         <div
           className={classes.userImage}
           onClick={() => navigate("/mypage/:accountId")}
-        ></div>
+        >
+          <img src={writerImageURL} alt={`${writerNickName} 프로필사진`} />
+        </div>
         <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>
         {id === writerId ? (

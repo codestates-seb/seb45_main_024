@@ -28,19 +28,16 @@ const ProjectList = () => {
 
   // 섹렉트박스 예시
   const sortList = ["최신순", "조회순"];
-  const stackList = ["기술스택1", "기술스택2"];
-  const positionList = ["전체", "프론트엔드", "백엔드", "디자이너"];
+  const positionList = ["전체", "프론트엔드", "백엔드"];
 
   const [sortSelect, setSortSelect] = useState("최신순");
-  const [stackSelect, setStackSelect] = useState("기술스택");
-  const [positionSelect, setPositionSelect] = useState("포지션");
+  const [positionSelect, setPositionSelect] = useState("전체");
+
+  // 모집중만보기
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleSortSelect = (selected: string) => {
     setSortSelect(selected);
-  };
-
-  const handleStackSelect = (selected: string) => {
-    setStackSelect(selected);
   };
 
   const handlePositionSelect = (selected: string) => {
@@ -64,15 +61,35 @@ const ProjectList = () => {
   const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
   const currentPage = query.get("page") === null ? "1" : query.get("page");
 
+  // 최신순, 조회순 정렬 (default: 최신순, /memberboards/view?page=1&size=8 조회순)
+  const currentSort = sortSelect === "조회순" ? "view" : "";
+
+  // 포지션필터 (default: 전체, /search?position=백엔드&page=1&size=8)
+  const currentFilter = positionSelect === "전체" ? "" : positionSelect;
+
+  // 검색
+  const [currentSearch, setCurrentSearch] = useState("");
+
+  const onSearchTitle = (text: string) => {
+    console.log("SUBMIT", text);
+    setCurrentSearch(text);
+  };
+
   /** Fetch Project List */
   useEffect(() => {
     getProjects();
-  }, [dispatch, currentPage]);
+    // setCurrentSearch("");
+  }, [dispatch, currentPage, currentSort, currentFilter, currentSearch]);
 
   const queryParamsData = {
+    currentSort: currentSort,
     currentPage: currentPage,
     currentSize: currentSize,
+    currentFilter: currentFilter,
+    currentSearch: currentSearch,
   };
+
+  // console.log("✅ queryParamsData", queryParamsData);
 
   const getProjects = () => {
     console.log("🚀 GET PROJECT LIST");
@@ -143,24 +160,21 @@ const ProjectList = () => {
           selectedOption={sortSelect}
           onSelect={handleSortSelect}
         />
-        {/* <Selectbox
-          title={stackSelect}
-          options={stackList}
-          selectedOption={stackSelect}
-          onSelect={handleStackSelect}
-        /> */}
         <Selectbox
           title={positionSelect}
           options={positionList}
           selectedOption={positionSelect}
           onSelect={handlePositionSelect}
         />
-        <Checkbox title="recruit" text="모집중만 보기" />
+        <Checkbox
+          title="recruit"
+          text="모집중만 보기"
+          isChecked={isChecked}
+          setIsChecked={setIsChecked}
+        />
         <SearchInput
-          placeholder="제목, 키워드 등을 검색해보세요."
-          onSubmit={() => {
-            console.log("SUBMIT");
-          }}
+          placeholder="제목을 검색해보세요!"
+          onSubmit={text => onSearchTitle(text)}
         >
           <SearchSvg stroke="var(--color-gray-4)" />
         </SearchInput>

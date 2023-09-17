@@ -38,10 +38,8 @@
 
         & .userImage {
           margin-right: 4px;
-          /* 이미지 임시 */
           width: 45px;
           height: 45px;
-          border: 1px solid blue;
           border-radius: 50%;
           cursor: pointer;
         }
