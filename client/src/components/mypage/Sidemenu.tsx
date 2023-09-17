@@ -39,16 +39,14 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
     <div className={classes.sidemenuContainer}>
       <div className={classes.profileBox}>
         <div className={classes.profileImg}>
-          {/* 아직 이미지 추가 제대로 안 됨 */}
-          {/* <img
+          <img
             src={
               authorInfo.imgUrl && authorInfo.imgUrl !== ""
                 ? authorInfo.imgUrl
                 : default_profile
             }
             alt="img"
-          /> */}
-          <img src={default_profile} alt="img" />
+          />
         </div>
         <div className={classes.profileInfo}>
           <p>닉네임 {authorInfo.nickname}</p>

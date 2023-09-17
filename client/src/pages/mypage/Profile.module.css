@@ -54,9 +54,20 @@
   flex-direction: column;
   gap: 8px;
   width: 280px;
+  height: max-content;
   padding: 16px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.helpHeader{
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.logoImg img{
+  width: 24px;
 }
 
 .helpTitle {
@@ -70,7 +81,7 @@
 }
 
 .hardContent {
-  /* margin-top: 16px; */
+  margin-top: 16px;
   display: flex;
   gap: 8px;
 }

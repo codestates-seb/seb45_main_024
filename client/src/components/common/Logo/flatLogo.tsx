@@ -1,9 +1,9 @@
 import { FC } from "react";
-import classes from "./Logo.module.css";
-import smoothie from "../../assets/images/logo-circle.svg";
+import classes from "./flatLogo.module.css";
+import flatSmoothie from "../../../assets/images/flatLogo.svg";
 import { useNavigate } from "react-router-dom";
 
-const Logo: FC = () => {
+const FlatLogo: FC = () => {
   const navigate = useNavigate();
 
   const handleNaviagteToMain = () => {
@@ -14,7 +14,7 @@ const Logo: FC = () => {
     <>
       <img
         alt="logo"
-        src={smoothie}
+        src={flatSmoothie}
         className={classes.logo}
         onClick={handleNaviagteToMain}
       />
@@ -22,4 +22,4 @@ const Logo: FC = () => {
   );
 };
 
-export default Logo;
+export default FlatLogo;

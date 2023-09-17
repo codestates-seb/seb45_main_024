@@ -57,12 +57,16 @@ const FindPassword: FC = () => {
         `/accounts/sendMail?email=${formData.email}`,
         formData,
       );
-      alert("비밀번호 재발급");
+      alert(
+        "해당 이메일로 임시 비밀번호가 발급되었습니다\n임시 비밀번호로 로그인을 진행하시고 비밀번호를 변경해주세요",
+      );
       console.log("해당 이메일로 비밀번호 재발급", response.data);
-      setMessage("해당 이메일로 임시 비밀번호가 발급되었습니다");
+      setMessage(
+        "해당 이메일로 임시 비밀번호가 발급되었습니다\n임시 비밀번호로 로그인을 진행하시고 비밀번호를 변경해주세요",
+      );
       navigate("/login");
     } catch (error) {
-      alert("가입되지 않은 이메일이야");
+      alert("가입되지 않은 이메일입니다");
       console.error("가입되지 않은 이메일입니다", error);
       setMessage("가입되지 않은 이메일입니다");
       dispatch(validationActions.resetValidation());

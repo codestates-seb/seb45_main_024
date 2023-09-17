@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import classes from "./AddReview.module.css";
 import authInstance from "../../../utility/authInstance";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hooks";
 
 interface AddReviewProps {
@@ -9,7 +9,6 @@ interface AddReviewProps {
 }
 
 const AddReview: FC<AddReviewProps> = ({ onClose }) => {
-  const navigate = useNavigate();
   const authorInfo = useAppSelector(state => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   const [projectName, setProjectName] = useState<string>("");

@@ -43,7 +43,6 @@ const MyInfo: FC = () => {
     navigate(`/mypage/${id}/edit`);
   };
 
-  // Delete /accounts/{accountId} : 회원탈퇴 엔드포인트
   const deleteAccountHandler = async () => {
     const confirmation = window.confirm(
       "정말 회원탈퇴를 하시겠습니까? 모든 정보가 사라져요."

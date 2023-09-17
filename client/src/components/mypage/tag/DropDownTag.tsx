@@ -28,7 +28,6 @@ interface DropDownTagProps {
 }
 
 const DropDownTag: FC<DropDownTagProps> = ({ techName, id, onDelete }) => {
-  // const [selectedLevel, setSelectedLevel] = useState("A");
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 

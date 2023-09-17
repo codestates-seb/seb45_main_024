@@ -102,12 +102,12 @@ const SignUp: FC = () => {
         "/accounts/signup",
         registerData,
       );
-      alert("회원가입 성공");
+      alert("정상적으로 회원가입됐습니다");
       console.log("회원가입 잘 됐어요", response.status);
       navigate("/login");
     } catch (error) {
       if (error.response.status === 409) {
-        alert("이미 가입되어 있어");
+        alert("이미 가입된 이메일로는 중복 가입할 수 없습니다");
         console.log(error.response.status);
         console.log("이미 회원가입된 이메일이잖아");
         dispatch(validationActions.resetValidation());
@@ -118,7 +118,7 @@ const SignUp: FC = () => {
           confirmPassword: "",
         });
       } else {
-        alert("회원가입 실패");
+        alert("회원가입 과정에 오류가 있습니다");
         console.log(error.response.status);
         console.error("회원가입 실패했어요", error);
         dispatch(validationActions.resetValidation());
