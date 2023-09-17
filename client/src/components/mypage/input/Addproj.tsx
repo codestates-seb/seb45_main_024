@@ -66,12 +66,12 @@ const Addproj: FC<AddprojProps> = ({
       setProjectName(projectName);
       setProjectLink(projectLink);
       setProjectImage(projectImage);
-      projSet.push({
-        projectId: projectId,
-        projectTitle: projectName,
-      });
-      setProjSet(projSet);
-      console.log(projSet);
+      // projSet.push({
+      //   projectId: projectId,
+      //   projectTitle: projectName,
+      // });
+      // setProjSet(projSet);
+      // console.log(projSet);
     }
   };
 
