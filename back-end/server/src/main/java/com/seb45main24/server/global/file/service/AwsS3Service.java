@@ -38,7 +38,7 @@ public class AwsS3Service {
 	private String s3EndPoint;
 
 	private final AmazonS3 amazonS3;
-	private final ImageRepository imageRepository;
+
 
 	// MultipartFile 들어오면 File로 변경해줘야 함 -> S3에서 MultipartFile 지원하지 않음
 	public List<String> uploadImages(List<MultipartFile> multipartFile) {
@@ -53,10 +53,10 @@ public class AwsS3Service {
 			objectMetadata.setContentLength(file.getSize());
 			objectMetadata.setContentType(file.getContentType());
 
-			try(InputStream inputStream = file.getInputStream()) { // 파일에서 데이터를 읽기 위한 InputStream 열기
+			try (InputStream inputStream = file.getInputStream()) { // 파일에서 데이터를 읽기 위한 InputStream 열기
 				// Amazon S3 객체를 사용하여 파일 업로드 (위치, 파일명, 데이터, 메타데이터)
 				amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-						.withCannedAcl(CannedAccessControlList.PublicRead)); // S3 객체에 대한 액세스 권한 생성, 공개 읽기 가능
+					.withCannedAcl(CannedAccessControlList.PublicRead)); // S3 객체에 대한 액세스 권한 생성, 공개 읽기 가능
 			} catch (IOException e) {
 				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -75,14 +75,14 @@ public class AwsS3Service {
 		objectMetadata.setContentLength(multipartFile.getSize());
 		objectMetadata.setContentType(multipartFile.getContentType());
 
-		try(InputStream inputStream = multipartFile.getInputStream()) {
+		try (InputStream inputStream = multipartFile.getInputStream()) {
 			amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
 
 		} catch (IOException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		String imageUrl =  amazonS3.getUrl(bucket, fileName).toString(); // DB에는 저장된 경로를 저장
+		String imageUrl = amazonS3.getUrl(bucket, fileName).toString(); // DB에는 저장된 경로를 저장
 
 		return UploadImage.builder()
 			.imageName(fileName)
@@ -93,16 +93,21 @@ public class AwsS3Service {
 
 	// 이미지 수정시 데이터베이스와 버킷 내부에서 이미지 삭제하고 새로 업로드
 	public UploadImage updateImage(MultipartFile newImage, String fileName) {
-		// 현재 이미지 삭제
-		deleteImage(fileName);
 
-		// 새로운 이미지 업로드
+		if (!fileName.equals("default-profile.png")) {
+			// 현재 이미지 삭제
+			deleteImage(fileName);
+
+			// 새로운 이미지 업로드
+			UploadImage uploadImage = uploadImage(newImage);
+
+			return uploadImage;
+		}
+		// 디폴트 이미지는 버킷에서 삭제하지 않고 이미지만 변경
 		UploadImage uploadImage = uploadImage(newImage);
 
 		return uploadImage;
 	}
-
-
 
 	public void deleteImage(String fileName) {
 		amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
@@ -115,7 +120,6 @@ public class AwsS3Service {
 
 		return imageFileUrl;
 	}
-
 
 	// 고유한 파일 이름 생성, 중복 방지
 	private String createFileName(String fileName) {
@@ -134,7 +138,7 @@ public class AwsS3Service {
 	// String url 리스트 만들기
 	private List<String> urlToString(List<String> fileNameList) {
 		List<String> fileUrls = new ArrayList<>();
-		for(String fileName : fileNameList) {
+		for (String fileName : fileNameList) {
 			String fileUrlString = amazonS3.getUrl(bucket, fileName).toString();
 			fileUrls.add(fileUrlString);
 		}
