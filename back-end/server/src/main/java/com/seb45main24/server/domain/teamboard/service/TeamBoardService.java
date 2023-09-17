@@ -52,14 +52,14 @@ public class TeamBoardService {
     }
 
     // 게시글 여러개 조회
-    public Page<TeamBoard> findTeamBoards(int page) {
-        return teamBoardRepository.findAll(PageRequest.of(page, 10, Sort.by("teamBoardId").descending()));
+    public Page<TeamBoard> findTeamBoards(int page, int size) {
+        return teamBoardRepository.findAll(PageRequest.of(page, size, Sort.by("createdAt").descending()));
 
     }
 
     // 게시글 검색
-    public Page<TeamBoard> searchTeamBoards(String title, String position, int page) {
-        return teamBoardRepository.findByTitleContainingAndPositionContaining(title, position, PageRequest.of(page, 10, Sort.by("createdAt").descending()));
+    public Page<TeamBoard> searchTeamBoards(String title, String position, int page, int size) {
+        return teamBoardRepository.findByTitleContainingAndPositionContaining(title, position, PageRequest.of(page, size, Sort.by("createdAt").descending()));
     }
 
     // 게시글 삭제
