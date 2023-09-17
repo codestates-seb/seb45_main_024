@@ -8,13 +8,13 @@ import authInstance from "../../../utility/authInstance";
 import useInterval from "../../../hooks/useInterval";
 
 interface AlarmItemProps {
-  alarmId?: number;
-  alarmType?: string;
-  writerNickname?: string;
-  writerId?: number;
-  title?: string;
-  memberBoardId?: number;
-  checked?: boolean;
+  alarmId: number;
+  alarmType: string;
+  writerNickname: string;
+  writerId: number;
+  title: string;
+  memberBoardId: number;
+  checked: boolean;
 }
 
 const Alarm: FC = () => {
@@ -89,6 +89,7 @@ const Alarm: FC = () => {
   const getAlarmData = async () => {
     try {
       const response = await authInstance.get("/alarms");
+      console.log(response.data);
       console.log("계속 알람 받아오는 중...");
       setPrevAlarmData(alarmData); // 기존 알람 우선 저장
       setAlarmData(response.data); // 새 알람 업데이트
@@ -97,6 +98,7 @@ const Alarm: FC = () => {
       } else {
         setIsShaking(false);
       } // 서로 값 비교해서 새로운 최댓값이 등장했으면 종 흔들고 아니면 말고(되려나)
+      return response.data;
     } catch (error) {
       console.error("알람 못 받아와써", error);
     }
@@ -108,7 +110,7 @@ const Alarm: FC = () => {
 
   useInterval(() => {
     getAlarmData();
-  }, 5000);
+  }, 3000);
 
   return (
     <>
@@ -121,7 +123,7 @@ const Alarm: FC = () => {
               : bell
           }
           onClick={handleActiveAlarmMenu}
-          className={isShaking ? classes.shake : ""}
+          className={isShaking && alarmBell ? classes.shake : ""}
         />
         <div className={classes.menuContainer}>
           <div
@@ -131,15 +133,19 @@ const Alarm: FC = () => {
           >
             <ul>
               {alarmData.length !== 0 ? (
-                alarmData.map((item: AlarmItemProps) => (
-                  <AlarmItem
-                    key={item.alarmId}
-                    memberBoardId={item.memberBoardId}
-                    writerNickname={item.writerNickname}
-                    title={item.title}
-                    checked={item.checked}
-                  />
-                ))
+                alarmData
+                  .slice()
+                  .reverse()
+                  .map((item: AlarmItemProps) => (
+                    <AlarmItem
+                      key={item.alarmId}
+                      memberBoardId={item.memberBoardId}
+                      writerNickname={item.writerNickname}
+                      title={item.title}
+                      checked={item.checked}
+                      alarmId={item.alarmId}
+                    />
+                  ))
               ) : (
                 <AlarmItem />
               )}

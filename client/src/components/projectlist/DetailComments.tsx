@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailComments.module.css";
 
+import authInstance from "../../utility/authInstance";
+
 const DetailComments = () => {
   const navigate = useNavigate();
   const { projectId } = useParams() as { projectId: string };
@@ -38,7 +40,18 @@ const DetailComments = () => {
     setContent(e.target.value);
   };
 
-  const handleAcceptBtn = () => {};
+  const handleAcceptBtn = async (writerId, memberBoardId) => {
+    try {
+      await authInstance.post("/alarms", {
+        alarmType: 0,
+        targetId: writerId,
+        memberId: memberBoardId,
+      });
+      console.log("알람 전송");
+    } catch (error) {
+      console.error("알람 전송 안 됨", error);
+    }
+  };
 
   const handleRejectBtn = () => {};
 
@@ -158,6 +171,7 @@ const DetailComments = () => {
           <ActionButton buttonType="submit">댓글 등록하기</ActionButton>
         </div>
       </form>
+      {/*TODO 여기다여기! 여기에 comment.wirterId가 있다!!! */}
       <ul className={classes.commentsArea}>
         {comments?.map(comment => (
           <li key={comment.replyId} className={classes.comment}>
@@ -207,7 +221,16 @@ const DetailComments = () => {
 
               {comment.acceptType === "NONE" && comment.apply && (
                 <div className={classes.acceptArea}>
-                  <ActionButton type="outline" handleClick={handleAcceptBtn}>
+                  {/* 여기서 이렇게 작성 수정했음 */}
+                  <ActionButton
+                    type="outline"
+                    handleClick={() =>
+                      handleAcceptBtn(
+                        comment.writerId,
+                        currentProject?.memberBoardId,
+                      )
+                    }
+                  >
                     수락하기
                   </ActionButton>
                   <ActionButton type="outline" handleClick={handleRejectBtn}>

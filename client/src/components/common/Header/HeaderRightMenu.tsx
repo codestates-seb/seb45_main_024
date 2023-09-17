@@ -7,9 +7,20 @@ import { getTokensFromLocalStorage } from "../../../utility/tokenStorage";
 import Logout from "../../login/Logout";
 import MyProfile from "../MyProfile";
 
+interface UserData {
+  exp: number;
+  iat: number;
+  id: number;
+  imageUrl: string;
+  nickname: string;
+  roles: string[];
+  sub: string;
+  username: string;
+}
+
 const HeaderRight: FC = () => {
   const navigate = useNavigate();
-  const isLoggedIn = getTokensFromLocalStorage();
+  const isLoggedIn: UserData = getTokensFromLocalStorage();
 
   const handleNavigateLogin = () => {
     navigate("/login");
@@ -25,7 +36,9 @@ const HeaderRight: FC = () => {
         <>
           <Alarm />
           <div className={classes.profile}>
-            <MyProfile />
+            <div>
+              <MyProfile />
+            </div>
             <div className={classes.nickname}>
               <p>{isLoggedIn.nickname}</p>
             </div>

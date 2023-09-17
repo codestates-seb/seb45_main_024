@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import authInstance from "../../../utility/authInstance";
 
 interface AlarmItemProps {
-  alarmId?: number;
-  alarmType?: string;
-  writerNickname?: string;
-  writerId?: number;
-  title?: string;
-  memberBoardId?: number;
-  checked?: boolean;
+  alarmId: number;
+  alarmType: string;
+  writerNickname: string;
+  writerId: number;
+  title: string;
+  memberBoardId: number;
+  checked: boolean;
 }
 
 const AlarmItem: FC<AlarmItemProps> = props => {
@@ -19,6 +19,8 @@ const AlarmItem: FC<AlarmItemProps> = props => {
 
   const handleClickToArticle = async () => {
     navigate(`/projectlist/${props.memberBoardId}`);
+    console.log(`멤버보드 아이디 : ${props.memberBoardId}`);
+    console.log(`알람 아이디 : ${props.alarmId}`); // 그러네 알람id가 undefined 되어있네?
     try {
       await authInstance.patch(`/alarms/${props.alarmId}`);
       console.log(`${props.title} 알람은 읽었습니다!`);
