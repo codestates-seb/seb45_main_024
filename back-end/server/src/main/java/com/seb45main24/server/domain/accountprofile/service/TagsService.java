@@ -140,6 +140,7 @@ public class TagsService {
 		ProfileTechTag emptyTechTag = createTechTagDefault();
 
 		emptyTechTag.setAccountProfile(accountProfile);
+		emptyTechTag.setTechTag(null);
 
 		profileTechTagRepository.save(emptyTechTag);
 	}
@@ -185,10 +186,13 @@ public class TagsService {
 
 		for (ProfileTechTag profileTechTag : profileTechTags) {
 			TechTag techTag = profileTechTag.getTechTag();
-			TechTagDto techTagDto = new TechTagDto(techTag.getId(), techTag.getTechName(), techTag.getTagType());
-			techTagDtos.add(techTagDto);
+			if (techTag != null) {
+				TechTagDto techTagDto = new TechTagDto(techTag.getId(), techTag.getTechName(), techTag.getTagType());
+				techTagDtos.add(techTagDto);
+			} else {
+				return techTagDtos;
+			}
 		}
-
 		return techTagDtos;
 	}
 
