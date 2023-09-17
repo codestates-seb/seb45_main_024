@@ -1,0 +1,44 @@
+.quillEditor {
+  
+  & div.ql-container {
+    min-height: 500px;
+  }
+
+  & strong {
+    font-weight: 700;
+  }
+
+  & em {
+    font-style: italic;
+  }
+
+  & a { 
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  /* font-size */
+  &  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  & h2 {
+    font-size: 1.25rem !important;
+  }
+
+  & h3 {
+    font-size: 1.125rem !important;
+  } 
+}
+
+.quillEditor.quillEditor_view {
+  /* list */
+  & ol li {
+    list-style: inside decimal;
+  }
+
+  & ul li {
+    list-style: inside disc;
+  }
+}

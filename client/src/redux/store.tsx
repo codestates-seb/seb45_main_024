@@ -9,6 +9,7 @@ import profileReducer from "./mypage/profileSlice";
 import { usersReducer, getNewTitle } from "./board/slices/usersSlice";
 import { projectsReducer } from "./board/slices/projectsSlice";
 import { commentsReducer } from "./board/slices/commentsSlice";
+import { techTagsReducer } from "./board/slices/techTagsSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     users: usersReducer,
     projects: projectsReducer,
     comments: commentsReducer,
+    techTags: techTagsReducer,
   },
 });
 
@@ -50,6 +52,8 @@ export {
   editComment,
   removeComment,
 } from "./board/thunks/commentsThunks";
+
+export { fetchTechTags } from "./board/thunks/techTagsThunks";
 
 export { getNewTitle };
 

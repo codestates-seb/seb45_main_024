@@ -32,11 +32,14 @@
 }
 
 .selectList {
-  z-index: 100;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  z-index: 1;
   display: none;
   position: absolute;
   top: 41px;
   /* width: 100%; */
+  max-height:200px;
   padding: 1rem 0;
   background-color: var(--color-white);
   border: 1px solid var(--color-gray-4);
@@ -62,4 +65,11 @@
 .selectList .selected span {
   color: var(--color-main);
   font-weight: 700;
+}
+
+/* 기술스택 Selectbox */
+.selectbox.techTags {
+  & .selectList {
+
+  }
 }

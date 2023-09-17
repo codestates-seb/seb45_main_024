@@ -6,7 +6,15 @@
         "title": "첫번째 게시글 입니다. 이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "이런태그", "저런태그"],
+        "techTagList": [
+          "2:Spring",
+          "6:MySQL",
+          "13:JavaScript",
+          "14:TypeScript",
+          "15:React"
+        ],
         "accountId": 1,
+        "nickname": "nana",
         "createdAt": "2023-09-01T19:42:19",
         "modifiedAt": "2023-09-01T19:42:19"
       },
@@ -15,7 +23,9 @@
         "title": "취업용 포트폴리오 함께 작업할 백엔드 팀원 구합니다.",
         "position": "백엔드",
         "keywords": ["포트폴리오", "사이드프로젝트"],
+        "techTagList": ["2:Spring", "6:MySQL", "16:Vue", "17:Svelte", "19:Flutter", "20:Swift"],
         "accountId": 2,
+        "nickname": "dada",
         "createdAt": "2023-09-02T19:42:19",
         "modifiedAt": "2023-09-02T19:42:19"
       },
@@ -24,7 +34,9 @@
         "title": "사이드프로젝트 함께 하실 분!!",
         "position": "프론트엔드",
         "keywords": ["포트폴리오", "사이드프로젝트", "반응형웹", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 3,
+        "nickname": "baba",
         "createdAt": "2023-09-03T19:42:19",
         "modifiedAt": "2023-09-03T19:42:19"
       },
@@ -33,7 +45,9 @@
         "title": "이 글은 4번 게시글입니다. 게시글 4번 입니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 4,
+        "nickname": "hey",
         "createdAt": "2023-09-04T19:42:19",
         "modifiedAt": "2023-09-04T19:42:19"
       },
@@ -42,7 +56,9 @@
         "title": "5번 게시글, 팀 찾습니다 5",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 5,
+        "nickname": "yoyo",
         "createdAt": "2023-09-05T19:42:19",
         "modifiedAt": "2023-09-05T19:42:19"
       },
@@ -51,7 +67,9 @@
         "title": "6번 게시글, 팀 찾습니다 6",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 6,
+        "nickname": "soso",
         "createdAt": "2023-09-06T19:42:19",
         "modifiedAt": "2023-09-06T19:42:19"
       },
@@ -60,7 +78,9 @@
         "title": "7번 게시글, 팀 찾습니다 7",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "테스트", "good", "내가하고싶은건"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 6,
+        "nickname": "soso",
         "createdAt": "2023-09-06T21:42:19",
         "modifiedAt": "2023-09-06T21:42:19"
       },
@@ -69,7 +89,9 @@
         "title": "8번 게시글, 팀 찾습니다 8",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -78,7 +100,9 @@
         "title": "9번 게시글, 팀 찾습니다 9",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -87,7 +111,9 @@
         "title": "10번 게시글, 팀 찾습니다 10",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -96,7 +122,9 @@
         "title": "11번 게시글, 팀 찾습니다 11",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -105,7 +133,9 @@
         "title": "12번 게시글, 팀 찾습니다 12",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -114,7 +144,9 @@
         "title": "13번 게시글, 팀 찾습니다 13",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -123,7 +155,9 @@
         "title": "14번 게시글, 팀 찾습니다 14",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
+        "nickname": "jo",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -132,7 +166,9 @@
         "title": "15번 게시글, 팀 찾습니다 15",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 9,
+        "nickname": "elle",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -141,7 +177,9 @@
         "title": "16번 게시글, 팀 찾습니다 16",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 9,
+        "nickname": "elle",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       },
@@ -150,7 +188,9 @@
         "title": "17번 게시글, 팀 찾습니다 17",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
+        "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 1,
+        "nickname": "nana",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       }
@@ -167,10 +207,18 @@
       {
         "memberBoardId": 1,
         "title": "더미데이터:: 팀원찾기 게시판에 들어가는 제목입니다. 지금이건 더미데이터입니다.",
-        "content": "프로젝트 소개에 들어갈 내용은 작성자가 자유롭게 작성할 수 있지만 placeholder 또는 가이드로 제시하면 좋을 것 같습니다. 프로젝트 목표, 진행상황, 현재 팀 멤버, 최소한의 예상 기능 등 중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는 정당사무에 관한 규칙을 제정할 수 있으며, 법률에 저촉되지 아니하는 범위안에서 내부규율에 관한 규칙을 제정할 수 있다. 평화통일정책의 수립에 관한 대통령의 자문에 응하기 위하여 민주평화통일자문회의를 둘 수 있다. 국가는 전통문화의 계승·발전과 민족문화의 창달에 노력하여야 한다. 대통령으로 선거될 수 있는 자는 국회의원의 피선거권이 있고 선거일 현재 40세에 달하여야 한다. 국회의원은 법률이 정하는 직을 겸할 수 없다. 대통령은 법률이 정하는 바에 의하여 훈장 기타의 영전을 수여한다.",
-        "status": "팀원 구하는중",
+        "content": "<p>다시 테스트를 해봅시다.</p><p>저희 프로젝트는 이러이러한 프로젝트입니다.</p><h1>프로젝트 이름: h1</h1><h2>프로젝트 주제: h2</h2><h3>프로젝트 주의사항: h3</h3><p><br></p><p>이 텍스트는 노말 텍스트이구요,</p><p><strong>이거는 볼드입니다.</strong></p><p><u>이거는 밑줄이구요, 기울림은 없앴어요.</u></p><p><s>이거는 취소선이구요,</s></p><blockquote>요거는 요렇게 나옵니다!! 잘 나오고 있나요?</blockquote><p><br></p><p>링크도 걸 수가 있어요. http 부터 입력해주세요!.</p><p><a href='https://www.naver.com' rel='noopener noreferrer' target='_blank'>네이버로 갑시다.</a></p><p><br></p><p><strong style='color: rgb(230, 0, 0);'>글자 색도 지정할 있어요! 빨간색에 볼드체</strong></p><p><span style='color: rgb(102, 163, 224);'>하늘색도 좋아요! 너무 연하네</span></p><p><br></p><p>리스트도 있습니다.</p><ol><li>이렇게 숫자가 보이는</li><li>리스트도 있고,</li></ol><p><br></p><ul><li>불릿 형태의 리스트도</li><li>있습니다.</li></ul><p><br></p><p>이렇게 테스트를 해봅시다.</p>",
+        "status": "모집중",
         "views": 0,
         "position": "백엔드 3명",
+        "techTagList": [
+          "2:Spring",
+          "6:MySQL",
+          "13:JavaScript",
+          "14:TypeScript",
+          "15:React"
+        ],
+        "writerId": 6,
         "writerNickName": "nana",
         "replyList": [
           {
@@ -183,8 +231,8 @@
             "apply": false
           },
           {
-            "writerId": 2,
-            "writerNickName": "유저BBB",
+            "writerId": 6,
+            "writerNickName": "nana",
             "replyId": 2,
             "content": "지원댓글: 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
             "acceptType": "NONE",
@@ -208,6 +256,42 @@
             "acceptType": "REFUSE",
             "createAt": "2023-09-14T13:09:32",
             "apply": true
+          },
+          {
+            "writerId": 6,
+            "writerNickName": "nana",
+            "replyId": 5,
+            "content": "댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요 길어지면이렇게되는데음",
+            "acceptType": "NONE",
+            "createAt": "2023-09-12T13:09:24",
+            "apply": true
+          },
+          {
+            "writerId": 6,
+            "writerNickName": "nana",
+            "replyId": 6,
+            "content": "지원댓글: 저와 딱 맞는 프로젝트에요! 함께하고 싶어요. 지원합니다!",
+            "acceptType": "NONE",
+            "createAt": "2023-09-12T13:09:24",
+            "apply": true
+          },
+          {
+            "writerId": 4,
+            "writerNickName": "유저DDD",
+            "replyId": 7,
+            "content": "댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요댓글을 남겨주세요 길어지면이렇게되는데음",
+            "acceptType": "NONE",
+            "createAt": "2023-09-14T13:09:32",
+            "apply": false
+          },
+          {
+            "writerId": 9,
+            "writerNickName": "하이루",
+            "replyId": 8,
+            "content": "지원댓글<수락>: 지원하고 수락된 유저의 댓글내용 지원하고 수락된 유저의 댓글내용 지원하고 수락된 유저의 댓글내용 지원하고 수락된 유저의 댓글내용 지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용지원하고 수락된 유저의 댓글내용",
+            "acceptType": "ACCEPT",
+            "createAt": "2023-09-13T13:09:32",
+            "apply": true
           }
         ],
         "startDate": "2023-01-18T11:22:33",
@@ -219,9 +303,10 @@
         "memberBoardId": 2,
         "title": "팀원찾기 2번째 글",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집중",
         "views": 11,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL", "16:Vue", "17:Svelte", "19:Flutter", "20:Swift"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
@@ -231,9 +316,10 @@
         "memberBoardId": 3,
         "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집중",
         "views": 100,
         "position": "백엔드 1명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-03T01:20:02",
@@ -246,6 +332,7 @@
         "status": "팀원 구하는중",
         "views": 10,
         "position": "백엔드 2명, 디자이너 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-09T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-02T01:20:02",
@@ -255,10 +342,11 @@
         "memberBoardId": 5,
         "title": "팀원찾기 5번째 글입니다~!!",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집중",
         "views": 1,
         "position": "백엔드 1명",
         "startDate": "2023-01-18T11:22:33",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-02T01:20:02",
         "modifiedAt": "2023-09-06T01:20:02"
@@ -267,10 +355,11 @@
         "memberBoardId": 6,
         "title": "팀원찾기 6번째 글입니다~!! :) 호호",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집중",
         "views": 123,
         "position": "프론트엔드 2명",
         "startDate": "2023-01-18T11:22:33",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
         "modifiedAt": "2023-09-06T01:20:02"
@@ -279,9 +368,10 @@
         "memberBoardId": 7,
         "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-06T01:20:02",
@@ -291,9 +381,10 @@
         "memberBoardId": 8,
         "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-01-18T11:22:33",
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
@@ -303,9 +394,10 @@
         "memberBoardId": 9,
         "title": "9번 게시글 입니다. 프로젝트 팀원 찾기 입니다.",
         "content": "내용",
-        "status": "팀원 구하는중",
+        "status": "모집완료",
         "views": 10,
         "position": "백엔드 1명, 프론트엔드 2명",
+        "techTagList": ["2:Spring", "6:MySQL"],
         "startDate": "2023-09-01T11:22:33",
         "endDate": "2023-09-30T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
@@ -318,5 +410,221 @@
       "totalElements": 9,
       "totalPages": 1
     }
+  },
+  "mypages": {
+    "imageUrl": "/Users/gimjaehui/main/images/default.png",
+    "email": "nana@test.com",
+    "nickname": "test123",
+    "coverLetter": "안녕하세요. nana입니다.",
+    "techTags": [
+      {
+        "id": 1,
+        "techName": "Java",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 3,
+        "techName": "Nodejs",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 5,
+        "techName": "Express",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 7,
+        "techName": "MongoDB",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 9,
+        "techName": "Django",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 11,
+        "techName": "GraphQL",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 12,
+        "techName": "FireBase",
+        "tagType": "BACK_END"
+      }
+    ],
+    "softSkills": ["팀 협업", "문제 해결"],
+    "hardSkills": ["웹 개발"],
+    "projectDetails": [
+      {
+        "projectTitle": "프로젝트 1",
+        "projectUrl": "웹 애플리케이션 개발",
+        "imageUrl": "url"
+      },
+      {
+        "projectTitle": "프로젝트 2",
+        "projectUrl": "데이터베이스 설계 및 관리",
+        "imageUrl": "url"
+      }
+    ]
+  },
+  "tags/tech": {
+    "data": [
+      {
+        "id": 1,
+        "name": "Java",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 2,
+        "name": "Spring",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 3,
+        "name": "Nodejs",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 4,
+        "name": "Go",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 5,
+        "name": "Express",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 6,
+        "name": "MySQL",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 7,
+        "name": "MongoDB",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 8,
+        "name": "Python",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 9,
+        "name": "Django",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 10,
+        "name": "php",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 11,
+        "name": "GraphQL",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 12,
+        "name": "FireBase",
+        "tagType": "BACK_END"
+      },
+      {
+        "id": 13,
+        "name": "JavaScript",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 14,
+        "name": "TypeScript",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 15,
+        "name": "React",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 16,
+        "name": "Vue",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 17,
+        "name": "Svelte",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 18,
+        "name": "Nextjs",
+        "tagType": "FRONT_END"
+      },
+      {
+        "id": 19,
+        "name": "Flutter",
+        "tagType": "MOBILE"
+      },
+      {
+        "id": 20,
+        "name": "Swift",
+        "tagType": "MOBILE"
+      },
+      {
+        "id": 21,
+        "name": "Kotlin",
+        "tagType": "MOBILE"
+      },
+      {
+        "id": 22,
+        "name": "ReactNative",
+        "tagType": "MOBILE"
+      },
+      {
+        "id": 23,
+        "name": "Unity",
+        "tagType": "MOBILE"
+      },
+      {
+        "id": 24,
+        "name": "AWS",
+        "tagType": "ETC"
+      },
+      {
+        "id": 25,
+        "name": "Kubernetes",
+        "tagType": "ETC"
+      },
+      {
+        "id": 26,
+        "name": "Docker",
+        "tagType": "ETC"
+      },
+      {
+        "id": 27,
+        "name": "Git",
+        "tagType": "ETC"
+      },
+      {
+        "id": 28,
+        "name": "Figma",
+        "tagType": "ETC"
+      },
+      {
+        "id": 29,
+        "name": "Zeplin",
+        "tagType": "ETC"
+      },
+      {
+        "id": 30,
+        "name": "Jest",
+        "tagType": "ETC"
+      },
+      {
+        "id": 31,
+        "name": "C",
+        "tagType": "ETC"
+      }
+    ]
   }
 }

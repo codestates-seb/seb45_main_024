@@ -2,6 +2,13 @@ import {
   UserListDataType,
   ProjectListDataType,
 } from "../../../model/boardTypes";
+import { extractTextAfterColon } from "../../../utility/exceptColonFromTechResponse";
+import GetLogo from "../../mypage/format/GetLogo";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 
 import classes from "./CardStyle.module.css";
 
@@ -15,16 +22,15 @@ interface CardViewFrontType {
 const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
   const isProjectCard = type === "PROJECT_CARD";
   const { title, position, createdAt } = cardData as UserListDataType;
-  const { views, status } = cardData as ProjectListDataType;
+  const { views, status, writerNickName, techTagList } =
+    cardData as ProjectListDataType;
 
   let statusText;
-  if (status === "팀원 구하는중") statusText = "모집중";
-  else statusText = "음?";
+  if (status === "모집중") statusText = "모집중";
+  else statusText = "모집완료";
 
   const date: string = new Date(createdAt).toLocaleDateString();
-
-  // 임시 기술스택
-  const stack = ["Javascript", "React"];
+  const techTagNames = extractTextAfterColon(techTagList);
 
   return (
     <div className={classes.front}>
@@ -40,16 +46,26 @@ const CardViewFront = ({ type, cardData }: CardViewFrontType) => {
         )}
       </div>
       <div className={classes.centerArea}>
-        {isProjectCard && <span className={classes.username}>유저ABC</span>}
+        {isProjectCard && (
+          <span className={classes.username}>{writerNickName}</span>
+        )}
         <div className={classes.title}>{title}</div>
       </div>
-      <div className={classes.bottomArea}>
+      <div className={classes.bottomArea} onClick={e => e.stopPropagation()}>
         <div className={classes.position}>{position}</div>
-        <ul className={classes.stack}>
-          {stack.map(el => (
-            <li key={el}>{el}</li>
+        {/* 기술스택 */}
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={10}
+          freeMode={true}
+          className={classes.techTags}
+        >
+          {techTagNames?.map(techName => (
+            <SwiperSlide key={techName} className={classes.techTag}>
+              <GetLogo logoTitle={techName} />
+            </SwiperSlide>
           ))}
-        </ul>
+        </Swiper>
       </div>
     </div>
   );

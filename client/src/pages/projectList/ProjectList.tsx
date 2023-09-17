@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
 import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import Pagination from "../../components/userlist,projectlist/Pagination";
 import Card from "../../components/userlist,projectlist/card/Card";
 import Checkbox from "../../components/userlist,projectlist/Checkbox";
-import { ReactComponent as SearchSvg } from "../../assets/icons/search.svg";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 
 import { fetchProjectList } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -45,7 +46,14 @@ const ProjectList = () => {
   };
 
   const handleClick = () => {
-    navigate("/projectlist/new");
+    const token = getTokensFromLocalStorage();
+
+    if (!token) {
+      window.alert("회원만 글을 작성할 수 있어요!");
+      navigate("/login");
+    } else {
+      navigate("/projectlist/new");
+    }
   };
 
   /** Fetch Project List */

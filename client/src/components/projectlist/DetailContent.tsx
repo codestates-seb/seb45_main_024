@@ -1,23 +1,35 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../assets/icons/edit.svg";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
 import { getStringDate } from "../../utility/formatDate";
+import { extractTextAfterColon } from "../../utility/exceptColonFromTechResponse";
 
 import { getProject } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./DetailContent.module.css";
+import "./QuillEditor.css";
+import GetLogo from "../mypage/format/GetLogo";
+
+interface AccessTokenType {
+  id: number;
+}
 
 const DetailContent = () => {
   const navigate = useNavigate();
   const { projectId } = useParams() as { projectId: string };
+
+  const { id } = getTokensFromLocalStorage() as AccessTokenType;
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
   const {
     title,
     content,
+    writerId,
     writerNickName,
+    techTagList,
     startDate,
     endDate,
     position,
@@ -30,8 +42,7 @@ const DetailContent = () => {
   const startDateString = getStringDate(startDate);
   const endDateString = getStringDate(endDate);
 
-  // 기술스택 임시
-  const stack = ["React", "JavaScipt"];
+  const techTagNames = extractTextAfterColon(techTagList);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -61,14 +72,16 @@ const DetailContent = () => {
         ></div>
         <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>
-        <div
-          className={classes.edit}
-          onClick={() => {
-            navigate(`/projectlist/edit/${projectId}`);
-          }}
-        >
-          <EditSvg width="16" height="16" />
-        </div>
+        {id === writerId ? (
+          <div
+            className={classes.edit}
+            onClick={() => {
+              navigate(`/projectlist/edit/${projectId}`);
+            }}
+          >
+            <EditSvg width="16" height="16" />
+          </div>
+        ) : null}
       </div>
       <div className={classes.detailInfo}>
         <dl>
@@ -84,9 +97,13 @@ const DetailContent = () => {
         <dl>
           <dt>기술 스택</dt>
           <dd>
-            <ul>
-              {stack.map(item => {
-                return <li key={item}>{item}</li>;
+            <ul className={classes.techTags}>
+              {techTagNames?.map(techName => {
+                return (
+                  <li key={techName} className={classes.techTag}>
+                    <GetLogo logoTitle={techName} />
+                  </li>
+                );
               })}
             </ul>
           </dd>
@@ -94,14 +111,19 @@ const DetailContent = () => {
       </div>
       <div className={classes.description}>
         <h3>프로젝트 소개</h3>
-        <div>{content}</div>
+        <div
+          className="quillEditor quillEditor_view"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </div>
-      <div className={classes.completeBtn}>
-        <button>팀원모집완료</button>
-        <p>
-          팀원 모집이 완료되었다면, 버튼을 클릭하여 모집 상태를 변경해 주세요!
-        </p>
-      </div>
+      {id === writerId ? (
+        <div className={classes.completeBtn}>
+          <button>팀원모집완료</button>
+          <p>
+            팀원 모집이 완료되었다면, 버튼을 클릭하여 모집 상태를 변경해 주세요!
+          </p>
+        </div>
+      ) : null}
     </section>
   );
 };

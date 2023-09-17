@@ -7,12 +7,22 @@ import ActionButton from "../../components/userlist,projectlist/ActionButton";
 import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Tag from "../userlist,projectlist/Tag";
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
+import {
+  extractNumbersBeforeColon,
+  extractTextAfterColon,
+} from "../../utility/exceptColonFromTechResponse";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import classes from "./CardEditor.module.css";
+
+// 임시
+import authInstance from "../../utility/authInstance";
+import dummyData from "../../dummy-data.json";
+import GetLogo from "../mypage/format/GetLogo";
 
 type CardType = "NEW_CARD" | "EDIT_CARD";
 
@@ -21,8 +31,19 @@ interface CardEditorProps {
   originCard?: UserListDataType;
 }
 
+interface AccessTokenType {
+  id: number;
+}
+
+// 타입 따로 빼두기
+interface TechTagTypes {
+  id: number;
+  techName: string;
+  tagType: "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
+}
+
 const CardEditor = ({ type, originCard }: CardEditorProps) => {
-  // console.log("originCard", originCard);
+  console.log("✅ ORIGIN CARD", originCard);
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
 
@@ -30,21 +51,59 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const newTitle = useAppSelector(state => state.users.editTitle);
-  // console.log("newTitle: ", newTitle);
+  const editTitle = useAppSelector(state => state.users.editTitle);
+  // console.log("TTTTTT newTitle: ", newTitle);
+  const [newTitle, setNewTitle] = useState(editTitle);
+
+  useEffect(() => {
+    setNewTitle(editTitle);
+    console.log("TTTTTT newTitle: ", newTitle);
+  }, [editTitle]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
-  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
-  const [date, setDate] = useState(new Date().toLocaleDateString());
-  const [title, setTitle] = useState(newTitle);
-  const [position, setPosition] = useState("포지션");
-  // const [stack, setStack] = useState("")
+  // 나의 기술스택 조회
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+  let tokenId: number;
+
+  const [myTechTags, setMyTechTags] = useState<TechTagTypes[]>([]);
+
+  if (token) {
+    tokenId = token.id;
+  }
 
   useEffect(() => {
-    setTitle(newTitle);
-  }, [newTitle]);
+    getMyTechTags();
+  }, []);
+
+  const getMyTechTags = async () => {
+    try {
+      // throw new Error();
+
+      const response = await authInstance.get(`/mypages/profile/${tokenId}`);
+      const techData = await response.data.techTags; // [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
+      setMyTechTags(techData);
+    } catch (error) {
+      // 서버 연결 안되었을 경우 더미데이터 노출
+      console.warn(error);
+
+      const techData = dummyData.mypages.techTags;
+      console.log(techData);
+
+      setMyTechTags(techData);
+    }
+  };
+
+  /** 포함되어야 할 정보 : 날짜, 제목, 포지션, 기술스택(일단제외), 태그 */
+  const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [title, setTitle] = useState(originCard?.title);
+  const [position, setPosition] = useState("포지션");
+
+  console.log("TTTTTT title", title);
+
+  const [techTags, setTechTags] = useState<number[]>([]);
 
   // 지원포지션 예시
   const positionList = ["프론트엔드", "백엔드"];
@@ -53,15 +112,36 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     setPosition(selected);
   };
 
+  // 기술스택 선택
+  const onSelectTechTags = (selectedId: number) => {
+    console.log(selectedId);
+
+    const isSelected = techTags.includes(selectedId);
+    console.log("isSelected", isSelected);
+
+    if (isSelected) {
+      // 선택된 태그일 경우
+      const updatedTechTags = techTags.filter(id => id !== selectedId);
+      setTechTags(updatedTechTags);
+    } else {
+      // 선택되지 않은 태그일 경우
+      setTechTags(prev => [...prev, selectedId]);
+    }
+  };
+
   // 키워드 예시
   const [keywords, setKeywords] = useState<string[]>([]);
 
   // 키워드 추가
   const onCreateTag = (keyword: string) => {
     const trimKeyword = keyword.split(" ").join(""); // 공백 허용 X
-    setKeywords(prev => {
-      return [...prev, trimKeyword];
-    });
+
+    // 같은 키워드 추가 금지
+    if (!keywords.includes(trimKeyword)) {
+      setKeywords(prev => {
+        return [...prev, trimKeyword];
+      });
+    }
   };
 
   // 키워드 삭제
@@ -75,36 +155,33 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   /** EDIT CARD인 경우 (카드 수정) */
   useEffect(() => {
     if (EDIT_CARD) {
+      // const techId = extractNumbersBeforeColon(originCard?.techTagList);
+
       setDate(originCard?.createdAt);
       setTitle(originCard?.title);
+      // setTitle(newTitle);
       setPosition(originCard?.position);
       setKeywords(originCard?.keywords);
+      setTechTags(extractNumbersBeforeColon(originCard?.techTagList));
     }
   }, [EDIT_CARD, originCard]);
 
   // 수정일 경우 origin 데이터를 set하고, cardData를 props로 넘김
   // 생성일 경우 빈 값이 담긴 cardData를 card 컴포넌트로 넘김
   const cardData = {
-    // teamBoardId: 0,
     title: title,
     position: position,
     keywords: keywords,
-    // accountId: 0,
     createdAt: date,
-    // modifiedAt: "",
+    techTagList: techTags,
   };
 
   const data = {
     title: newTitle, // "제목형식string"
     position: position, // "포지션형식string"
     keywords: keywords, // ["키워드1", "키워드2"]
+    techTagIdList: techTags, // [1,3,5]
   };
-
-  // const data = {
-  //   title: "제목...",
-  //   position: "백엔드",
-  //   keywords: ["코딩", "작업", "테스트"],
-  // };
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
@@ -158,7 +235,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   return (
     <main>
       <div className={classes.previewArea}>
-        <ul>
+        <ul className={classes.editCardFrontAndBack}>
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
           <Card type="USER_CARD" cardData={cardData} isEdit={true} />
         </ul>
@@ -175,10 +252,46 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           />
         </div>
         <div className={classes.inputAreaBottom}>
-          <section className={classes.stack}>
+          <section className={classes.techTagsSection}>
             <h2 className={classes.title}>프로젝트에서 사용할 기술 스택</h2>
+            <ul className={classes.techTags}>
+              {myTechTags.length > 0 ? (
+                <>
+                  {myTechTags.map(techData => (
+                    <li
+                      key={techData.id}
+                      onClick={() => onSelectTechTags(techData.id)}
+                      className={
+                        techTags.includes(techData.id)
+                          ? `${classes.selected}`
+                          : ""
+                      }
+                    >
+                      <GetLogo logoTitle={techData.techName} />
+                    </li>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <li className={classes.TechTagInfoText}>
+                    😮 현재 추가되어있는 기술스택이 없습니다.
+                  </li>
+                  <li className={classes.TechTagInfoText}>
+                    마이페이지에서 내가 사용할 수 있는 기술스택을 추가해 주세요!
+                  </li>
+                  <li
+                    className={classes.TechTagInfoText}
+                    onClick={() =>
+                      navigate(`/mypage/${tokenId}`, { replace: true })
+                    }
+                  >
+                    마이페이지로 바로가기 &gt;
+                  </li>
+                </>
+              )}
+            </ul>
           </section>
-          <section className={classes.keyword}>
+          <section className={classes.keywordSection}>
             <h2 className={classes.title}>내가 원하는 프로젝트의 키워드</h2>
             <SearchInput
               placeholder="Enter를 눌러 키워드를 추가해 보세요!"
