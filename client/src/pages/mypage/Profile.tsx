@@ -57,7 +57,7 @@ const Profile: FC = () => {
             email: profile.email,
             nickname: profile.nickname,
             imgUrl: profile.imageUrl,
-          })
+          }),
         );
       } catch (err) {
         console.info("Error fetching profile data", err);

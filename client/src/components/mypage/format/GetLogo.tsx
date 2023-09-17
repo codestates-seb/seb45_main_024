@@ -9,14 +9,26 @@ const GetLogo: FC<GetLogoProp> = ({ logoTitle }) => {
   const [logoSrc, setLogoSrc] = useState<string | null>(null);
   let logoName = logoTitle.toLowerCase();
 
-  // 예외: vuejs, amazonwebservices, reactnative
+  // 예외: vuejs, amazonwebservices, reactnative, angularjs
   if (logoName === "vue") {
     logoName = "vuejs";
   } else if (logoName === "aws") {
     logoName = "amazonwebservices";
   } else if (logoName === "reactnative") {
     logoName = "react";
+  } else if (logoName === "angular") {
+    logoName = "angularjs";
+  } else if (logoName === "toolkit") {
+    logoName = "redux";
+  } else if (logoName === "tailwind") {
+    logoName = "tailwindcss";
+  } else if (logoName === "c#") {
+    logoName = "csharp";
+  } else if (logoName === "c++") {
+    logoName = "cplusplus";
   }
+
+
 
   useEffect(() => {
     if (logoName === "zeplin") {
