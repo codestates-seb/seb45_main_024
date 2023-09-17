@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seb45main24.server.global.auth.refreshtoken.dto.TokenDto;
 import com.seb45main24.server.global.auth.refreshtoken.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,9 +24,9 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/issue")
-	public ResponseEntity refreshAccessToken(HttpServletResponse response, @RequestBody Map<String, String> refresh) {
+	public ResponseEntity refreshAccessToken(HttpServletResponse response, @RequestBody TokenDto tokenDto) {
 
-		String newToken = authService.validateRefreshToken(refresh.get("Refresh"));
+		String newToken = authService.validateRefreshToken(tokenDto.getRefresh(), tokenDto.getExpAccess());
 
 		response.setHeader("newAccessToken",newToken);
 
