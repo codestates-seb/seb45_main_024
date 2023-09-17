@@ -75,6 +75,7 @@ public interface ReplyMapper {
         replyResponseDTO.content( reply.getContent() );
         replyResponseDTO.isApply( reply.getIsApply() );
         replyResponseDTO.writerNickName( reply.getWriter().getNickname() );
+        replyResponseDTO.writerImageURL( reply.getWriter().getImage().getImageUrl() );
         replyResponseDTO.acceptType( reply.getAcceptType() );
         replyResponseDTO.createdAt( reply.getCreatedAt() );
         replyResponseDTO.modifiedAt( reply.getModifiedAt() );

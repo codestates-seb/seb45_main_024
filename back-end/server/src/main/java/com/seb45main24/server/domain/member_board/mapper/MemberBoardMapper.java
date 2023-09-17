@@ -70,6 +70,7 @@ public interface MemberBoardMapper {
                     memberBoardReplyDTO.setReplyId(reply.getReplyId());
                     memberBoardReplyDTO.setWriterId(reply.getWriter().getId());
                     memberBoardReplyDTO.setWriterNickName(reply.getWriter().getNickname());
+                    memberBoardReplyDTO.setWriterImageURL(reply.getWriter().getImage().getImageUrl());
                     memberBoardReplyDTO.setContent(reply.getContent());
                     memberBoardReplyDTO.setApply(reply.getIsApply());
                     memberBoardReplyDTO.setAcceptType(reply.getAcceptType());
@@ -97,6 +98,7 @@ public interface MemberBoardMapper {
         memberBoardResponseDTO.position( memberBoard.getPosition() );
         memberBoardResponseDTO.writerId( memberBoard.getWriter().getId() );
         memberBoardResponseDTO.writerNickName( memberBoard.getWriter().getNickname() );
+        memberBoardResponseDTO.writerImageURL( memberBoard.getWriter().getImage().getImageUrl() );
         memberBoardResponseDTO.replyList( memberBoardReplyDTOList );
         memberBoardResponseDTO.techTagList( tagNameList );
         memberBoardResponseDTO.startDate( memberBoard.getStartDate() );

@@ -60,12 +60,12 @@ public class MemberBoardService {
         return findVerifiedMemberBoard(memberBoardId);
     }
 
-    public Page<MemberBoard> findMemberBoardList(int page) {
-        return repository.findAll(PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+    public Page<MemberBoard> findMemberBoardList(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size, Sort.by("memberBoardId").descending()));
     }
 
-    public Page<MemberBoard> findMemberBoardListByView(int page) {
-        return repository.findAll(PageRequest.of(page, 10, Sort.by("views").descending()
+    public Page<MemberBoard> findMemberBoardListByView(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size, Sort.by("views").descending()
                 .and(Sort.by("memberBoardId").descending())));
     }
 
@@ -89,13 +89,13 @@ public class MemberBoardService {
         return repository.findMemberBoardsByWriter(accountId);
     }
 
-    public Page<MemberBoard> getMemberBoardListByTitle(String keyword, int page){
+    public Page<MemberBoard> getMemberBoardListByTitle(String keyword, int page, int size){
         return repository.findByTitleContaining(keyword,
-                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+                PageRequest.of(page, size, Sort.by("memberBoardId").descending()));
     }
 
-    public Page<MemberBoard> getMemberBoardListByPosition(String position, int page){
+    public Page<MemberBoard> getMemberBoardListByPosition(String position, int page, int size){
         return repository.findByPositionContaining(position,
-                PageRequest.of(page, 10, Sort.by("memberBoardId").descending()));
+                PageRequest.of(page, size, Sort.by("memberBoardId").descending()));
     }
 }

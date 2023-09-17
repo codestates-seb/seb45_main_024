@@ -131,8 +131,9 @@ public class TeamBoardController {
     // 팀찾기 게시글 리스트 조회
     @GetMapping
     public ResponseEntity getTeamBoards(@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size,
                                         @RequestParam(required = false) String keyword) {
-        Page<TeamBoard> pageTeamBoards = teamBoardService.findTeamBoards(page - 1);
+        Page<TeamBoard> pageTeamBoards = teamBoardService.findTeamBoards(page - 1,size);
         List<TeamBoard> teamBoards = pageTeamBoards.getContent();
 
         List<List<TeamBoardTechTag>> techTagLists = new ArrayList<>();
@@ -149,8 +150,9 @@ public class TeamBoardController {
     public ResponseEntity searchTeamBoards(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String position,
-            @Positive @RequestParam int page) {
-        Page<TeamBoard> teamBoardList = teamBoardService.searchTeamBoards(title, position, page - 1);
+            @Positive @RequestParam int page,
+            @Positive @RequestParam int size) {
+        Page<TeamBoard> teamBoardList = teamBoardService.searchTeamBoards(title, position, page - 1, size);
         List<TeamBoard> teamBoards = teamBoardList.getContent();
 
         List<List<TeamBoardTechTag>> techTagLists = new ArrayList<>();
