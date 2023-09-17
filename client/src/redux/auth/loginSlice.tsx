@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import commonInstance from "../../utility/commonInstance";
 import {
-  TokenData,
   saveTokensToLocalStorage,
   getTokensFromLocalStorage,
+  saveRefreshTokenToLocalStorage,
 } from "../../utility/tokenStorage";
 
 interface LoginData {
@@ -17,7 +17,8 @@ export const loginUser = createAsyncThunk(
   async (data: LoginData) => {
     try {
       const response = await commonInstance.post("/accounts/login", data);
-      saveTokensToLocalStorage(response.headers.authorization as TokenData);
+      saveTokensToLocalStorage(response.headers.authorization);
+      saveRefreshTokenToLocalStorage(response.headers.refresh);
       getTokensFromLocalStorage();
 
       console.log(response.status);
