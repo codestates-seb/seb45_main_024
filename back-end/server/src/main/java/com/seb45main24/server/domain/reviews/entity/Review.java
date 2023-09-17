@@ -25,7 +25,7 @@ public class Review {
     private String title;
 
     @Column(nullable = false)
-    private String project_url;
+    private String projectUrl;
 
     @Column(nullable = false)
     private String intro;
@@ -38,8 +38,12 @@ public class Review {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "reviewer_id")
+    private Account reviewer; // 리뷰 작성자
+
+    @ManyToOne
+    @JoinColumn(name = "reviewee_id")
+    private Account reviewee; // 리뷰 대상자
 }
 
 

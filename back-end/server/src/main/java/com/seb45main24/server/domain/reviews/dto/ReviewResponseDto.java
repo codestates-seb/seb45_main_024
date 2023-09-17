@@ -10,8 +10,16 @@ import java.time.LocalDateTime;
 public class ReviewResponseDto {
     private Long reviewId;
     private String title;
-    private String project_url;
+    private String projectUrl;
     private String intro;
     private String content;
+
+    private Long reviewerId;
+    private String reviewerNickname;
+    private String reviewerImageUrl;
+
+    private Long revieweeId;
+    private String revieweeNickname;
+
     private LocalDateTime createdAt;
 }

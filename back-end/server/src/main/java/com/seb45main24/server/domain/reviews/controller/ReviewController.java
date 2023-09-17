@@ -2,6 +2,7 @@ package com.seb45main24.server.domain.reviews.controller;
 
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
 import com.seb45main24.server.domain.reviews.dto.ReviewPostDto;
+import com.seb45main24.server.domain.reviews.dto.ReviewResponseDto;
 import com.seb45main24.server.domain.reviews.entity.Review;
 import com.seb45main24.server.domain.reviews.mapper.ReviewMapper;
 import com.seb45main24.server.domain.reviews.repository.ReviewRepository;
@@ -34,29 +35,30 @@ public class ReviewController {
 
     }
 
-    @PostMapping("/{accountId}")
+    @PostMapping("/{revieweeId}")
     public ResponseEntity<Review> postReview(@LoginAccountId Long loginAccountId,
-                                             @PathVariable("accountId") Long accountId,
-                                             @Valid @RequestBody ReviewPostDto reviewDto){
-        reviewDto.setAccountId(accountId);
+                                             @PathVariable("revieweeId") Long revieweeId,
+                                             @Valid @RequestBody ReviewPostDto reviewDto) {
+        reviewDto.setRevieweeId(revieweeId);
 
         Review review = reviewService.createReview(
-                mapper.reviewPostDtoToReview(reviewDto), loginAccountId
-        );
+                loginAccountId, mapper.reviewPostDtoToReview(reviewDto), revieweeId);
 
-        URI location = UriCreator.createUri("/reviews", review.getReviewId());
+        URI location = UriCreator.createUri("/mypages/reviews", review.getReviewId());
 
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/{accountId}")
-    public ResponseEntity getReviews(@PathVariable("accountId") Long accountId,
-                                     @Positive @RequestParam int page) {
-        Page<Review> pageReviews = reviewService.findReviews(accountId,page - 1);
-        List<Review> reviews = pageReviews.getContent();
+    @GetMapping("/{revieweeId}")
+    public ResponseEntity getReviews(@LoginAccountId Long loginAccountId,
+                                     @PathVariable("revieweeId") Long revieweeId) {
+        List<Review> reviewList = reviewService.findReviews(revieweeId);
 
-        return new ResponseEntity<>(new MultiResponseDto<>(
-                mapper.reviewsToReviewResponseDtos(reviews), pageReviews), HttpStatus.OK);
+        List<ReviewResponseDto> response = mapper.reviewsToReviewResponseDtos(reviewList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+
     }
 
 }
