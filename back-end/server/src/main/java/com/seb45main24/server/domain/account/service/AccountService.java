@@ -146,7 +146,7 @@ public class AccountService {
 
 		return Image.builder()
 			.imageName("default-profile.png")
-			.imageType(Image.ImageClassification.PROFILE_IMG)
+			.imageType("PROFILE_IMG")
 			.imageUrl(defaultUrl)
 			.build();
 	}

@@ -17,9 +17,12 @@ import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 import com.seb45main24.server.domain.accountprofile.mapper.ProjectDetailsMapper;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.domain.accountprofile.repository.ProjectDetailsRepository;
+import com.seb45main24.server.domain.image.dto.UploadImage;
+import com.seb45main24.server.domain.image.entity.Image;
+import com.seb45main24.server.domain.image.repository.ImageRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
-
+import com.seb45main24.server.global.file.service.AwsS3Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,27 +33,55 @@ public class ProjectDetailService {
 	private final AccountProfileRepository accountProfileRepository;
 	private final ProjectDetailsRepository projectDetailsRepository;
 	private final ProjectDetailsMapper projectDetailsMapper;
-
-	@Transactional
-	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
-		AccountProfile accountProfile = findAccountProfile(accountProfileId);
+	private final ImageRepository imageRepository;
 
 
-		List<ProjectDetails> existingProjectDetailTags = projectDetailsRepository.findByAccountProfileId(accountProfile.getId());
-		existingProjectDetailTags.forEach(tag -> projectDetailsRepository.delete(tag));
+	public ProjectDetails createProjectDetails(Long accountId, ProjectDetailRequest request) {
+		AccountProfile accountProfile = findAccountProfile(accountId);
 
-		List<ProjectDetails> projectDetailsList = new ArrayList<>();
+		// ProjectDetailRequest에서 필요한 정보 추출
+		String projectTitle = request.getProjectTitle();
+		String projectUrl = request.getProjectUrl();
+		Image image = Image.builder()
+			.imageName(request.getUploadImage().getImageName())
+			.imageType("PROJECT_IMG")
+			.imageUrl(request.getUploadImage().getImageUrl())
+			.build();
 
-		for (ProjectDetailRequest detailRequest : detailRequests) {
-			ProjectDetails projectDetails = new ProjectDetails();
-			projectDetails.setProjectTitle(detailRequest.getProjectTitle());
-			projectDetails.setProjectUrl(detailRequest.getProjectUrl());
-			projectDetails.setAccountProfile(accountProfile);
+		// Image 엔터티를 저장
+		Image savedImage = imageRepository.save(image);
 
-			projectDetailsList.add(projectDetails);
-		}
-		return projectDetailsRepository.saveAll(projectDetailsList);
+		// ProjectDetails 엔터티 생성 및 저장
+		ProjectDetails projectDetails = new ProjectDetails();
+		projectDetails.setProjectTitle(projectTitle);
+		projectDetails.setProjectUrl(projectUrl);
+		projectDetails.setAccountProfile(accountProfile);
+		projectDetails.setImage(savedImage); // Image와 연결
+
+		return projectDetailsRepository.save(projectDetails);
 	}
+
+
+	// @Transactional
+	// public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
+	// 	AccountProfile accountProfile = findAccountProfile(accountProfileId);
+	//
+	//
+	// 	List<ProjectDetails> existingProjectDetailTags = projectDetailsRepository.findByAccountProfileId(accountProfile.getId());
+	// 	existingProjectDetailTags.forEach(tag -> projectDetailsRepository.delete(tag));
+	//
+	// 	List<ProjectDetails> projectDetailsList = new ArrayList<>();
+	//
+	// 	for (ProjectDetailRequest detailRequest : detailRequests) {
+	// 		ProjectDetails projectDetails = new ProjectDetails();
+	// 		projectDetails.setProjectTitle(detailRequest.getProjectTitle());
+	// 		projectDetails.setProjectUrl(detailRequest.getProjectUrl());
+	// 		projectDetails.setAccountProfile(accountProfile);
+	//
+	// 		projectDetailsList.add(projectDetails);
+	// 	}
+	// 	return projectDetailsRepository.saveAll(projectDetailsList);
+	// }
 
 	// 회원 등록시 기본값 생성을 위한 메서드
 	public ProjectDetails createDefault() {
@@ -58,7 +89,7 @@ public class ProjectDetailService {
 		ProjectDetails projectDetails = new ProjectDetails();
 		projectDetails.setProjectTitle("");
 		projectDetails.setProjectUrl("");
-		projectDetails.setImageUrl("");
+		projectDetails.getImage().setImageUrl("");
 		projectDetails.setCreatedAt(LocalDateTime.now());
 
 		// ProjectDetail을 저장

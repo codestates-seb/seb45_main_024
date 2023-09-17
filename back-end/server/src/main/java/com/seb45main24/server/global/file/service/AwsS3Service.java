@@ -91,6 +91,33 @@ public class AwsS3Service {
 			.build();
 	}
 
+
+	public UploadImage uploadProjectImage(MultipartFile multipartFile) {
+		String dirName = "images";
+		String fileName = dirName + "/" + createFileName(multipartFile.getOriginalFilename());
+		ObjectMetadata objectMetadata = new ObjectMetadata();
+		objectMetadata.setContentLength(multipartFile.getSize());
+		objectMetadata.setContentType(multipartFile.getContentType());
+
+		try (InputStream inputStream = multipartFile.getInputStream()) {
+			amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+				.withCannedAcl(CannedAccessControlList.PublicRead));
+
+		} catch (IOException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String imageUrl = amazonS3.getUrl(bucket, fileName).toString(); // DB에는 저장된 경로를 저장
+
+		return UploadImage.builder()
+			.imageName(fileName)
+			.imageUrl(imageUrl)
+			.imageType("PROJECT_IMG")
+			.createdAt(LocalDateTime.now())
+			.build();
+	}
+
+
+
 	// 이미지 수정시 데이터베이스와 버킷 내부에서 이미지 삭제하고 새로 업로드
 	public UploadImage updateImage(MultipartFile newImage, String fileName) {
 
