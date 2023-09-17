@@ -28,8 +28,6 @@ const GetLogo: FC<GetLogoProp> = ({ logoTitle }) => {
     logoName = "cplusplus";
   }
 
-
-
   useEffect(() => {
     if (logoName === "zeplin") {
       setLogoSrc(zeplin);

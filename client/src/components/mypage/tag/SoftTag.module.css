@@ -5,8 +5,6 @@
   width: fit-content;
   border: 1px solid var(--color-main);
   padding: 4px 14px;
-  /* background-color: var(--color-main); */
-  /* border: none; */
 }
 
 .tagContainer span {
