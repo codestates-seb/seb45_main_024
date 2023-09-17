@@ -62,12 +62,13 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   useEffect(() => {
     if (profileData) {
       if (profileData.coverLetter) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(
-          profileData.coverLetter,
-          "text/html",
-        );
-        setEditorValue(doc.body.textContent || "");
+        // const parser = new DOMParser();
+        // const doc = parser.parseFromString(
+        //   profileData.coverLetter,
+        //   "text/html",
+        // );
+        // setEditorValue(doc.body.textContent || "");
+        setEditorValue(profileData.coverLetter);
       }
       setSoftTags(prevSoftTags =>
         profileData.softSkills
