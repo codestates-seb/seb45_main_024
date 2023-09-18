@@ -31,7 +31,7 @@ const AlarmItem: FC<AlarmItemProps> = props => {
 
   if (!props.writerNickname || !props.title || !props.memberBoardId) {
     return (
-      <li>
+      <li className={classes.messageItem}>
         <img alt="default_profile" src={profile} />
         <div className={classes.message}>
           <span>
@@ -43,7 +43,7 @@ const AlarmItem: FC<AlarmItemProps> = props => {
   }
 
   return (
-    <li>
+    <li className={classes.messageItem}>
       <img alt="default_profile" src={profile} />
       <div
         className={`${classes.message} ${

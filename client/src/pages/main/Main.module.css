@@ -1,8 +1,22 @@
 .field {
   width: 100vw;
-  height: 89vh;
+  height: 356vh;
+  background: linear-gradient(to bottom, #74B86E 0%, #83D475 25%, #ABE098 50%, #C5E8B7 100%);
   background-color: #D0E1B2;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 첫번째 페이지 */
+
+.first {
+  /* border: 10px solid purple; */
+  width: 100vw;
+  height: 89vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -155,23 +169,101 @@
   z-index: 1.01;
 }
 
-/* .field {
+/* 두번째 페이지 */
+
+.second {
+  /* border: 10px solid purple; */
+  width: 100vw;
+  height: 89vh;
+}
+
+.secondImg {
+  position: relative;
+  width: 60vw;
+  top: 6rem;
+  left: 4rem;
+}
+
+.secondFace {
+  position: relative;
+  width: 280px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  left: 85rem;
+  top: 12rem;
 }
 
-.carousel {
-  /* border: 5px solid gray; */
-  /* padding-bottom: 1rem;
-  width: 100%;
+.secondFace span {
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* 세번째 페이지 */
+
+.third {
+  /* border: 10px solid purple; */
+  width: 100vw;
+  height: 89vh;
+}
+
+.thirdImg {
+  position: relative;
+  width: 60vw;
+  top: 6rem;
+  left: 33rem;
+}
+
+.thirdFace {
+  position: relative;
+  width: 280px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  left: 4rem;
+  top: 15rem;
 }
 
-.mainContent {
-  border: 5px solid purple;
-  padding: 1rem;
-  padding: 0 1.5rem; 
-  max-width: 1200px; 
-} */ 
+.thirdFace span {
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* 네번째 페이지 */
+
+.fourth {
+  /* border: 10px solid purple; */
+  width: 100vw;
+  height: 89vh;
+}
+
+.fourthImg {
+  position: relative;
+  width: 60vw;
+  top: 6rem;
+  left: 4rem;
+}
+
+.fourthFace {
+  position: relative;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 85rem;
+  top: 12rem;
+}
+
+.fourthFace span {
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
