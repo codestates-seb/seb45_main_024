@@ -13,7 +13,7 @@ import "./QuillEditor.css";
 import GetLogo from "../mypage/format/GetLogo";
 
 interface AccessTokenType {
-  tokenId: number;
+  id: number;
 }
 
 const DetailContent = () => {
@@ -42,6 +42,15 @@ const DetailContent = () => {
     createdAt,
   } = currentProject || {};
   // console.log("✅ CURRENT PROJECT", currentProject);
+
+  const goToUserMyPage = writerId => {
+    if (token) {
+      navigate(`/mypage/${writerId}`);
+    } else {
+      alert("회원만 다른 유저의 프로필을 조회할 수 있어요!");
+      navigate("/login");
+    }
+  };
 
   // Format Date
   const createdDate = getStringDate(createdAt);
@@ -74,7 +83,8 @@ const DetailContent = () => {
       <div className={classes.meta}>
         <div
           className={classes.userImage}
-          onClick={() => navigate("/mypage/:accountId")}
+          // onClick={() => navigate(`/mypage/${writerId}`)}
+          onClick={() => goToUserMyPage(writerId)}
         >
           <img src={writerImageURL} alt={`${writerNickName} 프로필사진`} />
         </div>

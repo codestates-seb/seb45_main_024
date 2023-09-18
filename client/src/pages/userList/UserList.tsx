@@ -73,7 +73,7 @@ const UserList = () => {
   };
 
   const getUserCards = () => {
-    console.log("🚀 GET USER LIST");
+    // console.log("🚀 GET USER LIST");
     setIsLoading(true);
     setError(null);
 

@@ -71,7 +71,6 @@ const ProjectList = () => {
   const [currentSearch, setCurrentSearch] = useState("");
 
   const onSearchTitle = (text: string) => {
-    console.log("SUBMIT", text);
     setCurrentSearch(text);
   };
 
@@ -92,7 +91,7 @@ const ProjectList = () => {
   // console.log("✅ queryParamsData", queryParamsData);
 
   const getProjects = () => {
-    console.log("🚀 GET PROJECT LIST");
+    // console.log("🚀 GET PROJECT LIST");
     setIsLoading(true);
     setError(null);
 

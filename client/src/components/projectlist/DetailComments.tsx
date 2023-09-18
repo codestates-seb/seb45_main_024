@@ -64,7 +64,7 @@ const DetailComments = () => {
     dispatch(addComment(data))
       .unwrap()
       .then(() => {
-        console.log("🚀 CREATE 성공", data);
+        // console.log("🚀 CREATE 성공", data);
         window.alert("댓글이 등록되었습니다.");
         window.location.reload();
       })
@@ -83,16 +83,16 @@ const DetailComments = () => {
   const [editedComment, setEditedComment] = useState("");
 
   const onEditComment = (targetId: number) => {
-    console.log("🚀 댓글 수정요청");
+    // console.log("🚀 댓글 수정요청");
 
     const originComment = comments?.filter(
       comment => comment.replyId === targetId,
     );
-    console.log("originComment", originComment[0].content);
+    // console.log("originComment", originComment[0].content);
     setEditedComment(originComment[0].content);
 
     if (comments?.find(comment => comment.replyId === targetId)) {
-      console.log(targetId);
+      // console.log(targetId);
       setEditableCommentId(targetId);
     } else {
       setEditableCommentId(null);
@@ -211,6 +211,15 @@ const DetailComments = () => {
     }
   };
 
+  const goToUserMyPage = writerId => {
+    if (token) {
+      navigate(`/mypage/${writerId}`);
+    } else {
+      alert("회원만 다른 유저의 프로필을 조회할 수 있어요!");
+      navigate("/login");
+    }
+  };
+
   return (
     <section className={classes.comments}>
       <h4>댓글</h4>
@@ -237,7 +246,8 @@ const DetailComments = () => {
             <div className={classes.meta}>
               <div
                 className={classes.userImage}
-                onClick={() => navigate(`/mypage/${comment.writerId}`)}
+                onClick={() => goToUserMyPage(comment.writerId)}
+                // onClick={() => navigate(`/mypage/${comment.writerId}`)}
               >
                 <img
                   src={comment.writerImageURL}
