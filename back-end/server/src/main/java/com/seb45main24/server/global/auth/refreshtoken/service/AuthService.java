@@ -29,7 +29,7 @@ public class AuthService {
 		// 기존에 데이터베이스에 저장된 리프레쉬 토큰 삭제
 		refreshTokenRepository.delete(refreshToken1);
 
-		return "Bearer " + createdAccessToken;
+		return createdAccessToken;
 	}
 
 	public RefreshToken getRefreshToken(String refreshToken) { // 해당하는 refresh token이 존재하지 않으면 유효하지 않은 토큰

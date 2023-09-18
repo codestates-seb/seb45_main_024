@@ -201,4 +201,10 @@ public class TagsService {
 		return techTagList;
 	}
 
+	@Transactional
+	public void deleteProfileTechTags(AccountProfile accountProfile) {
+		List<ProfileTechTag> techTags = profileTechTagRepository.findByAccountProfileId(accountProfile.getId());
+		profileTechTagRepository.deleteAll(techTags);
+	}
+
 }

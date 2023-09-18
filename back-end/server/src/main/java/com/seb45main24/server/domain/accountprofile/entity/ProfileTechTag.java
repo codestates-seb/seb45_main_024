@@ -1,5 +1,6 @@
 package com.seb45main24.server.domain.accountprofile.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class ProfileTechTag {
 	@JoinColumn(name = "tech_tag_id")
 	private TechTag techTag;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "account_profile_id")
 	private AccountProfile accountProfile;
 }
