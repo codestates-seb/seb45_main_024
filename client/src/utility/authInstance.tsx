@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  // getTokensFromLocalStorage,
   saveTokensToLocalStorage,
   removeTokensFromLocalStorage,
   saveRefreshTokenToLocalStorage,
@@ -19,16 +18,12 @@ const authInstance = axios.create({
   timeout: 10000,
 });
 
-// request 인터셉터: 모든 api 요청 전에 실행
 authInstance.interceptors.request.use(
   config => {
     const token = localStorage.getItem("accessToken") || "";
     const tokenString = JSON.parse(token);
-    // const realAccessToken = token?.accessToken.slice(7);
     if (token) {
       config.headers["Authorization"] = `${tokenString}`;
-      // 30분 지난 토큰을 보냈다? 리프레쉬 토큰 바탕으로 새로운 액세스토큰 발급해주는 로직 : 백엔드
-      // 발급된 새로운 액세스토큰을 리스폰스 헤더에 담아서 보내줌 : 백엔드
     }
     return config;
   },

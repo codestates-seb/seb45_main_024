@@ -20,6 +20,7 @@ export interface ProjectListDataType {
   views: number;
   position: string;
   writerNickName: string;
+  writerImageURL: string;
   writerId: number;
   replyList: ReplyDataType[];
   techTagList: string[];
@@ -32,6 +33,7 @@ export interface ProjectListDataType {
 export interface ReplyDataType {
   writerId: number;
   writerNickName: string;
+  writerImageURL: string;
   replyId: number;
   content: string;
   acceptType: "NONE" | "ACCEPT" | "REFUSE";

@@ -7,17 +7,24 @@ import {
   removeUserCard,
 } from "../thunks/userCardThunks";
 
-import { UserListDataType } from "../../../model/boardTypes";
+import { UserListDataType, PageInfo } from "../../../model/boardTypes";
 
 import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 interface UserState {
   data: UserListDataType[];
+  pageInfo: PageInfo;
   editTitle: string;
 }
 
 const initialState: UserState = {
   data: [],
+  pageInfo: {
+    page: 1,
+    size: 8,
+    totalElements: 0,
+    totalpages: 0,
+  },
   editTitle: "",
 };
 
@@ -35,7 +42,8 @@ const usersSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchUserCardList.fulfilled, (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.listData;
+      state.pageInfo = action.payload.pageInfo;
     });
     builder.addCase(fetchUserCardList.rejected, (state, action) => {
       state.data = dummyData.teamboards.data; // 서버 안될시 TEST

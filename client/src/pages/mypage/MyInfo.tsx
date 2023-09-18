@@ -53,10 +53,10 @@ const MyInfo: FC = () => {
         authInstance
           .delete(`/accounts/${id}`)
           .then(res => {
-            alert("회원탈퇴가 완료되었습니다.");
+            removeTokensFromLocalStorage();
           })
           .then(res => {
-            removeTokensFromLocalStorage();
+            alert("회원탈퇴가 완료되었습니다.");
           })
           .then(res => {
             authInstance.post("/accounts/logout");
@@ -112,8 +112,11 @@ const MyInfo: FC = () => {
                 <div className={classes.profileImgContainer}>
                   <img
                     className={classes.profileimage}
-                    // src={authorInfo.imgUrl} -> 아직 제대로 안 들어감
-                    src={default_profile}
+                    src={
+                      authorInfo.imgUrl ? authorInfo.imgUrl : default_profile
+                    }
+                    // 이미지 테스트
+                    // src="https://images.unsplash.com/photo-1642953702322-a5da05d2e36b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80"
                     alt="sampleProfile"
                   />
                 </div>
@@ -144,7 +147,7 @@ const MyInfo: FC = () => {
                   <TitleLine title={ProfileCats.BIO} />
                   <div className={classes.bioContainer}>
                     {profileData?.coverLetter ? (
-                      profileData.coverLetter.length > 0 ? (
+                      profileData?.coverLetter.length > 0 ? (
                         <TagRemover content={profileData.coverLetter} />
                       ) : (
                         <NoContent />

@@ -46,6 +46,7 @@ const commentsSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editComment.fulfilled, (state, action) => {
+      console.log(action.payload);
       console.log("✅ EDIT COMMENT FULFILLED");
     });
     builder.addCase(editComment.rejected, (state, action) => {

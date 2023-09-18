@@ -13,7 +13,7 @@ const EditProfile: FC = () => {
     techTags: [],
     softSkills: [],
     hardSkills: [],
-    projectDetails: [],
+    // projectDetails: [],
   });
 
   const cancelHandler = () => {

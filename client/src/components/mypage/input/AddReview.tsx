@@ -3,18 +3,22 @@ import classes from "./AddReview.module.css";
 import authInstance from "../../../utility/authInstance";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hooks";
+import { getTokensFromLocalStorage } from "../../../utility/tokenStorage";
 
 interface AddReviewProps {
   onClose: () => void;
 }
 
 const AddReview: FC<AddReviewProps> = ({ onClose }) => {
-  const authorInfo = useAppSelector(state => state.authorInfo);
+  const authorInfo = useAppSelector((state) => state.authorInfo);
   const { id } = useParams<{ id: string }>();
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [reviewTitle, setReviewTitle] = useState<string>("");
   const [reviewContent, setReviewContent] = useState<string>("");
+
+  const AT = getTokensFromLocalStorage();
+  const visitorId = AT.id;
 
   const projectAddHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,9 +26,11 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
     try {
       const reviewFormData = {
         title: projectName,
-        project_url: projectLink,
+        projectUrl: projectLink,
         intro: reviewTitle,
         content: reviewContent,
+        reviewerId: visitorId,
+        revieweeId: parseInt(id!),
       };
 
       await authInstance.post(`/mypages/reviews/${id}`, reviewFormData);
@@ -49,7 +55,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={e => setProjectName(e.target.value)}
+          onChange={(e) => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -64,7 +70,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={e => setProjectLink(e.target.value)}
+          onChange={(e) => setProjectLink(e.target.value)}
         />
       </div>
       <div className={`${classes.formGroup} ${classes.review}`}>
@@ -81,7 +87,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           id="reviewTitle"
           type="text"
           value={reviewTitle}
-          onChange={e => setReviewTitle(e.target.value)}
+          onChange={(e) => setReviewTitle(e.target.value)}
         />
       </div>
       <div className={`${classes.formGroup} ${classes.review}`}>
@@ -100,7 +106,7 @@ const AddReview: FC<AddReviewProps> = ({ onClose }) => {
           rows={3}
           placeholder="나와 프로젝트를 함께한 동료를 더 자세히 소개해주세요:)"
           value={reviewContent}
-          onChange={e => setReviewContent(e.target.value)}
+          onChange={(e) => setReviewContent(e.target.value)}
         />
       </div>
       <div className={classes.actions}>

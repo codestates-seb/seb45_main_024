@@ -20,7 +20,12 @@ const DetailContent = () => {
   const navigate = useNavigate();
   const { projectId } = useParams() as { projectId: string };
 
-  const { id } = getTokensFromLocalStorage() as AccessTokenType;
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+  let tokenId: number;
+
+  if (token) {
+    tokenId = token.id;
+  }
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
@@ -29,13 +34,23 @@ const DetailContent = () => {
     content,
     writerId,
     writerNickName,
+    writerImageURL,
     techTagList,
     startDate,
     endDate,
     position,
     createdAt,
   } = currentProject || {};
-  console.log("✅ CURRENT PROJECT", currentProject);
+  // console.log("✅ CURRENT PROJECT", currentProject);
+
+  const goToUserMyPage = writerId => {
+    if (token) {
+      navigate(`/mypage/${writerId}`);
+    } else {
+      alert("회원만 다른 유저의 프로필을 조회할 수 있어요!");
+      navigate("/login");
+    }
+  };
 
   // Format Date
   const createdDate = getStringDate(createdAt);
@@ -68,11 +83,14 @@ const DetailContent = () => {
       <div className={classes.meta}>
         <div
           className={classes.userImage}
-          onClick={() => navigate("/mypage/:accountId")}
-        ></div>
+          // onClick={() => navigate(`/mypage/${writerId}`)}
+          onClick={() => goToUserMyPage(writerId)}
+        >
+          <img src={writerImageURL} alt={`${writerNickName} 프로필사진`} />
+        </div>
         <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>
-        {id === writerId ? (
+        {tokenId === writerId ? (
           <div
             className={classes.edit}
             onClick={() => {
@@ -116,7 +134,7 @@ const DetailContent = () => {
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-      {id === writerId ? (
+      {tokenId === writerId ? (
         <div className={classes.completeBtn}>
           <button>팀원모집완료</button>
           <p>

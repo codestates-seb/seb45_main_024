@@ -65,7 +65,8 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   // 기술스택 예시
   const [techTagList, setTechTagList] = useState<TechTagTypes[]>([]); // 테크 태그 리스트
   const [selectedTechTag, setSelectedTechTag] = useState([]); // 선택된 태그
-  console.log("🔥 로직 확인필요 techTagList", techTagList);
+  // console.log("🔥 techTagData", techTagData);
+  // console.log("🔥 techTagList", techTagList);
   // const [isTechTagLoading, setIsTechTagLoading] = useState(false);
 
   // selectedTechTag 배열의 각 요소에 대한 id 값을 찾아서 새로운 배열로 반환 (req 목적)
@@ -78,13 +79,17 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
     getTechTags();
   }, []);
 
+  // useEffect(() => {
+  //   console.log("🔥 techTagList", techTagList);
+  // }, [techTagList]);
+
   /** GET 기술태그 */
   const getTechTags = () => {
     dispatch(fetchTechTags())
       .unwrap()
-      .then(() => {
-        console.log("🚀 GET TECH TAGS 성공");
-        setTechTagList(techTagData);
+      .then(response => {
+        // console.log("🚀 GET TECH TAGS 성공");
+        setTechTagList(response);
       })
       .catch(error => {
         console.warn("🚀 GET TECH TAGS 실패", error);
@@ -139,7 +144,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
 
   // 기술 태그 삭제
   const onDeleteTechTag = (target: string) => {
-    console.log(target);
+    // console.log(target);
     const updatedTag = selectedTechTag.filter(tag => tag !== target);
     setSelectedTechTag(updatedTag);
   };

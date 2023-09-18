@@ -32,8 +32,8 @@ const Review: FC = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const res = await authInstance.get(`/mypages/reviews/${id}?page=1`);
-        const reviewList = res.data.data;
+        const res = await authInstance.get(`/mypages/reviews/${id}`);
+        const reviewList = res.data;
         console.log(reviewList);
         setReviewData(reviewList);
       } catch (error) {
@@ -58,7 +58,7 @@ const Review: FC = () => {
               {authorInfo.nickname} 님은 이런 동료입니다!
             </h2>
             <section className={classes.reviewCardContainer}>
-              {reviewData.length === 0 ? (
+              {!reviewData ? (
                 <NoContent />
               ) : (
                 reviewData.map((review, index) => {
@@ -75,7 +75,7 @@ const Review: FC = () => {
             {showAddReview ? (
               <AddReview
                 onClose={closeAddReviewHandler}
-                ownerId={authorInfo.authorId}
+                authorId={authorInfo.authorId}
               />
             ) : (
               <button

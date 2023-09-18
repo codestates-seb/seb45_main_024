@@ -43,7 +43,7 @@ interface TechTagTypes {
 }
 
 const CardEditor = ({ type, originCard }: CardEditorProps) => {
-  console.log("✅ ORIGIN CARD", originCard);
+  // console.log("✅ ORIGIN CARD", originCard);
   const NEW_CARD = type === "NEW_CARD";
   const EDIT_CARD = type === "EDIT_CARD";
 
@@ -57,7 +57,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   useEffect(() => {
     setNewTitle(editTitle);
-    console.log("TTTTTT newTitle: ", newTitle);
+    // console.log("TTTTTT newTitle: ", newTitle);
   }, [editTitle]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -100,8 +100,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
   const [date, setDate] = useState(new Date().toLocaleDateString());
   const [title, setTitle] = useState(originCard?.title);
   const [position, setPosition] = useState("포지션");
-
-  console.log("TTTTTT title", title);
 
   const [techTags, setTechTags] = useState<number[]>([]);
 
