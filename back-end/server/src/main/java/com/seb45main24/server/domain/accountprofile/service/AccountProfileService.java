@@ -47,8 +47,9 @@ public class AccountProfileService {
 	@Transactional
 	public AccountProfile updateAccountProfile(Long loginAccountId, Long accountId, ProfilePostRequest postRequest) {
 
-		if(loginAccountId.equals(accountId)) {
-
+		if(!loginAccountId.equals(accountId)) {
+			throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
+		} else {
 			AccountProfile accountProfile = mapper.requestToAccountProfile(postRequest);
 
 			Account account = findAccount(accountId);
@@ -58,7 +59,7 @@ public class AccountProfileService {
 			Optional.ofNullable(accountProfile.getCoverLetter())
 				.ifPresent(coverLetter -> findProfile.setCoverLetter(coverLetter));
 
-				findProfile.setModifiedAt(LocalDateTime.now());
+			findProfile.setModifiedAt(LocalDateTime.now());
 
 
 			if(postRequest.getTechTags() != null) {
@@ -78,7 +79,6 @@ public class AccountProfileService {
 
 			return accountProfileRepository.save(findProfile);
 		}
-		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
 
 

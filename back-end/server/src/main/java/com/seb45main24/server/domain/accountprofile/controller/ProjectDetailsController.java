@@ -30,14 +30,12 @@ public class ProjectDetailsController {
 
 		ProjectDetails content = projectDetailService.createProjectDetails(loginAccountId, request);
 
-		ProjectDetailResponse response = ProjectDetailResponse.builder()
-			.projectDetailId(content.getId())
-			.accountId(loginAccountId)
-			.projectUrl(content.getProjectUrl())
-			.projectTitle(content.getProjectTitle())
-			.imageUrl(content.getImage().getImageUrl())
-			.accountProfileId(content.getAccountProfile().getId())
-			.build();
+		ProjectDetailResponse response = new ProjectDetailResponse();
+			response.setProjectDetailId(content.getId());
+			response.setProjectTitle(content.getProjectTitle());
+			response.setProjectUrl(content.getProjectUrl());
+			response.setImageUrl(content.getImage().getImageUrl());
+			response.setAccountProfileId(content.getAccountProfile().getId());
 
 		return new ResponseEntity(response, HttpStatus.OK);
 	}

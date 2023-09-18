@@ -16,6 +16,26 @@ public interface ProjectDetailsMapper {
 
 	ProjectDetails toProjectDetail(ProjectDetailRequest request);
 
-	ProjectDetailResponse toProjectDetailResponse(ProjectDetails projectDetails);
+	List<ProjectDetailResponse> toProjectDetailResponses(List<ProjectDetails> projectDetailsList);
+
+	default ProjectDetailResponse toProjectDetailResponse(ProjectDetails projectDetails) {
+		ProjectDetailResponse projectDetailResponse = new ProjectDetailResponse();
+
+		if(projectDetails.getImage() != null) {
+			projectDetailResponse.setProjectDetailId(projectDetails.getId());
+			projectDetailResponse.setProjectTitle(projectDetails.getProjectTitle());
+			projectDetailResponse.setProjectUrl(projectDetails.getProjectUrl());
+			projectDetailResponse.setImageUrl(projectDetails.getImage().getImageUrl());
+			projectDetailResponse.setAccountProfileId(projectDetails.getAccountProfile().getId());
+		} else {
+			projectDetailResponse.setProjectDetailId(projectDetails.getId());
+			projectDetailResponse.setProjectTitle(projectDetails.getProjectTitle());
+			projectDetailResponse.setProjectUrl(projectDetails.getProjectUrl());
+			projectDetailResponse.setAccountProfileId(projectDetails.getAccountProfile().getId());
+		}
+
+		return projectDetailResponse;
+
+	}
 
 }

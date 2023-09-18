@@ -94,9 +94,6 @@ public class ProjectDetailService {
 	}
 
 
-
-
-
 	// 계정 프로필과 연결된 빈 ProjectDetails 생성 및 저장
 	public ProjectDetails createEmptyProjectDetail(AccountProfile accountProfile) {
 		ProjectDetails emptyProjectDetail = createDefault();
