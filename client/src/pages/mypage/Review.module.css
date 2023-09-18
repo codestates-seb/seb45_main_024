@@ -45,3 +45,23 @@
   color: white;
   background-color: var(--color-main);
 }
+
+/* 1000px 미디어쿼리 */
+@media screen and (max-width: 1000px) {
+  .mainContainer {
+    grid-template-columns: repeat(10, 78px);
+  }
+  .componentContainer {
+    grid-column: span 8;
+  }
+}
+
+/* 700px 미디어쿼리 */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    grid-template-columns: repeat(86, 78px);
+  }
+  .componentContainer {
+    grid-column: span 4;
+  }
+}

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import classes from "./Addproj.module.css";
+import authInstance from "../../../utility/authInstance";
 
 interface AddprojProps {
   projectName: string;
@@ -7,6 +8,8 @@ interface AddprojProps {
   projectImage: string;
   projTags: string[];
   projSet: object[];
+  projectId: number;
+  setProjectId: React.Dispatch<React.SetStateAction<number>>;
   setProjectName: React.Dispatch<React.SetStateAction<string>>;
   setProjectLink: React.Dispatch<React.SetStateAction<string>>;
   setProjectImage: React.Dispatch<React.SetStateAction<string>>;
@@ -19,6 +22,8 @@ const Addproj: FC<AddprojProps> = ({
   projectLink,
   projectImage,
   projSet,
+  // projectId,
+  setProjectId,
   setProjectName,
   setProjectLink,
   setProjectImage,
@@ -26,9 +31,33 @@ const Addproj: FC<AddprojProps> = ({
   projTags,
   setProjTags,
 }) => {
-  // 아직 추가안 함.
-  const handleSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const projectDetails = {
+      projectTitle: projectName,
+      projectUrl: projectLink,
+      uploadImage: {
+        imageName: projectName,
+        imageUrl: projectImage,
+      },
+    };
+    try {
+      const response = await authInstance.post(
+        `/mypages/profile/projectDetails`,
+        projectDetails
+      );
+      const projectId = response.data.projectDetailId;
+      setProjectId(projectId);
+      console.log(response);
+      projSet.push({
+        projectId: projectId,
+        projectTitle: projectName,
+      });
+      setProjSet(projSet);
+    } catch (err) {
+      console.info("Error submitting project", err);
+    }
   };
 
   const addProjTagHandler = () => {
@@ -37,12 +66,6 @@ const Addproj: FC<AddprojProps> = ({
       setProjectName(projectName);
       setProjectLink(projectLink);
       setProjectImage(projectImage);
-      projSet.push({
-        projectTitle: projectName,
-        projectUrl: projectLink,
-        imageUrl: projectImage,
-      });
-      setProjSet(projSet);
     }
   };
 
@@ -58,7 +81,7 @@ const Addproj: FC<AddprojProps> = ({
           type="text"
           value={projectName}
           placeholder="이름을 입력해주세요"
-          onChange={e => setProjectName(e.target.value)}
+          onChange={(e) => setProjectName(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -73,7 +96,7 @@ const Addproj: FC<AddprojProps> = ({
           id="projectLink"
           type="url"
           value={projectLink}
-          onChange={e => setProjectLink(e.target.value)}
+          onChange={(e) => setProjectLink(e.target.value)}
         />
       </div>
       <div className={classes.formGroup}>
@@ -88,13 +111,13 @@ const Addproj: FC<AddprojProps> = ({
           id="projectImage"
           type="file"
           value={projectImage}
-          onChange={e => setProjectImage(e.target.value)}
+          onChange={(e) => setProjectImage(e.target.value)}
         />
       </div>
       <div className={classes.actions}>
         <button className={classes.cancelButton}>취소</button>
         <button
-          type="button"
+          type="submit"
           className={classes.submitButton}
           onClick={addProjTagHandler}
         >

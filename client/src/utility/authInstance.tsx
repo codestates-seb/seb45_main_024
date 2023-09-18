@@ -20,7 +20,11 @@ const authInstance = axios.create({
 
 authInstance.interceptors.request.use(
   config => {
+<<<<<<< HEAD
     const token = localStorage.getItem("accessToken") || "";
+=======
+    const token = localStorage.getItem("accessToken");
+>>>>>>> ac0c7332217ab62309c09f8438e40fac1ac47176
     const tokenString = JSON.parse(token);
     if (token) {
       config.headers["Authorization"] = `${tokenString}`;
