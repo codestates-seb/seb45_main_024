@@ -15,6 +15,12 @@
   width: 50%;
 }
 
+.modalGround{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* .container {
   position: relative;
   width: 100vw;
@@ -72,13 +78,33 @@
 }
 
 .modal {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  border-radius: 18px;
   z-index: 1000;
+}
+
+.modal h1 {
+  color: var(--color-main);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.modal p {
+  color: var(--color-gray-1);
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
 }
 
 .overlay {

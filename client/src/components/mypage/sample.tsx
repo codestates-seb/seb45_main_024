@@ -8,13 +8,23 @@ type Logo = {
   image: string;
 };
 
+const findTeamContent = '사용할 수 있는 기술역량을 등록하고, 원하는 프로젝트를 어필해보세요!';
+const findMateContent = '프로젝트를 기획하고, 원하는 팀원을 모집해보세요';
+
 const Sample: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const [modalContent, setModalContent] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [originPos, setOriginPos] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     const updatePosition = () => {
@@ -51,6 +61,37 @@ const Sample: FC = () => {
     e.preventDefault();
   };
 
+  const handleDragEnd = (e: React.DragEvent<HTMLImageElement>) => {
+    const rectTeam = document
+      .querySelector(`.${classes.findTeam}`)
+      ?.getBoundingClientRect();
+    const rectMate = document
+      .querySelector(`.${classes.findMate}`)
+      ?.getBoundingClientRect();
+
+    if (
+      rectTeam &&
+      e.clientX > rectTeam.left &&
+      e.clientX < rectTeam.right &&
+      e.clientY > rectTeam.top &&
+      e.clientY < rectTeam.bottom
+    ) {
+      setModalTitle("저는 이런 팀을 찾아요");
+      setModalContent(findTeamContent);
+      toggleModal();
+    } else if (
+      rectMate &&
+      e.clientX > rectMate.left &&
+      e.clientX < rectMate.right &&
+      e.clientY > rectMate.top &&
+      e.clientY < rectMate.bottom
+    ) {
+      setModalTitle("저는 이런 팀원을 찾아요");
+      setModalContent(findMateContent);
+      toggleModal();
+    }
+  };
+
   const logo: Logo = { id: 1, name: "logo1", image: logoCircle };
 
   return (
@@ -63,13 +104,28 @@ const Sample: FC = () => {
           onDragStart={handleDragStart}
           onDrag={handleDrag}
           onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
           style={{
             left: `${pos.x}px`,
             top: `${pos.y}px`,
             position: "absolute",
           }}
         />
-        <div className={`${classes.background}`} ref={containerRef}></div>
+        <div
+          className={`${classes.background} ${classes.modalGround}`}
+          ref={containerRef}
+        >
+          {isModalOpen && (
+            <div className={classes.modal}>
+              <h1>{modalTitle}</h1>
+              <p>{modalContent}</p>
+              <div className={classes.actions}>
+                <button onClick={toggleModal}>자세히 알아보기</button>
+                <button onClick={toggleModal}>닫기</button>
+              </div>
+            </div>
+          )}
+        </div>
         <div className={`${classes.background}`} ref={containerRef}>
           <section className={`${classes.box} ${classes.findTeam}`}>
             <h1>Find your team!</h1>
