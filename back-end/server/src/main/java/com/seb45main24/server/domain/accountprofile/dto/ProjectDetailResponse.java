@@ -6,11 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class ProjectDetailResponse {
 	private Long projectDetailId;
 	private Long accountProfileId;
-	private Long accountId;
 	private String projectTitle;
 	private String projectUrl;
 	private String imageUrl;
