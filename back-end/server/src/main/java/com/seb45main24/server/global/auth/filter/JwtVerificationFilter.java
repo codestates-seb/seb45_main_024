@@ -63,7 +63,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 		String authorization = request.getHeader("Authorization");
 
-		return authorization == null || !authorization.startsWith("Bearer");
+		return authorization == null;
 	}
 
 	// jwt 검증 메서드 -- accessToken에 대한 검증

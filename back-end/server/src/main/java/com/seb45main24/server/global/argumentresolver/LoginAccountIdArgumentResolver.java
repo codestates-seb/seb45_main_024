@@ -25,8 +25,6 @@ public class LoginAccountIdArgumentResolver implements HandlerMethodArgumentReso
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		System.out.println(principal + "===================");
-
 		if(principal == "anonymousUser") {
 			return -1L;
 		}
