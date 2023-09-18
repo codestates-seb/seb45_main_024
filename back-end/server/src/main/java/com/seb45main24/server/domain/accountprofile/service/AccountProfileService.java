@@ -76,14 +76,11 @@ public class AccountProfileService {
 				findProfile.setSoftSkillTags(softSkillTags);
 			}
 
-			if (postRequest.getProjectDetails() != null) {
-				List<ProjectDetails> projectDetailsList = projectDetailService.createProjectDetails(postRequest.getProjectDetails(), accountProfileId);
-				findProfile.setProjectDetails(projectDetailsList);
-			}
 			return accountProfileRepository.save(findProfile);
 		}
 		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
+
 
 	public ProfileResponse findAccountProfile(Long accountId) {
 			Account findAccount = findAccount(accountId);

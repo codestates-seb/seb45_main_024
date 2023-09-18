@@ -15,7 +15,6 @@ public class ProfilePostRequest {
 	private List<Long> techTags;
 	private List<String> softSkills;
 	private List<String> hardSkills;
-	private List<ProjectDetailRequest> projectDetails;
 
 	public void setAccountId(Long accountId) {
 		this.accountId = accountId;

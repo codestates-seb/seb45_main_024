@@ -13,13 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailRequest;
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailResponse;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
+import com.seb45main24.server.domain.accountprofile.entity.HardSkillTag;
 import com.seb45main24.server.domain.accountprofile.entity.ProjectDetails;
 import com.seb45main24.server.domain.accountprofile.mapper.ProjectDetailsMapper;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
 import com.seb45main24.server.domain.accountprofile.repository.ProjectDetailsRepository;
+import com.seb45main24.server.domain.image.dto.UploadImage;
+import com.seb45main24.server.domain.image.entity.Image;
+import com.seb45main24.server.domain.image.repository.ImageRepository;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
-
+import com.seb45main24.server.global.file.service.AwsS3Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,26 +34,33 @@ public class ProjectDetailService {
 	private final AccountProfileRepository accountProfileRepository;
 	private final ProjectDetailsRepository projectDetailsRepository;
 	private final ProjectDetailsMapper projectDetailsMapper;
+	private final ImageRepository imageRepository;
+
 
 	@Transactional
-	public List<ProjectDetails> createProjectDetails(List<ProjectDetailRequest> detailRequests, Long accountProfileId) {
-		AccountProfile accountProfile = findAccountProfile(accountProfileId);
+	public ProjectDetails createProjectDetails(Long accountId, ProjectDetailRequest request) {
+		AccountProfile accountProfile = findAccountProfileById(accountId);
 
-		List<ProjectDetails> existingProjectDetailTags = projectDetailsRepository.findByAccountProfileId(accountProfile.getId());
-		existingProjectDetailTags.forEach(tag -> projectDetailsRepository.delete(tag));
+		// ProjectDetailRequest에서 필요한 정보 추출
+		String projectTitle = request.getProjectTitle();
+		String projectUrl = request.getProjectUrl();
+		Image image = Image.builder()
+			.imageName(request.getUploadImage().getImageName())
+			.imageType("PROJECT_IMG")
+			.imageUrl(request.getUploadImage().getImageUrl())
+			.build();
 
-		List<ProjectDetails> projectDetailsList = new ArrayList<>();
+		// Image 엔터티를 저장
+		Image savedImage = imageRepository.save(image);
 
-		for (ProjectDetailRequest detailRequest : detailRequests) {
-			ProjectDetails projectDetails = new ProjectDetails();
-			projectDetails.setProjectTitle(detailRequest.getProjectTitle());
-			projectDetails.setProjectUrl(detailRequest.getProjectUrl());
-			projectDetails.setImageUrl(detailRequest.getImageUrl());
-			projectDetails.setAccountProfile(accountProfile);
+		// ProjectDetails 엔터티 생성 및 저장
+		ProjectDetails projectDetails = new ProjectDetails();
+		projectDetails.setProjectTitle(projectTitle);
+		projectDetails.setProjectUrl(projectUrl);
+		projectDetails.setAccountProfile(accountProfile);
+		projectDetails.setImage(savedImage); // Image와 연결
 
-			projectDetailsList.add(projectDetails);
-		}
-		return projectDetailsRepository.saveAll(projectDetailsList);
+		return projectDetailsRepository.save(projectDetails);
 	}
 
 	// 회원 등록시 기본값 생성을 위한 메서드
@@ -58,12 +69,33 @@ public class ProjectDetailService {
 		ProjectDetails projectDetails = new ProjectDetails();
 		projectDetails.setProjectTitle("");
 		projectDetails.setProjectUrl("");
-		projectDetails.setImageUrl("");
 		projectDetails.setCreatedAt(LocalDateTime.now());
 
 		// ProjectDetail을 저장
 		return projectDetailsRepository.save(projectDetails);
 	}
+
+	public void deleteProjectDetail(Long projectDetailId) {
+		ProjectDetails findProjectDetail = findProjectDetailById(projectDetailId);
+
+		projectDetailsRepository.delete(findProjectDetail);
+	}
+
+
+
+	public ProjectDetails findProjectDetailById(Long projectDetailId) {
+		Optional<ProjectDetails> optional = projectDetailsRepository.findById(projectDetailId);
+
+		if(optional.isEmpty()) {
+			throw  new BusinessLogicException(ExceptionCode.NOT_FOUND);
+		}
+
+		return optional.get();
+	}
+
+
+
+
 
 	// 계정 프로필과 연결된 빈 ProjectDetails 생성 및 저장
 	public ProjectDetails createEmptyProjectDetail(AccountProfile accountProfile) {
@@ -94,5 +126,15 @@ public class ProjectDetailService {
 																.collect(Collectors.toList());
 
 		return projectDetailsList;
+	}
+
+	private AccountProfile findAccountProfileById(Long accountId) {
+		Optional<AccountProfile> optional = accountProfileRepository.findAccountProfileByAccountId(accountId);
+
+		if (optional.isPresent()) {
+			AccountProfile accountProfile = optional.get();
+			return accountProfile;
+		}
+		throw new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT);
 	}
 }

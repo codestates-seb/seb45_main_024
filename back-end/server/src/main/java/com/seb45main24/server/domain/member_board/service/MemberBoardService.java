@@ -98,4 +98,16 @@ public class MemberBoardService {
         return repository.findByPositionContaining(position,
                 PageRequest.of(page, size, Sort.by("memberBoardId").descending()));
     }
+
+    public Page<MemberBoard> getMemberBoardListByTitleSortView(String keyword, int page, int size){
+        return repository.findByTitleContaining(keyword,
+                PageRequest.of(page, size, Sort.by("views").descending()
+                        .and(Sort.by("memberBoardId").descending())));
+    }
+
+    public Page<MemberBoard> getMemberBoardListByPositionSortView(String position, int page, int size){
+        return repository.findByPositionContaining(position,
+                PageRequest.of(page, size, Sort.by("views").descending()
+                        .and(Sort.by("memberBoardId").descending())));
+    }
 }

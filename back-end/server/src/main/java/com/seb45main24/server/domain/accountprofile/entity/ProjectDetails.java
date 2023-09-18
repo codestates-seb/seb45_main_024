@@ -34,9 +34,12 @@ public class ProjectDetails extends Auditable {
 
 	private String projectUrl;
 
-	private String imageUrl;
+	@OneToOne
+	@JoinColumn(name = "IMAGE_ID")
+	private Image image;
 
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_PROFILE_ID")
 	private AccountProfile accountProfile;
+
 }

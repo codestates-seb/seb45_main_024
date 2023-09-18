@@ -16,19 +16,17 @@ public class UploadImage {
 	private LocalDateTime modifiedAt;
 
 	@Builder
-	public UploadImage(Long accountId, String imageName, String imageUrl, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+	public UploadImage(Long accountId, String imageName, String imageUrl, String imageType, LocalDateTime createdAt,
+		LocalDateTime modifiedAt) {
 		this.accountId = accountId;
 		this.imageName = imageName;
 		this.imageUrl = imageUrl;
+		this.imageType = imageType;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
 	}
 
 	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
-	}
-
-	public void setImageClsf(String imageType) {
-		this.imageType = imageType;
 	}
 }
