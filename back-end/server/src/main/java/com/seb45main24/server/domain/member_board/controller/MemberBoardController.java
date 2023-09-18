@@ -55,6 +55,7 @@ public class MemberBoardController {
     @PostMapping
     public ResponseEntity postMemberBoard(@Valid @RequestBody MemberBoardPostDTO memberBoardPostDTO,
                                           @LoginAccountId Long loginAccountId) {
+        System.out.println(loginAccountId + " : 멤버보드의 로그인 어카운트---------------");
         memberBoardPostDTO.setLoginAccountId(loginAccountId);
 
         MemberBoard memberBoard = mapper.memberBoardPostDtoToMember(memberBoardPostDTO);
