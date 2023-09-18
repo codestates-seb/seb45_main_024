@@ -19,6 +19,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ onChange, initialValue }) => {
     <>
       <ReactQuill
         theme="snow"
+        style={{'height': '100px'}}
         value={initialValue ? initialValue : value}
         placeholder="자신을 잘 표현할 수 있는 자기소개를 부탁드려요!
         + 경력사항 기재 시에는 회사명, 직군, 재직기간을 작성해주세요!"

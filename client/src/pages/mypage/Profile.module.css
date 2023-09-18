@@ -5,7 +5,7 @@
 }
 
 .componentContainer{
-  grid-column: span 10;
+  grid-column: span 9;
   padding-top: 50px;
   padding-bottom: 200px;
 }
@@ -111,3 +111,23 @@
   color: var(--color-gray-2);
 }
 
+
+/* 1000px 미디어쿼리 */
+@media screen and (max-width: 1000px) {
+  .mainContainer {
+    grid-template-columns: repeat(10, 78px);
+  }
+  .componentContainer {
+    grid-column: span 7;
+  }
+}
+
+/* 700px 미디어쿼리 */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    grid-template-columns: repeat(6, 78px);
+  }
+  .componentContainer {
+    grid-column: span 4;
+  }
+}
