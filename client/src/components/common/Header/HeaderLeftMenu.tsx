@@ -29,7 +29,7 @@ const HeaderLeft: FC = () => {
               isUserListActive ? classes.selectedMenu : ""
             }`}
           >
-            Ingredient
+            Find Team
           </p>
         </li>
         <li className={isProjectListActive ? classes.selectLi : ""}>
@@ -39,7 +39,7 @@ const HeaderLeft: FC = () => {
               isProjectListActive ? classes.selectedMenu : ""
             }`}
           >
-            Recipe
+            Find Mate
           </p>
         </li>
       </ul>

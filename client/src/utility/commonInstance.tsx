@@ -12,6 +12,10 @@ const commonInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
 });
+// commonInstance.interceptors.response.use(config => {
+//   console.log(config.headers);
+//   return config;
+// });
 
 // 404에러나 500에러 페이지 navigate 추후 보완하기
 

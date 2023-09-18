@@ -17,8 +17,11 @@ export const loginUser = createAsyncThunk(
   async (data: LoginData) => {
     try {
       const response = await commonInstance.post("/accounts/login", data);
-      saveTokensToLocalStorage(response.headers.authorization);
-      saveRefreshTokenToLocalStorage(response.headers.refresh);
+      const auth = response.headers.authorization;
+      const accessToken = auth.split("Bearer ")[1];
+      const refreshToken = response.headers.refresh;
+      saveTokensToLocalStorage(accessToken);
+      saveRefreshTokenToLocalStorage(refreshToken);
       getTokensFromLocalStorage();
 
       console.log(response.status);

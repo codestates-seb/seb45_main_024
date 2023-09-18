@@ -112,6 +112,7 @@ const Alarm: FC = () => {
     getAlarmData();
   }, 3000);
 
+  //* 소원이 아이디어
   const remainAlarm = alarmData.some(
     (item: AlarmItemProps) => item.checked === false,
   );
