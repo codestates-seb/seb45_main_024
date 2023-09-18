@@ -12,7 +12,7 @@ interface ProjectProps {
   project: ProjectDetails;
 }
 
-const ProjCard: FC<ProjectProps> = (props) => {
+const ProjCard: FC<ProjectProps> = props => {
   return (
     <div className={classes.cardContainer}>
       <div className={classes.projImg}>
