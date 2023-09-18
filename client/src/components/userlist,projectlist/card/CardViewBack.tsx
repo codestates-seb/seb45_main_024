@@ -25,6 +25,15 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
     tokenId = token.id;
   }
 
+  const goToUserMyPage = () => {
+    if (token) {
+      navigate(`/mypage/${accountId}`);
+    } else {
+      alert("회원만 다른 유저의 프로필을 조회할 수 있어요!");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className={classes.back}>
       <div className={classes.topArea}>
@@ -40,10 +49,7 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
         ) : null}
       </div>
       <div className={classes.centerArea}>
-        <div
-          className={classes.userImage}
-          onClick={() => navigate(`/mypage/${accountId}`)}
-        >
+        <div className={classes.userImage} onClick={goToUserMyPage}>
           <img src={DefaultProfileImg} alt="" />
         </div>
         <div className={classes.keywordTag}>

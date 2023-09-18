@@ -95,6 +95,8 @@ main {
   margin: 0 auto;
   padding: 0 1.5rem; 
   max-width: 1200px; 
+  /* min-height: 100vh - header height(80px) - main margin-top(120px) */
+  min-height: calc(100vh - 200px) 
 }
 
 .full-container { 

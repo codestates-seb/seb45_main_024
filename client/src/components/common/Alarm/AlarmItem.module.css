@@ -1,8 +1,7 @@
-li {
+.messageItem {
   /* position: relative; */
   display: flex;
   flex-direction: row;
-  aligin-items: center;
   width: 30.5rem;
   margin-top: 0.725rem;
   margin-bottom: 0.725rem;

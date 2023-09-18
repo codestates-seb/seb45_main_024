@@ -9,7 +9,7 @@ interface reqPostCommentsType {
 
 interface reqEditCommentsType {
   content: string;
-  acceptType: number;
+  // acceptType: number;
 }
 
 export interface editCommentParamsType {
