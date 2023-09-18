@@ -1,6 +1,7 @@
 .containerBox {
   display: flex;
 }
+
 .container {
   position: relative;
   background-color: var(--color-main);
@@ -12,7 +13,10 @@
 }
 
 .second {
-  background-color: red;
+  background-color: var(--color-main);
+  background-image: url('../../assets/images/stupid_face.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .logo {

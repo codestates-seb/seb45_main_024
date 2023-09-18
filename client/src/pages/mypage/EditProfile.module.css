@@ -11,6 +11,7 @@
 }
 
 .sideComponent {
+  position: relative;
   grid-column: span 2;
   height: 100%;
   border-right: 4px solid var(--color-main);
@@ -18,7 +19,7 @@
 }
 
 .actions{
-    position: fixed;
+    position: absolute;
     bottom: 30px;
     left: auto;
     display: flex;
