@@ -1,6 +1,7 @@
 import { FC } from "react";
 import classes from "./Main.module.css";
 import Carousel from "../../components/main/Carousel";
+import Sample from "../../components/mypage/sample";
 
 const Main: FC = () => {
   // 오... 컴포넌트를 배열에 담는 게 가능하네..?
@@ -11,6 +12,7 @@ const Main: FC = () => {
         <Carousel />
       </div>
       <div className={classes.introduce}>
+        <Sample />
         <div className={classes.mainContent}>ingredient 일부?</div>
         <div className={classes.mainContent}>recipe 일부?</div>
       </div>
