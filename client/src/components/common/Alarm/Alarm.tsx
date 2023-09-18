@@ -112,6 +112,10 @@ const Alarm: FC = () => {
     getAlarmData();
   }, 3000);
 
+  const remainAlarm = alarmData.some(
+    (item: AlarmItemProps) => item.checked === false,
+  );
+
   return (
     <>
       <div className={classes.alarm}>
@@ -123,7 +127,7 @@ const Alarm: FC = () => {
               : bell
           }
           onClick={handleActiveAlarmMenu}
-          className={isShaking && alarmBell ? classes.shake : ""}
+          className={isShaking && remainAlarm ? classes.shake : ""}
         />
         <div className={classes.menuContainer}>
           <div
