@@ -1,6 +1,10 @@
 package com.seb45main24.server.domain.reviews.controller;
 
 import com.seb45main24.server.domain.pagination.MultiResponseDto;
+import com.seb45main24.server.domain.project.entity.Project;
+import com.seb45main24.server.domain.project.service.ProjectService;
+import com.seb45main24.server.domain.reviews.dto.ReviewAuthorizeDto;
+import com.seb45main24.server.domain.reviews.dto.ReviewAuthorizeResponseDto;
 import com.seb45main24.server.domain.reviews.dto.ReviewPostDto;
 import com.seb45main24.server.domain.reviews.dto.ReviewResponseDto;
 import com.seb45main24.server.domain.reviews.entity.Review;
@@ -25,14 +29,28 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewRepository reviewRepository;
     private final ReviewMapper mapper;
+    private final ProjectService projectService;
 
     public ReviewController(ReviewService reviewService,
                             ReviewRepository reviewRepository,
-                            ReviewMapper mapper) {
+                            ReviewMapper mapper,
+                            ProjectService projectService) {
         this.reviewService = reviewService;
         this.reviewRepository = reviewRepository;
         this.mapper = mapper;
+        this.projectService = projectService;
 
+    }
+
+    @GetMapping("/authorize")
+    public ResponseEntity authorizeReview(@LoginAccountId Long loginAccountId,
+                                          @Valid @RequestBody ReviewAuthorizeDto reviewAuthorizeDto) {
+        List<Project> projectList = projectService.getProjectByMemberBoardId(reviewAuthorizeDto.getMemberBoardId());
+        boolean isAuthorize = reviewService.authorizeReview(loginAccountId, reviewAuthorizeDto.getRevieweeId(), projectList);
+
+        ReviewAuthorizeResponseDto response = mapper.isAuthorizeToReviewAuthorizeResponseDto(isAuthorize);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/{revieweeId}")
@@ -57,7 +75,6 @@ public class ReviewController {
         List<ReviewResponseDto> response = mapper.reviewsToReviewResponseDtos(reviewList);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
-
 
     }
 
