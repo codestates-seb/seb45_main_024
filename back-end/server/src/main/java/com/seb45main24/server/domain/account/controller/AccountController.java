@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.seb45main24.server.domain.account.dto.AccountDto;
 import com.seb45main24.server.domain.account.dto.AccountPatchDto;
+import com.seb45main24.server.domain.account.dto.AccountPatchResponseDto;
 import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.mapper.AccountMapper;
 import com.seb45main24.server.domain.account.service.AccountService;
@@ -64,9 +65,11 @@ public class AccountController {
 
 		Account account = mapper.accountPatchDtoToAccount(patchDto);
 		account.setId(accountId);
-		accountService.updateAccount(account, loginAccountId, newImage);
+		Account updateAccount = accountService.updateAccount(account, loginAccountId, newImage);
 
-		return ResponseEntity.ok("Update successful");
+		AccountPatchResponseDto patchDto1 = mapper.AccountPatchToResponseDto(updateAccount);
+
+		return new ResponseEntity(patchDto1, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{account-id}")
