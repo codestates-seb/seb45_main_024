@@ -83,6 +83,7 @@ public class AlarmController {
 
     @GetMapping
     public ResponseEntity getAlarmList(@LoginAccountId Long loginAccountId) {
+        System.out.println("============" + loginAccountId + " 알람 로그인 아이디====================");
         List<Alarm> test = repository.findByTargetId(loginAccountId);
 
         return new ResponseEntity<>(mapper.alarmListToAlarmResponseDtoList(test), HttpStatus.OK);

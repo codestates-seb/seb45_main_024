@@ -1,10 +1,10 @@
 package com.seb45main24.server.domain.reviews.mapper;
 
 import com.seb45main24.server.domain.account.entity.Account;
+import com.seb45main24.server.domain.reviews.dto.ReviewAuthorizeResponseDto;
 import com.seb45main24.server.domain.reviews.dto.ReviewPostDto;
 import com.seb45main24.server.domain.reviews.dto.ReviewResponseDto;
 import com.seb45main24.server.domain.reviews.entity.Review;
-import com.seb45main24.server.global.argumentresolver.LoginAccountId;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
@@ -25,9 +25,16 @@ public interface ReviewMapper {
         review.setContent(reviewPostDto.getContent());
         review.setCreatedAt(LocalDateTime.now());
 
-
         return review;
     }
+
+    default ReviewAuthorizeResponseDto isAuthorizeToReviewAuthorizeResponseDto(boolean isAuthorize) {
+        ReviewAuthorizeResponseDto.ReviewAuthorizeResponseDtoBuilder reviewAuthorizeResponseDto = ReviewAuthorizeResponseDto.builder();
+        reviewAuthorizeResponseDto.isAuthorize(isAuthorize);
+
+        return reviewAuthorizeResponseDto.build();
+    }
+
 
     default ReviewResponseDto reviewToReviewResponseDto(Review review) {
         if (review == null) {
@@ -51,8 +58,8 @@ public interface ReviewMapper {
 
         reviewResponseDto.revieweeId(review.getReviewee().getId());
         reviewResponseDto.revieweeNickname(review.getReviewee().getNickname());
-        reviewResponseDto.createdAt(review.getCreatedAt());
 
+        reviewResponseDto.createdAt(review.getCreatedAt());
 
         return reviewResponseDto.build();
     }
