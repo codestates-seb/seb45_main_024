@@ -13,10 +13,15 @@ import com.seb45main24.server.domain.account.entity.Account;
 import com.seb45main24.server.domain.account.repository.AccountRepository;
 import com.seb45main24.server.domain.accountprofile.entity.AccountProfile;
 import com.seb45main24.server.domain.accountprofile.repository.AccountProfileRepository;
+import com.seb45main24.server.domain.accountprofile.repository.ProfileTechTagRepository;
 import com.seb45main24.server.domain.accountprofile.service.AccountProfileService;
+import com.seb45main24.server.domain.accountprofile.service.TagsService;
 import com.seb45main24.server.domain.image.dto.UploadImage;
 import com.seb45main24.server.domain.image.entity.Image;
 import com.seb45main24.server.domain.image.repository.ImageRepository;
+import com.seb45main24.server.domain.reviews.entity.Review;
+import com.seb45main24.server.domain.reviews.repository.ReviewRepository;
+import com.seb45main24.server.domain.reviews.service.ReviewService;
 import com.seb45main24.server.global.auth.utils.CustomAuthorityUtils;
 import com.seb45main24.server.global.exception.advice.BusinessLogicException;
 import com.seb45main24.server.global.exception.exceptionCode.ExceptionCode;
@@ -35,6 +40,7 @@ public class AccountService {
 	private final AwsS3Service awsS3Service;
 	private final AccountProfileRepository accountProfileRepository;
 	private final AccountProfileService accountProfileService;
+	private final TagsService tagsService;
 
 	public Account createAccount(Account account) {
 
@@ -91,7 +97,17 @@ public class AccountService {
 		return accountRepository.save(findAccount);
 	}
 
+	@Transactional
 	public void deleteAccount(Account findAccount) {
+		Account account = accountRepository.findById(findAccount.getId()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_ACCOUNT));
+
+		if (account != null) {
+			AccountProfile accountProfile = account.getAccountProfile();
+			if (accountProfile != null) {
+				tagsService.deleteProfileTechTags(accountProfile); // projectTechTag 삭제
+			}
+		}
+
 		accountRepository.delete(findAccount);
 	}
 
