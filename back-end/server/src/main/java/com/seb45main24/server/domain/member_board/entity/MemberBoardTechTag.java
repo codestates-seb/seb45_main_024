@@ -5,6 +5,8 @@ import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,10 +20,12 @@ public class MemberBoardTechTag extends Auditable {
     private Long memberBoardTechTagId;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "TECH_TAG_ID")
     private TechTag techTag;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "MEMBER_BOARD_ID")
     private MemberBoard memberBoard;
 }
