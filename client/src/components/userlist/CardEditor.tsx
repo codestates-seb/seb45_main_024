@@ -181,6 +181,14 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     techTagIdList: techTags, // [1,3,5]
   };
 
+  // 임시데이터
+  // const data = {
+  //   title: "에디터에서 리퀘보내는 테스트",
+  //   position: "프론트엔드",
+  //   keywords: ["안녕", "이런태그"],
+  //   techTagIdList: [15, 18, 19],
+  // };
+
   /* Creact or Edit Card */
   const handleSubmit = () => {
     console.log("🚀 CREATE/EDIT CARD", data);

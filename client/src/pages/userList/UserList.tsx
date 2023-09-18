@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import classes from "./UserList.module.css";
 
 const UserList = () => {
+  // console.log(getTokensFromLocalStorage());
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -47,7 +48,8 @@ const UserList = () => {
   const [query, setQuery] = useSearchParams();
 
   const currentSize = "8"; // 한 페이지 당 노출할 카드 갯수
-  const currentPage = query.get("page") === null ? "1" : query.get("page");
+  const currentPage =
+    query.get("page") === null ? 1 : Number(query.get("page"));
 
   // 포지션필터
   const currentFilter = positionSelect === "전체" ? "" : positionSelect;
