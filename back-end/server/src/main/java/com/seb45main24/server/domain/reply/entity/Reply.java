@@ -6,6 +6,8 @@ import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -32,10 +34,12 @@ public class Reply extends Auditable {
     private AcceptType acceptType;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "WRITER_ID")
     private Account writer;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "MEMBER_BOARD_ID")
     private MemberBoard memberBoard;
 }

@@ -6,6 +6,8 @@ import com.seb45main24.server.global.auditing.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,6 +45,7 @@ public class MemberBoard extends Auditable {
     private LocalDateTime endDate;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "WRITER_ID")
     private Account writer;
 
