@@ -55,10 +55,32 @@
 
         & .editArea {
           display: flex;
+          align-items: center;
           gap: 4px;
 
           & > div {
             cursor: pointer;
+          }
+
+          & .edit {
+            display: flex;
+            align-items: center;
+
+
+            & .editDone {
+              display: flex;
+              align-items: center;
+
+              & .editDoneBtn {
+                margin-left: 4px;
+                font-size: 0.75rem;
+              }
+            }
+          }
+
+          & .delete {
+            display: flex;
+            align-items: center;
           }
         }
       }
@@ -71,12 +93,14 @@
         width: 100%;
 
         & > textarea {
+          resize: none;
           width: 100%;
         }
 
         & .content {
           flex: 1;
-          margin-right: 1rem;
+          gap: 1rem;
+          /* margin-right: 1rem; */
 
           & .applyComment {
             padding: 0.2rem 0.5rem;

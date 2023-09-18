@@ -13,14 +13,19 @@ import "./QuillEditor.css";
 import GetLogo from "../mypage/format/GetLogo";
 
 interface AccessTokenType {
-  id: number;
+  tokenId: number;
 }
 
 const DetailContent = () => {
   const navigate = useNavigate();
   const { projectId } = useParams() as { projectId: string };
 
-  const { id } = getTokensFromLocalStorage() as AccessTokenType;
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+  let tokenId: number;
+
+  if (token) {
+    tokenId = token.id;
+  }
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
@@ -75,7 +80,7 @@ const DetailContent = () => {
         </div>
         <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>
-        {id === writerId ? (
+        {tokenId === writerId ? (
           <div
             className={classes.edit}
             onClick={() => {
@@ -119,7 +124,7 @@ const DetailContent = () => {
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-      {id === writerId ? (
+      {tokenId === writerId ? (
         <div className={classes.completeBtn}>
           <button>팀원모집완료</button>
           <p>

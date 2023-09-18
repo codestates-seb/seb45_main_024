@@ -1,7 +1,7 @@
 .field {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .carousel {
@@ -12,9 +12,19 @@
   justify-content: center;
 }
 
-.mainContent {
+/* .mainContent {
   border: 5px solid purple;
   padding: 1rem;
   padding: 0 1.5rem; 
   max-width: 1200px; 
+} */
+
+.cardListArea {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 1.5rem;
+  width: 100%;
+  height: 100%;
 }

@@ -87,9 +87,9 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const getTechTags = () => {
     dispatch(fetchTechTags())
       .unwrap()
-      .then(() => {
+      .then(response => {
         console.log("🚀 GET TECH TAGS 성공");
-        setTechTagList(techTagData);
+        setTechTagList(response);
       })
       .catch(error => {
         console.warn("🚀 GET TECH TAGS 실패", error);

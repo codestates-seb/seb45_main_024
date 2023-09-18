@@ -54,7 +54,7 @@ const fetchProjectList = createAsyncThunk(
     }
 
     const response = await commonInstance.get(url);
-    // console.log("🚀🚀🚀", url);
+    console.log("🚀🚀🚀", url);
 
     /**
      * 최신순 (기본) /memberboards/?page=1&size=8   /memberboards?page=1&size=8
