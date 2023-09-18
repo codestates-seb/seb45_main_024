@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,10 +21,12 @@ public class TeamBoardTechTag extends Auditable {
     private Long teamBoardTechTagId;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "TECH_TAG_ID")
     private TechTag techTag;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "team_board_id")
     private TeamBoard teamBoard;
 }
