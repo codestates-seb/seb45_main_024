@@ -8,8 +8,10 @@ type Logo = {
   image: string;
 };
 
-const findTeamContent = '사용할 수 있는 기술역량을 등록하고, 원하는 프로젝트를 어필해보세요!';
-const findMateContent = '프로젝트를 기획하고, 원하는 팀원을 모집해보세요';
+const findTeamContent =
+  "사용할 수 있는 기술역량을 등록하고, 원하는 프로젝트를 어필해보세요! 더 꾸며야 겠죠 아마 이 정도는 너무 허접한데";
+const findMateContent =
+  "프로젝트를 기획하고, 원하는 팀원을 모집해보세요. 더 꾸며야 겠죠 아마 이 정도는 너무 허접한데";
 
 const Sample: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -129,11 +131,11 @@ const Sample: FC = () => {
         <div className={`${classes.background}`} ref={containerRef}>
           <section className={`${classes.box} ${classes.findTeam}`}>
             <h1>Find your team!</h1>
-            <p>중앙의 로고를 움직여 보세요</p>
+            <p>로고를 가져와 보세요!</p>
           </section>
           <section className={`${classes.box} ${classes.findMate}`}>
             <h1>Find your mate!</h1>
-            <p>중앙의 로고를 움직여 보세요!</p>
+            <p>로고를 가져와 보세요!</p>
           </section>
         </div>
       </div>

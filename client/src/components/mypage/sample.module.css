@@ -15,25 +15,18 @@
   width: 50%;
 }
 
-.modalGround{
+.modalGround {
   display: flex;
+  padding-left: 100px;
   justify-content: center;
   align-items: center;
 }
 
-/* .container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid #000;
-  background-color: rgba(0, 0, 0, 0);
-} */
-
-.box{
+.box {
   height: 100%;
 }
 
-.findTeam{
+.findTeam {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,16 +35,16 @@
 
 .box h1 {
   color: white;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: 900;
 }
 
 .box p {
-  color: var(--color-gray-3);
+  color: var(--color-gray-2);
   font-size: 0.8rem;
 }
 
-.findMate{
+.findMate {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,7 +52,6 @@
 }
 
 .back img {
-  left: 20;
   width: 150px;
   height: 150px;
   animation: float 5s ease-in-out infinite;
@@ -81,13 +73,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   background-color: white;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
   padding: 30px;
   border-radius: 18px;
   z-index: 1000;
 }
+
 
 .modal h1 {
   color: var(--color-main);
