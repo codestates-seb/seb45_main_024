@@ -21,11 +21,6 @@ interface ProfileFormData {
   softSkills?: string[];
   hardSkills?: string[];
   techTags?: number[];
-  // projectDetails?: {
-  //   projectTitle?: string;
-  //   projectUrl?: string;
-  //   imageUrl?: string;
-  // }[];
 }
 
 interface Props {
@@ -133,10 +128,9 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
     const project = projSet.find(proj => proj.projectId === id);
     if (project) {
       try {
-        const response = await authInstance.delete(
-          `/mypages/profile/projectDetails/${project.projectId}`
+        await authInstance.delete(
+          `/mypages/profile/projectDetails/${project.projectId}`,
         );
-        console.log(response);
         const updatedTags = projSet.filter(proj => proj.projectId !== id);
         setProjSet(updatedTags);
       } catch (err) {
