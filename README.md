@@ -45,3 +45,16 @@
 | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/java-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/mysql-icon.svg" alt="icon" width="65" height="65" /></div> | <img alt="spring logo" src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" height="50" width="50" > | <img alt="spring-boot logo" src="https://t1.daumcdn.net/cfile/tistory/27034D4F58E660F616" width="65" height="65" > | <img alt="spring-boot logo" src="https://play-lh.googleusercontent.com/3C-hB-KWoyWzZjUnRsXUPu-bqB3HUHARMLjUe9OmPoHa6dQdtJNW30VrvwQ1m7Pln3A" width="65" height="65" >| <img alt="spring-boot logo" src="https://blog.kakaocdn.net/dn/dIQDQP/btqZ09ESd8T/0ibqtotW52OaJS8HznXDQK/img.png" width="65" height="65" > | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/aws-icon.svg" alt="icon" width="65" height="65" /></div> | 
 
 <br />
+
+## 🔖 Project Specification
+
+<ul>
+   <li><a href="https://www.notion.so/codestates/5c847c1858f54960a0414ed6dad7db02?pvs=4">팀 노션페이지</a></li>
+   <li><a href="https://docs.google.com/spreadsheets/d/11oZXEgOzu-R6nhaLl01fjNce4CbsjGaMBRuxBB7RGKw/edit#gid=0">사용자요구사항정의서</a></li>
+   <li><a href="https://www.figma.com/file/3EE66zhd0hVBgfgqaFL4xf/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC-%EC%8A%A4%EB%AC%B4%EB%94%94-Main-Project-(%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0-SEB)?type=design&node-id=19%3A62&mode=design&t=QosWAeIfoN5cmT6O-1">화면정의서 </a></li>
+   <li><a href="https://www.figma.com/file/3EE66zhd0hVBgfgqaFL4xf/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC-%EC%8A%A4%EB%AC%B4%EB%94%94-Main-Project-(%EC%BD%94%EB%93%9C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%B8%A0-SEB)?type=design&node-id=0%3A1&mode=design&t=QosWAeIfoN5cmT6O-1">디자인</a></li>
+   <li><a href="https://docs.google.com/spreadsheets/d/1GOaEIBmPLuDytZGS3cyxTeE1cZHsgaY0LF1-c6ik5sI/edit#gid=1278959919">API 명세서 & 테이블 명세서</a></li>
+   <li><a href="https://docs.google.com/spreadsheets/d/1ltv6MbVLcmCWjtKZoECFAIhBSVRKoNTitnOJZyLqRGU/edit#gid=0">개발자 테스트 체크리스트 (3차 최종)</a></li>
+</ul>
+
+<br />
