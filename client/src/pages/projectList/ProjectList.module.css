@@ -1,0 +1,45 @@
+.buttonArea {
+  text-align: right;
+}
+
+.searchArea {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 0.75rem 0 1rem;
+
+  & > :last-child {
+    margin-left: auto;
+  }
+}
+
+.cardListArea {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.pagination {
+
+}
+
+@media screen and (max-width: 1023px) {
+  .cardListArea {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cardListArea {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .cardListArea {
+    grid-template-columns: repeat(1, 1fr);
+  }
+} 

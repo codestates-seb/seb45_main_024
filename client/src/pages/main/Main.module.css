@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'Katuri';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.mainPageFont {
+  font-family: 'Katuri';
+}
+
+.container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  background-image: url(../../assets/images/background.png);
+  background-color: #B4D495;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(69, 137, 130, 0.15);
+  }
+
+  & .contents {
+    /* z-index:1;
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%); */
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    
+
+    & .welcomeText {
+      position: relative;
+      margin: 1.25rem 0 2rem;
+      color: var(--color-white);
+      font-size: 2.5rem;
+      font-family: 'Katuri';
+    }
+
+    /* logoText */
+    & .logoText {
+      position: relative;
+      left: -20px;
+
+      & .textBox svg {
+        position: relative;
+        animation: bounce 1.05s infinite;
+        animation-timing-function: ease-in-out;
+
+        &.textM {
+          margin-right: 4px;
+          animation-delay: 0.15s;
+        }
+        
+        &.textOO {
+          margin-left: 10px;
+          animation-delay: 0.3s;
+          transition: transform 0.3s ease; 
+        }
+        
+        &.textOO:hover {
+          animation-play-state: paused; /* 호버 시 애니메이션 일시 정지 */
+          transform: scale(1.15);
+          cursor: pointer;
+        }
+        
+        &.textOO:active {
+          transform: scale(1.0);
+          cursor: grab;
+        }
+        
+        &.textT {
+          animation-delay: 0.45s;
+        }
+        
+        &.textH {
+          animation-delay: 0.6s;
+        }
+        
+        &.textI {
+          animation-delay: 0.75s;
+        }
+        
+        &.textE {
+          animation-delay: 0.9s;
+        }
+      }
+    }
+
+    & .subText {
+      margin: 3rem 0 1.25rem;;
+
+      & .subTextTitle {
+        color: var(--color-main);
+        font-size: 1.5rem;
+        font-family: 'Katuri';
+      }
+
+      & .subTextDesc {
+        padding: 1.25rem 0 0.25rem;
+        color: #536B82;
+      }
+    }
+
+    & .buttonArea {
+      & button {
+        overflow: hidden;
+        z-index: 1;
+        position:relative;
+        padding: 0.5rem 1.25rem;
+        border-radius: 1.5rem;
+        color: var(--color-main);
+        border: 1px solid var(--color-main);
+
+        &:hover {
+          border: 1px solid #679C97;
+          color: var(--color-white);
+        }
+
+        &::after {
+          content: "";
+          z-index: -1;
+          position:absolute;
+          top:0;
+          left: -45%;
+          height: 100%;
+          width: 0%;
+          background-color: #679C97;
+          transform: skew(40deg);
+          transform-origin: top left;
+          transition-duration: .5s;
+        }
+
+        &:hover::after {
+          width: 145%;
+        }
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    top: 0;
+  }
+  50% {
+    top: -20px; /* 이미지가 위로 이동할 거리를 조절하세요 */
+  }
+}

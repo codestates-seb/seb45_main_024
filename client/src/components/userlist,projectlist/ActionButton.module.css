@@ -1,0 +1,43 @@
+.button {
+  padding: 0.5rem 1.25rem;
+  margin-left: 0.5rem;
+}
+
+.normal {
+  border: none;
+  background-color: var(--color-main);
+  color: var(--color-white);
+
+  &:hover {
+    background-color: #0E2F2B;
+  }
+
+  /* &:active {
+    background-color: #679C97;
+  }
+
+  &:disabled {
+    background-color: var(--color-gray-5);
+  } */
+}
+
+.outline {
+  border: 1px solid var(--color-main);
+  background-color: var(--color-white);
+  color: var(--color-main);
+
+  &:hover {
+    /* background-color: #cfd5d5; */
+    color: var(--color-white);
+    background-color: var(--color-main);
+  }
+
+  /* &:active {
+    background-color: #9dabb7;
+  }
+
+  &:disabled {
+    border-color: var(--color-gray-4);
+    color: var(--color-gray-5);
+  } */
+}

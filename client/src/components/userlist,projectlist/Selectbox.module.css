@@ -1,0 +1,75 @@
+.selectbox {
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+
+  &:hover svg path {
+    stroke: var(--color-gray-2);
+  }
+}
+
+.seletTitle {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--color-gray-4);
+
+  & span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--color-gray-2);
+  }
+
+  & svg {
+    margin-left: 4px;
+  }
+}
+
+.selectList {
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  top: 41px;
+  /* width: 100%; */
+  max-height:200px;
+  padding: 1rem 0;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-4);
+
+  & li {
+    padding: 2px;
+
+    & span {
+      padding-left: 1rem;
+      color: var(--color-gray-2);
+    }
+
+    &:hover {
+      background-color: var(--color-sub);
+    }
+  }
+}
+
+.selectList.open {
+  display: block;
+}
+
+.selectList .selected span {
+  color: var(--color-main);
+  font-weight: 700;
+}
+
+/* 기술스택 Selectbox */
+.selectbox.techTags {
+  & .selectList {
+
+  }
+}

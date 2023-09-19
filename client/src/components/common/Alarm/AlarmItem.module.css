@@ -1,0 +1,47 @@
+.messageItem {
+  /* position: relative; */
+  display: flex;
+  flex-direction: row;
+  width: 30.5rem;
+  margin-top: 0.725rem;
+  margin-bottom: 0.725rem;
+}
+
+.message {
+  width: 28rem;
+  margin-left: 0.375rem;
+  border-radius: 8px;
+  background-color: #FFFBEA;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+  transition: transform 0.3s ease; 
+}
+
+.messageChecked {
+  color: #536b82;
+  opacity: 0.8; 
+}
+
+.message:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.message:active {
+  cursor: grab;
+  transform: scale(1.0);
+}
+
+.message span {
+  /* display: flex;
+  align-items: center; */
+  margin-left: 0.25rem;
+}
+
+.message span p {
+  display: inline;
+  font-weight: 700;
+}
+
