@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/main024?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&serverTimezone=Asia/Seoul&useSSL=true
+    username: ${MYSQLUSERNAME}
+    password: ${MYSQLPASSWORD}
+
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update # 나중에 매핑에 문제가 생기면 none은 잡아주지 못하기 때문에 validate로 적용
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
