@@ -9,6 +9,7 @@ interface AddprojProps {
   projTags: string[];
   projSet: object[];
   projectId: number;
+  setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   setProjectId: React.Dispatch<React.SetStateAction<number>>;
   setProjectName: React.Dispatch<React.SetStateAction<string>>;
   setProjectLink: React.Dispatch<React.SetStateAction<string>>;
@@ -23,6 +24,7 @@ const Addproj: FC<AddprojProps> = ({
   projectImage,
   projSet,
   // projectId,
+  setShowInput,
   setProjectId,
   setProjectName,
   setProjectLink,
@@ -67,6 +69,9 @@ const Addproj: FC<AddprojProps> = ({
       setProjectLink(projectLink);
       setProjectImage(projectImage);
     }
+  };
+  const closeInputHandler = () => {
+    setShowInput(false);
   };
 
   return (
@@ -115,7 +120,7 @@ const Addproj: FC<AddprojProps> = ({
         />
       </div>
       <div className={classes.actions}>
-        <button className={classes.cancelButton}>취소</button>
+        <button className={classes.cancelButton} onClick={closeInputHandler}>취소</button>
         <button
           type="submit"
           className={classes.submitButton}

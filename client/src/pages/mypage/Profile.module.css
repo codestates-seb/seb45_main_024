@@ -111,6 +111,21 @@
   color: var(--color-gray-2);
 }
 
+.projSubContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.projSubContainer button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 
 /* 1000px 미디어쿼리 */
 @media screen and (max-width: 1000px) {

@@ -11,9 +11,9 @@ interface EditFormProps {
 }
 
 interface MyInfoData {
-  newImage: string;
-  nickname: string;
-  password: string;
+  newImage?: string;
+  nickname?: string;
+  password?: string;
   confirmPassword: string;
 }
 
@@ -71,18 +71,26 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       newImage: myInfo.newImage,
     };
 
+    const imgData = {
+      multipartFile: myInfo.newImage,
+    };
+
     try {
       const res = await authInstance.patch(`/accounts/${id}`, infoData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      const imgRes = await authInstance.post(`/S3/image`, imgData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       console.log(res.data);
+      console.log(imgRes.data);
       dispatch(
         setAuthorInfo({
           isAuthor: true,
           authorId: id,
           email: myInfo.nickname,
           nickname: myInfo.nickname,
-          imgUrl: myInfo.newImage,
+          imgUrl: imgRes.data.imageUrl,
         }),
       );
       const logout = await authInstance.post("/accounts/logout");

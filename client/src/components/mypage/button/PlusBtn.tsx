@@ -4,11 +4,11 @@ import addicon from "../../../assets/icons/add.svg";
 
 interface PlusBtnProps {
   children: ReactNode;
+  showInput: boolean;
+  setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PlusBtn: FC<PlusBtnProps> = ({ children }) => {
-  const [showInput, setShowInput] = useState(false);
-
+const PlusBtn: FC<PlusBtnProps> = ({ children, showInput, setShowInput }) => {
   const showInputHandler = () => {
     setShowInput(!showInput);
   };
