@@ -1,60 +1,61 @@
 import { FC } from "react";
 import classes from "./Main.module.css";
-import S from "../../assets/main/S.svg";
-import M from "../../assets/main/M.svg";
-import Face from "../../assets/main/Face.svg";
-import T from "../../assets/main/T.svg";
-import H from "../../assets/main/H.svg";
-import I from "../../assets/main/I.svg";
-import E from "../../assets/main/E.svg";
-import first from "../../assets/mainImage/first.svg";
-import second from "../../assets/mainImage/second.svg";
-import third from "../../assets/mainImage/third.svg";
+// import S from "../../assets/main/S.svg";
+// import M from "../../assets/main/M.svg";
+// import Face from "../../assets/main/Face.svg";
+// import T from "../../assets/main/T.svg";
+// import H from "../../assets/main/H.svg";
+// import I from "../../assets/main/I.svg";
+// import E from "../../assets/main/E.svg";
+// import first from "../../assets/mainImage/first.svg";
+// import second from "../../assets/mainImage/second.svg";
+// import third from "../../assets/mainImage/third.svg";
 
 const Main: FC = () => {
-  const scrollDownFirst = () => {
-    const screenHeight = window.innerHeight;
-    const scrollDistance = screenHeight * 0.89; // 89vh에 해당하는 스크롤 거리 계산
+  // const scrollDownFirst = () => {
+  //   const screenHeight = window.innerHeight;
+  //   const scrollDistance = screenHeight * 0.89; // 89vh에 해당하는 스크롤 거리 계산
 
-    window.scrollTo({
-      top: scrollDistance,
-      behavior: "smooth", // 스무스 스크롤 효과
-    });
-  };
+  //   window.scrollTo({
+  //     top: scrollDistance,
+  //     behavior: "smooth", // 스무스 스크롤 효과
+  //   });
+  // };
 
-  const scrollDownSecond = () => {
-    const screenHeight = window.innerHeight;
-    const scrollDistance = screenHeight * 0.89 * 2; // 89vh에 해당하는 스크롤 거리 계산
+  // const scrollDownSecond = () => {
+  //   const screenHeight = window.innerHeight;
+  //   const scrollDistance = screenHeight * 0.89 * 2; // 89vh에 해당하는 스크롤 거리 계산
 
-    window.scrollTo({
-      top: scrollDistance,
-      behavior: "smooth", // 스무스 스크롤 효과
-    });
-  };
+  //   window.scrollTo({
+  //     top: scrollDistance,
+  //     behavior: "smooth", // 스무스 스크롤 효과
+  //   });
+  // };
 
-  const scrollDownThird = () => {
-    const screenHeight = window.innerHeight;
-    const scrollDistance = screenHeight * 0.89 * 3; // 89vh에 해당하는 스크롤 거리 계산
+  // const scrollDownThird = () => {
+  //   const screenHeight = window.innerHeight;
+  //   const scrollDistance = screenHeight * 0.89 * 3; // 89vh에 해당하는 스크롤 거리 계산
 
-    window.scrollTo({
-      top: scrollDistance,
-      behavior: "smooth", // 스무스 스크롤 효과
-    });
-  };
+  //   window.scrollTo({
+  //     top: scrollDistance,
+  //     behavior: "smooth", // 스무스 스크롤 효과
+  //   });
+  // };
 
-  const scrollBack = () => {
-    const screenHeight = window.innerHeight;
-    const scrollDistance = -screenHeight; // 89vh에 해당하는 스크롤 거리 계산
+  // const scrollBack = () => {
+  //   const screenHeight = window.innerHeight;
+  //   const scrollDistance = -screenHeight; // 89vh에 해당하는 스크롤 거리 계산
 
-    window.scrollTo({
-      top: scrollDistance,
-      behavior: "smooth", // 스무스 스크롤 효과
-    });
-  };
+  //   window.scrollTo({
+  //     top: scrollDistance,
+  //     behavior: "smooth", // 스무스 스크롤 효과
+  //   });
+  // };
 
   return (
     <div className={classes.field}>
-      <div className={classes.first}>
+      <button className={classes.btn}>시작하기</button>
+      {/* <div className={classes.first}>
         <div className={classes.logoText}>
           <p>Welcome To The</p>
           <div className={classes.textBox}>
@@ -111,7 +112,7 @@ const Main: FC = () => {
             <span>스무디의 얼굴을 클릭해보세요!</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

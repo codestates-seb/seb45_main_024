@@ -89,8 +89,6 @@ const Alarm: FC = () => {
   const getAlarmData = async () => {
     try {
       const response = await authInstance.get("/alarms");
-      console.log(response.data);
-      console.log("계속 알람 받아오는 중...");
       setPrevAlarmData(alarmData); // 기존 알람 우선 저장
       setAlarmData(response.data); // 새 알람 업데이트
       if (maxId(alarmData) > maxId(prevAlarmData)) {
@@ -100,7 +98,7 @@ const Alarm: FC = () => {
       } // 서로 값 비교해서 새로운 최댓값이 등장했으면 종 흔들고 아니면 말고(되려나)
       return response.data;
     } catch (error) {
-      console.error("알람 못 받아와써", error);
+      console.error(error);
     }
   };
 

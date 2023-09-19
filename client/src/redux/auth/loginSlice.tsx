@@ -17,14 +17,13 @@ export const loginUser = createAsyncThunk(
   async (data: LoginData) => {
     try {
       const response = await commonInstance.post("/accounts/login", data);
-      const auth = response.headers.authorization;
-      const accessToken = auth.split("Bearer ")[1];
+      const accessToken = response.headers.authorization;
+
       const refreshToken = response.headers.refresh;
       saveTokensToLocalStorage(accessToken);
       saveRefreshTokenToLocalStorage(refreshToken);
       getTokensFromLocalStorage();
 
-      console.log(response.status);
       return response.data;
       // 로그인 처리 관련 메시지 등
 
