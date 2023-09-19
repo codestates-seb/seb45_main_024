@@ -9,16 +9,9 @@ import java.util.List;
 @Getter
 public class TeamBoardPatchDto {
     private Long teamBoardId;
-
-    @NotBlank
     private String title;
-
-    @NotBlank
     private String position;
-
-    @Nullable
     private List<String> keywords;
-
     private List<Long> techTagIdList;
 
     public void setTeamBoardId(Long teamBoardId) {
