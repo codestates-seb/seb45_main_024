@@ -1,0 +1,110 @@
+.back {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  background-color: #d0e1b2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.modalGround {
+  display: flex;
+  padding-left: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  height: 100%;
+}
+
+.findTeam {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box h1 {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.box p {
+  color: var(--color-gray-2);
+  font-size: 0.8rem;
+}
+
+.findMate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back img {
+  width: 150px;
+  height: 150px;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  border-radius: 18px;
+  z-index: 1000;
+}
+
+
+.modal h1 {
+  color: var(--color-main);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.modal p {
+  color: var(--color-gray-1);
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

@@ -1,0 +1,105 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+
+/* variables */
+:root {
+  --color-main: #16433E;
+  --color-sub: #FFFBEA;
+
+  --color-state-info: #2F80ED;
+  --color-state-success: #27AE60;
+  --color-state-warning: #E2B93B;
+  --color-state-error: #EB5757;
+
+  --color-black-1: #000;
+  --color-black-2: #1D1D1D;
+  --color-black-3: #282828;
+  --color-white: #fff;
+
+  --color-gray-1: #333333;
+  --color-gray-2: #4F4F4F;
+  --color-gray-3: #828282;
+  --color-gray-4: #BDBDBD;
+  --color-gray-5: #E0E0E0;
+}
+
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  
+
+  font-family: 'NanumSquare', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-black-1);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+ul li, ol li {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  border: 0;
+}
+
+a {
+  display:inline-block;
+  text-decoration: none;
+}
+
+span {
+  display: inline-block;
+}
+
+input, textarea {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--color-gray-4);
+	border-radius: 4px;
+}
+
+input:focus-visible, textarea:focus-visible {
+  outline: none;
+}
+
+button {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--color-gray-4);
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+}
+
+iframe {
+  border:0
+}
+
+/* layout */
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 3.75rem;
+  margin-bottom: 5rem;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 1.5rem; 
+  max-width: 1200px; 
+  /* min-height: 100vh - header height(80px) - main margin-top(120px) */
+  min-height: calc(100vh - 200px) 
+}
+
+.full-container { 
+  padding: 0rem;
+  max-width: 100%;
+}

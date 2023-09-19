@@ -1,0 +1,99 @@
+.cardContainer {
+  margin-top: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  width: 282px;
+  height: max-content;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: var(--color-main);
+  border-radius: 18px 18px 0 0;
+  padding: 16px;
+}
+
+.cardHeaderContent {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeaderText{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.createdAt {
+  text-align: right;
+  color: white;
+}
+
+.createdAt span {
+  font-size: 0.8rem;
+  color: white;
+}
+
+.helpText {
+  font-size: 0.8rem;
+  color: white;
+}
+
+.title {
+  color: var(--color-white);
+  font-weight: 600;
+  width: 100%;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  /* justify-content: flex-end; */
+}
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* 내부 이미지 원형 컨테이너에 맞추기 */
+.profileImageContainer img {
+  width: 100%;
+  height: 100%;
+}
+
+.cardContent {
+  color: var(--color-gray-1);
+  padding: 1rem;
+}
+
+.content {
+  color: var(--color-gray-1);
+  margin-bottom: 4px;
+}
+
+.action {
+  padding: 0 16px 10px 0;
+  text-decoration: none;
+  text-align: right;
+}
+
+.action span {
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+}

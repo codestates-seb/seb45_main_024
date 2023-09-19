@@ -1,0 +1,67 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+}
+
+.componentContainer {
+  grid-column: span 10;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
+.titleBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.reviewCardContainer{
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.addReviewContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 90px;
+}
+.addReviewButton {
+  border: none;
+  color: white;
+  background-color: var(--color-main);
+}
+
+/* 1000px 미디어쿼리 */
+@media screen and (max-width: 1000px) {
+  .mainContainer {
+    grid-template-columns: repeat(10, 78px);
+  }
+  .componentContainer {
+    grid-column: span 8;
+  }
+}
+
+/* 700px 미디어쿼리 */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    grid-template-columns: repeat(86, 78px);
+  }
+  .componentContainer {
+    grid-column: span 4;
+  }
+}

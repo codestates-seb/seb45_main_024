@@ -1,0 +1,81 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+}
+
+.componentContainer {
+  grid-column: span 9;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+.projlist {
+  margin-top: 24px;
+}
+
+.titleBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.centerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cardWrapper {
+  display: flex;
+  width: 282px;
+  padding: 0;
+}
+
+.deleteButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  color: var(--color-gray-3);
+}
+
+/* 1000px 미디어쿼리 */
+@media screen and (max-width: 1000px) {
+  .mainContainer {
+    grid-template-columns: repeat(10, 78px);
+  }
+  .componentContainer {
+    grid-column: span 7;
+  }
+}
+
+/* 700px 미디어쿼리 */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    grid-template-columns: repeat(6, 78px);
+  }
+  .componentContainer {
+    grid-column: span 4;
+  }
+}

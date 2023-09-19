@@ -1,0 +1,50 @@
+.left {
+  display: flex;
+  flex-direction: row;
+}
+
+.left ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 1.25rem;
+}
+
+.left ul li {
+  width: 8.7rem;
+  height: 5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left ul li:hover {
+  border-bottom: 1px solid #679c97;
+}
+
+.menu {
+  color: var(--color-main);
+  font-size: 1.25rem;
+  transition: transform 0.3s ease; 
+}
+
+.menu:hover {
+  cursor: pointer;
+  font-weight: 700;
+  transform: scale(1.1);
+}
+
+.menu:active {
+  transform: scale(1.0);
+  cursor: grab;
+}
+
+.selectedMenu {
+  font-weight: 700;
+}
+
+.selectLi {
+  border-bottom: 2px solid var(--color-main);
+}

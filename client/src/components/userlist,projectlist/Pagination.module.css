@@ -1,0 +1,19 @@
+.pagination {
+  margin-top: 1.875rem;
+  text-align: center;
+
+  & button {
+    border: none;
+    color: var(--color-gray-3);
+  }
+
+  & button.active {
+    color: var(--color-main);
+    font-weight: 700;
+  }
+
+  & button:disabled {
+    color: var(--color-gray-3);
+    cursor: not-allowed;
+  }
+}
