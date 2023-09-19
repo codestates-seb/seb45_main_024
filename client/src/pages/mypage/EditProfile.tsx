@@ -22,12 +22,7 @@ const EditProfile: FC = () => {
 
   const saveHandler = async () => {
     try {
-      console.log(profileFormData);
-      const response = await authInstance.patch(
-        `/mypages/profile/${id}`,
-        profileFormData,
-      );
-      console.log(response);
+      await authInstance.patch(`/mypages/profile/${id}`, profileFormData);
       window.alert("프로필이 수정되었습니다.");
       window.location.href = `/mypage/${id}`;
     } catch (error) {

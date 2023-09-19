@@ -34,7 +34,6 @@ const Review: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/reviews/${id}`);
         const reviewList = res.data;
-        console.log(reviewList);
         setReviewData(reviewList);
       } catch (error) {
         console.error("Failed to fetch review info", error);

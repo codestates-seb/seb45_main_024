@@ -50,20 +50,10 @@ const MyInfo: FC = () => {
 
     if (confirmation) {
       try {
-        authInstance
-          .delete(`/accounts/${id}`)
-          .then(res => {
-            removeTokensFromLocalStorage();
-          })
-          .then(res => {
-            alert("회원탈퇴가 완료되었습니다.");
-          })
-          .then(res => {
-            authInstance.post("/accounts/logout");
-          })
-          .then(res => {
-            window.location.href = "/signup";
-          });
+        await authInstance.delete(`/accounts/${id}`);
+        await authInstance.post("/accounts/logout");
+        removeTokensFromLocalStorage();
+        window.location.href = "/signup";
       } catch (error) {
         console.info("Failed to delete account", error);
       }

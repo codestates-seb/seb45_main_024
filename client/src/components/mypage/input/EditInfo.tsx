@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import { validationActions } from "../../../redux/auth/validationSlice";
 import authInstance from "../../../utility/authInstance";
 import { setAuthorInfo } from "../../../redux/mypage/authorInfoSlice";
+import { removeTokensFromLocalStorage } from "../../../utility/tokenStorage";
 
 interface EditFormProps {
   onClose: () => void;
@@ -68,36 +69,42 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
     const infoData = {
       nickname: myInfo.nickname,
       password: myInfo.password,
-      newImage: myInfo.newImage,
+      imageUrl: myInfo.newImage,
+      imageName: myInfo.nickname,
     };
 
-    const imgData = {
-      multipartFile: myInfo.newImage,
-    };
+    // const imgData = {
+    //   multipartFile: myInfo.newImage,
+    // };
 
     try {
-      const res = await authInstance.patch(`/accounts/${id}`, infoData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      const imgRes = await authInstance.post(`/S3/image`, imgData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      // const res = await authInstance.patch(`/accounts/${id}`, infoData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // });
+      const res = await authInstance.patch(`/accounts/${id}`, infoData );
+      // try {
+      //   const imgRes = await authInstance.post(`/S3/image`, imgData, {
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   });
+      //   console.log(imgRes.data);
+      // } catch (err) {
+      //   console.info("Failed to upload image", err);
+      // }
       console.log(res.data);
-      console.log(imgRes.data);
       dispatch(
         setAuthorInfo({
           isAuthor: true,
           authorId: id,
           email: myInfo.nickname,
           nickname: myInfo.nickname,
-          imgUrl: imgRes.data.imageUrl,
+          imgUrl: res.data.imageUrl,
         }),
       );
-      const logout = await authInstance.post("/accounts/logout");
-      console.log(logout.data);
+      await authInstance.post("/accounts/logout");
+      removeTokensFromLocalStorage();
       window.location.href = "/login";
     } catch (error) {
-      console.error("Failed to edit info", error);
+      console.info(error.response.message);
     }
   };
 

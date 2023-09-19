@@ -44,10 +44,7 @@ const Profile: FC = () => {
 
   const projDeleteHandler = async (id: number) => {
     try {
-      const response = await authInstance.delete(
-        `/mypages/profile/projectDetails/${id}`,
-      );
-      console.log(response);
+      await authInstance.delete(`/mypages/profile/projectDetails/${id}`,);
       window.alert('프로젝트가 삭제되었습니다.');
       window.location.reload();
     } catch (err) {
@@ -65,7 +62,6 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log(profile);
         setProfile(profile);
         dispatch(setProfileData(res.data));
         dispatch(
