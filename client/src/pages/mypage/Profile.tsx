@@ -78,7 +78,7 @@ const Profile: FC = () => {
       }
     };
     fetchProfile();
-  }, []);
+  }, [id]);
 
   const editProfileHandler = () => {
     navigate(`/mypage/${id}/edit`);
