@@ -190,8 +190,14 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
     const checkTitle = title.trim().length === 0;
     const checkContent = content.trim().length === 0;
     const checkRequestPositionInfo = requestPositionInfo === "";
+    const checkTechTagIdLIst = selectedTechIds.length === 0;
 
-    if (checkTitle || checkContent || checkRequestPositionInfo) {
+    if (
+      checkTitle ||
+      checkContent ||
+      checkRequestPositionInfo ||
+      checkTechTagIdLIst
+    ) {
       return false;
     }
 
@@ -202,7 +208,7 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("🚀 CREATE/EDIT POST");
+    // console.log("🚀 CREATE/EDIT POST");
 
     // 모든 필드가 채워진 상태일 경우에만 생성/수정 가능
     if (!checkValidData()) {
@@ -224,12 +230,12 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
         dispatch(addProject(data))
           .unwrap()
           .then(() => {
-            console.log("🚀 CREATE 성공", data);
+            // console.log("🚀 CREATE 성공", data);
             window.alert("새 글이 등록되었습니다.");
             navigate("/projectlist");
           })
           .catch(error => {
-            console.warn("🚀 CREATE 실패", error, data);
+            // console.warn("🚀 CREATE 실패", error, data);
             setError("Something went wrong");
           })
           .finally(() => setIsLoading(false));
@@ -244,12 +250,12 @@ const PostEditor = ({ isEdit, originPost }: PostEditorProps) => {
         dispatch(editProject({ targetId, data }))
           .unwrap()
           .then(() => {
-            console.log("🚀 EDIT 성공", data);
+            // console.log("🚀 EDIT 성공", data);
             window.alert("게시글이 수정되었습니다.");
             navigate(`/projectlist/${targetId}`);
           })
           .catch(error => {
-            console.warn("🚀 EDIT 실패", error, data);
+            // console.warn("🚀 EDIT 실패", error, data);
             setError("Something went wrong");
           })
           .finally(() => setIsLoading(false));

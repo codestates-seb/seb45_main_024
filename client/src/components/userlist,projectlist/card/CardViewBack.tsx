@@ -12,10 +12,12 @@ interface cardViewBackProps {
 
 interface AccessTokenType {
   id: number;
+  imageUrl: string;
 }
 
 const CardViewBack = ({ cardData }: cardViewBackProps) => {
-  const { teamBoardId, keywords, accountId, nickname } = cardData;
+  const { teamBoardId, keywords, accountId, nickname, teamBoardImageUrl } =
+    cardData;
   const navigate = useNavigate();
 
   const token = getTokensFromLocalStorage() as AccessTokenType;
@@ -50,7 +52,8 @@ const CardViewBack = ({ cardData }: cardViewBackProps) => {
       </div>
       <div className={classes.centerArea}>
         <div className={classes.userImage} onClick={goToUserMyPage}>
-          <img src={DefaultProfileImg} alt="" />
+          <img src={teamBoardImageUrl} alt="" />
+          {/* <img src={token.imageUrl} alt="" /> */}
         </div>
         <div className={classes.keywordTag}>
           {keywords.map(item => (

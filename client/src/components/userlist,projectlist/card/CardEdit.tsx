@@ -55,7 +55,7 @@ const CardEdit = ({ cardData }: CardEditProps) => {
     dispatch(fetchTechTags())
       .unwrap()
       .then(() => {
-        console.log("🚀 GET TECH TAGS 성공");
+        // console.log("🚀 GET TECH TAGS 성공");
         // setTechTagList(techTagData);
       })
       .catch(error => {

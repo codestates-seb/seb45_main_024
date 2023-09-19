@@ -63,16 +63,16 @@ const usersSlice = createSlice({
     // Add
     builder.addCase(addUserCard.pending, (state, action) => {
       // throw new Error(); // 서버 안될시 TEST
-      console.log("✅ ADD TEST PENDING");
+      // console.log("✅ ADD TEST PENDING");
     });
     builder.addCase(addUserCard.fulfilled, (state, action) => {
       // state.data.push(action.payload);
       state.editTitle = "";
-      console.log("✅ ADD TEST FULFILLED");
+      // console.log("✅ ADD TEST FULFILLED");
     });
     builder.addCase(addUserCard.rejected, (state, action) => {
       // console.log("action.payload", action.payload);
-      console.log("✅ ADD TEST REJECTED");
+      // console.log("✅ ADD TEST REJECTED");
     });
 
     // Edit
@@ -81,10 +81,10 @@ const usersSlice = createSlice({
     });
     builder.addCase(editUserCard.fulfilled, (state, action) => {
       state.editTitle = "";
-      console.log("✅ EDIT USER FULFILLED");
+      // console.log("✅ EDIT USER FULFILLED");
     });
     builder.addCase(editUserCard.rejected, (state, action) => {
-      console.log("✅ EDIT USER REJECTED");
+      // console.log("✅ EDIT USER REJECTED");
     });
 
     // Remove

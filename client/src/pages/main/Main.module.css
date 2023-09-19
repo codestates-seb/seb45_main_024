@@ -1,136 +1,157 @@
-.field {
-  width: 100%;
-  height: 356vh;
-  background: linear-gradient(to bottom, #74B86E 0%, #83D475 25%, #ABE098 50%, #C5E8B7 100%);
-  background-color: #D0E1B2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@font-face {
+  font-family: 'Katuri';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* 첫번째 페이지 */
-
-.first {
-  /* border: 10px solid purple; */
-  width: 100vw;
-  height: 89vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.mainPageFont {
+  font-family: 'Katuri';
 }
 
-.logoText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.logoText p {
-  color: white;
-  font-size: 3rem;
-  font-weight: 700;
-}
-
-.logoText span {
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.textBox {
-  width: 70vw;
-  height: 20vh;
-  /* border: 1px solid purple; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.textBox img {
+.container {
+  overflow: hidden;
   position: relative;
-}
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  background-image: url(../../assets/images/background.png);
+  background-color: #B4D495;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
 
-.textS {
-  width: 75px;
-  height: 75px;
-  animation: bounce 1.05s infinite;
-  animation-timing-function: ease-in-out;
-}
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(69, 137, 130, 0.15);
+  }
 
-.textM {
-  width: 75px;
-  height: 75px;
-  animation: bounce 1.05s infinite 0.15s;
-  animation-timing-function: ease-in-out;
-}
+  & .contents {
+    /* z-index:1;
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%); */
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    
 
-.face {
-  margin-left: 10px;
-  width: 112.5px;
-  height: 112.5px;
-  animation: bounce 1.05s infinite 0.3s;
-  animation-timing-function: ease-in-out;
-  transition: transform 0.3s ease; 
-}
+    & .welcomeText {
+      position: relative;
+      margin: 1.25rem 0 2rem;
+      color: var(--color-white);
+      font-size: 2.5rem;
+      font-family: 'Katuri';
+    }
 
-.face:hover {
-  animation-play-state: paused; /* 호버 시 애니메이션 일시 정지 */
-  transform: scale(1.15);
-  cursor: pointer;
-}
+    /* logoText */
+    & .logoText {
+      position: relative;
+      left: -20px;
 
-.face:active {
-  transform: scale(1.0);
-  cursor: grab;
-}
+      & .textBox svg {
+        position: relative;
+        animation: bounce 1.05s infinite;
+        animation-timing-function: ease-in-out;
 
-.dropdownMenu_active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: 2000ms ease;
-}
+        &.textM {
+          margin-right: 4px;
+          animation-delay: 0.15s;
+        }
+        
+        &.textOO {
+          margin-left: 10px;
+          animation-delay: 0.3s;
+          transition: transform 0.3s ease; 
+        }
+        
+        &.textOO:hover {
+          animation-play-state: paused; /* 호버 시 애니메이션 일시 정지 */
+          transform: scale(1.15);
+          cursor: pointer;
+        }
+        
+        &.textOO:active {
+          transform: scale(1.0);
+          cursor: grab;
+        }
+        
+        &.textT {
+          animation-delay: 0.45s;
+        }
+        
+        &.textH {
+          animation-delay: 0.6s;
+        }
+        
+        &.textI {
+          animation-delay: 0.75s;
+        }
+        
+        &.textE {
+          animation-delay: 0.9s;
+        }
+      }
+    }
 
-.dropdownMenu_inactive {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-1.25rem);
-  transition: 2000ms ease;
-}
+    & .subText {
+      margin: 3rem 0 1.25rem;;
 
-.disabled {
-  cursor: not-allowed;
-}
+      & .subTextTitle {
+        color: var(--color-main);
+        font-size: 1.5rem;
+        font-family: 'Katuri';
+      }
 
-.textT {
-  width: 75px;
-  height: 75px;
-  animation: bounce 1.05s infinite 0.45s;
-  animation-timing-function: ease-in-out;
-}
+      & .subTextDesc {
+        padding: 1.25rem 0 0.25rem;
+        color: #536B82;
+      }
+    }
 
-.textH {
-  width: 75px;
-  height: 75px;
-  animation: bounce 1.05s infinite 0.6s;
-  animation-timing-function: ease-in-out;
-}
+    & .buttonArea {
+      & button {
+        overflow: hidden;
+        z-index: 1;
+        position:relative;
+        padding: 0.5rem 1.25rem;
+        border-radius: 1.5rem;
+        color: var(--color-main);
+        border: 1px solid var(--color-main);
 
-.textI {
-  width: 50px;
-  height: 75px;
-  animation: bounce 1.05s infinite 0.75s;
-  animation-timing-function: ease-in-out;
-}
+        &:hover {
+          border: 1px solid #679C97;
+          color: var(--color-white);
+        }
 
-.textE {
-  width: 75px;
-  height: 75px;
-  animation: bounce 1.05s infinite 0.9s;
-  animation-timing-function: ease-in-out;
+        &::after {
+          content: "";
+          z-index: -1;
+          position:absolute;
+          top:0;
+          left: -45%;
+          height: 100%;
+          width: 0%;
+          background-color: #679C97;
+          transform: skew(40deg);
+          transform-origin: top left;
+          transition-duration: .5s;
+        }
+
+        &:hover::after {
+          width: 145%;
+        }
+      }
+    }
+  }
 }
 
 @keyframes bounce {
@@ -141,171 +162,3 @@
     top: -20px; /* 이미지가 위로 이동할 거리를 조절하세요 */
   }
 }
-
-.smo {
-  position: absolute;
-  width: 40%;
-  height: 50%;
-  left: 0.7rem;
-  top: 12rem;
-  z-index: 2;
-}
-
-.oth {
-  position: absolute;
-  width: 40%;
-  height: 50%;
-  right: 0.5rem;
-  top: 4rem;
-  z-index: 1.01;
-}
-
-.ie {
-  position: absolute;
-  width: 40%;
-  height: 50%; 
-  right: 9rem;
-  bottom: 0.2rem;
-  z-index: 1.01;
-}
-
-/* 두번째 페이지 */
-
-.second {
-  /* border: 10px solid purple; */
-  width: 100vw;
-  height: 89vh;
-}
-
-.secondImg {
-  position: relative;
-  width: 60vw;
-  top: 6rem;
-  left: 4rem;
-}
-
-.secondFace {
-  position: relative;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  left: 85rem;
-  top: 12rem;
-}
-
-.secondFace span {
-  margin-top: 1rem;
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-/* 세번째 페이지 */
-
-.third {
-  /* border: 10px solid purple; */
-  width: 100vw;
-  height: 89vh;
-}
-
-.thirdImg {
-  position: relative;
-  width: 60vw;
-  top: 6rem;
-  left: 33rem;
-}
-
-.thirdFace {
-  position: relative;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  left: 4rem;
-  top: 15rem;
-}
-
-.thirdFace span {
-  margin-top: 1rem;
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-/* 네번째 페이지 */
-
-.fourth {
-  /* border: 10px solid purple; */
-  width: 100vw;
-  height: 89vh;
-}
-
-.fourthImg {
-  position: relative;
-  width: 60vw;
-  top: 6rem;
-  left: 4rem;
-}
-
-.fourthFace {
-  position: relative;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  left: 85rem;
-  top: 12rem;
-}
-
-.fourthFace span {
-  margin-top: 1rem;
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-/* 버튼 CSS */
-
-.btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: 1.5rem;
-  font-size: 1rem;
-  border: 1px solid var(--color-main);
-  cursor: pointer;
-  position: relative;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-  overflow: hidden;
-}
-
-.btn:before, .btn:after {
-  background: gray;
-  content: '';
-  position: absolute;
-  z-index: -1;
-}
-
-.btn:hover {
-  color: white;
-}
-
-.btn:after {
-  height: 100%;
-  left: -45%;
-  top: 0;
-  transform: skew(50deg);
-  transition-duration: 0.5s;
-  transform-origin: top left;
-  width: 0;
-}
-
-.btn:hover:after {
-  height: 100%;
-  width: 145%;
-}
-
-
