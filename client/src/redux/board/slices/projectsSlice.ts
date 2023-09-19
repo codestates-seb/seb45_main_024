@@ -63,10 +63,10 @@ const projectsSlice = createSlice({
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(editProject.fulfilled, (state, action) => {
-      console.log("✅ EDIT PROJECT FULFILLED");
+      // console.log("✅ EDIT PROJECT FULFILLED");
     });
     builder.addCase(editProject.rejected, (state, action) => {
-      console.log("✅ EDIT PROJECT REJECTED");
+      // console.log("✅ EDIT PROJECT REJECTED");
     });
 
     // Remove

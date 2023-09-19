@@ -40,7 +40,7 @@ const DetailComments = () => {
   const isMyProject = writerId === tokenId;
   // console.log("게시글 작성자인가요? ", isMyProject);
 
-  console.log("replyList", comments);
+  // console.log("replyList", comments);
 
   // 댓글 등록
   const [content, setContent] = useState("");
@@ -107,7 +107,7 @@ const DetailComments = () => {
   };
 
   const onSubmitEditComment = (targetId: number) => {
-    console.log("🚀 댓글 수정반영");
+    // console.log("🚀 댓글 수정반영");
 
     dispatch(
       editComment({
@@ -117,7 +117,7 @@ const DetailComments = () => {
     )
       .unwrap()
       .then(() => {
-        console.log("EDIT", targetId);
+        // console.log("EDIT", targetId);
         window.alert("댓글이 수정되었습니다.");
         window.location.reload();
       })
@@ -141,19 +141,19 @@ const DetailComments = () => {
 
   /** Remove Comment */
   const onRemoveComment = (targetId: number) => {
-    console.log("🚀 댓글 삭제하기");
+    // console.log("🚀 댓글 삭제하기");
 
     if (window.confirm("정말로 삭제하시겠습니까?")) {
       dispatch(removeComment(targetId))
         .unwrap()
         .then(() => {
-          console.log("DELETE", targetId);
+          // console.log("DELETE", targetId);
           // 삭제가 성공하면 alert, 페이지 이동여부 확인
           window.alert("댓글이 삭제되었습니다.");
           window.location.reload();
         })
         .catch(error => {
-          console.warn("DELETE COMMENT ERROR", error, "targetId: ", targetId);
+          // console.warn("DELETE COMMENT ERROR", error, "targetId: ", targetId);
           // setError("Something went wrong");
         });
       // .finally(() => setIsLoading(false));
@@ -173,9 +173,9 @@ const DetailComments = () => {
         alarmType: 0,
       });
       if (acceptType === 1) {
-        console.log(targetId, "프로젝트 수락");
+        // console.log(targetId, "프로젝트 수락");
       } else if (acceptType === 2) {
-        console.log(targetId, "프로젝트 거절");
+        // console.log(targetId, "프로젝트 거절");
       }
       window.location.reload();
     } catch (error) {

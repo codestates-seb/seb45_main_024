@@ -24,7 +24,6 @@ export const loginUser = createAsyncThunk(
       saveRefreshTokenToLocalStorage(refreshToken);
       getTokensFromLocalStorage();
 
-      console.log(response.status);
       return response.data;
       // 로그인 처리 관련 메시지 등
 

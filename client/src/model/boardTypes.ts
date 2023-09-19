@@ -6,6 +6,7 @@ export interface UserListDataType {
   position: string;
   keywords: string[];
   accountId?: number;
+  teamBoardImageUrl?: string;
   techTagList: string[];
   nickname?: string;
   createdAt: string;

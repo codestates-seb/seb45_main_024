@@ -31,14 +31,14 @@ const commentsSlice = createSlice({
     // ADD
     builder.addCase(addComment.pending, (state, action) => {
       // throw new Error(); // 서버 안될시 TEST
-      console.log("✅ ADD TEST PENDING");
+      // console.log("✅ ADD TEST PENDING");
     });
     builder.addCase(addComment.fulfilled, (state, action) => {
       state.data.push(action.payload);
-      console.log("✅ ADD COMMENT FULFILLED");
+      // console.log("✅ ADD COMMENT FULFILLED");
     });
     builder.addCase(addComment.rejected, (state, action) => {
-      console.log("✅ ADD COMMENT REJECTED");
+      // console.log("✅ ADD COMMENT REJECTED");
     });
 
     // EDIT
@@ -47,10 +47,10 @@ const commentsSlice = createSlice({
     });
     builder.addCase(editComment.fulfilled, (state, action) => {
       console.log(action.payload);
-      console.log("✅ EDIT COMMENT FULFILLED");
+      // console.log("✅ EDIT COMMENT FULFILLED");
     });
     builder.addCase(editComment.rejected, (state, action) => {
-      console.log("✅ EDIT COMMENT REJECTED");
+      // console.log("✅ EDIT COMMENT REJECTED");
     });
 
     // REMOVE

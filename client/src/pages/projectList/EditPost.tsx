@@ -8,12 +8,12 @@ const EditPost = () => {
   const navigate = useNavigate();
 
   const projectList = useAppSelector(state => state.projects.data);
-  console.log("✅ PROJECT LIST", projectList);
+  // console.log("✅ PROJECT LIST", projectList);
 
   const { projectId } = useParams() as { projectId: string };
 
   const [originPost, setOriginPost] = useState<ProjectListDataType>();
-  console.log("✅ ORIGIN POST", originPost);
+  // console.log("✅ ORIGIN POST", originPost);
 
   useEffect(() => {
     const targetPost = projectList.find(

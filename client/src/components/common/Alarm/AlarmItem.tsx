@@ -23,9 +23,8 @@ const AlarmItem: FC<AlarmItemProps> = props => {
     console.log(`알람 아이디 : ${props.alarmId}`); // 그러네 알람id가 undefined 되어있네?
     try {
       await authInstance.patch(`/alarms/${props.alarmId}`);
-      console.log(`${props.title} 알람은 읽었습니다!`);
     } catch (error) {
-      console.error("못 읽어씀 ㅠ", error);
+      console.error(error);
     }
   };
 

@@ -85,10 +85,9 @@ const Login: FC = () => {
       // 로그인 성공 처리
       // dispatch({ type: "login/setIsLoggedIn", payload: true });
       dispatch(setAlertMessage("로그인 됐어요"));
-      navigate("/");
-      console.log("로그인됨");
       dispatch(validationActions.resetValidation());
       alert("정상적으로 로그인됐습니다");
+      navigate("/");
       // } else {
       //   setFormData({
       //     email: "",
@@ -107,10 +106,9 @@ const Login: FC = () => {
         email: "",
         password: "",
       });
+      alert(`로그인 과정에 오류가 있습니다`);
       dispatch(validationActions.resetValidation());
       dispatch({ type: "login/setIsLoggedIn", payload: false });
-      console.error("로그인 오류:");
-      alert(`로그인 과정에 오류가 있습니다`);
     }
   };
 
