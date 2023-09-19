@@ -20,7 +20,7 @@ const authInstance = axios.create({
 
 authInstance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem("accessToken") || "";
+    const token = localStorage.getItem("smoothieAccess") || "";
     const tokenString = JSON.parse(token);
     if (token) {
       config.headers["Authorization"] = `${tokenString}`;
@@ -57,15 +57,14 @@ authInstance.interceptors.response.use(
     console.log(error.config);
     if (error.response && error.response.status === 403) {
       try {
-        const invalidAccessToken = localStorage.getItem("accessToken"); // 만료된 액세스토큰 들고 오기
-        const refreshToken = localStorage.getItem("refreshToken") || ""; // 리프레쉬토큰 들고 오기
+        const invalidAccessToken = localStorage.getItem("smoothieAccess"); // 만료된 액세스토큰 들고 오기
+        const refreshToken = localStorage.getItem("smoothieRefresh") || ""; // 리프레쉬토큰 들고 오기
         const response = await axios.post("/auth/issue", {
           refresh: refreshToken,
           expAccess: invalidAccessToken,
         });
         removeTokensFromLocalStorage(); // 기존의 토큰들 전부 날려버리기
-        const newAuth = response.headers.authorization;
-        const newAccessToken = newAuth.split("Bearer ")[1];
+        const newAccessToken = response.headers.authorization;
         saveTokensToLocalStorage(newAccessToken); // 새로 발급된 액세스토큰 저장
         saveRefreshTokenToLocalStorage(refreshToken); // 기존의 리프레쉬토큰 다시 저장
         return authInstance.request(error.config); // 기존 요청 재시도(???)
