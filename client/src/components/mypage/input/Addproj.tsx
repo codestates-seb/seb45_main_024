@@ -51,7 +51,6 @@ const Addproj: FC<AddprojProps> = ({
       );
       const projectId = response.data.projectDetailId;
       setProjectId(projectId);
-      console.log(response);
       projSet.push({
         projectId: projectId,
         projectTitle: projectName,
