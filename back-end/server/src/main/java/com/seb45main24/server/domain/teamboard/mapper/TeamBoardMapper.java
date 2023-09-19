@@ -74,6 +74,7 @@ public interface TeamBoardMapper {
         teamBoardResponseDto.keywords(teamBoard.getKeywords());
         teamBoardResponseDto.accountId(teamBoard.getAccount().getId());
         teamBoardResponseDto.nickname(teamBoard.getAccount().getNickname());
+        teamBoardResponseDto.teamBoardImageUrl(teamBoard.getAccount().getImage().getImageUrl());
         teamBoardResponseDto.techTagList(tagNameList);
         teamBoardResponseDto.createdAt(teamBoard.getCreatedAt() );
         teamBoardResponseDto.modifiedAt(teamBoard.getModifiedAt() );
