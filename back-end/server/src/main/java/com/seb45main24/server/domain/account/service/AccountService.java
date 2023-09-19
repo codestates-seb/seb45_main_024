@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.seb45main24.server.domain.teamboard.entity.TeamBoard;
+import com.seb45main24.server.domain.teamboard.service.TeamBoardService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,7 @@ public class AccountService {
 	private final AccountProfileRepository accountProfileRepository;
 	private final AccountProfileService accountProfileService;
 	private final TagsService tagsService;
+	private final TeamBoardService teamBoardService;
 
 	public Account createAccount(Account account) {
 
@@ -108,7 +111,17 @@ public class AccountService {
 			}
 		}
 
+		deleteAllTeamBoardByAccountId(account.getId());
+
 		accountRepository.delete(findAccount);
+	}
+
+	public void deleteAllTeamBoardByAccountId(Long accountId) {
+		List<TeamBoard> teamBoardList = teamBoardService.getTeamBoards(accountId);
+
+		teamBoardList.stream().forEach(teamBoard -> {
+			teamBoardService.deleteTeamBoard(teamBoard.getTeamBoardId());
+		});
 	}
 
 	public Account findAccount(Long accountId) {
