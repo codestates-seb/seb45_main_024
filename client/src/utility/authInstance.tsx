@@ -74,7 +74,6 @@ authInstance.interceptors.response.use(
         alert("토큰 처리에 문제가 있습니다. 관리자에게 연락하세요.");
       }
     }
-    alert("올바른 응답이 아닙니다");
     return Promise.reject(error);
   },
 );

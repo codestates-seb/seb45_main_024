@@ -120,6 +120,7 @@
     & .buttonArea {
       & button {
         overflow: hidden;
+        z-index: 1;
         position:relative;
         padding: 0.5rem 1.25rem;
         border-radius: 1.5rem;

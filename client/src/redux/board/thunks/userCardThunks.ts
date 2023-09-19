@@ -7,6 +7,7 @@ interface reqDataType {
   title: string;
   position: string;
   keywords: string[];
+  techTagIdList: number[];
 }
 
 interface editCardParamsType {

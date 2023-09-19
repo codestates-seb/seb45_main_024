@@ -8,11 +8,23 @@ import { ReactComponent as Text_H } from "../../assets/main/H.svg";
 import { ReactComponent as Text_I } from "../../assets/main/I.svg";
 import { ReactComponent as Text_E } from "../../assets/main/E.svg";
 
+import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
+
 import classes from "./Main.module.css";
 
 const Main: FC = () => {
   const navigate = useNavigate();
   const svgSize = 100;
+
+  const token = getTokensFromLocalStorage();
+
+  const goToPage = () => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      navigate("/userlist");
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -67,9 +79,7 @@ const Main: FC = () => {
           </div>
         </div>
         <div className={classes.buttonArea}>
-          <button onClick={() => navigate("/login")}>
-            스무디와 함께하기 &gt;
-          </button>
+          <button onClick={goToPage}>스무디와 함께하기 &gt;</button>
         </div>
       </div>
     </div>

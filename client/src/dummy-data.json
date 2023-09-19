@@ -3,7 +3,7 @@
     "data": [
       {
         "teamBoardId": 1,
-        "title": "첫번째 게시글 입니다. 이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "이런태그", "저런태그"],
         "techTagList": [
@@ -42,7 +42,7 @@
       },
       {
         "teamBoardId": 4,
-        "title": "이 글은 4번 게시글입니다. 게시글 4번 입니다.",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
         "techTagList": ["2:Spring", "6:MySQL"],
@@ -53,7 +53,7 @@
       },
       {
         "teamBoardId": 5,
-        "title": "5번 게시글, 팀 찾습니다 5",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
         "techTagList": ["2:Spring", "6:MySQL"],
@@ -64,7 +64,7 @@
       },
       {
         "teamBoardId": 6,
-        "title": "6번 게시글, 팀 찾습니다 6",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어"],
         "techTagList": ["2:Spring", "6:MySQL"],
@@ -75,7 +75,7 @@
       },
       {
         "teamBoardId": 7,
-        "title": "7번 게시글, 팀 찾습니다 7",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "프론트엔드",
         "keywords": ["교육", "미디어", "테스트", "good", "내가하고싶은건"],
         "techTagList": ["2:Spring", "6:MySQL"],
@@ -86,111 +86,12 @@
       },
       {
         "teamBoardId": 8,
-        "title": "8번 게시글, 팀 찾습니다 8",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "position": "백엔드",
         "keywords": ["교육", "미디어"],
         "techTagList": ["2:Spring", "6:MySQL"],
         "accountId": 8,
         "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 9,
-        "title": "9번 게시글, 팀 찾습니다 9",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 10,
-        "title": "10번 게시글, 팀 찾습니다 10",
-        "position": "프론트엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 11,
-        "title": "11번 게시글, 팀 찾습니다 11",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 12,
-        "title": "12번 게시글, 팀 찾습니다 12",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 13,
-        "title": "13번 게시글, 팀 찾습니다 13",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 14,
-        "title": "14번 게시글, 팀 찾습니다 14",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 8,
-        "nickname": "jo",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 15,
-        "title": "15번 게시글, 팀 찾습니다 15",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 9,
-        "nickname": "elle",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 16,
-        "title": "16번 게시글, 팀 찾습니다 16",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 9,
-        "nickname": "elle",
-        "createdAt": "2023-09-06T22:42:19",
-        "modifiedAt": "2023-09-06T22:42:19"
-      },
-      {
-        "teamBoardId": 17,
-        "title": "17번 게시글, 팀 찾습니다 17",
-        "position": "백엔드",
-        "keywords": ["교육", "미디어"],
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "accountId": 1,
-        "nickname": "nana",
         "createdAt": "2023-09-06T22:42:19",
         "modifiedAt": "2023-09-06T22:42:19"
       }
@@ -198,7 +99,7 @@
     "pageInfo": {
       "page": 1,
       "size": 8,
-      "totalElements": 17,
+      "totalElements": 8,
       "totalPages": 1
     }
   },
@@ -206,7 +107,7 @@
     "data": [
       {
         "memberBoardId": 1,
-        "title": "더미데이터:: 팀원찾기 게시판에 들어가는 제목입니다. 지금이건 더미데이터입니다.",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "<p>다시 테스트를 해봅시다.</p><p>저희 프로젝트는 이러이러한 프로젝트입니다.</p><h1>프로젝트 이름: h1</h1><h2>프로젝트 주제: h2</h2><h3>프로젝트 주의사항: h3</h3><p><br></p><p>이 텍스트는 노말 텍스트이구요,</p><p><strong>이거는 볼드입니다.</strong></p><p><u>이거는 밑줄이구요, 기울림은 없앴어요.</u></p><p><s>이거는 취소선이구요,</s></p><blockquote>요거는 요렇게 나옵니다!! 잘 나오고 있나요?</blockquote><p><br></p><p>링크도 걸 수가 있어요. http 부터 입력해주세요!.</p><p><a href='https://www.naver.com' rel='noopener noreferrer' target='_blank'>네이버로 갑시다.</a></p><p><br></p><p><strong style='color: rgb(230, 0, 0);'>글자 색도 지정할 있어요! 빨간색에 볼드체</strong></p><p><span style='color: rgb(102, 163, 224);'>하늘색도 좋아요! 너무 연하네</span></p><p><br></p><p>리스트도 있습니다.</p><ol><li>이렇게 숫자가 보이는</li><li>리스트도 있고,</li></ol><p><br></p><ul><li>불릿 형태의 리스트도</li><li>있습니다.</li></ul><p><br></p><p>이렇게 테스트를 해봅시다.</p>",
         "status": "모집중",
         "views": 0,
@@ -301,7 +202,7 @@
       },
       {
         "memberBoardId": 2,
-        "title": "팀원찾기 2번째 글",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집중",
         "views": 11,
@@ -314,7 +215,7 @@
       },
       {
         "memberBoardId": 3,
-        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집중",
         "views": 100,
@@ -327,7 +228,7 @@
       },
       {
         "memberBoardId": 4,
-        "title": "팀원찾기 4번째 글입니다~!!",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "팀원 구하는중",
         "views": 10,
@@ -340,7 +241,7 @@
       },
       {
         "memberBoardId": 5,
-        "title": "팀원찾기 5번째 글입니다~!!",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집중",
         "views": 1,
@@ -353,7 +254,7 @@
       },
       {
         "memberBoardId": 6,
-        "title": "팀원찾기 6번째 글입니다~!! :) 호호",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집중",
         "views": 123,
@@ -366,7 +267,7 @@
       },
       {
         "memberBoardId": 7,
-        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집완료",
         "views": 10,
@@ -379,7 +280,7 @@
       },
       {
         "memberBoardId": 8,
-        "title": "팀원 찾기에 들어갈 카드입니다. 게시글 제목은 여기인데, 제목이 길어지면 어떻게 되나요?",
+        "title": "이 데이터들은 서버 통신이 성공되지 않아 보이는 더미데이터 입니다. 실제 데이터가 아닙니다.",
         "content": "내용",
         "status": "모집완료",
         "views": 10,
@@ -389,25 +290,12 @@
         "endDate": "2023-01-18T11:22:33",
         "createdAt": "2023-09-11T01:20:02",
         "modifiedAt": "2023-09-11T01:20:02"
-      },
-      {
-        "memberBoardId": 9,
-        "title": "9번 게시글 입니다. 프로젝트 팀원 찾기 입니다.",
-        "content": "내용",
-        "status": "모집완료",
-        "views": 10,
-        "position": "백엔드 1명, 프론트엔드 2명",
-        "techTagList": ["2:Spring", "6:MySQL"],
-        "startDate": "2023-09-01T11:22:33",
-        "endDate": "2023-09-30T11:22:33",
-        "createdAt": "2023-09-11T01:20:02",
-        "modifiedAt": "2023-09-11T01:20:02"
       }
     ],
     "pageInfo": {
       "page": 1,
       "size": 10,
-      "totalElements": 9,
+      "totalElements": 8,
       "totalPages": 1
     }
   },

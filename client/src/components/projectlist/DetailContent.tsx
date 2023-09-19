@@ -54,6 +54,7 @@ const DetailContent = () => {
 
   // Format Date
   const createdDate = getStringDate(createdAt);
+
   const startDateString = getStringDate(startDate);
   const endDateString = getStringDate(endDate);
 
@@ -64,14 +65,14 @@ const DetailContent = () => {
 
   /* Get Project */
   useEffect(() => {
-    console.log("🚀 GET PROJECT");
+    // console.log("🚀 GET PROJECT");
     setIsLoading(true);
     setError(null);
 
     dispatch(getProject(projectId))
       .unwrap()
       .catch(error => {
-        console.warn("🚀 GET PROJECT ERROR", error);
+        // console.warn("🚀 GET PROJECT ERROR", error);
         setError("Something went wrong");
       })
       .finally(() => setIsLoading(false));

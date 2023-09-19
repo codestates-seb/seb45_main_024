@@ -52,12 +52,10 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   const dispatch = useAppDispatch();
   const editTitle = useAppSelector(state => state.users.editTitle);
-  // console.log("TTTTTT newTitle: ", newTitle);
   const [newTitle, setNewTitle] = useState(editTitle);
 
   useEffect(() => {
     setNewTitle(editTitle);
-    // console.log("TTTTTT newTitle: ", newTitle);
   }, [editTitle]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +88,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       console.warn(error);
 
       const techData = dummyData.mypages.techTags;
-      console.log(techData);
+      // console.log(techData);
 
       setMyTechTags(techData);
     }
@@ -112,10 +110,10 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   // 기술스택 선택
   const onSelectTechTags = (selectedId: number) => {
-    console.log(selectedId);
+    // console.log(selectedId);
 
     const isSelected = techTags.includes(selectedId);
-    console.log("isSelected", isSelected);
+    // console.log("isSelected", isSelected);
 
     if (isSelected) {
       // 선택된 태그일 경우
@@ -181,17 +179,28 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     techTagIdList: techTags, // [1,3,5]
   };
 
-  // 임시데이터
-  // const data = {
-  //   title: "에디터에서 리퀘보내는 테스트",
-  //   position: "프론트엔드",
-  //   keywords: ["안녕", "이런태그"],
-  //   techTagIdList: [15, 18, 19],
-  // };
+  const checkValidData = () => {
+    const checkTitle = newTitle.trim().length === 0;
+    const checkPosition = position.trim().length === 0 || position === "포지션";
+    const checkKeywords = keywords.length === 0;
+    const checkTechTags = techTags.length === 0;
+
+    if (checkTitle || checkPosition || checkKeywords || checkTechTags) {
+      return false;
+    }
+
+    return true;
+  };
 
   /* Creact or Edit Card */
   const handleSubmit = () => {
-    console.log("🚀 CREATE/EDIT CARD", data);
+    // console.log("🚀 CREATE/EDIT CARD", data);
+
+    // 모든 필드가 채워진 상태일 경우에만 생성/수정 가능
+    if (!checkValidData()) {
+      alert("입력값을 모두 채워주세요.");
+      return;
+    }
 
     if (
       window.confirm(
@@ -207,12 +216,12 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         dispatch(addUserCard(data))
           .unwrap()
           .then(() => {
-            console.log("🚀 CREATE 성공", data);
+            // console.log("🚀 CREATE 성공", data);
             window.alert("새 글이 등록되었습니다.");
             navigate("/userlist");
           })
           .catch(error => {
-            console.warn("🚀 CREATE 실패", error, data);
+            // console.warn("🚀 CREATE 실패", error, data);
             setError("Something went wrong");
           })
           .finally(() => setIsLoading(false));
@@ -227,12 +236,13 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         dispatch(editUserCard({ targetId, data }))
           .unwrap()
           .then(() => {
-            console.log("🚀 EDIT 성공", data);
+            // console.log("🚀 EDIT 성공", data);
             window.alert("카드가 수정되었습니다.");
             navigate("/userlist");
           })
           .catch(error => {
-            console.warn("🚀 EDIT 실패", error, data);
+            alert("제목을 수정해주세요!");
+            // console.warn("🚀 EDIT 실패", error, data);
           });
       }
     }
