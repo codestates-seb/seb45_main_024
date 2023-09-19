@@ -1,0 +1,38 @@
+.container {
+  height: 94.2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.logo {
+  margin-top: 5rem;
+  margin-bottom: 1.25rem;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flatLogo일 때는 width: 20rem; height: 8rem; */
+}
+
+.signUpMessage {
+  margin-top: 1rem;
+}
+
+.signUpMessage span {
+  font-weight: 900;
+  color: var(--color-main);
+  transition: color 0.3s, cursor 0.3s;
+}
+
+.signUpMessage span:hover {
+  cursor: pointer;
+  color: #BDBDBD;
+}
+
+.signUpMessage span:active {
+  cursor: grab;
+  color: #4F4F4F;
+}

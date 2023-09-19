@@ -1,0 +1,59 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  gap: 24px;
+}
+
+.helpText {
+  font-size: 0.8rem;
+  color: var(--color-gray-3);
+  margin-right: 1rem;
+}
+
+.sideComponent {
+  position: relative;
+  grid-column: span 2;
+  height: 100%;
+  border-right: 4px solid var(--color-main);
+  padding-top: 90px;
+}
+
+.actions{
+    position: absolute;
+    bottom: 30px;
+    left: auto;
+    display: flex;
+    gap:8px;
+}
+
+.saveBtn{
+    background-color: var(--color-main);
+    border: none;
+    color: white;
+}
+
+.componentContainer {
+  grid-column: span 9;
+  padding-top: 90px;
+  padding-bottom: 100px;
+}
+
+/* 1000px 미디어쿼리 */
+@media screen and (max-width: 1000px) {
+  .mainContainer {
+    grid-template-columns: repeat(10, 78px);
+  }
+  .componentContainer {
+    grid-column: span 7;
+  }
+}
+
+/* 700px 미디어쿼리 */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    grid-template-columns: repeat(6, 78px);
+  }
+  .componentContainer {
+    grid-column: span 4;
+  }
+}

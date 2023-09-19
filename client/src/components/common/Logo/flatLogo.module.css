@@ -1,0 +1,13 @@
+.logo {
+  transition: transform 0.3s ease; 
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: scale(1.07);
+}
+
+.logo:active {
+  cursor: grab;
+  transform: scale(1.0);
+}

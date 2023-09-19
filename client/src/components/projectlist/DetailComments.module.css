@@ -1,0 +1,128 @@
+.comments {
+  margin-top: 3.75rem;
+
+  & h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  & .writeArea {
+
+    & textarea {
+      resize: none;
+      width: 100%; 
+      margin: 0.75rem 0;
+    }
+
+    & .submitBtn {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+  }
+
+  & .commentsArea {
+    margin-top: 4.5rem;
+
+    & .comment {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--color-gray-4);
+
+      & .meta {
+        display: flex;
+        align-items: center;
+
+        & > :last-child {
+          margin-left: auto;
+        }
+
+        & .userImage {
+          margin-right: 4px;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+
+        & .usernameAndDate {
+          
+          & .username {}
+          & .date {
+            color: var(--color-gray-1);
+            font-size: 0.75rem; 
+          }
+        }
+
+        & .editArea {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          & > div {
+            cursor: pointer;
+          }
+
+          & .edit {
+            display: flex;
+            align-items: center;
+
+
+            & .editDone {
+              display: flex;
+              align-items: center;
+
+              & .editDoneBtn {
+                margin-left: 4px;
+                font-size: 0.75rem;
+              }
+            }
+          }
+
+          & .delete {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+
+      & .contents {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 0.75rem;
+        width: 100%;
+
+        & > textarea {
+          resize: none;
+          width: 100%;
+        }
+
+        & .content {
+          flex: 1;
+          gap: 1rem;
+          /* margin-right: 1rem; */
+
+          & .applyComment {
+            padding: 0.2rem 0.5rem;
+            margin-right: 4px;
+            color: var(--color-main);
+            background-color: var(--color-sub);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            vertical-align: bottom;
+          }
+          
+        }
+
+        & .acceptArea {
+          display: flex;
+
+         & > div {
+
+         }
+        }
+      }
+    }
+  }
+}
