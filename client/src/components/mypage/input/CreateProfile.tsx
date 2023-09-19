@@ -21,11 +21,6 @@ interface ProfileFormData {
   softSkills?: string[];
   hardSkills?: string[];
   techTags?: number[];
-  // projectDetails?: {
-  //   projectTitle?: string;
-  //   projectUrl?: string;
-  //   imageUrl?: string;
-  // }[];
 }
 
 interface Props {
@@ -37,14 +32,14 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile
+    (state: { profile: ProfileState }) => state.profile,
   );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
   const [projectImage, setProjectImage] = useState<string>("");
   const [projectId, setProjectId] = useState<number>(0);
-
+  const [showInput, setShowInput] = useState<boolean>(false);
   const editorChangeHandler = (value: string) => {
     setEditorValue(value);
   };
@@ -68,27 +63,27 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       if (profileData.coverLetter) {
         setEditorValue(profileData.coverLetter);
       }
-      setSoftTags((prevSoftTags) =>
+      setSoftTags(prevSoftTags =>
         profileData.softSkills
           ? [...new Set([...prevSoftTags, ...profileData.softSkills])]
-          : prevSoftTags
+          : prevSoftTags,
       );
-      setHardTags((prevHardTags) =>
+      setHardTags(prevHardTags =>
         profileData.hardSkills
           ? [...new Set([...prevHardTags, ...profileData.hardSkills])]
-          : prevHardTags
+          : prevHardTags,
       );
-      setProjTags((prevProjectTags) =>
+      setProjTags(prevProjectTags =>
         profileData.projectDetails
           ? [
               ...new Set([
                 ...prevProjectTags,
                 ...profileData.projectDetails.map(
-                  (project: any) => project.projectTitle
+                  (project: any) => project.projectTitle,
                 ),
               ]),
             ]
-          : prevProjectTags
+          : prevProjectTags,
       );
     }
   }, [profileData]);
@@ -130,14 +125,13 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   };
 
   const projTagDeleteHandler = async (id: number) => {
-    const project = projSet.find((proj) => proj.projectId === id);
+    const project = projSet.find(proj => proj.projectId === id);
     if (project) {
       try {
-        const response = await authInstance.delete(
-          `/mypages/profile/projectDetails/${project.projectId}`
+        await authInstance.delete(
+          `/mypages/profile/projectDetails/${project.projectId}`,
         );
-        console.log(response);
-        const updatedTags = projSet.filter((proj) => proj.projectId !== id);
+        const updatedTags = projSet.filter(proj => proj.projectId !== id);
         setProjSet(updatedTags);
       } catch (err) {
         console.info("Error deleting project", err);
@@ -157,11 +151,11 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   }, []);
 
   const handleTagClick = (id: number, isActive: boolean) => {
-    setSelectedTechs((prevSelectedTechs) => {
+    setSelectedTechs(prevSelectedTechs => {
       if (isActive) {
         return [...prevSelectedTechs, id];
       } else {
-        return prevSelectedTechs.filter((techId) => techId !== id);
+        return prevSelectedTechs.filter(techId => techId !== id);
       }
     });
   };
@@ -253,8 +247,9 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             onDelete={projTagDeleteHandler}
           />
         ))}
-        <PlusBtn>
+        <PlusBtn showInput={showInput} setShowInput={setShowInput}>
           <Addproj
+            setShowInput={setShowInput}
             projectName={projectName}
             projectId={projectId}
             setProjectId={setProjectId}

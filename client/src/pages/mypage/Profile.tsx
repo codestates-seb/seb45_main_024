@@ -17,6 +17,7 @@ import authInstance from "../../utility/authInstance";
 import { setProfileData } from "../../redux/mypage/profileSlice";
 import { TechDesc } from "../../components/mypage/format/TechDesc";
 import GetLogo from "../../components/mypage/format/GetLogo";
+// import default_profile from "../../assets/images/default_profile.png";
 
 interface AccessTokenType {
   id: number;
@@ -32,10 +33,24 @@ const Profile: FC = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>({});
   const authorInfo = useAppSelector((state) => state.authorInfo);
-
+  const [isDelete, setIsDelete] = useState(false);
   const { id } = useParams<{ id: string }>();
   const AT = getTokensFromLocalStorage() as AccessTokenType;
   const visitorId = AT.id.toString();
+
+  const onDeleteHandler = () => {
+    setIsDelete(!isDelete);
+  };
+
+  const projDeleteHandler = async (id: number) => {
+    try {
+      await authInstance.delete(`/mypages/profile/projectDetails/${id}`,);
+      window.alert('프로젝트가 삭제되었습니다.');
+      window.location.reload();
+    } catch (err) {
+      console.info("Error deleting project", err);
+    }
+  };
 
   const onTechProfileClick = (techName: string) => {
     setSelectedTechName(techName);
@@ -47,7 +62,6 @@ const Profile: FC = () => {
       try {
         const res = await authInstance.get(`/mypages/profile/${id}`);
         const profile = res.data;
-        console.log(profile);
         setProfile(profile);
         dispatch(setProfileData(res.data));
         dispatch(
@@ -178,9 +192,14 @@ const Profile: FC = () => {
             </section>
             <section className={classes.profileItem}>
               <TitleLine title={ProfileCats.PROJ} />
-              <p className={classes.helpText}>
-                제목을 클릭하면 프로젝트 링크로 이동합니다.
-              </p>
+              <div className={classes.projSubContainer}>
+                <p className={classes.helpText}>
+                  {isDelete ? "삭제할 카드를 클릭해주세요." : "제목을 클릭하면 프로젝트 링크로 이동합니다."}
+                </p>
+                {authorInfo.isAuthor && (
+                  <button className={classes.deleteButton} onClick={onDeleteHandler}>{isDelete ? "Done" : "Delete"}</button>)
+                  }
+              </div>
               <div
                 className={
                   classes.projContent +
@@ -193,7 +212,7 @@ const Profile: FC = () => {
                 {profile.projectDetails ? (
                   profile.projectDetails.length > 0 ? (
                     profile.projectDetails.map((project, index) => (
-                      <ProjCard key={index} project={project} />
+                      <ProjCard key={index} projectDetail={project} remove={isDelete} onClick={projDeleteHandler} />
                     ))
                   ) : (
                     <NoContent />
