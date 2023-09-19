@@ -74,7 +74,7 @@ public class AccountService {
 		return postAccount;
 	}
 
-	public Account updateAccount(Account account, Long loginAccountId, MultipartFile newImage) {
+	public Account updateAccount(Account account, Long loginAccountId) {
 
 		Account findAccount = findAccount(account.getId());
 		verifyAuthority(findAccount, loginAccountId);
@@ -88,13 +88,10 @@ public class AccountService {
 			findAccount.setPassword(encodedPassword);
 		});
 
-		if (newImage != null && !newImage.isEmpty()) {
-			UploadImage uploadImage = awsS3Service.updateImage(newImage, findAccount.getImage().getImageName());
-			if (uploadImage != null) {
-				findAccount.getImage().setImageName(uploadImage.getImageName());
-				findAccount.getImage().setImageUrl(uploadImage.getImageUrl());
-				findAccount.getImage().setModifiedAt(LocalDateTime.now());
-			}
+		if(account.getImage() != null) {
+			findAccount.getImage().setImageUrl(account.getImage().getImageUrl());
+			findAccount.getImage().setImageName(account.getImage().getImageName());
+			findAccount.getImage().setModifiedAt(LocalDateTime.now());
 		}
 
 		return accountRepository.save(findAccount);
