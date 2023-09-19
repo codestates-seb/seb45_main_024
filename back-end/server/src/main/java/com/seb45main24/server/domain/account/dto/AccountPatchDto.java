@@ -20,6 +20,10 @@ public class AccountPatchDto {
 		message = "비밀번호는 5글자 이상이어야 한다.")
 	private String password;
 
+	private String imageUrl;
+
+	private String imageName;
+
 	public void addAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
