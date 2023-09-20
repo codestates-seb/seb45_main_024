@@ -1,5 +1,5 @@
 // FORMAT :: YYYY.MM.DD
-export const getStringDate = (date: string) => {
+export const getStringDate = (date: string | Date) => {
   return new Date(date).toLocaleDateString();
 };
 

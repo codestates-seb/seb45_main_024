@@ -27,7 +27,7 @@ export interface ProjectListDataType {
   techTagList: string[];
   startDate: string;
   endDate: string;
-  createdAt: string;
+  createdAt: string | Date;
   modifiedAt: string;
 }
 

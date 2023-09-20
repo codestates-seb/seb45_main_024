@@ -150,7 +150,7 @@ const UserList = () => {
           onSelect={handlePositionSelect}
         />
         <SearchInput
-          placeholder="제목을 검색해보세요."
+          placeholder="제목을 검색해보세요!"
           onSubmit={text => onSearchTitle(text)}
         >
           <SearchSvg stroke="var(--color-gray-4)" />
