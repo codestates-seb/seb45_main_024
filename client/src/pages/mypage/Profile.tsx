@@ -17,7 +17,7 @@ import authInstance from "../../utility/authInstance";
 import { setProfileData } from "../../redux/mypage/profileSlice";
 import { TechDesc } from "../../components/mypage/format/TechDesc";
 import GetLogo from "../../components/mypage/format/GetLogo";
-// import default_profile from "../../assets/images/default_profile.png";
+import default_profile from "../../assets/images/default_profile.svg";
 
 interface AccessTokenType {
   id: number;
@@ -44,8 +44,8 @@ const Profile: FC = () => {
 
   const projDeleteHandler = async (id: number) => {
     try {
-      await authInstance.delete(`/mypages/profile/projectDetails/${id}`,);
-      window.alert('프로젝트가 삭제되었습니다.');
+      await authInstance.delete(`/mypages/profile/projectDetails/${id}`);
+      window.alert("프로젝트가 삭제되었습니다.");
       window.location.reload();
     } catch (err) {
       console.info("Error deleting project", err);
@@ -135,7 +135,11 @@ const Profile: FC = () => {
                   <div className={classes.helpHeader}>
                     <h2 className={classes.helpTitle}>{selectedTechName}</h2>
                     <div className={classes.logoImg}>
-                      <GetLogo logoTitle={selectedTechName} />
+                      {!selectedTechName ? (
+                        <img src={default_profile} />
+                      ) : (
+                        <GetLogo logoTitle={selectedTechName} />
+                      )}
                     </div>
                   </div>
                   <p className={classes.helpDesc}>
@@ -194,11 +198,18 @@ const Profile: FC = () => {
               <TitleLine title={ProfileCats.PROJ} />
               <div className={classes.projSubContainer}>
                 <p className={classes.helpText}>
-                  {isDelete ? "삭제할 카드를 클릭해주세요." : "제목을 클릭하면 프로젝트 링크로 이동합니다."}
+                  {isDelete
+                    ? "삭제할 카드를 클릭해주세요."
+                    : "제목을 클릭하면 프로젝트 링크로 이동합니다."}
                 </p>
                 {authorInfo.isAuthor && (
-                  <button className={classes.deleteButton} onClick={onDeleteHandler}>{isDelete ? "Done" : "Delete"}</button>)
-                  }
+                  <button
+                    className={classes.deleteButton}
+                    onClick={onDeleteHandler}
+                  >
+                    {isDelete ? "Done" : "Delete"}
+                  </button>
+                )}
               </div>
               <div
                 className={
@@ -212,7 +223,12 @@ const Profile: FC = () => {
                 {profile.projectDetails ? (
                   profile.projectDetails.length > 0 ? (
                     profile.projectDetails.map((project, index) => (
-                      <ProjCard key={index} projectDetail={project} remove={isDelete} onClick={projDeleteHandler} />
+                      <ProjCard
+                        key={index}
+                        projectDetail={project}
+                        remove={isDelete}
+                        onClick={projDeleteHandler}
+                      />
                     ))
                   ) : (
                     <NoContent />
