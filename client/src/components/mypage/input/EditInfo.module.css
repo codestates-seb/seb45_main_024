@@ -38,6 +38,23 @@
   width: 70%;
 }
 
+.viewPassword {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+  width: 24px;
+  cursor: pointer;
+  opacity: 30%;
+}
+
+.password{
+  position: relative;
+}
+
+.passwordConfirm{
+  position: relative;
+}
+
 .actions {
   display: flex;
   align-items: center;
