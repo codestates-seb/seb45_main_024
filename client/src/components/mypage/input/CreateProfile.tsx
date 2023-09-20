@@ -201,7 +201,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {hardTags.map((hardTag, index) => (
+        {hardTags.filter(Boolean).map((hardTag, index) => (
           <SoftTag
             key={index}
             techName={hardTag}
@@ -219,7 +219,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {softTags.map((softTag, index) => (
+        {softTags.filter(Boolean).map((softTag, index) => (
           <SoftTag
             key={index}
             techName={softTag}
