@@ -6,6 +6,8 @@ import { validationActions } from "../../../redux/auth/validationSlice";
 import authInstance from "../../../utility/authInstance";
 import { setAuthorInfo } from "../../../redux/mypage/authorInfoSlice";
 import { removeTokensFromLocalStorage } from "../../../utility/tokenStorage";
+import view from "../../../assets/icons/view.svg";
+import viewOff from "../../../assets/icons/viewOff.svg";
 
 interface EditFormProps {
   onClose: () => void;
@@ -21,9 +23,14 @@ interface MyInfoData {
 const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const passwordError = useAppSelector(state => state.validation.passwordError);
+  const passwordError = useAppSelector(
+    (state) => state.validation.passwordError
+  );
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const confirmPasswordError = useAppSelector(
-    state => state.validation.confirmPasswordError,
+    (state) => state.validation.confirmPasswordError
   );
   const [myInfo, setMyInfo] = useState<MyInfoData>({
     newImage: "",
@@ -33,7 +40,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   });
   const myInfoChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
-    fieldName: string,
+    fieldName: string
   ) => {
     const { value } = event.target;
     setMyInfo({
@@ -41,21 +48,21 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       [fieldName]: value,
     });
     if (fieldName === "nickname") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         nickname: value,
       }));
       dispatch(validationActions.validNickname(value));
     }
     if (fieldName === "password") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         password: value,
       }));
       dispatch(validationActions.validPassword(value));
     }
     if (fieldName === "confirmPassword") {
-      setMyInfo(prevState => ({
+      setMyInfo((prevState) => ({
         ...prevState,
         confirmPassword: value,
       }));
@@ -81,7 +88,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       // const res = await authInstance.patch(`/accounts/${id}`, infoData, {
       //   headers: { "Content-Type": "multipart/form-data" },
       // });
-      const res = await authInstance.patch(`/accounts/${id}`, infoData );
+      const res = await authInstance.patch(`/accounts/${id}`, infoData);
       // try {
       //   const imgRes = await authInstance.post(`/S3/image`, imgData, {
       //     headers: { "Content-Type": "multipart/form-data" },
@@ -98,7 +105,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           email: myInfo.nickname,
           nickname: myInfo.nickname,
           imgUrl: res.data.imageUrl,
-        }),
+        })
       );
       await authInstance.post("/accounts/logout");
       removeTokensFromLocalStorage();
@@ -116,7 +123,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="image"
             type="file"
-            onChange={e => myInfoChangeHandler(e, "profileImage")}
+            onChange={(e) => myInfoChangeHandler(e, "profileImage")}
           />
         </div>
         <div className={classes.edititem}>
@@ -125,30 +132,40 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="nickname"
             type="text"
             placeholder="새로운 닉네임을 입력하세요"
-            onChange={e => myInfoChangeHandler(e, "nickname")}
+            onChange={(e) => myInfoChangeHandler(e, "nickname")}
           />
         </div>
-        <div className={classes.edititem}>
+        <div className={`${classes.edititem} ${classes.password}`}>
           <label htmlFor="password">비밀번호</label>
 
           <input
             id="password"
-            type="text"
+            type={showPassword ? "text" : "password"}
             placeholder="새로운 비밀번호를 입력하세요"
-            onChange={e => myInfoChangeHandler(e, "password")}
+            onChange={(e) => myInfoChangeHandler(e, "password")}
+          />
+          <img
+            className={classes.viewPassword}
+            src={showPassword ? viewOff : view}
+            onClick={() => setShowPassword((prev) => !prev)}
           />
         </div>
         {passwordError && (
           <p className={classes.helpText}>비밀번호는 5글자 이상이어야 합니다</p>
         )}
-        <div className={classes.edititem}>
+        <div className={`${classes.edititem} ${classes.passwordConfirm}`}>
           <label htmlFor="password">비밀번호 확인</label>
 
           <input
             id="password"
-            type="text"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="비밀번호를 한 번 더 입력해주세요"
-            onChange={e => myInfoChangeHandler(e, "confirmPassword")}
+            onChange={(e) => myInfoChangeHandler(e, "confirmPassword")}
+          />
+          <img
+            className={classes.viewPassword}
+            src={showConfirmPassword ? viewOff : view}
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
           />
         </div>
         {confirmPasswordError && (
