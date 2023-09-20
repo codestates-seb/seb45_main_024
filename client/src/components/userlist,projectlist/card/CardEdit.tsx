@@ -34,8 +34,8 @@ const CardEdit = ({ cardData }: CardEditProps) => {
   }, [techTagList]);
 
   const [newTitle, setNewTitle] = useState("");
-  // const date = getStringDate(createdAt);
-  const date = createdAt;
+  const date = getStringDate(createdAt);
+  // const date = createdAt;
 
   useEffect(() => {
     setNewTitle(title);
