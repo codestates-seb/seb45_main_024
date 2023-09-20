@@ -9,7 +9,7 @@ import {
 
 import { ProjectListDataType, PageInfo } from "../../../model/boardTypes";
 
-import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
+// import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 interface ProjectSliceType {
   data: ProjectListDataType[];
@@ -26,16 +26,6 @@ const initialState: ProjectSliceType = {
     totalpages: 0,
   },
 };
-
-// const initialState: ProjectListResponse = {
-//   data: [],
-//   pageInfo: {
-//     page: 1,
-//     size: 8,
-//     totalElements: 0,
-//     totalpages: 0,
-//   },
-// };
 
 const projectsSlice = createSlice({
   name: "projects",
@@ -55,33 +45,33 @@ const projectsSlice = createSlice({
     });
 
     // Get
-    builder.addCase(getProject.pending, (state, action) => {
+    builder.addCase(getProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getProject.fulfilled, (state, action) => {
       state.currentData = action.payload;
     });
-    builder.addCase(getProject.rejected, (state, action) => {
+    builder.addCase(getProject.rejected, () => {
       // state.currentData = dummyData.memberboards.data[0]; // 서버 안될시 TEST
     });
 
     // Add
-    builder.addCase(addProject.pending, (state, action) => {
+    builder.addCase(addProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addProject.fulfilled, (state, action) => {
       state.data.push(action.payload);
     });
-    builder.addCase(addProject.rejected, (state, action) => {});
+    builder.addCase(addProject.rejected, () => {});
 
     // Edit
-    builder.addCase(editProject.pending, (state, action) => {
+    builder.addCase(editProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(editProject.fulfilled, (state, action) => {
+    builder.addCase(editProject.fulfilled, () => {
       // console.log("✅ EDIT PROJECT FULFILLED");
     });
-    builder.addCase(editProject.rejected, (state, action) => {
+    builder.addCase(editProject.rejected, () => {
       // console.log("✅ EDIT PROJECT REJECTED");
     });
 

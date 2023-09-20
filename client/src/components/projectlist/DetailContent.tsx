@@ -29,7 +29,7 @@ const DetailContent = () => {
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
-  console.log(currentProject);
+
   const {
     title,
     content,
@@ -42,9 +42,8 @@ const DetailContent = () => {
     position,
     createdAt,
   } = currentProject || {};
-  // console.log("✅ CURRENT PROJECT", currentProject);
 
-  const goToUserMyPage = writerId => {
+  const goToUserMyPage = (writerId: number) => {
     if (token) {
       navigate(`/mypage/${writerId}`);
     } else {
@@ -85,7 +84,6 @@ const DetailContent = () => {
       <div className={classes.meta}>
         <div
           className={classes.userImage}
-          // onClick={() => navigate(`/mypage/${writerId}`)}
           onClick={() => goToUserMyPage(writerId)}
         >
           <img src={writerImageURL} alt="" />

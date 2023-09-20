@@ -17,7 +17,7 @@ import classes from "./DetailComments.module.css";
 import authInstance from "../../utility/authInstance";
 
 interface AccessTokenType {
-  tokenId: number;
+  id: number;
 }
 
 const DetailComments = () => {
@@ -31,13 +31,12 @@ const DetailComments = () => {
 
   const token = getTokensFromLocalStorage() as AccessTokenType;
   let tokenId: number;
+  let isMyProject = false; // 작성자가 본인인지 확인
 
   if (token) {
     tokenId = token.id;
+    isMyProject = writerId === tokenId;
   }
-
-  // 작성자가 본인인지 확인
-  const isMyProject = writerId === tokenId;
 
   // 댓글 등록
   const [content, setContent] = useState("");
@@ -313,46 +312,44 @@ const DetailComments = () => {
                 </div>
               )}
 
-              {isMyProject &&
-                comment.acceptType === "NONE" &&
-                comment.apply && (
-                  <div className={classes.acceptArea}>
-                    <ActionButton
-                      type="outline"
-                      handleClick={() =>
-                        handleAcceptBtn(
-                          1,
-                          comment.replyId,
-                          comment.writerNickName,
-                        )
-                      }
-                    >
-                      수락하기
-                    </ActionButton>
-                    <ActionButton
-                      type="outline"
-                      handleClick={() =>
-                        handleRejectBtn(
-                          2,
-                          comment.replyId,
-                          comment.writerNickName,
-                        )
-                      }
-                    >
-                      거절하기
-                    </ActionButton>
-                  </div>
-                )}
-              {comment.acceptType === "ACCEPT" && (
+              {isMyProject && comment.acceptType === "NONE" && comment.apply ? (
+                <div className={classes.acceptArea}>
+                  <ActionButton
+                    type="outline"
+                    handleClick={() =>
+                      handleAcceptBtn(
+                        1,
+                        comment.replyId,
+                        comment.writerNickName,
+                      )
+                    }
+                  >
+                    수락하기
+                  </ActionButton>
+                  <ActionButton
+                    type="outline"
+                    handleClick={() =>
+                      handleRejectBtn(
+                        2,
+                        comment.replyId,
+                        comment.writerNickName,
+                      )
+                    }
+                  >
+                    거절하기
+                  </ActionButton>
+                </div>
+              ) : null}
+              {comment.acceptType === "ACCEPT" ? (
                 <div className={classes.acceptArea}>
                   <Tooltip type="APPROVE">팀원으로 수락한 유저입니다.</Tooltip>
                 </div>
-              )}
-              {comment.acceptType === "REFUSE" && (
+              ) : null}
+              {comment.acceptType === "REFUSE" ? (
                 <div className={classes.acceptArea}>
                   <Tooltip type="REJECT">팀원으로 거절한 유저입니다.</Tooltip>
                 </div>
-              )}
+              ) : null}
             </div>
           </li>
         ))}
