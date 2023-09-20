@@ -247,12 +247,8 @@ const DetailComments = () => {
               <div
                 className={classes.userImage}
                 onClick={() => goToUserMyPage(comment.writerId)}
-                // onClick={() => navigate(`/mypage/${comment.writerId}`)}
               >
-                <img
-                  src={comment.writerImageURL}
-                  alt={`${comment.writerNickName} 프로필사진`}
-                />
+                <img src={comment.writerImageURL} alt="" />
               </div>
               <div className={classes.usernameAndDate}>
                 <div className={classes.username}>{comment.writerNickName}</div>
