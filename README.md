@@ -1,7 +1,7 @@
 <br />
 
 <div  align="center">
-  <img width="100%" src="https://github.com/codestates-seb/seb45_main_024/assets/85465266/d74af089-120b-4987-b12c-e9b1f127ea04" alt="stackoverflow">
+  <img width="100%" src="https://github.com/codestates-seb/seb45_main_024/assets/85465266/4031b821-ac2e-403f-aa74-e293b092703b" alt="stackoverflow">
 </div>
 
 <br />
@@ -19,8 +19,8 @@
 ## 🫐 Team
 
 | 김재희<br>(BE, 팀장) | 김지원<br>(BE) | 이호준<br>(BE) | 김동준<br>(FE, 부팀장) | 백소원<br>(FE) | 최지우<br>(FE) |
-| :---: | :---: | :---: |:-------------------------------------------------------------------------------------:| :---: | :---: |
-|<p align="left">- 로그인/회원가입 및 스프링 시큐리티 설정 <br /> - 비밀번호 재설정 구현 <br /> - 마이페이지: 프로필 CRUD 구현 <br /> - 마이페이지: 참여한 프로젝트  CRUD 구현 <br /> - S3 이용한 이미지 업로드 구현</p>|<p align="left">- Find Team 게시판 CRUD 구현 <br /> - 리뷰 등록 조회 구현</p>|<p align="left">- Find Mate 게시판 CRUD <br /> - Find Mate 게시판 검색/정렬 기능 <br /> - Find Mate 게시판 댓글 CRUD <br /> - Find Mate 게시판 댓글 CRUD <br /> - 프로젝트 참여 로직 <br /> - 알람 로직 <br /> - 배포환경 구축(EC2/S3/RDS) </p>| <p align="left">- 토큰 처리 및 회원인증권한 기능 <br /> - API 콜 인스턴스 세팅 <br /> - 실시간 알람 폴링 기능 <br /> - Header 및 Footer 공통 컴포넌트 <br /> - 로그인 페이지 <br /> - 회원가입 페이지 <br /> - 비밀번호 찾기 페이지 </p> |<p align="left"> - Find Mate 게시판 CRUD <br /> - Find Mate 게시판 검색/정렬 <br /> - Find Team 게시판 CRUD <br /> - Find Team 게시판 검색/정렬 <br /> - Find Team 댓글 CRUD <br /> - AWS S3 배포 </p>|<p align="left">- 마이페이지: 프로필 CRUD 기능 <br /> - 마이페이지: 동료리뷰 CRUD 기능 <br /> - 마이페이지: 회원정보 UD 기능 <br /> - 기타 마이페이지 내부 기능 <br /> - 기술태그 컴포넌트 구현 <br /> - 유저플로우 다이어그램 작성</p> |
+| :---: | :---: | :---: | :---:| :---: | :---: |
+|<p align="left">- 로그인/회원가입 및 스프링 시큐리티 설정 <br /> - 비밀번호 재설정 구현 <br /> - 마이페이지: 프로필 CRUD 구현 <br /> - 마이페이지: 참여한 프로젝트  CRUD 구현 <br /> - S3 이용한 이미지 업로드 구현</p>|<p align="left">- Find Team 게시판 CRUD 구현 <br /> - Find Team 게시판 검색/정렬 기능 <br /> - 리뷰 등록 조회 구현</p>|<p align="left">- Find Mate 게시판 CRUD <br /> - Find Mate 게시판 검색/정렬 기능 <br /> - Find Mate 게시판 댓글 CRUD <br /> - 프로젝트 참여 로직 <br /> - 알람 로직 <br /> - 배포환경 구축(EC2/S3/RDS) </p>| <p align="left">- 토큰 처리 및 회원인증권한 기능 <br /> - API 콜 인스턴스 세팅 <br /> - 실시간 알람 폴링 기능 <br /> - Header 및 Footer 공통 컴포넌트 <br /> - 로그인 페이지 <br /> - 회원가입 페이지 <br /> - 비밀번호 찾기 페이지 </p> |<p align="left"> - Find Mate 게시판 CRUD <br /> - Find Mate 게시판 검색/정렬 <br /> - Find Team 게시판 CRUD <br /> - Find Team 게시판 검색/정렬 <br /> - Find Team 댓글 CRUD <br /> - AWS S3 배포 </p>|<p align="left">- 마이페이지: 프로필 CRUD 기능 <br /> - 마이페이지: 동료리뷰 CRUD 기능 <br /> - 마이페이지: 회원정보 UD 기능 <br /> - 기타 마이페이지 내부 기능 <br /> - 기술태그 컴포넌트 구현 <br /> - 유저플로우 다이어그램 작성</p> |
 
 <br />
 
