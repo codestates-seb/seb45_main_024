@@ -37,7 +37,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
-  const [projectImage, setProjectImage] = useState<string>("");
   const [projectId, setProjectId] = useState<number>(0);
   const [showInput, setShowInput] = useState<boolean>(false);
   const editorChangeHandler = (value: string) => {
@@ -256,8 +255,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             setProjectName={setProjectName}
             projectLink={projectLink}
             setProjectLink={setProjectLink}
-            projectImage={projectImage}
-            setProjectImage={setProjectImage}
             projTags={projTags}
             setProjTags={setProjTags}
             projSet={projSet}
