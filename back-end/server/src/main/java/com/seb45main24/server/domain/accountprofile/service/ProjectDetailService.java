@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailRequest;
 import com.seb45main24.server.domain.accountprofile.dto.ProjectDetailResponse;
@@ -35,33 +36,47 @@ public class ProjectDetailService {
 	private final ProjectDetailsRepository projectDetailsRepository;
 	private final ProjectDetailsMapper projectDetailsMapper;
 	private final ImageRepository imageRepository;
-
+	private final AwsS3Service awsS3Service;
 
 	@Transactional
-	public ProjectDetails createProjectDetails(Long accountId, ProjectDetailRequest request) {
+	public ProjectDetails createProjectDetails(Long accountId, ProjectDetails projectDetails, MultipartFile projectImage) {
 		AccountProfile accountProfile = findAccountProfileById(accountId);
+		UploadImage uploadImage = awsS3Service.uploadImage(projectImage);
 
-		// ProjectDetailRequest에서 필요한 정보 추출
-		String projectTitle = request.getProjectTitle();
-		String projectUrl = request.getProjectUrl();
 		Image image = Image.builder()
-			.imageName(request.getUploadImage().getImageName())
+			.imageName(uploadImage.getImageName())
+			.imageUrl(uploadImage.getImageUrl())
 			.imageType("PROJECT_IMG")
-			.imageUrl(request.getUploadImage().getImageUrl())
 			.build();
 
 		// Image 엔터티를 저장
 		Image savedImage = imageRepository.save(image);
 
-		// ProjectDetails 엔터티 생성 및 저장
-		ProjectDetails projectDetails = new ProjectDetails();
-		projectDetails.setProjectTitle(projectTitle);
-		projectDetails.setProjectUrl(projectUrl);
 		projectDetails.setAccountProfile(accountProfile);
-		projectDetails.setImage(savedImage); // Image와 연결
+		projectDetails.setImage(savedImage);
 
 		return projectDetailsRepository.save(projectDetails);
 	}
+
+	@Transactional
+	public ProjectDetails createProfileDetailsWithoutImage (Long accountId, ProjectDetails projectDetails) {
+		AccountProfile accountProfile = findAccountProfileById(accountId);
+
+		Image image = Image.builder()
+			.imageName("")
+			.imageUrl("")
+			.imageType("")
+			.build();
+
+		imageRepository.save(image);
+
+		projectDetails.setAccountProfile(accountProfile);
+		projectDetails.setImage(image);
+
+		return projectDetailsRepository.save(projectDetails);
+	}
+
+
 
 	// 회원 등록시 기본값 생성을 위한 메서드
 	public ProjectDetails createDefault() {

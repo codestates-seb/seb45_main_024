@@ -60,11 +60,13 @@ public class AccountController {
 	@PatchMapping("/{account-id}")
 	public ResponseEntity patchAccount(@PathVariable("account-id") Long accountId,
 		@LoginAccountId Long loginAccountId,
-		@Valid @RequestBody AccountPatchDto patchDto) {
+		@Valid AccountPatchDto patchDto,
+		@RequestPart(required = false) MultipartFile multipartFile) {
 
-		patchDto.addAccountId(accountId);
 		Account account = mapper.accountPatchDtoToAccount(patchDto);
-		Account updateAccount = accountService.updateAccount(account, loginAccountId);
+		account.setId(accountId);
+
+		Account updateAccount = accountService.updateAccount(account, loginAccountId, multipartFile);
 
 		AccountPatchResponseDto patchDto1 = mapper.AccountPatchToResponseDto(updateAccount);
 
