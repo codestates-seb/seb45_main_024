@@ -15,7 +15,7 @@ const Pagination = ({ totalCards, currentPage, onChangePage }: Props) => {
   currentPage = +currentPage; // currentPage를 숫자로 타입 변환
 
   const handlePageChange = page => {
-    console.log("handlePageChange");
+    // console.log("handlePageChange");
     onChangePage(page);
   };
 

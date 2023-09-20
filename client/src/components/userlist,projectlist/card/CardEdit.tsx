@@ -35,6 +35,7 @@ const CardEdit = ({ cardData }: CardEditProps) => {
 
   const [newTitle, setNewTitle] = useState("");
   const date = getStringDate(createdAt);
+  // const date = createdAt;
 
   useEffect(() => {
     setNewTitle(title);

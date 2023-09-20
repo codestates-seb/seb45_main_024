@@ -6,7 +6,7 @@ import {
   removeComment,
 } from "../thunks/commentsThunks";
 
-import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
+// import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 const initialState = {
   data: [],
@@ -18,18 +18,18 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     // GET
-    builder.addCase(getComments.pending, (state, action) => {
+    builder.addCase(getComments.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(getComments.fulfilled, (state, action) => {
+    builder.addCase(getComments.fulfilled, () => {
       // state.data = action.payload;
     });
-    builder.addCase(getComments.rejected, (state, action) => {
+    builder.addCase(getComments.rejected, () => {
       // state.data = dummyData.teamboards.data; // 서버 안될시 TEST
     });
 
     // ADD
-    builder.addCase(addComment.pending, (state, action) => {
+    builder.addCase(addComment.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
       // console.log("✅ ADD TEST PENDING");
     });
@@ -37,24 +37,24 @@ const commentsSlice = createSlice({
       state.data.push(action.payload);
       // console.log("✅ ADD COMMENT FULFILLED");
     });
-    builder.addCase(addComment.rejected, (state, action) => {
+    builder.addCase(addComment.rejected, () => {
       // console.log("✅ ADD COMMENT REJECTED");
     });
 
     // EDIT
-    builder.addCase(editComment.pending, (state, action) => {
+    builder.addCase(editComment.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(editComment.fulfilled, (state, action) => {
+    builder.addCase(editComment.fulfilled, (_, action) => {
       console.log(action.payload);
       // console.log("✅ EDIT COMMENT FULFILLED");
     });
-    builder.addCase(editComment.rejected, (state, action) => {
+    builder.addCase(editComment.rejected, () => {
       // console.log("✅ EDIT COMMENT REJECTED");
     });
 
     // REMOVE
-    builder.addCase(removeComment.fulfilled, (state, action) => {
+    builder.addCase(removeComment.fulfilled, () => {
       // console.log(state.data);
       // console.log(action.payload);
     });

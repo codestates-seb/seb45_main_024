@@ -7,11 +7,17 @@ import {
   removeProject,
 } from "../thunks/projectsThunks";
 
-import { ProjectListResponse } from "../../../model/boardTypes";
+import { ProjectListDataType, PageInfo } from "../../../model/boardTypes";
 
-import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
+// import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
-const initialState: ProjectListResponse = {
+interface ProjectSliceType {
+  data: ProjectListDataType[];
+  currentData?: ProjectListDataType;
+  pageInfo: PageInfo;
+}
+
+const initialState: ProjectSliceType = {
   data: [],
   pageInfo: {
     page: 1,
@@ -27,45 +33,45 @@ const projectsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     // Fetch
-    builder.addCase(fetchProjectList.pending, (state, action) => {
+    builder.addCase(fetchProjectList.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchProjectList.fulfilled, (state, action) => {
       state.data = action.payload.listData;
       state.pageInfo = action.payload.pageInfo;
     });
-    builder.addCase(fetchProjectList.rejected, (state, action) => {
-      state.data = dummyData.memberboards.data; // 서버 안될시 TEST
+    builder.addCase(fetchProjectList.rejected, () => {
+      // state.data = dummyData.memberboards.data; // 서버 안될시 TEST
     });
 
     // Get
-    builder.addCase(getProject.pending, (state, action) => {
+    builder.addCase(getProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(getProject.fulfilled, (state, action) => {
       state.currentData = action.payload;
     });
-    builder.addCase(getProject.rejected, (state, action) => {
-      state.currentData = dummyData.memberboards.data[0]; // 서버 안될시 TEST
+    builder.addCase(getProject.rejected, () => {
+      // state.currentData = dummyData.memberboards.data[0]; // 서버 안될시 TEST
     });
 
     // Add
-    builder.addCase(addProject.pending, (state, action) => {
+    builder.addCase(addProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(addProject.fulfilled, (state, action) => {
       state.data.push(action.payload);
     });
-    builder.addCase(addProject.rejected, (state, action) => {});
+    builder.addCase(addProject.rejected, () => {});
 
     // Edit
-    builder.addCase(editProject.pending, (state, action) => {
+    builder.addCase(editProject.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(editProject.fulfilled, (state, action) => {
+    builder.addCase(editProject.fulfilled, () => {
       // console.log("✅ EDIT PROJECT FULFILLED");
     });
-    builder.addCase(editProject.rejected, (state, action) => {
+    builder.addCase(editProject.rejected, () => {
       // console.log("✅ EDIT PROJECT REJECTED");
     });
 
