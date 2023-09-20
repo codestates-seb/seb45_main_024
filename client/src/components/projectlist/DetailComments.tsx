@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as EditSvg } from "../../assets/icons/edit.svg";
 import { ReactComponent as DeleteSvg } from "../../assets/icons/delete.svg";
@@ -38,13 +38,9 @@ const DetailComments = () => {
 
   // 작성자가 본인인지 확인
   const isMyProject = writerId === tokenId;
-  // console.log("게시글 작성자인가요? ", isMyProject);
-
-  // console.log("replyList", comments);
 
   // 댓글 등록
   const [content, setContent] = useState("");
-  // const [isApply, setIsApply] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
   const data = {
@@ -220,6 +216,18 @@ const DetailComments = () => {
     }
   };
 
+  // 한국 시간으로 변환
+  const getKoreaTime = (serverTime: string) => {
+    const serverDate = new Date(serverTime);
+
+    const koreaTimeOffset = 9 * 60; // 한국 표준시 계산
+    const koreaTime = new Date(
+      serverDate.getTime() + koreaTimeOffset * 60000,
+    ).toLocaleString();
+
+    return koreaTime;
+  };
+
   return (
     <section className={classes.comments}>
       <h4>댓글</h4>
@@ -253,7 +261,7 @@ const DetailComments = () => {
               <div className={classes.usernameAndDate}>
                 <div className={classes.username}>{comment.writerNickName}</div>
                 <div className={classes.date}>
-                  {new Date(comment.createAt).toLocaleString()}
+                  {getKoreaTime(comment.createAt)}
                 </div>
               </div>
               <div className={classes.editArea}>

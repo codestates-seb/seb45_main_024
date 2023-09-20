@@ -29,6 +29,7 @@ const DetailContent = () => {
 
   const dispatch = useAppDispatch();
   const currentProject = useAppSelector(state => state.projects.currentData);
+  console.log(currentProject);
   const {
     title,
     content,
@@ -87,7 +88,7 @@ const DetailContent = () => {
           // onClick={() => navigate(`/mypage/${writerId}`)}
           onClick={() => goToUserMyPage(writerId)}
         >
-          <img src={writerImageURL} alt={`${writerNickName} 프로필사진`} />
+          <img src={writerImageURL} alt="" />
         </div>
         <div className={classes.username}>{writerNickName}</div>
         <div className={classes.date}>{createdDate}</div>

@@ -12,11 +12,3 @@ export const sliceISOString = (date: string) => {
 export const requestFormatDate = (date: string) => {
   return new Date(date).toISOString().split(".")[0];
 };
-
-// export const requestFormatDate = (date: string) => {
-//   const koreanDate = new Date(date).toLocaleString("ko-KR", {
-//     timeZone: "Asia/Seoul",
-//   });
-
-//   return koreanDate;
-// };
