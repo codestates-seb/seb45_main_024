@@ -8,10 +8,7 @@ import Selectbox from "../../components/userlist,projectlist/Selectbox";
 import SearchInput from "../../components/userlist,projectlist/SearchInput";
 import Tag from "../userlist,projectlist/Tag";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
-import {
-  extractNumbersBeforeColon,
-  extractTextAfterColon,
-} from "../../utility/exceptColonFromTechResponse";
+import { extractNumbersBeforeColon } from "../../utility/exceptColonFromTechResponse";
 
 import { addUserCard } from "../../redux/store";
 import { editUserCard } from "../../redux/store";

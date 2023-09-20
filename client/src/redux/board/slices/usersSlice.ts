@@ -38,52 +38,52 @@ const usersSlice = createSlice({
   },
   extraReducers(builder) {
     // Fetch
-    builder.addCase(fetchUserCardList.pending, (state, action) => {
+    builder.addCase(fetchUserCardList.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
     builder.addCase(fetchUserCardList.fulfilled, (state, action) => {
       state.data = action.payload.listData;
       state.pageInfo = action.payload.pageInfo;
     });
-    builder.addCase(fetchUserCardList.rejected, (state, action) => {
+    builder.addCase(fetchUserCardList.rejected, state => {
       state.data = dummyData.teamboards.data; // 서버 안될시 TEST
     });
 
     // Get
-    builder.addCase(getUserCard.pending, (state, action) => {
+    builder.addCase(getUserCard.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(getUserCard.fulfilled, (state, action) => {
+    builder.addCase(getUserCard.fulfilled, () => {
       // state.data = action.payload;
     });
-    builder.addCase(getUserCard.rejected, (state, action) => {
+    builder.addCase(getUserCard.rejected, () => {
       // state.data = dummyData.teamboards.data; // 서버 안될시 TEST
     });
 
     // Add
-    builder.addCase(addUserCard.pending, (state, action) => {
+    builder.addCase(addUserCard.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
       // console.log("✅ ADD TEST PENDING");
     });
-    builder.addCase(addUserCard.fulfilled, (state, action) => {
+    builder.addCase(addUserCard.fulfilled, state => {
       // state.data.push(action.payload);
       state.editTitle = "";
       // console.log("✅ ADD TEST FULFILLED");
     });
-    builder.addCase(addUserCard.rejected, (state, action) => {
+    builder.addCase(addUserCard.rejected, () => {
       // console.log("action.payload", action.payload);
       // console.log("✅ ADD TEST REJECTED");
     });
 
     // Edit
-    builder.addCase(editUserCard.pending, (state, action) => {
+    builder.addCase(editUserCard.pending, () => {
       // throw new Error(); // 서버 안될시 TEST
     });
-    builder.addCase(editUserCard.fulfilled, (state, action) => {
+    builder.addCase(editUserCard.fulfilled, state => {
       state.editTitle = "";
       // console.log("✅ EDIT USER FULFILLED");
     });
-    builder.addCase(editUserCard.rejected, (state, action) => {
+    builder.addCase(editUserCard.rejected, () => {
       // console.log("✅ EDIT USER REJECTED");
     });
 

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import { validationActions } from "../../../redux/auth/validationSlice";
 import authInstance from "../../../utility/authInstance";
-import { setAuthorInfo } from "../../../redux/mypage/authorInfoSlice";
 import { removeTokensFromLocalStorage } from "../../../utility/tokenStorage";
 import view from "../../../assets/icons/view.svg";
 import viewOff from "../../../assets/icons/viewOff.svg";
@@ -14,7 +13,7 @@ interface EditFormProps {
 }
 
 interface MyInfoData {
-  newImage?: string;
+  newImage?: File;
   nickname?: string;
   password?: string;
   confirmPassword: string;
@@ -33,7 +32,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
     (state) => state.validation.confirmPasswordError
   );
   const [myInfo, setMyInfo] = useState<MyInfoData>({
-    newImage: "",
+    newImage: undefined,
     nickname: "",
     password: "",
     confirmPassword: "",
@@ -47,6 +46,13 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
       ...myInfo,
       [fieldName]: value,
     });
+    if (fieldName === "profileImage") {
+      const file = event.target.files?.[0];
+      setMyInfo((prevState) => ({
+        ...prevState,
+        newImage: file,
+      }));
+    }
     if (fieldName === "nickname") {
       setMyInfo((prevState) => ({
         ...prevState,
@@ -73,40 +79,24 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const infoSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const infoData = {
-      nickname: myInfo.nickname,
-      password: myInfo.password,
-      imageUrl: myInfo.newImage,
-      imageName: myInfo.nickname,
-    };
-
-    // const imgData = {
-    //   multipartFile: myInfo.newImage,
-    // };
+    const infoData = new FormData();
+    infoData.append("nickname", myInfo.nickname);
+    infoData.append("password", myInfo.password);
+    infoData.append("multipartFile", myInfo.newImage);
 
     try {
-      // const res = await authInstance.patch(`/accounts/${id}`, infoData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
-      const res = await authInstance.patch(`/accounts/${id}`, infoData);
-      // try {
-      //   const imgRes = await authInstance.post(`/S3/image`, imgData, {
-      //     headers: { "Content-Type": "multipart/form-data" },
-      //   });
-      //   console.log(imgRes.data);
-      // } catch (err) {
-      //   console.info("Failed to upload image", err);
-      // }
-      console.log(res.data);
-      dispatch(
-        setAuthorInfo({
-          isAuthor: true,
-          authorId: id,
-          email: myInfo.nickname,
-          nickname: myInfo.nickname,
-          imgUrl: res.data.imageUrl,
-        })
-      );
+      const res = await authInstance.patch(`/accounts/${id}`, infoData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      // dispatch(
+      //   setAuthorInfo({
+      //     isAuthor: true,
+      //     authorId: id,
+      //     email: myInfo.nickname,
+      //     nickname: myInfo.nickname,
+      //     imgUrl: res.data.imageUrl,
+      //   })
+      // );
       await authInstance.post("/accounts/logout");
       removeTokensFromLocalStorage();
       window.location.href = "/login";
