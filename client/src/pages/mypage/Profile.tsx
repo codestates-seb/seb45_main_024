@@ -153,7 +153,7 @@ const Profile: FC = () => {
               <div
                 className={
                   classes.hardContent +
-                  (!profile.hardSkills.filter(Boolean) ||
+                  (!profile.hardSkills ||
                   profile.hardSkills.filter(Boolean).length === 0
                     ? " " + classes.centerContent
                     : "")
@@ -179,7 +179,7 @@ const Profile: FC = () => {
               <div
                 className={
                   classes.softContent +
-                  (!profile.softSkills.filter(Boolean) ||
+                  (!profile.softSkills ||
                   profile.softSkills.filter(Boolean).length === 0
                     ? " " + classes.centerContent
                     : "")
@@ -187,11 +187,9 @@ const Profile: FC = () => {
               >
                 {profile.softSkills ? (
                   profile.softSkills.filter(Boolean).length > 0 ? (
-                    profile.softSkills
-                      .filter(Boolean)
-                      .map((softTag, index) => (
-                        <SoftTag key={index} techName={softTag} />
-                      ))
+                    profile.softSkills.map((softTag, index) => (
+                      <SoftTag key={index} techName={softTag} />
+                    ))
                   ) : (
                     <NoContent />
                   )
