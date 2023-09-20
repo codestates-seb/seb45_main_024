@@ -37,7 +37,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
   const [projectLink, setProjectLink] = useState<string>("");
-  const [projectImage, setProjectImage] = useState<string>("");
   const [projectId, setProjectId] = useState<number>(0);
   const [showInput, setShowInput] = useState<boolean>(false);
   const editorChangeHandler = (value: string) => {
@@ -202,7 +201,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {hardTags.map((hardTag, index) => (
+        {hardTags.filter(Boolean).map((hardTag, index) => (
           <SoftTag
             key={index}
             techName={hardTag}
@@ -220,7 +219,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
-        {softTags.map((softTag, index) => (
+        {softTags.filter(Boolean).map((softTag, index) => (
           <SoftTag
             key={index}
             techName={softTag}
@@ -256,8 +255,6 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
             setProjectName={setProjectName}
             projectLink={projectLink}
             setProjectLink={setProjectLink}
-            projectImage={projectImage}
-            setProjectImage={setProjectImage}
             projTags={projTags}
             setProjTags={setProjTags}
             projSet={projSet}

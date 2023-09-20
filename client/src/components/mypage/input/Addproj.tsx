@@ -1,11 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from "./Addproj.module.css";
 import authInstance from "../../../utility/authInstance";
 
 interface AddprojProps {
   projectName: string;
   projectLink: string;
-  projectImage: string;
   projTags: string[];
   projSet: object[];
   projectId: number;
@@ -13,7 +12,6 @@ interface AddprojProps {
   setProjectId: React.Dispatch<React.SetStateAction<number>>;
   setProjectName: React.Dispatch<React.SetStateAction<string>>;
   setProjectLink: React.Dispatch<React.SetStateAction<string>>;
-  setProjectImage: React.Dispatch<React.SetStateAction<string>>;
   setProjTags: React.Dispatch<React.SetStateAction<string[]>>;
   setProjSet: React.Dispatch<React.SetStateAction<object[]>>;
 }
@@ -21,34 +19,39 @@ interface AddprojProps {
 const Addproj: FC<AddprojProps> = ({
   projectName,
   projectLink,
-  projectImage,
   projSet,
   // projectId,
   setShowInput,
   setProjectId,
   setProjectName,
   setProjectLink,
-  setProjectImage,
   setProjSet,
   projTags,
   setProjTags,
 }) => {
+  const [projectImage, setProjectImage] = useState<File | null>(null);
+  const fileInputChangedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setProjectImage(file);
+  };
+
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const projectDetails = {
-      projectTitle: projectName,
-      projectUrl: projectLink,
-      uploadImage: {
-        imageName: projectName,
-        imageUrl: projectImage,
-      },
-    };
+    const projectDetails = new FormData();
+    projectDetails.append("projectTitle", projectName);
+    projectDetails.append("projectUrl", projectLink);
+    projectDetails.append("multipartFile", projectImage);
+
     try {
       const response = await authInstance.post(
         `/mypages/profile/projectDetails`,
-        projectDetails
+        projectDetails,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
       );
+
       const projectId = response.data.projectDetailId;
       setProjectId(projectId);
       projSet.push({
@@ -56,6 +59,10 @@ const Addproj: FC<AddprojProps> = ({
         projectTitle: projectName,
       });
       setProjSet(projSet);
+      setProjectName("");
+      setProjectLink("");
+      // setProjectImage(null);
+      closeInputHandler();
     } catch (err) {
       console.info("Error submitting project", err);
     }
@@ -114,12 +121,13 @@ const Addproj: FC<AddprojProps> = ({
           className={classes.formInput}
           id="projectImage"
           type="file"
-          value={projectImage}
-          onChange={(e) => setProjectImage(e.target.value)}
+          onChange={(e) => fileInputChangedHandler(e)}
         />
       </div>
       <div className={classes.actions}>
-        <button className={classes.cancelButton} onClick={closeInputHandler}>취소</button>
+        <button className={classes.cancelButton} onClick={closeInputHandler}>
+          취소
+        </button>
         <button
           type="submit"
           className={classes.submitButton}
