@@ -36,11 +36,17 @@ public class ProjectDetailsController {
 
 		ProjectDetails projectDetails = projectDetailsMapper.toProjectDetail(request);
 
-		ProjectDetails content = projectDetailService.createProjectDetails(loginAccountId, projectDetails, multipartFile);
+		if(multipartFile != null) {
 
-		ProjectDetailResponse response = projectDetailsMapper.toProjectDetailResponse(content);
+			ProjectDetails content = projectDetailService.createProjectDetails(loginAccountId, projectDetails, multipartFile);
+			ProjectDetailResponse response = projectDetailsMapper.toProjectDetailResponse(content);
+			return new ResponseEntity(response, HttpStatus.OK);
 
-		return new ResponseEntity(response, HttpStatus.OK);
+		} else {
+			ProjectDetails content = projectDetailService.createProfileDetailsWithoutImage(loginAccountId, projectDetails);
+			ProjectDetailResponse response = projectDetailsMapper.toProjectDetailResponse(content);
+			return new ResponseEntity(response, HttpStatus.OK);
+		}
 	}
 
 

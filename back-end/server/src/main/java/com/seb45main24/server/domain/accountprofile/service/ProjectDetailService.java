@@ -58,6 +58,26 @@ public class ProjectDetailService {
 		return projectDetailsRepository.save(projectDetails);
 	}
 
+	@Transactional
+	public ProjectDetails createProfileDetailsWithoutImage (Long accountId, ProjectDetails projectDetails) {
+		AccountProfile accountProfile = findAccountProfileById(accountId);
+
+		Image image = Image.builder()
+			.imageName("")
+			.imageUrl("")
+			.imageType("")
+			.build();
+
+		imageRepository.save(image);
+
+		projectDetails.setAccountProfile(accountProfile);
+		projectDetails.setImage(image);
+
+		return projectDetailsRepository.save(projectDetails);
+	}
+
+
+
 	// 회원 등록시 기본값 생성을 위한 메서드
 	public ProjectDetails createDefault() {
 		// ProjectDetail 엔티티 생성 및 빈 값으로 초기화
