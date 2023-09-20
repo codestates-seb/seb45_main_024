@@ -59,6 +59,10 @@ const Addproj: FC<AddprojProps> = ({
         projectTitle: projectName,
       });
       setProjSet(projSet);
+      setProjectName("");
+      setProjectLink("");
+      // setProjectImage(null);
+      closeInputHandler();
     } catch (err) {
       console.info("Error submitting project", err);
     }
