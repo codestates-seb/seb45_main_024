@@ -7,6 +7,7 @@ import authInstance from "../../../utility/authInstance";
 import { setAuthorInfo } from "../../../redux/mypage/authorInfoSlice";
 import { removeTokensFromLocalStorage } from "../../../utility/tokenStorage";
 import view from "../../../assets/icons/view.svg";
+import viewOff from "../../../assets/icons/viewOff.svg";
 
 interface EditFormProps {
   onClose: () => void;
@@ -145,7 +146,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           />
           <img
             className={classes.viewPassword}
-            src={view}
+            src={showPassword ? viewOff : view}
             onClick={() => setShowPassword((prev) => !prev)}
           />
         </div>
@@ -163,7 +164,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           />
           <img
             className={classes.viewPassword}
-            src={view}
+            src={showConfirmPassword ? viewOff : view}
             onClick={() => setShowConfirmPassword((prev) => !prev)}
           />
         </div>

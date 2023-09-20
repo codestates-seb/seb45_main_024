@@ -84,12 +84,14 @@
 .hardContent {
   margin-top: 16px;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .softContent {
   margin-top: 16px;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

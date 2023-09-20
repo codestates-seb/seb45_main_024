@@ -66,25 +66,28 @@ const Review: FC = () => {
               )}
             </section>
           </div>
-          <div className={classes.addReviewContainer}>
-            <h2 className={classes.subtitle}>
-              {authorInfo.nickname} 님과 함께 프로젝트를 하신 경험이 있으신가요?
-            </h2>
-            {/* AddReview form 렌더링 */}
-            {showAddReview ? (
-              <AddReview
-                onClose={closeAddReviewHandler}
-                authorId={authorInfo.authorId}
-              />
-            ) : (
-              <button
-                className={classes.addReviewButton}
-                onClick={showAddReviewhandler}
-              >
-                코멘트 남기기
-              </button>
-            )}
-          </div>
+          {!authorInfo.isAuthor && (
+            <div className={classes.addReviewContainer}>
+              <h2 className={classes.subtitle}>
+                {authorInfo.nickname} 님과 함께 프로젝트를 하신 경험이
+                있으신가요?
+              </h2>
+              {/* AddReview form 렌더링 */}
+              {showAddReview ? (
+                <AddReview
+                  onClose={closeAddReviewHandler}
+                  authorId={authorInfo.authorId}
+                />
+              ) : (
+                <button
+                  className={classes.addReviewButton}
+                  onClick={showAddReviewhandler}
+                >
+                  코멘트 남기기
+                </button>
+              )}
+            </div>
+          )}
         </section>
       </div>
     </>
