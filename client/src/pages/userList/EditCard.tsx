@@ -25,9 +25,7 @@ const EditCard = () => {
     }
   }, [usercardId, userCardList, navigate]);
 
-  return (
-    <>{originCard && <CardEditor type="EDIT_CARD" originCard={originCard} />}</>
-  );
+  return <>{originCard && <CardEditor originCard={originCard} />}</>;
 };
 
 export default EditCard;

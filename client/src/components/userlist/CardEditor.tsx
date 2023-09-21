@@ -21,10 +21,10 @@ import authInstance from "../../utility/authInstance";
 import dummyData from "../../dummy-data.json";
 import GetLogo from "../mypage/format/GetLogo";
 
-type CardType = "NEW_CARD" | "EDIT_CARD";
+// type CardType = "NEW_CARD" | "EDIT_CARD";
 
 interface CardEditorProps {
-  type: CardType;
+  // type?: CardType;
   originCard?: UserListDataType;
 }
 
@@ -39,10 +39,11 @@ interface TechTagTypes {
   tagType: "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
 }
 
-const CardEditor = ({ type, originCard }: CardEditorProps) => {
-  // console.log("✅ ORIGIN CARD", originCard);
-  const NEW_CARD = type === "NEW_CARD";
-  const EDIT_CARD = type === "EDIT_CARD";
+// originCard가 있으면 EDIT_CARD, originCard가 없으면 NEW_CARD
+const CardEditor = ({ originCard }: CardEditorProps) => {
+  console.log("✅ ORIGIN CARD", originCard);
+  // const NEW_CARD = type === "NEW_CARD";
+  // const EDIT_CARD = type === "EDIT_CARD";
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -146,8 +147,10 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
   /** EDIT CARD인 경우 (카드 수정) */
   useEffect(() => {
-    if (EDIT_CARD) {
+    if (originCard) {
       // const techId = extractNumbersBeforeColon(originCard?.techTagList);
+
+      // console.log("EDIT CARD", originCard);
 
       setDate(originCard?.createdAt);
       setTitle(originCard?.title);
@@ -156,7 +159,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       setKeywords(originCard?.keywords);
       setTechTags(extractNumbersBeforeColon(originCard?.techTagList));
     }
-  }, [EDIT_CARD, originCard]);
+  }, [originCard]);
 
   // 수정일 경우 origin 데이터를 set하고, cardData를 props로 넘김
   // 생성일 경우 빈 값이 담긴 cardData를 card 컴포넌트로 넘김
@@ -200,12 +203,12 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
 
     if (
       window.confirm(
-        EDIT_CARD
+        originCard
           ? "카드를 수정하시겠습니까?"
           : "새로운 카드를 작성하시겠습니까?",
       )
     ) {
-      if (NEW_CARD) {
+      if (!originCard) {
         setIsLoading(true);
         setError(null);
 
@@ -223,7 +226,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
           .finally(() => setIsLoading(false));
       }
 
-      if (EDIT_CARD) {
+      if (originCard) {
         setIsLoading(true);
         setError(null);
 
@@ -243,8 +246,6 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       }
     }
   };
-
-  console.log(window.history);
 
   return (
     <main>
