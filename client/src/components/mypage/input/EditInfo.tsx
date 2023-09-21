@@ -24,6 +24,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const passwordError = useAppSelector(state => state.validation.passwordError);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showImgHelpText, setShowImgHelpText] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
@@ -48,6 +49,13 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
     });
     if (fieldName === "profileImage") {
       const file = event.target.files?.[0];
+      if (file) {
+        if (file.size > 1024 * 1024) {
+          setShowImgHelpText(true);
+        } else {
+          setShowImgHelpText(false);
+        }
+      }
       setMyInfo(prevState => ({
         ...prevState,
         newImage: file,
@@ -116,6 +124,13 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             onChange={e => myInfoChangeHandler(e, "profileImage")}
           />
         </div>
+        {showImgHelpText && (
+          <div>
+            <p className={`${classes.helpText} ${classes.imageHelp}`}>
+              1MB 이하의 파일만 업로드가 가능합니다.
+            </p>
+          </div>
+        )}
         <div className={classes.edititem}>
           <label htmlFor="nickname">닉네임</label>
           <input
