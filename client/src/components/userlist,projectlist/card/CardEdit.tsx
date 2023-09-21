@@ -26,15 +26,12 @@ interface AccessTokenType {
 
 // New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
-  const [userProfileImage, setUserProfileImage] = useState("");
+  const token = getTokensFromLocalStorage() as AccessTokenType;
 
-  useEffect(() => {
-    const token = getTokensFromLocalStorage() as AccessTokenType;
-
-    if (token) {
-      setUserProfileImage(token.imageUrl);
-    }
-  }, []);
+  let userProfileImage;
+  if (token) {
+    userProfileImage = token.imageUrl;
+  }
 
   const dispatch = useAppDispatch();
   const techTagData = useAppSelector(state => state.techTags.data);
@@ -114,18 +111,25 @@ const CardEdit = ({ cardData }: CardEditProps) => {
               readOnly
             />
           </div>
-          <Swiper
-            slidesPerView={5}
-            spaceBetween={10}
-            freeMode={true}
-            className={classes.techTags}
-          >
-            {selectedTechNames?.map(techName => (
-              <SwiperSlide key={techName}>
-                <GetLogo logoTitle={techName} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+
+          {selectedTechNames.length === 0 ? (
+            <div className={`${classes.techTags} ${classes.invalid}`}>
+              프로젝트에서 사용할 기술 스택을 선택해 주세요!
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={5}
+              spaceBetween={10}
+              freeMode={true}
+              className={classes.techTags}
+            >
+              {selectedTechNames?.map(techName => (
+                <SwiperSlide key={techName}>
+                  <GetLogo logoTitle={techName} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
       </div>
 
@@ -135,7 +139,11 @@ const CardEdit = ({ cardData }: CardEditProps) => {
           <div className={classes.userImage}>
             <img src={userProfileImage} alt="" />
           </div>
-          <div className={classes.keywordTag}>
+          <div
+            className={`${classes.keywordTag} ${
+              keywords.length === 0 && classes.invalid
+            }`}
+          >
             {keywords.map(item => (
               <span key={item}>&nbsp;#{item}</span>
             ))}

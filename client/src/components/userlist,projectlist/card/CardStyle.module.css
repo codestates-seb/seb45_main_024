@@ -112,6 +112,14 @@
     margin-top: 0.75rem;
     min-height: 40px;
 
+    &.invalid {
+      padding: 0.25rem;
+      color: var(--color-gray-3);
+      font-size: 0.75rem;
+      /* border: 1px dashed var(--color-state-error); */
+      border-radius: 8px;
+    }
+
     & .techTag {
       /* 기술스택 이미지 삽입시 */
       overflow:hidden;
@@ -160,8 +168,17 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
+    height:100%;
 
     margin-top: 1.25rem;
+
+    /* &.invalid {
+      padding: 0.25rem;
+      color: var(--color-gray-3);
+      font-size: 0.75rem;
+      border: 1px dashed var(--color-state-error);
+      border-radius: 8px;
+    } */
 
     & span {
       font-size: 1.125rem;

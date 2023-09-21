@@ -41,7 +41,7 @@ interface TechTagTypes {
 
 // originCard가 있으면 EDIT_CARD, originCard가 없으면 NEW_CARD
 const CardEditor = ({ originCard }: CardEditorProps) => {
-  console.log("✅ ORIGIN CARD", originCard);
+  // console.log("✅ ORIGIN CARD", originCard);
   // const NEW_CARD = type === "NEW_CARD";
   // const EDIT_CARD = type === "EDIT_CARD";
 
@@ -331,14 +331,13 @@ const CardEditor = ({ originCard }: CardEditorProps) => {
         <ActionButton
           type="outline"
           handleClick={() => {
-            navigate(-1, { replace: true });
+            navigate("/userlist");
           }}
         >
           취소
         </ActionButton>
         <ActionButton handleClick={handleSubmit}>
-          {location.pathname.startsWith("/userlist/edit") && "카드 수정하기"}
-          {location.pathname.startsWith("/userlist/new") && "카드 등록하기"}
+          {originCard ? "카드 수정하기" : "카드 등록하기"}
         </ActionButton>
       </div>
     </main>
