@@ -1,14 +1,14 @@
 /* User List, Project List의 GET 요청의 Response data type */
 
 export interface UserListDataType {
-  teamBoardId?: number;
+  teamBoardId: number;
   title: string;
   position: string;
   keywords: string[];
-  accountId?: number;
-  teamBoardImageUrl?: string;
+  accountId: number;
+  teamBoardImageUrl: string;
   techTagList: number[];
-  nickname?: string;
+  nickname: string;
   createdAt: string;
   modifiedAt?: string;
 }

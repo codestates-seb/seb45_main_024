@@ -244,6 +244,8 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
     }
   };
 
+  console.log(window.history);
+
   return (
     <main>
       <div className={classes.previewArea}>
@@ -328,7 +330,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
         <ActionButton
           type="outline"
           handleClick={() => {
-            navigate(-1);
+            navigate(-1, { replace: true });
           }}
         >
           취소
