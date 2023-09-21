@@ -16,10 +16,10 @@ const initialState: ValidationState = {
   email: "",
   password: "",
   confirmPassword: "",
-  nicknameError: true,
-  emailError: true,
-  passwordError: true,
-  confirmPasswordError: true,
+  nicknameError: false,
+  emailError: false,
+  passwordError: false,
+  confirmPasswordError: false,
 };
 
 const validationSlice = createSlice({
@@ -67,10 +67,10 @@ const validationSlice = createSlice({
       state.email = "";
       state.password = "";
       state.confirmPassword = "";
-      state.nicknameError = true;
-      state.emailError = true;
-      state.passwordError = true;
-      state.confirmPasswordError = true;
+      state.nicknameError = false;
+      state.emailError = false;
+      state.passwordError = false;
+      state.confirmPasswordError = false;
     },
   },
 });

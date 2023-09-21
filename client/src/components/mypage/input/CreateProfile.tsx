@@ -32,7 +32,7 @@ const WARNING = "주의: 이미 생성된 태그를 클릭하면 태그가 삭�
 const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   const { id } = useParams<{ id: string }>();
   const { profileData } = useAppSelector(
-    (state: { profile: ProfileState }) => state.profile,
+    (state: { profile: ProfileState }) => state.profile
   );
   const [editorValue, setEditorValue] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");
@@ -62,28 +62,38 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
       if (profileData.coverLetter) {
         setEditorValue(profileData.coverLetter);
       }
-      setSoftTags(prevSoftTags =>
+      setSoftTags((prevSoftTags) =>
         profileData.softSkills
           ? [...new Set([...prevSoftTags, ...profileData.softSkills])]
-          : prevSoftTags,
+          : prevSoftTags
       );
-      setHardTags(prevHardTags =>
+      setHardTags((prevHardTags) =>
         profileData.hardSkills
           ? [...new Set([...prevHardTags, ...profileData.hardSkills])]
-          : prevHardTags,
+          : prevHardTags
       );
-      setProjTags(prevProjectTags =>
+      setProjTags((prevProjectTags) =>
         profileData.projectDetails
           ? [
               ...new Set([
                 ...prevProjectTags,
                 ...profileData.projectDetails.map(
-                  (project: any) => project.projectTitle,
+                  (project: any) => project.projectTitle
                 ),
               ]),
             ]
-          : prevProjectTags,
+          : prevProjectTags
       );
+    }
+  }, [profileData]);
+
+  // 기술 스택 초기값 설정
+  useEffect(() => {
+    if (profileData?.techTags) {
+      const techTagIds = profileData.techTags.map((tag) => tag.id);
+      setSelectedTechs(techTagIds);
+      console.log(techTagIds);
+      console.log(selectedTechs);
     }
   }, [profileData]);
 
@@ -124,13 +134,13 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   };
 
   const projTagDeleteHandler = async (id: number) => {
-    const project = projSet.find(proj => proj.projectId === id);
+    const project = projSet.find((proj) => proj.projectId === id);
     if (project) {
       try {
         await authInstance.delete(
-          `/mypages/profile/projectDetails/${project.projectId}`,
+          `/mypages/profile/projectDetails/${project.projectId}`
         );
-        const updatedTags = projSet.filter(proj => proj.projectId !== id);
+        const updatedTags = projSet.filter((proj) => proj.projectId !== id);
         setProjSet(updatedTags);
       } catch (err) {
         console.info("Error deleting project", err);
@@ -150,11 +160,11 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
   }, []);
 
   const handleTagClick = (id: number, isActive: boolean) => {
-    setSelectedTechs(prevSelectedTechs => {
+    setSelectedTechs((prevSelectedTechs) => {
       if (isActive) {
         return [...prevSelectedTechs, id];
       } else {
-        return prevSelectedTechs.filter(techId => techId !== id);
+        return prevSelectedTechs.filter((techId) => techId !== id);
       }
     });
   };
@@ -191,13 +201,14 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
           techInfo={techInfo}
           setTechInfo={setTechInfo}
           onTagClick={handleTagClick}
+          selectedTechs={selectedTechs}
         />
       </section>
       <section className={classes.formItem}>
         <TitleLine title={ProfileCats.HARD} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            프로그래밍 기술 외에 내가 가지고 있는 하드 스킬을 추가해주세요.
+            프로그래밍 기술 외에 자신이 가지고 있는 하드 스킬을 추가해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
@@ -215,7 +226,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.SOFT} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            내가 가진 소프트 스킬 역량을 작성해주세요.
+            자신이 가진 소프트 스킬 역량을 작성해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>

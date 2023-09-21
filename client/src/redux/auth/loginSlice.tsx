@@ -31,7 +31,6 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       // 로그인 실패 시 에러 메시지를 사용하여 rejected 액션을 디스패치
       console.log(error);
-      alert(error);
       throw new Error("로그인에 실패했습니다.");
     }
   },
@@ -42,7 +41,7 @@ interface LoginState {
   user: null | LoginData;
   isLoggedIn: boolean;
   loading: "idle" | "pending";
-  error?: null | string; //*
+  error?: null | string;
 }
 
 const initialState: LoginState = {
