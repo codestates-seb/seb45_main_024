@@ -16,30 +16,30 @@ interface MyInfoData {
   newImage?: File;
   nickname?: string;
   password?: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }
 
 const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const passwordError = useAppSelector(
-    (state) => state.validation.passwordError
-  );
+  const passwordError = useAppSelector(state => state.validation.passwordError);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+
   const confirmPasswordError = useAppSelector(
-    (state) => state.validation.confirmPasswordError
+    state => state.validation.confirmPasswordError,
   );
   const [myInfo, setMyInfo] = useState<MyInfoData>({
     newImage: undefined,
-    nickname: "",
-    password: "",
-    confirmPassword: "",
+    nickname: undefined,
+    password: undefined,
+    confirmPassword: undefined,
   });
+
   const myInfoChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
-    fieldName: string
+    fieldName: string,
   ) => {
     const { value } = event.target;
     setMyInfo({
@@ -48,27 +48,27 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
     });
     if (fieldName === "profileImage") {
       const file = event.target.files?.[0];
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         newImage: file,
       }));
     }
     if (fieldName === "nickname") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         nickname: value,
       }));
       dispatch(validationActions.validNickname(value));
     }
     if (fieldName === "password") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         password: value,
       }));
       dispatch(validationActions.validPassword(value));
     }
     if (fieldName === "confirmPassword") {
-      setMyInfo((prevState) => ({
+      setMyInfo(prevState => ({
         ...prevState,
         confirmPassword: value,
       }));
@@ -79,29 +79,29 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
   const infoSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    console.log(myInfo);
     const infoData = new FormData();
-    infoData.append("nickname", myInfo.nickname);
-    infoData.append("password", myInfo.password);
-    infoData.append("multipartFile", myInfo.newImage);
+    if (myInfo.nickname) {
+      infoData.append("nickname", myInfo.nickname);
+    }
+    if (myInfo.password) {
+      infoData.append("password", myInfo.password);
+    }
+    if (myInfo.newImage) {
+      infoData.append("multipartFile", myInfo.newImage);
+    }
 
     try {
+      console.log(infoData);
       const res = await authInstance.patch(`/accounts/${id}`, infoData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      // dispatch(
-      //   setAuthorInfo({
-      //     isAuthor: true,
-      //     authorId: id,
-      //     email: myInfo.nickname,
-      //     nickname: myInfo.nickname,
-      //     imgUrl: res.data.imageUrl,
-      //   })
-      // );
+      console.log(res);
       await authInstance.post("/accounts/logout");
       removeTokensFromLocalStorage();
       window.location.href = "/login";
     } catch (error) {
-      console.info(error.response.message);
+      console.error(error);
     }
   };
 
@@ -113,7 +113,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <input
             id="image"
             type="file"
-            onChange={(e) => myInfoChangeHandler(e, "profileImage")}
+            onChange={e => myInfoChangeHandler(e, "profileImage")}
           />
         </div>
         <div className={classes.edititem}>
@@ -122,7 +122,7 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="nickname"
             type="text"
             placeholder="새로운 닉네임을 입력하세요"
-            onChange={(e) => myInfoChangeHandler(e, "nickname")}
+            onChange={e => myInfoChangeHandler(e, "nickname")}
           />
         </div>
         <div className={`${classes.edititem} ${classes.password}`}>
@@ -132,12 +132,12 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="새로운 비밀번호를 입력하세요"
-            onChange={(e) => myInfoChangeHandler(e, "password")}
+            onChange={e => myInfoChangeHandler(e, "password")}
           />
           <img
             className={classes.viewPassword}
             src={showPassword ? viewOff : view}
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => setShowPassword(prev => !prev)}
           />
         </div>
         {passwordError && (
@@ -147,15 +147,15 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           <label htmlFor="password">비밀번호 확인</label>
 
           <input
-            id="password"
+            id="passwordConfirm"
             type={showConfirmPassword ? "text" : "password"}
             placeholder="비밀번호를 한 번 더 입력해주세요"
-            onChange={(e) => myInfoChangeHandler(e, "confirmPassword")}
+            onChange={e => myInfoChangeHandler(e, "confirmPassword")}
           />
           <img
             className={classes.viewPassword}
             src={showConfirmPassword ? viewOff : view}
-            onClick={() => setShowConfirmPassword((prev) => !prev)}
+            onClick={() => setShowConfirmPassword(prev => !prev)}
           />
         </div>
         {confirmPasswordError && (
@@ -167,7 +167,10 @@ const EditInfo: FC<EditFormProps> = ({ onClose }) => {
           </button>
           <button
             className={`${classes.button} ${classes.save}`}
-            disabled={confirmPasswordError || passwordError}
+            disabled={
+              (myInfo.password && passwordError) ||
+              (myInfo.confirmPassword && confirmPasswordError)
+            }
             type="submit"
           >
             저장하기
