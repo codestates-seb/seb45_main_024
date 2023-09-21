@@ -13,6 +13,7 @@ interface TechTagsProps {
   techInfo: TechTagType[];
   setTechInfo: React.Dispatch<React.SetStateAction<TechTagType[]>>;
   onTagClick: (id: number, isActive: boolean) => void;
+  selectedTechs: number[];
 }
 
 const tagTypeDisplayNames = {
@@ -22,7 +23,12 @@ const tagTypeDisplayNames = {
   ETC: "| 기타",
 };
 
-const TechTags: FC<TechTagsProps> = ({ techInfo, setTechInfo, onTagClick }) => {
+const TechTags: FC<TechTagsProps> = ({
+  techInfo,
+  setTechInfo,
+  onTagClick,
+  selectedTechs,
+}) => {
   useEffect(() => {
     const getTechTags = async () => {
       try {
@@ -50,6 +56,7 @@ const TechTags: FC<TechTagsProps> = ({ techInfo, setTechInfo, onTagClick }) => {
                     id={tag.id}
                     key={tag.id}
                     onTagClick={onTagClick}
+                    isActive={selectedTechs.includes(tag.id)}
                   />
                 ))}
             </div>
