@@ -1,8 +1,8 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
-import { validationActions } from "../../redux/auth/validationSlice";
-import { loginUser } from "../../redux/auth/loginSlice";
+import { validationActions } from "../../redux/auth/validationSlice"; // 프론트단 유효성 검사 슬라이스
+import { loginUser } from "../../redux/auth/loginSlice"; // 로그인폼 서버 제출 슬라이스
 import { setAlertMessage } from "../../redux/common/alertSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getTokensFromLocalStorage } from "../../utility/tokenStorage";
@@ -18,6 +18,18 @@ interface LoginData {
 const Login: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener("popstate", () => {
+      navigate("/");
+    });
+
+    return () => {
+      window.removeEventListener("popstate", () => {
+        navigate("/");
+      });
+    };
+  }, [navigate]);
 
   const emailError = useAppSelector(state => state.validation.emailError);
   const passwordError = useAppSelector(state => state.validation.passwordError);
@@ -35,8 +47,6 @@ const Login: FC = () => {
   }, []);
 
   const loading = useAppSelector(state => state.login.loading);
-  // const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
-  // const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,7 +60,6 @@ const Login: FC = () => {
         ...prevState,
         email: value,
       }));
-      dispatch(validationActions.validEmail(value));
     }
 
     // password 필드를 업데이트하고 유효성 검사 수행
@@ -59,55 +68,69 @@ const Login: FC = () => {
         ...prevState,
         password: value,
       }));
-      dispatch(validationActions.validPassword(value));
     }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // 이메일 및 비밀번호의 유효성 검사를 수행하고 오류를 가져옴
+    const emailValidationError = dispatch(
+      validationActions.validEmail(formData.email),
+    );
+    const passwordValidationError = dispatch(
+      validationActions.validPassword(formData.password),
+    );
+
+    // 유효성 검사를 통과하지 못한 경우
+    if (emailValidationError || passwordValidationError) {
+      // 각각의 오류를 상태에 업데이트
+      if (emailValidationError) {
+        dispatch({ type: "validation/emailError", payload: true });
+      }
+      if (passwordValidationError) {
+        dispatch({ type: "validation/passwordError", payload: true });
+      }
+      // 로그인 상태를 false로 설정
+
+      dispatch({ type: "login/setIsLoggedIn", payload: false });
+    }
+
     const registerData = {
       email: formData.email,
       password: formData.password,
     };
-    await dispatch(loginUser(registerData));
-    // 일단 슬라이스 내에서 성공이든 실패든, 반응이 있으므로 try 구문으로 넘어가는 건가?
-    // 그럼 catch로 간다면, 그건 디스패치 되지 않았을 때일까? 아니, catch 구문으로 넘어갈 일이 있나?
-    // 만약 이렇다면 굳이 handleSubmit 함수를 비동기처리할 필요가 있을까
-    // 그냥 조건문 분기로 나누면 되는 거 아닌가
 
+    // 유효성 검사를 통과한 경우 로그인 요청을 보냄
+    await dispatch(loginUser(registerData));
+
+    // 로그인 요청 후 처리
     if (getTokensFromLocalStorage()) {
-      //TODO isLoggedIn의 문제점 : 로딩이 끝나고 나서야 상태 업데이트가 이뤄짐
-      //TODO 그래서 만약 이런식으로 처리할 거면 isLoggedIn 상태 업데이트 후에, 컴포넌트 try 구문 들어오게...
-      //TODO 아니면 앗싸리 isLoggedIn을 쓰지 않고 컴포넌트 단에서 로그인 처리할 방법..?
-      //TODO 그 방법인즉슨, 토큰 조회식...? 근데 이러면 회원가입은 어케해
-      //TODO 원론으로 돌아가서 굳이 로그인과 회원가입을 툴킷으로 관리할 필요가 있을까..?(현타)
-      // 로그인 성공 처리
-      // dispatch({ type: "login/setIsLoggedIn", payload: true });
       dispatch(setAlertMessage("로그인 됐어요"));
       dispatch(validationActions.resetValidation());
-      alert("정상적으로 로그인됐습니다");
       navigate("/");
-      // } else {
-      //   setFormData({
-      //     email: "",
-      //     password: "",
-      //   });
-      //   console.log("로그인안됨");
-      //   dispatch(validationActions.resetValidation());
-      //   // dispatch({ type: "login/setIsLoggedIn", payload: false });
-      //   console.error("로그인 실패");
-      //   alert(`로그인 실패`);
-      // }
-      // // else문과 catch문의 차이? 혹은 병합하는 게 나으려나?
     } else {
-      // 정말정말 예외적인 상황(?)
+      if (emailValidationError && !passwordValidationError) {
+        setFormData({
+          email: "",
+          password: formData.password,
+        });
+      } else if (passwordValidationError && !emailValidationError) {
+        setFormData({
+          email: formData.email,
+          password: "",
+        });
+      } else if (!passwordValidationError && !emailValidationError) {
+        setFormData({
+          email: formData.email,
+          password: formData.password,
+        });
+      }
       setFormData({
-        email: "",
-        password: "",
+        email: formData.email,
+        password: formData.password,
       });
       alert(`로그인 과정에 오류가 있습니다`);
-      dispatch(validationActions.resetValidation());
       dispatch({ type: "login/setIsLoggedIn", payload: false });
     }
   };
@@ -160,7 +183,6 @@ const Login: FC = () => {
           className={`${
             emailError || passwordError ? `${classes.disabledButton}` : ""
           }`}
-          disabled={emailError || passwordError}
         >
           Log in
         </button>
