@@ -84,8 +84,7 @@ const CardEditor = ({ type, originCard }: CardEditorProps) => {
       // 서버 연결 안되었을 경우 더미데이터 노출
       console.warn(error);
 
-      const techData = dummyData.mypages.techTags;
-      // console.log(techData);
+      const techData = dummyData.mypages.techTags as TechTagTypes[];
 
       setMyTechTags(techData);
     }

@@ -7,7 +7,7 @@ export interface UserListDataType {
   keywords: string[];
   accountId?: number;
   teamBoardImageUrl?: string;
-  techTagList: string[];
+  techTagList: number[];
   nickname?: string;
   createdAt: string;
   modifiedAt?: string;
