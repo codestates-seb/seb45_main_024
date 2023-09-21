@@ -53,6 +53,7 @@ const MyInfo: FC = () => {
         await authInstance.delete(`/accounts/${id}`);
         await authInstance.post("/accounts/logout");
         removeTokensFromLocalStorage();
+        alert("회원탈퇴가 완료되었습니다. 다음에 또 만나요!");
         window.location.href = "/signup";
       } catch (error) {
         console.info("Failed to delete account", error);
@@ -122,7 +123,7 @@ const MyInfo: FC = () => {
                   <div className={classes.infoitem}>
                     <p className={classes.fieldname}>비밀번호</p>
                     <p className={`${classes.fieldvalue} ${classes.password}`}>
-                      (변경하세요)
+                      ***...***
                     </p>
                   </div>
                 </div>

@@ -10,23 +10,22 @@ const EditCard = () => {
 
   const userCardList = useAppSelector(state => state.users.data);
 
-  const [originCard, setOriginCard] = useState<UserListDataType>();
+  const [originCard, setOriginCard] = useState<UserListDataType | null>(null);
 
   useEffect(() => {
     const targetCard = userCardList.find(
       card => card.teamBoardId === +usercardId,
     );
+
     if (targetCard) {
       setOriginCard(targetCard);
     } else {
       alert("존재하지 않는 카드입니다.");
       navigate("/userlist", { replace: true });
     }
-  }, [usercardId, userCardList]);
+  }, [usercardId, userCardList, navigate]);
 
-  return (
-    <>{originCard && <CardEditor type="EDIT_CARD" originCard={originCard} />}</>
-  );
+  return <>{originCard && <CardEditor originCard={originCard} />}</>;
 };
 
 export default EditCard;

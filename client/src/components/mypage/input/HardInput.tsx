@@ -13,7 +13,7 @@ const HardInput: FC<HardInputProps> = ({ input, setInput }) => {
         value={input}
         onChange={e => setInput(e.target.value)}
         className={classes.hardInput}
-        placeholder="내용을 추가해보세요."
+        placeholder="입력 후 엔터를 눌러주세요."
       />
     </div>
   );

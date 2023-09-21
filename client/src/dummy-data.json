@@ -360,157 +360,157 @@
     "data": [
       {
         "id": 1,
-        "name": "Java",
+        "techName": "Java",
         "tagType": "BACK_END"
       },
       {
         "id": 2,
-        "name": "Spring",
+        "techName": "Spring",
         "tagType": "BACK_END"
       },
       {
         "id": 3,
-        "name": "Nodejs",
+        "techName": "Nodejs",
         "tagType": "BACK_END"
       },
       {
         "id": 4,
-        "name": "Go",
+        "techName": "Go",
         "tagType": "BACK_END"
       },
       {
         "id": 5,
-        "name": "Express",
+        "techName": "Express",
         "tagType": "BACK_END"
       },
       {
         "id": 6,
-        "name": "MySQL",
+        "techName": "MySQL",
         "tagType": "BACK_END"
       },
       {
         "id": 7,
-        "name": "MongoDB",
+        "techName": "MongoDB",
         "tagType": "BACK_END"
       },
       {
         "id": 8,
-        "name": "Python",
+        "techName": "Python",
         "tagType": "BACK_END"
       },
       {
         "id": 9,
-        "name": "Django",
+        "techName": "Django",
         "tagType": "BACK_END"
       },
       {
         "id": 10,
-        "name": "php",
+        "techName": "php",
         "tagType": "BACK_END"
       },
       {
         "id": 11,
-        "name": "GraphQL",
+        "techName": "GraphQL",
         "tagType": "BACK_END"
       },
       {
         "id": 12,
-        "name": "FireBase",
+        "techName": "FireBase",
         "tagType": "BACK_END"
       },
       {
         "id": 13,
-        "name": "JavaScript",
+        "techName": "JavaScript",
         "tagType": "FRONT_END"
       },
       {
         "id": 14,
-        "name": "TypeScript",
+        "techName": "TypeScript",
         "tagType": "FRONT_END"
       },
       {
         "id": 15,
-        "name": "React",
+        "techName": "React",
         "tagType": "FRONT_END"
       },
       {
         "id": 16,
-        "name": "Vue",
+        "techName": "Vue",
         "tagType": "FRONT_END"
       },
       {
         "id": 17,
-        "name": "Svelte",
+        "techName": "Svelte",
         "tagType": "FRONT_END"
       },
       {
         "id": 18,
-        "name": "Nextjs",
+        "techName": "Nextjs",
         "tagType": "FRONT_END"
       },
       {
         "id": 19,
-        "name": "Flutter",
+        "techName": "Flutter",
         "tagType": "MOBILE"
       },
       {
         "id": 20,
-        "name": "Swift",
+        "techName": "Swift",
         "tagType": "MOBILE"
       },
       {
         "id": 21,
-        "name": "Kotlin",
+        "techName": "Kotlin",
         "tagType": "MOBILE"
       },
       {
         "id": 22,
-        "name": "ReactNative",
+        "techName": "ReactNative",
         "tagType": "MOBILE"
       },
       {
         "id": 23,
-        "name": "Unity",
+        "techName": "Unity",
         "tagType": "MOBILE"
       },
       {
         "id": 24,
-        "name": "AWS",
+        "techName": "AWS",
         "tagType": "ETC"
       },
       {
         "id": 25,
-        "name": "Kubernetes",
+        "techName": "Kubernetes",
         "tagType": "ETC"
       },
       {
         "id": 26,
-        "name": "Docker",
+        "techName": "Docker",
         "tagType": "ETC"
       },
       {
         "id": 27,
-        "name": "Git",
+        "techName": "Git",
         "tagType": "ETC"
       },
       {
         "id": 28,
-        "name": "Figma",
+        "techName": "Figma",
         "tagType": "ETC"
       },
       {
         "id": 29,
-        "name": "Zeplin",
+        "techName": "Zeplin",
         "tagType": "ETC"
       },
       {
         "id": 30,
-        "name": "Jest",
+        "techName": "Jest",
         "tagType": "ETC"
       },
       {
         "id": 31,
-        "name": "C",
+        "techName": "C",
         "tagType": "ETC"
       }
     ]

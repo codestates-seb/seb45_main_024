@@ -1,11 +1,7 @@
 import CardEditor from "../../components/userlist/CardEditor";
 
 const NewCard = () => {
-  return (
-    <>
-      <CardEditor type="NEW_CARD" />
-    </>
-  );
+  return <CardEditor />;
 };
 
 export default NewCard;

@@ -98,10 +98,7 @@ const SignUp: FC = () => {
     };
 
     try {
-      const response = await commonInstance.post(
-        "/accounts/signup",
-        registerData,
-      );
+      await commonInstance.post("/accounts/signup", registerData);
       alert("정상적으로 회원가입됐습니다");
       navigate("/login");
     } catch (error) {

@@ -47,14 +47,9 @@ const SideMenu: FC<SideMenuProps> = ({ menu }) => {
             }
             alt="img"
           />
-          {/* 이미지 테스트 */}
-          {/* <img
-            src="https://images.unsplash.com/photo-1621502863666-e47e3bd2547b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80"
-            alt="img"
-          /> */}
         </div>
         <div className={classes.profileInfo}>
-          <p>닉네임 {authorInfo.nickname}</p>
+          <p>{authorInfo.nickname}</p>
           <p>{authorInfo.email}</p>
         </div>
       </div>
