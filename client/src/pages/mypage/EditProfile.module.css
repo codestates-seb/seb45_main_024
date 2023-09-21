@@ -18,18 +18,23 @@
   padding-top: 90px;
 }
 
-.actions{
-    position: absolute;
-    bottom: 30px;
-    left: auto;
-    display: flex;
-    gap:8px;
+.actions {
+  position: absolute;
+  bottom: 30px;
+  /* left: auto; */
+  right: 10px;
+  display: flex;
+  gap: 8px;
 }
 
-.saveBtn{
-    background-color: var(--color-main);
-    border: none;
-    color: white;
+.actions button {
+  padding: 10px 20px;
+}
+
+.saveBtn {
+  background-color: var(--color-main);
+  border: 8px solid transparent;
+  color: white;
 }
 
 .componentContainer {
@@ -55,5 +60,27 @@
   }
   .componentContainer {
     grid-column: span 4;
+  }
+}
+
+/* save button */
+:global(.blinkingBorder) {
+  animation: blinkingEffect 1s infinite;
+  /* border: 8px solid var(--color-main); */
+  background-color: var(--color-main);
+}
+
+@keyframes blinkingEffect {
+  0% {
+    /* border-color: transparent; */
+    background-color: var(--color-main);
+  }
+  50% {
+    /* border-color: #679c97; */
+    background-color: #679c97;
+  }
+  100% {
+    /* border-color: transparent; */
+    background-color: var(--color-main);
   }
 }
