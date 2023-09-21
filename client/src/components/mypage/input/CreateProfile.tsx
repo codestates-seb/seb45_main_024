@@ -197,7 +197,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.HARD} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            프로그래밍 기술 외에 내가 가지고 있는 하드 스킬을 추가해주세요.
+            프로그래밍 기술 외에 자신이 가지고 있는 하드 스킬을 추가해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>
@@ -215,7 +215,7 @@ const CreateProfile: FC<Props> = ({ setProfileFormData }) => {
         <TitleLine title={ProfileCats.SOFT} />
         <div className={classes.helpTextContainer}>
           <p className={classes.helpText}>
-            내가 가진 소프트 스킬 역량을 작성해주세요.
+            자신이 가진 소프트 스킬 역량을 작성해주세요.
           </p>
           <p className={`${classes.helpText} ${classes.warning}`}>{WARNING}</p>
         </div>

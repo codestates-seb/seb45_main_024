@@ -34,7 +34,7 @@ const EditProfile: FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const saveButton = document.querySelector("." + classes.saveBtn);
-      if (window.scrollY > 850) {
+      if (window.scrollY > 800) {
         saveButton?.classList.add("blinkingBorder");
       } else {
         saveButton?.classList.remove("blinkingBorder");
@@ -52,7 +52,7 @@ const EditProfile: FC = () => {
     <div className={classes.mainContainer}>
       <section className={classes.sideComponent}>
         <p className={classes.helpText}>
-          프로필 수정을 하고 저장하기를 눌러주세요.
+          프로필 수정을 하고 하단의 저장 버튼을 꼭 눌러주세요.
         </p>
         <div className={classes.actions}>
           <button className={classes.cancelBtn} onClick={cancelHandler}>
