@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import DefaultProfileImg from "../../../assets/images/default_profile.svg";
 import { UserListDataType } from "../../../model/boardTypes";
 import { getStringDate } from "../../../utility/formatDate";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getNewTitle } from "../../../redux/store";
+import { getTokensFromLocalStorage } from "../../../utility/tokenStorage";
 import GetLogo from "../../mypage/format/GetLogo";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,8 +20,19 @@ interface CardEditProps {
   cardData: UserListDataType;
 }
 
+interface AccessTokenType {
+  imageUrl: string;
+}
+
 // New Card or Edit Card
 const CardEdit = ({ cardData }: CardEditProps) => {
+  const token = getTokensFromLocalStorage() as AccessTokenType;
+
+  let userProfileImage;
+  if (token) {
+    userProfileImage = token.imageUrl;
+  }
+
   const dispatch = useAppDispatch();
   const techTagData = useAppSelector(state => state.techTags.data);
   // console.log("techTagData", techTagData);
@@ -95,23 +106,30 @@ const CardEdit = ({ cardData }: CardEditProps) => {
           <div className={classes.position}>
             <input
               type="text"
-              placeholder="지원포지션"
-              value={position}
+              placeholder="지원 포지션"
+              value={position === "포지션" ? "" : position}
               readOnly
             />
           </div>
-          <Swiper
-            slidesPerView={5}
-            spaceBetween={10}
-            freeMode={true}
-            className={classes.techTags}
-          >
-            {selectedTechNames?.map(techName => (
-              <SwiperSlide key={techName}>
-                <GetLogo logoTitle={techName} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+
+          {selectedTechNames.length === 0 ? (
+            <div className={`${classes.techTags} ${classes.invalid}`}>
+              프로젝트에서 사용할 기술 스택을 선택해 주세요!
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={5}
+              spaceBetween={10}
+              freeMode={true}
+              className={classes.techTags}
+            >
+              {selectedTechNames?.map(techName => (
+                <SwiperSlide key={techName}>
+                  <GetLogo logoTitle={techName} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
       </div>
 
@@ -119,9 +137,13 @@ const CardEdit = ({ cardData }: CardEditProps) => {
       <div className={classes.back}>
         <div className={classes.centerArea}>
           <div className={classes.userImage}>
-            <img src={DefaultProfileImg} alt="" />
+            <img src={userProfileImage} alt="" />
           </div>
-          <div className={classes.keywordTag}>
+          <div
+            className={`${classes.keywordTag} ${
+              keywords.length === 0 && classes.invalid
+            }`}
+          >
             {keywords.map(item => (
               <span key={item}>&nbsp;#{item}</span>
             ))}

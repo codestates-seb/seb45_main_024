@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTechTags } from "../thunks/techTagsThunks";
 
-// import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
+import dummyData from "../../../dummy-data.json"; // 서버 안될시 TEST
 
 type TagType = "BACK_END" | "FRONT_END" | "MOBILE" | "ETC";
 
@@ -31,8 +31,8 @@ const techTagsSlice = createSlice({
     builder.addCase(fetchTechTags.fulfilled, (state, action) => {
       state.data = action.payload;
     });
-    builder.addCase(fetchTechTags.rejected, () => {
-      // state.data = dummyData["tags/tech"].data; // 서버 안될시 TEST
+    builder.addCase(fetchTechTags.rejected, state => {
+      state.data = dummyData["tags/tech"].data as TechTagType[]; // 서버 안될시 TEST
     });
   },
 });

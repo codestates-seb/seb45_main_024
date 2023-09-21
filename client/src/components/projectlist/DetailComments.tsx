@@ -56,6 +56,12 @@ const DetailComments = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!token) {
+      alert("댓글은 로그인을 해야 작성할 수 있어요!");
+      navigate("/login");
+      return;
+    }
+
     dispatch(addComment(data))
       .unwrap()
       .then(() => {
@@ -64,7 +70,7 @@ const DetailComments = () => {
         window.location.reload();
       })
       .catch(error => {
-        console.warn("🚀 CREATE 실패", error, data);
+        // console.warn("🚀 CREATE 실패", error, data);
       })
       .finally();
   };
