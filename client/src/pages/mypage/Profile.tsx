@@ -186,7 +186,7 @@ const Profile: FC = () => {
                 }
               >
                 {profile.softSkills ? (
-                  profile.softSkills.filter(Boolean).length > 0 ? (
+                  profile.softSkills.length > 0 ? (
                     profile.softSkills.map((softTag, index) => (
                       <SoftTag key={index} techName={softTag} />
                     ))
